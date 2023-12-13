@@ -105,10 +105,10 @@ ALTER TABLE tour
 CREATE TABLE IF NOT EXISTS servicio (
   servicio_id INT NOT NULL AUTO_INCREMENT
   , parque_id TINYINT NOT NULL
-  , nombre VARCHAR(30) NOT NULL
-  , descripcion TEXT
-  , costo DECIMAL(8, 2) NOT NULL DEFAULT 0.00
-  , deposito_inicial DECIMAL(8, 2) NOT NULL DEFAULT 0.00
+  , nombre VARCHAR(70) NOT NULL
+  , descripcion TIMESTAMP NOT NULL
+  , precio DECIMAL(6, 2) NOT NULL 
+  , deposito_inicial DECIMAL (6, 2)
   , PRIMARY KEY(servicio_id)
 );
 
@@ -120,15 +120,16 @@ CREATE TABLE IF NOT EXISTS renta (
   renta_id INT NOT NULL AUTO_INCREMENT
   , contacto_nombre VARCHAR(45) NOT NULL
   , contacto_telefono VARCHAR(15) NOT NULL
-  , fecha_hora_inicio TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+  , fecha_hora_inicio TIMESTAMP NOT NULL
   , fecha_hora_fin TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
   , PRIMARY KEY(renta_id)
 );
 
+  
 CREATE TABLE IF NOT EXISTS renta_detalle (
   renta_id INT NOT NULL
   , servicio_id INT NOT NULL
-  , cantidad INT NOT NULL
+  , cantidad TINYINT NOT NULL
 );
 
 ALTER TABLE renta_detalle
@@ -143,7 +144,7 @@ CREATE TABLE IF NOT EXISTS evento (
     , descripcion VARCHAR(255) NOT NULL
     , patrocinador VARCHAR(20)
     , fecha_inicio TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
-    , fecha_fin TIMESTAMP DEFAULT  CURRENT_TIMESTAMP 
+    , fecha_fin TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
     , PRIMARY KEY (evento_id)
 );
 
@@ -154,7 +155,7 @@ ALTER TABLE evento
 CREATE TABLE IF NOT EXISTS villa (
   villa_id INT NOT NULL AUTO_INCREMENT
   , parque_id TINYINT NOT NULL
-  , villa_nombre VARCHAR(45) NOT NULL
+  , nombre VARCHAR(45) NOT NULL
   , PRIMARY KEY (villa_id)
 );
 
@@ -173,7 +174,6 @@ CREATE TABLE IF NOT EXISTS espectaculo (
   , fecha_inicio DATE NOT NULL
   , fecha_fin DATE NULL
   , PRIMARY KEY (espectaculo_id)
-  
 );
 
 ALTER TABLE espectaculo
@@ -226,9 +226,9 @@ CREATE TABLE IF NOT EXISTS mercancia (
   mercancia_id INT NOT NULL
   , nombre VARCHAR(45) NOT NULL
   , descripcion TEXT NOT NULL
-  , precio DECIMAL(8, 2) NOT NULL DEFAULT 0.00
-  , fecha_inicio TIMESTAMP NOT NULL
-  , fecha_fin TIMESTAMP NULL
+  , precio DECIMAL(6, 2) NOT NULL
+  , fecha_inicio_venta TIMESTAMP NOT NULL
+  , fecha_fin_venta TIMESTAMP NULL
   , fecha_descontinuacion TIMESTAMP NULL
   , stock INT NOT NULL
   , url_imagen VARCHAR(100) NOT NULL
@@ -237,20 +237,20 @@ CREATE TABLE IF NOT EXISTS mercancia (
 
 
 CREATE TABLE IF NOT EXISTS tienda_mercancia (
-  mercancia_id INT NOT NULL
-  , tienda_id INT NOT NULL
+  tienda_id INT NOT NULL
+  , mercancia_id INT NOT NULL
 );
 
 ALTER TABLE tienda_mercancia
-  ADD FOREIGN KEY (mercancia_id) REFERENCES mercancia(mercancia_id)
-  , ADD FOREIGN KEY (tienda_id) REFERENCES tienda(tienda_id);
+  ADD FOREIGN KEY (tienda_id) REFERENCES tienda(tienda_id)
+  , ADD FOREIGN KEY (mercancia_id) REFERENCES mercancia(mercancia_id);
 
 
 CREATE TABLE IF NOT EXISTS tipo_atraccion (
-    tipo_atraccion_id INT NOT NULL,
-    nombre VARCHAR(10) NOT NULL,
-    descripcion VARCHAR(255) NOT NULL,
-    PRIMARY KEY (tipo_atraccion_id)
+  tipo_atraccion_id INT NOT NULL
+  , nombre VARCHAR(10) NOT NULL
+  , descripcion VARCHAR(255) NOT NULL
+  , PRIMARY KEY (tipo_atraccion_id)
 );
 
 
@@ -282,7 +282,7 @@ CREATE TABLE IF NOT EXISTS atraccion (
   , consideracion VARCHAR(80) NOT NULL
   , duracion TIME NOT NULL
   , anio_introducido YEAR NOT NULL
-  , costo DECIMAL(8, 2) NOT NULL DEFAULT 0.00
+  , costo DECIMAL(6, 2) NOT NULL
   , hora_apertura TIME NOT NULL
   , hora_cierre TIME NOT NULL
   , capacidad TINYINT UNSIGNED NOT NULL
@@ -308,7 +308,7 @@ CREATE TABLE IF NOT EXISTS ciclo (
 );
 
 ALTER TABLE ciclo
-  ADD FOREIGN KEY (atraccion_id) REFERENCES atraccion (atraccion_id);
+  ADD FOREIGN KEY (atraccion_id) REFERENCES atraccion(atraccion_id);
 
 
 CREATE TABLE IF NOT EXISTS categoria_producto (
@@ -357,18 +357,18 @@ CREATE TABLE IF NOT EXISTS beneficio (
 
 
 CREATE TABLE IF NOT EXISTS producto_beneficio (
-  producto_plu INT NOT NULL
+  plu INT NOT NULL
   , beneficio_id INT NOT NULL
-  , PRIMARY KEY (producto_plu, beneficio_id)
+  , PRIMARY KEY (plu, beneficio_id)
 );
 
 ALTER TABLE producto_beneficio
-  ADD FOREIGN KEY (producto_plu) REFERENCES producto(plu)
+  ADD FOREIGN KEY (plu) REFERENCES producto(plu)
   , ADD FOREIGN KEY (beneficio_id) REFERENCES beneficio(beneficio_id);
 
 
 CREATE TABLE IF NOT EXISTS comprador (
-    comprador_id  INT
+    comprador_id INT
     , nombre  VARCHAR(45) NOT NULL
     , telefono VARCHAR(15) NOT NULL
     , correo_electronico VARCHAR(78) NOT NULL
@@ -380,7 +380,7 @@ CREATE TABLE IF NOT EXISTS venta (
   venta_id INT NOT NULL AUTO_INCREMENT
   , comprador_id INT NOT NULL
   , fecha TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()
-  , cargo_proceso_linea DECIMAL(5, 2) NOT NULL DEFAULT 40
+  , cargo_proceso_linea DECIMAL(6, 2) NOT NULL DEFAULT 40
   , PRIMARY KEY (venta_id)
 );
 
@@ -417,7 +417,7 @@ CREATE TABLE IF NOT EXISTS tarjeta (
   tarjeta_id INT NOT NULL AUTO_INCREMENT
   , codigo_barras VARCHAR(20) NOT NULL
   , fecha_activacion TIMESTAMP NULL
-  , revocacion TINYINT NULL
+  , revocacion TINYINT(1) NULL
   , fecha_inicio_vigencia TIMESTAMP NULL
   , fecha_fin_vigencia TIMESTAMP NULL
   , plu INT NOT NULL
