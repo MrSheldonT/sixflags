@@ -116,7 +116,6 @@ ALTER TABLE servicio
 
 CREATE TABLE IF NOT EXISTS renta (
   renta_id INT NOT NULL AUTO_INCREMENT
-  , parque_id TINYINT NOT NULL
   , contacto_nombre VARCHAR(45) NOT NULL
   , contacto_telefono VARCHAR(15) NOT NULL
   , fecha_hora_inicio TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -124,10 +123,6 @@ CREATE TABLE IF NOT EXISTS renta (
   , PRIMARY KEY(renta_id)
 );
 
-ALTER TABLE renta
-  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id) ;
-
-  
 CREATE TABLE IF NOT EXISTS renta_detalle (
   renta_id INT NOT NULL
   , servicio_id INT NOT NULL
