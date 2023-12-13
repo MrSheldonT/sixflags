@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS parque (
 );
 
 
-CREATE TABLE horario (
+CREATE TABLE IF NOT EXISTS horario (
   horario_id INT NOT NULL AUTO_INCREMENT
   , parque_id TINYINT NOT NULL
   , fecha DATE NOT NULL 
@@ -180,14 +180,14 @@ ALTER TABLE espectaculo
   ADD FOREIGN KEY (villa_id) REFERENCES villa(villa_id);
 
 
-CREATE TABLE categoria_restaurante (
+CREATE TABLE IF NOT EXISTS categoria_restaurante (
   categoria_restaurante_id INT NOT NULL AUTO_INCREMENT
   , nombre VARCHAR(45) NOT NULL
   , PRIMARY KEY(categoria_restaurante_id)
 );
 
 
-CREATE TABLE restaurante (
+CREATE TABLE IF NOT EXISTS restaurante (
   restaurante_id INT NOT NULL
   , categoria_restaurante_id INT NOT NULL
   , villa_id INT NOT NULL
@@ -430,7 +430,7 @@ ALTER TABLE tarjeta
   , ADD FOREIGN KEY (ticket_id) REFERENCES ticket(ticket_id);
 
 
-CREATE TABLE tarjeta_complemento (
+CREATE TABLE IF NOT EXISTS tarjeta_complemento (
   tarjeta_principal INT NOT NULL
   , tarjeta_complemento_id INT NOT NULL
 );
