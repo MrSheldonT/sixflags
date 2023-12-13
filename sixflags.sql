@@ -105,8 +105,10 @@ ALTER TABLE tour
 CREATE TABLE IF NOT EXISTS servicio (
   servicio_id INT NOT NULL AUTO_INCREMENT
   , parque_id TINYINT NOT NULL
-  , punto_partida VARCHAR(30) NOT NULL
-  , fecha_hora TIMESTAMP NOT NULL
+  , nombre VARCHAR(30) NOT NULL
+  , descripcion TEXT
+  , costo DECIMAL(8, 2) NOT NULL DEFAULT 0.00
+  , deposito_inicial DECIMAL(8, 2) NOT NULL DEFAULT 0.00
   , PRIMARY KEY(servicio_id)
 );
 
@@ -224,7 +226,7 @@ CREATE TABLE IF NOT EXISTS mercancia (
   mercancia_id INT NOT NULL
   , nombre VARCHAR(45) NOT NULL
   , descripcion TEXT NOT NULL
-  , precio DECIMAL NOT NULL
+  , precio DECIMAL(8, 2) NOT NULL DEFAULT 0.00
   , fecha_inicio TIMESTAMP NOT NULL
   , fecha_fin TIMESTAMP NULL
   , fecha_descontinuacion TIMESTAMP NULL
@@ -280,7 +282,7 @@ CREATE TABLE IF NOT EXISTS atraccion (
   , consideracion VARCHAR(80) NOT NULL
   , duracion TIME NOT NULL
   , anio_introducido YEAR NOT NULL
-  , costo DECIMAL NOT NULL
+  , costo DECIMAL(8, 2) NOT NULL DEFAULT 0.00
   , hora_apertura TIME NOT NULL
   , hora_cierre TIME NOT NULL
   , capacidad TINYINT UNSIGNED NOT NULL
@@ -378,7 +380,7 @@ CREATE TABLE IF NOT EXISTS venta (
   venta_id INT NOT NULL AUTO_INCREMENT
   , comprador_id INT NOT NULL
   , fecha TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()
-  , cargo_proceso_linea DECIMAL(6, 2) NOT NULL DEFAULT 40
+  , cargo_proceso_linea DECIMAL(5, 2) NOT NULL DEFAULT 40
   , PRIMARY KEY (venta_id)
 );
 
