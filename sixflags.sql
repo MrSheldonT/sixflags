@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS six_flags;
 CREATE DATABASE six_flags;
 USE six_flags;
-
+-- Definición de tablas
 CREATE TABLE IF NOT EXISTS parque (
     parque_id TINYINT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(50) NOT NULL,
@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS parque (
     mapa_url VARCHAR(100) NOT NULL,
     PRIMARY KEY (parque_id)
 );
+
 CREATE TABLE IF NOT EXISTS horario (
   horario_id INT NOT NULL AUTO_INCREMENT
   , parque_id TINYINT NOT NULL
@@ -25,6 +26,7 @@ CREATE TABLE IF NOT EXISTS horario (
   , hora_cierre TIME NOT NULL
   , PRIMARY KEY (horario_id)
 );
+
 CREATE TABLE IF NOT EXISTS empleado (
   empleado_id INT NOT NULL AUTO_INCREMENT
   , parque_id TINYINT NOT NULL
@@ -52,6 +54,7 @@ CREATE TABLE IF NOT EXISTS empleado (
   , fecha_fin_contrato DATE NOT NULL
   , PRIMARY KEY(empleado_id)
 );
+
 CREATE TABLE IF NOT EXISTS excursion (
   excursion_id INT NOT NULL AUTO_INCREMENT
   , parque_id TINYINT NOT NULL
@@ -59,6 +62,7 @@ CREATE TABLE IF NOT EXISTS excursion (
   , fecha_hora TIMESTAMP NOT NULL
   , PRIMARY KEY(excursion_id)
 );
+
 CREATE TABLE IF NOT EXISTS alianza (
     alianza_id TINYINT AUTO_INCREMENT
     , parque_id TINYINT NOT NULL
@@ -69,12 +73,14 @@ CREATE TABLE IF NOT EXISTS alianza (
     , pagina_url VARCHAR(50) NOT NULL
     , PRIMARY KEY (alianza_id)
 );
+
 CREATE TABLE IF NOT EXISTS tour (
   tour_id INT NOT NULL AUTO_INCREMENT
   , parque_id TINYINT NOT NULL
   , nombre VARCHAR(45) NOT NULL
   , PRIMARY KEY(tour_id)
 );
+
 CREATE TABLE IF NOT EXISTS servicio (
   servicio_id INT NOT NULL AUTO_INCREMENT
   , parque_id TINYINT NOT NULL
@@ -84,6 +90,7 @@ CREATE TABLE IF NOT EXISTS servicio (
   , deposito_inicial DECIMAL (6, 2)
   , PRIMARY KEY(servicio_id)
 );
+
 CREATE TABLE IF NOT EXISTS renta (
   renta_id INT NOT NULL AUTO_INCREMENT
   , contacto_nombre VARCHAR(45) NOT NULL
@@ -92,11 +99,13 @@ CREATE TABLE IF NOT EXISTS renta (
   , fecha_hora_fin TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
   , PRIMARY KEY(renta_id)
 );
+
 CREATE TABLE IF NOT EXISTS renta_detalle (
   renta_id INT NOT NULL
   , servicio_id INT NOT NULL
   , cantidad TINYINT NOT NULL
 );
+
 CREATE TABLE IF NOT EXISTS evento (
     evento_id INT AUTO_INCREMENT
     , parque_id TINYINT NOT NULL
@@ -107,12 +116,14 @@ CREATE TABLE IF NOT EXISTS evento (
     , fecha_fin TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
     , PRIMARY KEY (evento_id)
 );
+
 CREATE TABLE IF NOT EXISTS villa (
   villa_id INT NOT NULL AUTO_INCREMENT
   , parque_id TINYINT NOT NULL
   , nombre VARCHAR(45) NOT NULL
   , PRIMARY KEY (villa_id)
 );
+
 CREATE TABLE IF NOT EXISTS espectaculo (
   espectaculo_id INT NOT NULL AUTO_INCREMENT
   , villa_id INT NOT NULL
@@ -125,11 +136,13 @@ CREATE TABLE IF NOT EXISTS espectaculo (
   , fecha_fin DATE NULL
   , PRIMARY KEY (espectaculo_id)
 );
+
 CREATE TABLE IF NOT EXISTS categoria_restaurante (
   categoria_restaurante_id INT NOT NULL AUTO_INCREMENT
   , nombre VARCHAR(45) NOT NULL
   , PRIMARY KEY(categoria_restaurante_id)
 );
+
 CREATE TABLE IF NOT EXISTS restaurante (
   restaurante_id INT NOT NULL
   , categoria_restaurante_id INT NOT NULL
@@ -138,11 +151,13 @@ CREATE TABLE IF NOT EXISTS restaurante (
   , descripcion VARCHAR(125) NOT NULL
   , PRIMARY KEY(restaurante_id)
 );
+
 CREATE TABLE IF NOT EXISTS categoria_tienda (
   categoria_tienda_id INT NOT NULL,
   nombre VARCHAR(45) NOT NULL,
   PRIMARY KEY (categoria_tienda_id)
 );
+
 CREATE TABLE IF NOT EXISTS tienda (
   tienda_id INT NOT NULL
   , villa_id INT NOT NULL
@@ -151,6 +166,7 @@ CREATE TABLE IF NOT EXISTS tienda (
   , descripcion VARCHAR(125) NOT NULL
   , PRIMARY KEY (tienda_id)
 );
+
 CREATE TABLE IF NOT EXISTS mercancia (
   mercancia_id INT NOT NULL
   , nombre VARCHAR(45) NOT NULL
@@ -163,10 +179,12 @@ CREATE TABLE IF NOT EXISTS mercancia (
   , url_imagen VARCHAR(100) NOT NULL
   , PRIMARY KEY (mercancia_id)
 );
+
 CREATE TABLE IF NOT EXISTS tienda_mercancia (
   tienda_id INT NOT NULL
   , mercancia_id INT NOT NULL
 );
+
 CREATE TABLE IF NOT EXISTS tipo_atraccion (
   tipo_atraccion_id INT NOT NULL
   , nombre VARCHAR(10) NOT NULL
@@ -174,20 +192,17 @@ CREATE TABLE IF NOT EXISTS tipo_atraccion (
   , PRIMARY KEY (tipo_atraccion_id)
 );
 
-
 CREATE TABLE IF NOT EXISTS nivel_emocion (
     nivel_emocion_id INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(45) NOT NULL,
     PRIMARY KEY (nivel_emocion_id)
 );
 
-
 CREATE TABLE IF NOT EXISTS fabricante (
     fabricante_id INT NOT NULL,
     nombre VARCHAR(45) NOT NULL,
     PRIMARY KEY (fabricante_id)
 );
-
 
 CREATE TABLE IF NOT EXISTS atraccion (
   atraccion_id INT NOT NULL
@@ -213,13 +228,6 @@ CREATE TABLE IF NOT EXISTS atraccion (
   , PRIMARY KEY (atraccion_id)
 );
 
-ALTER TABLE atraccion    
-  ADD FOREIGN KEY (villa_id) REFERENCES villa(villa_id)
-  , ADD FOREIGN KEY (tipo_atraccion_id) REFERENCES tipo_atraccion(tipo_atraccion_id)
-  , ADD FOREIGN KEY (nivel_emocion_id) REFERENCES nivel_emocion(nivel_emocion_id)
-  , ADD FOREIGN KEY (fabricante_id) REFERENCES fabricante(fabricante_id);
-
-
 CREATE TABLE IF NOT EXISTS ciclo (
     ciclo_id INT NOT NULL,
     atraccion_id INT NOT NULL,
@@ -228,16 +236,11 @@ CREATE TABLE IF NOT EXISTS ciclo (
     PRIMARY KEY (ciclo_id)
 );
 
-ALTER TABLE ciclo
-  ADD FOREIGN KEY (atraccion_id) REFERENCES atraccion(atraccion_id);
-
-
 CREATE TABLE IF NOT EXISTS categoria_producto (
   categoria_producto_id INT NOT NULL AUTO_INCREMENT
   , nombre VARCHAR(45) NOT NULL
   , PRIMARY KEY (categoria_producto_id)
 );
-
 
 CREATE TABLE IF NOT EXISTS producto (
   plu INT NOT NULL
@@ -254,21 +257,11 @@ CREATE TABLE IF NOT EXISTS producto (
   , PRIMARY KEY (plu)
 );
 
-ALTER TABLE producto
-  ADD FOREIGN KEY (categoria_producto_id) REFERENCES categoria_producto(categoria_producto_id)
-  , ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
-
-
 CREATE TABLE IF NOT EXISTS paquete (
   paquete_plu INT NOT NULL
   , producto_plu INT NOT NULL
   , PRIMARY KEY (paquete_plu, producto_plu)
 );
-
-ALTER TABLE paquete
-  ADD FOREIGN KEY (paquete_plu) REFERENCES producto(plu)
-  , ADD FOREIGN KEY (producto_plu) REFERENCES producto(plu);
-
 
 CREATE TABLE IF NOT EXISTS beneficio (
   beneficio_id INT NOT NULL AUTO_INCREMENT
@@ -276,17 +269,11 @@ CREATE TABLE IF NOT EXISTS beneficio (
   , PRIMARY KEY (beneficio_id)
 );
 
-
 CREATE TABLE IF NOT EXISTS producto_beneficio (
   plu INT NOT NULL
   , beneficio_id INT NOT NULL
   , PRIMARY KEY (plu, beneficio_id)
 );
-
-ALTER TABLE producto_beneficio
-  ADD FOREIGN KEY (plu) REFERENCES producto(plu)
-  , ADD FOREIGN KEY (beneficio_id) REFERENCES beneficio(beneficio_id);
-
 
 CREATE TABLE IF NOT EXISTS comprador (
     comprador_id INT
@@ -296,7 +283,6 @@ CREATE TABLE IF NOT EXISTS comprador (
     , PRIMARY KEY (comprador_id)
 );
 
-
 CREATE TABLE IF NOT EXISTS venta (
   venta_id INT NOT NULL AUTO_INCREMENT
   , comprador_id INT NOT NULL
@@ -304,10 +290,6 @@ CREATE TABLE IF NOT EXISTS venta (
   , cargo_proceso_linea DECIMAL(6, 2) NOT NULL DEFAULT 40
   , PRIMARY KEY (venta_id)
 );
-
-ALTER TABLE venta
-  ADD FOREIGN KEY (comprador_id) REFERENCES comprador(comprador_id);
-
 
 CREATE TABLE IF NOT EXISTS venta_detalle (
   venta_id INT NOT NULL
@@ -317,11 +299,6 @@ CREATE TABLE IF NOT EXISTS venta_detalle (
   , PRIMARY KEY (venta_id, plu)
 );
 
-ALTER TABLE venta_detalle
-ADD FOREIGN KEY (venta_id) REFERENCES venta(venta_id)
-, ADD FOREIGN KEY (plu) REFERENCES producto(plu);
-
-
 CREATE TABLE IF NOT EXISTS ticket (
   ticket_id INT NOT NULL
   , venta_id INT NOT NULL
@@ -329,10 +306,6 @@ CREATE TABLE IF NOT EXISTS ticket (
   , nombre_titular VARCHAR(70)
   , PRIMARY KEY (ticket_id)
 );
-
-ALTER TABLE ticket
-  ADD FOREIGN KEY (venta_id) REFERENCES venta(venta_id);
-
 
 CREATE TABLE IF NOT EXISTS tarjeta (
   tarjeta_id INT NOT NULL AUTO_INCREMENT
@@ -346,19 +319,11 @@ CREATE TABLE IF NOT EXISTS tarjeta (
   , PRIMARY KEY (tarjeta_id)
 );
 
-ALTER TABLE tarjeta
-  ADD FOREIGN KEY (plu) REFERENCES producto(plu)
-  , ADD FOREIGN KEY (ticket_id) REFERENCES ticket(ticket_id);
-
-
 CREATE TABLE IF NOT EXISTS tarjeta_complemento (
   tarjeta_principal INT NOT NULL
   , tarjeta_complemento_id INT NOT NULL
 );
-
-ALTER TABLE tarjeta_complemento
-  ADD FOREIGN KEY (tarjeta_principal) REFERENCES tarjeta(tarjeta_id)
-  , ADD FOREIGN KEY (tarjeta_complemento_id) REFERENCES tarjeta(tarjeta_id);
+-- Insertar datos
 
 -- Bloque de alters
 -- Horario con parque
@@ -400,7 +365,46 @@ ALTER TABLE restaurante
 ALTER TABLE tienda
   ADD FOREIGN KEY (villa_id) REFERENCES villa(villa_id)
   , ADD FOREIGN KEY (categoria_tienda_id) REFERENCES categoria_tienda(categoria_tienda_id) ;
--- Mecarncia
+-- Mercancia
 ALTER TABLE tienda_mercancia
   ADD FOREIGN KEY (tienda_id) REFERENCES tienda(tienda_id)
   , ADD FOREIGN KEY (mercancia_id) REFERENCES mercancia(mercancia_id);
+
+ALTER TABLE tarjeta_complemento
+  ADD FOREIGN KEY (tarjeta_principal) REFERENCES tarjeta(tarjeta_id)
+  , ADD FOREIGN KEY (tarjeta_complemento_id) REFERENCES tarjeta(tarjeta_id);
+
+ALTER TABLE tarjeta
+  ADD FOREIGN KEY (plu) REFERENCES producto(plu)
+  , ADD FOREIGN KEY (ticket_id) REFERENCES ticket(ticket_id);
+
+ALTER TABLE ticket
+  ADD FOREIGN KEY (venta_id) REFERENCES venta(venta_id);
+
+ALTER TABLE venta_detalle
+ADD FOREIGN KEY (venta_id) REFERENCES venta(venta_id)
+, ADD FOREIGN KEY (plu) REFERENCES producto(plu);
+
+ALTER TABLE atraccion    
+  ADD FOREIGN KEY (villa_id) REFERENCES villa(villa_id)
+  , ADD FOREIGN KEY (tipo_atraccion_id) REFERENCES tipo_atraccion(tipo_atraccion_id)
+  , ADD FOREIGN KEY (nivel_emocion_id) REFERENCES nivel_emocion(nivel_emocion_id)
+  , ADD FOREIGN KEY (fabricante_id) REFERENCES fabricante(fabricante_id);
+
+ALTER TABLE ciclo
+  ADD FOREIGN KEY (atraccion_id) REFERENCES atraccion(atraccion_id);
+
+ALTER TABLE venta
+  ADD FOREIGN KEY (comprador_id) REFERENCES comprador(comprador_id);
+
+ALTER TABLE producto_beneficio
+  ADD FOREIGN KEY (plu) REFERENCES producto(plu)
+  , ADD FOREIGN KEY (beneficio_id) REFERENCES beneficio(beneficio_id);
+
+ALTER TABLE paquete
+  ADD FOREIGN KEY (paquete_plu) REFERENCES producto(plu)
+  , ADD FOREIGN KEY (producto_plu) REFERENCES producto(plu);
+
+ALTER TABLE producto
+  ADD FOREIGN KEY (categoria_producto_id) REFERENCES categoria_producto(categoria_producto_id)
+  , ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);

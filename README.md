@@ -130,11 +130,10 @@ Ahora, puedes realizar modificaciones en los archivos clonados. Recuerda agradec
 1. Añade información adicional si es necesario.
 2. Haz clic en el botón "Create pull request".
 
-## Esperar Revisión y Fusionar
+## Esperar revisión y fusionar
 
 1. Espera a que otros revisen tus cambios.
-2. Si los revisores aprueban, podrás fusionar el pull request.
 
 ## Fusionar el Pull Request
 
-Después de la aprobación, puedes fusionar el pull request haciendo clic en el botón "Merge pull request" en la interfaz web de GitHub.
+Después de la aprobación, puedes fusionar el pull request haciendo clic en el botón "Merge pull request" en la interfaz web de GitHub (esto no lo harás tú).
