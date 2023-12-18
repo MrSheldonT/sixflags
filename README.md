@@ -1,5 +1,3 @@
-Claro, aquí está el documento con las correcciones sugeridas:
-
 # sixflags
 Base de datos representando un sixflags
 
@@ -105,6 +103,7 @@ Ahora, puedes realizar modificaciones en los archivos clonados. Recuerda agradec
    ```
    
    ![Alt text](imagenes/gitadd.png)
+
    Como dato adicional, dependiendo de cuando hiciste el add se mostrará el estado de los archivos en el lado izquierdo, poniendo el cursor sobre el te mostrará el estado actual.
    
    ![Alt text](imagenes/../estado.png)
