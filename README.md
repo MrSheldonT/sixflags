@@ -103,10 +103,12 @@ Ahora, puedes realizar modificaciones en los archivos clonados. Recuerda agradec
    ```bash
    git add .
    ```
+   
    ![Alt text](imagenes/gitadd.png)
    Como dato adicional, dependiendo de cuando hiciste el add se mostrará el estado de los archivos en el lado izquierdo, poniendo el cursor sobre el te mostrará el estado actual.
+   
    ![Alt text](imagenes/../estado.png)
-7. **Realizar un Commit:**
+8. **Realizar un Commit:**
    - Crea un nuevo commit con un mensaje descriptivo.
    ```bash
    git commit -m "Agregué los datos de los parques"
