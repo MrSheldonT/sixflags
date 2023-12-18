@@ -1,6 +1,9 @@
+Claro, aquí está el documento con las correcciones sugeridas:
+
 # sixflags
 Base de datos representando un sixflags
-# Cómo usar Git con GitHub
+
+# ¿Cómo usar Git con GitHub?
 
 ## Prerrequisitos
 
@@ -79,29 +82,58 @@ Ahora, puedes realizar modificaciones en los archivos clonados. Recuerda agradec
 3. **Clonar el Repositorio:**
    - Utiliza el comando `git clone` seguido de la URL del repositorio en GitHub.
      ```bash
-     git clone hgit clone https://github.com/MrSheldonT/sixflags.git
+     git clone https://github.com/MrSheldonT/sixflags.git
      ```
+   ![Clonando repositorio](imagenes/git_clone.PNG)
    - Este comando descargará una copia del repositorio en tu máquina local.
-
-
-4. **Hacer Cambios:**
+   ![Clonar repositorio](imagenes/gitclonado.PNG)
+4. **Crear tu rama de cambios:** 
+   - Esta rama o lugar será donde trabajarás, serás tu copia para realizar cambios.
+   ```bash
+   git checkout -b nombre-de-la-rama
+   ```
+   ![Rama creada](imagenes/checkout.PNG)
+5. **Hacer Cambios:**
    - Realiza las modificaciones necesarias en los archivos del repositorio.
-5. **Agregar Cambios al Área de Preparación:**
-Utiliza el comando `git add` para agregar los archivos modificados al área de preparación. 
-ASEGURATE HACERLO SOLO SI ESTÁS EN LA CARPETA DE sixflags.
+   Para facilitarlo yo usé Visual Studio Code, no estoy seguro que funcione con todos, pero al hacer `code .` permite abrir una ventana de Visual Studio Code enseñando el área de trabajo.
+   ![Visual Studio Code](imagenes/code.PNG)
+6. **Agregar Cambios al Área de Preparación:**
+   - Utiliza el comando `git add` para agregar los archivos modificados al área de preparación. ASEGURATE DE HACERLO SOLO SI ESTÁS EN LA CARPETA DE sixflags.
    
-     ```bash
-     git add .
-     ```
+   ```bash
+   git add .
+   ```
+   ![Alt text](imagenes/gitadd.png)
+   Como dato adicional, dependiendo de cuando hiciste el add se mostrará el estado de los archivos en el lado izquierdo, poniendo el cursor sobre el te mostrará el estado actual.
+   ![Alt text](imagenes/../estado.png)
+7. **Realizar un Commit:**
+   - Crea un nuevo commit con un mensaje descriptivo.
+   ```bash
+   git commit -m "Agregué los datos de los parques"
+   ```
+1. **Subir Cambios al Repositorio Remoto:**
+   - Sube tu rama al repositorio remoto:
+   ```bash
+   git push origin nombre-de-la-rama
+   ```
+   Esto subirá los cambios al repositorio en GitHub.
 
-6. **Realizar un Commit:**
- Crea un nuevo commit con un mensaje descriptivo.
-     ```bash
-     git commit -m "Agregué los datos de los parques"
-     ```
-7. **Subir Cambios al Repositorio Remoto:**
-    ejecutar:
-     ```bash
-     git push
-     ```
-     Esto subirá los cambios al repositorio en GitHub.
+## Crear el Pull Request en GitHub
+
+1. Visita la página del repositorio en GitHub.
+2. Selecciona la rama que acabas de subir.
+3. Haz clic en el botón "Compare & pull request".
+
+## Completar el Pull Request
+
+1. Añade información adicional si es necesario.
+2. Haz clic en el botón "Create pull request".
+
+## Esperar Revisión y Fusionar
+
+1. Espera a que otros revisen tus cambios.
+2. Si los revisores aprueban, podrás fusionar el pull request.
+
+## Fusionar el Pull Request
+
+Después de la aprobación, puedes fusionar el pull request haciendo clic en el botón "Merge pull request" en la interfaz web de GitHub.
