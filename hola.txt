@@ -1,2 +1,3 @@
-hola mundo
-merge
+* Empezar a definir los datos a insertar :(
+* Añadir los nombre a las llaves fóraneas
+* zzz... editar los dicci...nario...s zzz...

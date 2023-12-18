@@ -1,5 +1,5 @@
-DROP SCHEMA IF EXISTS six_flags;
-CREATE SCHEMA six_flags;
+DROP DATABASE IF EXISTS six_flags;
+CREATE DATABASE six_flags;
 USE six_flags;
 
 CREATE TABLE IF NOT EXISTS parque (
@@ -17,8 +17,6 @@ CREATE TABLE IF NOT EXISTS parque (
     mapa_url VARCHAR(100) NOT NULL,
     PRIMARY KEY (parque_id)
 );
-
-
 CREATE TABLE IF NOT EXISTS horario (
   horario_id INT NOT NULL AUTO_INCREMENT
   , parque_id TINYINT NOT NULL
@@ -27,11 +25,6 @@ CREATE TABLE IF NOT EXISTS horario (
   , hora_cierre TIME NOT NULL
   , PRIMARY KEY (horario_id)
 );
-
-ALTER TABLE horario
-  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
-
-
 CREATE TABLE IF NOT EXISTS empleado (
   empleado_id INT NOT NULL AUTO_INCREMENT
   , parque_id TINYINT NOT NULL
@@ -59,11 +52,6 @@ CREATE TABLE IF NOT EXISTS empleado (
   , fecha_fin_contrato DATE NOT NULL
   , PRIMARY KEY(empleado_id)
 );
-
-ALTER TABLE empleado 
-  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
-
-
 CREATE TABLE IF NOT EXISTS excursion (
   excursion_id INT NOT NULL AUTO_INCREMENT
   , parque_id TINYINT NOT NULL
@@ -71,11 +59,6 @@ CREATE TABLE IF NOT EXISTS excursion (
   , fecha_hora TIMESTAMP NOT NULL
   , PRIMARY KEY(excursion_id)
 );
-
-ALTER TABLE excursion
-  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
-
-
 CREATE TABLE IF NOT EXISTS alianza (
     alianza_id TINYINT AUTO_INCREMENT
     , parque_id TINYINT NOT NULL
@@ -86,22 +69,12 @@ CREATE TABLE IF NOT EXISTS alianza (
     , pagina_url VARCHAR(50) NOT NULL
     , PRIMARY KEY (alianza_id)
 );
-
-ALTER TABLE alianza
-  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
-
-
 CREATE TABLE IF NOT EXISTS tour (
   tour_id INT NOT NULL AUTO_INCREMENT
   , parque_id TINYINT NOT NULL
   , nombre VARCHAR(45) NOT NULL
   , PRIMARY KEY(tour_id)
 );
-
-ALTER TABLE tour 
-  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
-
-
 CREATE TABLE IF NOT EXISTS servicio (
   servicio_id INT NOT NULL AUTO_INCREMENT
   , parque_id TINYINT NOT NULL
@@ -111,11 +84,6 @@ CREATE TABLE IF NOT EXISTS servicio (
   , deposito_inicial DECIMAL (6, 2)
   , PRIMARY KEY(servicio_id)
 );
-
-ALTER TABLE servicio 
-  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
-
-
 CREATE TABLE IF NOT EXISTS renta (
   renta_id INT NOT NULL AUTO_INCREMENT
   , contacto_nombre VARCHAR(45) NOT NULL
@@ -124,19 +92,11 @@ CREATE TABLE IF NOT EXISTS renta (
   , fecha_hora_fin TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
   , PRIMARY KEY(renta_id)
 );
-
-  
 CREATE TABLE IF NOT EXISTS renta_detalle (
   renta_id INT NOT NULL
   , servicio_id INT NOT NULL
   , cantidad TINYINT NOT NULL
 );
-
-ALTER TABLE renta_detalle
-  ADD FOREIGN KEY (renta_id) REFERENCES renta(renta_id)
-  , ADD FOREIGN KEY (servicio_id) REFERENCES servicio(servicio_id) ;
-
-
 CREATE TABLE IF NOT EXISTS evento (
     evento_id INT AUTO_INCREMENT
     , parque_id TINYINT NOT NULL
@@ -147,22 +107,12 @@ CREATE TABLE IF NOT EXISTS evento (
     , fecha_fin TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
     , PRIMARY KEY (evento_id)
 );
-
-ALTER TABLE evento
-  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
-
-
 CREATE TABLE IF NOT EXISTS villa (
   villa_id INT NOT NULL AUTO_INCREMENT
   , parque_id TINYINT NOT NULL
   , nombre VARCHAR(45) NOT NULL
   , PRIMARY KEY (villa_id)
 );
-
-ALTER TABLE villa 
-  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
-
-
 CREATE TABLE IF NOT EXISTS espectaculo (
   espectaculo_id INT NOT NULL AUTO_INCREMENT
   , villa_id INT NOT NULL
@@ -175,18 +125,11 @@ CREATE TABLE IF NOT EXISTS espectaculo (
   , fecha_fin DATE NULL
   , PRIMARY KEY (espectaculo_id)
 );
-
-ALTER TABLE espectaculo
-  ADD FOREIGN KEY (villa_id) REFERENCES villa(villa_id);
-
-
 CREATE TABLE IF NOT EXISTS categoria_restaurante (
   categoria_restaurante_id INT NOT NULL AUTO_INCREMENT
   , nombre VARCHAR(45) NOT NULL
   , PRIMARY KEY(categoria_restaurante_id)
 );
-
-
 CREATE TABLE IF NOT EXISTS restaurante (
   restaurante_id INT NOT NULL
   , categoria_restaurante_id INT NOT NULL
@@ -195,19 +138,11 @@ CREATE TABLE IF NOT EXISTS restaurante (
   , descripcion VARCHAR(125) NOT NULL
   , PRIMARY KEY(restaurante_id)
 );
-
-ALTER TABLE restaurante
-  ADD FOREIGN KEY (categoria_restaurante_id) REFERENCES categoria_restaurante(categoria_restaurante_id)
-  , ADD FOREIGN KEY (villa_id) REFERENCES villa(villa_id);
-
-
 CREATE TABLE IF NOT EXISTS categoria_tienda (
   categoria_tienda_id INT NOT NULL,
   nombre VARCHAR(45) NOT NULL,
   PRIMARY KEY (categoria_tienda_id)
 );
-
-
 CREATE TABLE IF NOT EXISTS tienda (
   tienda_id INT NOT NULL
   , villa_id INT NOT NULL
@@ -216,12 +151,6 @@ CREATE TABLE IF NOT EXISTS tienda (
   , descripcion VARCHAR(125) NOT NULL
   , PRIMARY KEY (tienda_id)
 );
-
-ALTER TABLE tienda
-  ADD FOREIGN KEY (villa_id) REFERENCES villa(villa_id)
-  , ADD FOREIGN KEY (categoria_tienda_id) REFERENCES categoria_tienda(categoria_tienda_id) ;
-
-
 CREATE TABLE IF NOT EXISTS mercancia (
   mercancia_id INT NOT NULL
   , nombre VARCHAR(45) NOT NULL
@@ -234,18 +163,10 @@ CREATE TABLE IF NOT EXISTS mercancia (
   , url_imagen VARCHAR(100) NOT NULL
   , PRIMARY KEY (mercancia_id)
 );
-
-
 CREATE TABLE IF NOT EXISTS tienda_mercancia (
   tienda_id INT NOT NULL
   , mercancia_id INT NOT NULL
 );
-
-ALTER TABLE tienda_mercancia
-  ADD FOREIGN KEY (tienda_id) REFERENCES tienda(tienda_id)
-  , ADD FOREIGN KEY (mercancia_id) REFERENCES mercancia(mercancia_id);
-
-
 CREATE TABLE IF NOT EXISTS tipo_atraccion (
   tipo_atraccion_id INT NOT NULL
   , nombre VARCHAR(10) NOT NULL
@@ -439,4 +360,47 @@ ALTER TABLE tarjeta_complemento
   ADD FOREIGN KEY (tarjeta_principal) REFERENCES tarjeta(tarjeta_id)
   , ADD FOREIGN KEY (tarjeta_complemento_id) REFERENCES tarjeta(tarjeta_id);
 
--- Modificacion
+-- Bloque de alters
+-- Horario con parque
+ALTER TABLE horario
+  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
+-- Empleado con parque
+ALTER TABLE empleado
+  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
+-- Excursión con parque
+ALTER TABLE excursion
+  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
+-- Alianza con parque
+ALTER TABLE alianza
+  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
+-- Tour con parque
+ALTER TABLE tour
+  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
+-- Servicio con parque
+ALTER TABLE servicio
+  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
+-- Detalle de la renta de servicio
+ALTER TABLE renta_detalle
+  ADD FOREIGN KEY (renta_id) REFERENCES renta(renta_id)
+  , ADD FOREIGN KEY (servicio_id) REFERENCES servicio(servicio_id) ;
+-- Evento con parque
+ALTER TABLE evento
+  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
+-- Villa con parque
+ALTER TABLE villa
+  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
+-- Espetaculo con villa
+ALTER TABLE espectaculo
+  ADD FOREIGN KEY (villa_id) REFERENCES villa(villa_id);
+-- Categoría del restaurante y villa
+ALTER TABLE restaurante
+  ADD FOREIGN KEY (categoria_restaurante_id) REFERENCES categoria_restaurante(categoria_restaurante_id)
+  , ADD FOREIGN KEY (villa_id) REFERENCES villa(villa_id);
+-- Tienda
+ALTER TABLE tienda
+  ADD FOREIGN KEY (villa_id) REFERENCES villa(villa_id)
+  , ADD FOREIGN KEY (categoria_tienda_id) REFERENCES categoria_tienda(categoria_tienda_id) ;
+-- Mecarncia
+ALTER TABLE tienda_mercancia
+  ADD FOREIGN KEY (tienda_id) REFERENCES tienda(tienda_id)
+  , ADD FOREIGN KEY (mercancia_id) REFERENCES mercancia(mercancia_id);
