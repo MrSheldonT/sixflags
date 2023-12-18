@@ -438,3 +438,5 @@ CREATE TABLE IF NOT EXISTS tarjeta_complemento (
 ALTER TABLE tarjeta_complemento
   ADD FOREIGN KEY (tarjeta_principal) REFERENCES tarjeta(tarjeta_id)
   , ADD FOREIGN KEY (tarjeta_complemento_id) REFERENCES tarjeta(tarjeta_id);
+
+-- Modificacion
