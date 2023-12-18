@@ -65,3 +65,43 @@ Ahora, puedes realizar modificaciones en los archivos clonados. Recuerda agradec
 - **`git commit -am`** - Realiza un commit que incluye todos los archivos modificados en el repositorio (sin necesidad de usar `git add` previamente).
 
 - **`git merge rama`** - Fusiona la rama especificada con la rama actual.
+
+## Ya tengo instalado git ¿Cómo subo mis tablas?
+
+1. **Abrir la Terminal:**
+   - Abre la terminal en tu sistema operativo.
+2. **Ubicarse en el Directorio de Destino:**
+   - Utiliza el comando `cd` para navegar al directorio donde deseas clonar el repositorio. Por ejemplo:
+     ```bash
+     cd ruta/del/directorio
+     ```
+
+3. **Clonar el Repositorio:**
+   - Utiliza el comando `git clone` seguido de la URL del repositorio en GitHub.
+     ```bash
+     git clone hgit clone https://github.com/MrSheldonT/sixflags.git
+     ```
+   - Este comando descargará una copia del repositorio en tu máquina local.
+
+
+4. **Hacer Cambios:**
+   - Realiza las modificaciones necesarias en los archivos del repositorio.
+5. **Agregar Cambios al Área de Preparación:**
+Utiliza el comando `git add` para agregar los archivos modificados al área de preparación. 
+ASEGURATE HACERLO SOLO SI ESTÁS EN LA CARPETA DE sixflags.
+   
+     ```bash
+     git add .
+     ```
+
+6. **Realizar un Commit:**
+ Crea un nuevo commit con un mensaje descriptivo.
+     ```bash
+     git commit -m "Agregué los datos de los parques"
+     ```
+7. **Subir Cambios al Repositorio Remoto:**
+    ejecutar:
+     ```bash
+     git push
+     ```
+     Esto subirá los cambios al repositorio en GitHub.
