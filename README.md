@@ -2,7 +2,7 @@
 Base de datos representando un sixflags
 # Cómo usar Git con GitHub
 
-## Prerequisitos
+## Prerrequisitos
 
 Antes de comenzar, asegúrate de tener Git instalado en tu sistema operativo. Puedes descargarlo desde [git-scm.com](https://git-scm.com). Durante la instalación, elige tu editor de texto preferido, como Visual Studio Code.
 
