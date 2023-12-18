@@ -34,7 +34,7 @@ git config user.email
 Antes de clonar un repositorio, asegúrate de estar en el directorio deseado en tu terminal. Luego, puedes clonar un repositorio desde GitHub con el siguiente comando:
 
 ```bash
-git clone https://github.com/MrSheldonT/sixflags
+git clone https://github.com/MrSheldonT/sixflags.git
 ```
 
 Este comando descargará una copia del repositorio en tu máquina local. Si es necesario, inicia sesión en tu cuenta de GitHub.
