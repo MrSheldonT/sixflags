@@ -26,6 +26,6 @@ VALUES (
 );
 ALTER TABLE usuarios
     ADD FOREIGN KEY (correo_electronico)
-        REFERENCES correos_electronicos(correo_electronico),
+        REFERENCES correos_electronicos(correo_electronico)
     CHECK nombre
-    ;
+;
