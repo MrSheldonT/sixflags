@@ -2352,6 +2352,66 @@ VALUES
     (1999, 2, 'Salvador', 'Miramontes', 'Santillán', 'M', '2001-04-16', 'ybarragonzalo@example.org', 'EICR3511230HT', 'QIFQ150121MNEZWM05', '19578590648', 'Unión Libre', '(009)504-0200x5', 'Viaducto Vargas', '616', '97', 'San René los altos', 'San Julio de la Montaña', 'Durango','Guyana', '92841', 'Tiempo completo', '2021-10-30', '2023-01-18'),
     (2000, 2, 'Salvador', 'Ocasio', 'Arellano', 'F', '1908-01-03', 'maximiliano57@example.com', 'YUZG080410P0Y', 'YOZH940329HGTZWG04', '45628467081', 'Divorciada/o', '1-235-186-9069x', 'Avenida Gómez', '068', '1', 'San Ignacio los bajo', 'Vieja Dinamarca', 'Zacatecas','Túnez', '03440', 'Tiempo completo', '2020-02-16', '2020-10-17')
 ;
+
+INSERT INTO alianza (
+	parque_id
+    , nombre_comercial
+    , nombre_fiscal
+    , imagen_url
+    , descripcion
+    , pagina_url
+)
+
+VALUES 
+	(1
+    , 'Coca Cola'
+    , 'Coca-Cola FEMSA, S.A.B de C.V.'
+    , 'https://sf-static.sixflags.com/wp-content/uploads/Coke-Logo-e1636230709387.png'
+    , 'Bebida Carbonatada Oficial'
+    , 'https://www.coca-cola.com/mx/es')
+    
+    ,(1
+    , 'Grupo Modelo'
+    , 'GRUPO MODELO, S.A.B DE C.V'
+    , 'https://sf-static.sixflags.com/wp-content/uploads/Grupo-Modelo-Logo.png'
+    , 'Cerveza Oficial'
+    , 'https://www.grupomodelo.com/agegate?destination=/')
+    
+    ,(1
+    , 'Helados Nestle'
+    , 'Nestle Mexico, SA de CV'
+    , 'https://sf-static.sixflags.com/wp-content/uploads/Helados-Nestle-Logo.png'
+    , 'Helado Oficial'
+    , 'https://froneri.es/')
+    
+    ,(1
+    , 'Nutrisa'
+    , 'Grupo Nutrisa, S.A.B. De C. V.'
+    , 'https://sf-static.sixflags.com/wp-content/uploads/Nutrisa-Logo-768x451.png'
+    , 'Helado Suave Oficial'
+    , 'https://www.nutrisa.com/')
+    
+    ,(1
+    , 'Totalplay'
+    , 'TOTAL PLAY TELECOMUNICACIONES, S.A. DE C.V.'
+    , 'https://sf-static.sixflags.com/wp-content/uploads/Totalplay-Logo-1024x229.png'
+    , 'Wifi Oficial'
+    , 'https://www.totalplay.com.mx/')
+    
+    ,(1
+    , 'Gamesa'
+    , 'Galletera Mexicana, S.A. de C.V.'
+    , 'https://sf-static.sixflags.com/wp-content/uploads/Gamesa-Logo-1024x931.png'
+    , 'Galletas y golosinas oficiales'
+    , 'https://gamesa.com.mx/promocion/')
+    
+    ,(1
+    , 'SABA'
+    , 'ESSITY HIGIENE Y SALUD MÉXICO, S.A. DE C.V.'
+    , 'https://sf-static.sixflags.com/wp-content/uploads/Saba-logo.png'
+    , ' Cuidado de la Salud'
+    , 'https://www.mysaba.com/')
+;
 -- Bloque de alters
 -- Horario con parque
 ALTER TABLE horario
