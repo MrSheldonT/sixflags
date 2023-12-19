@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS alianza (
     alianza_id TINYINT AUTO_INCREMENT
     , parque_id TINYINT NOT NULL
     , nombre_comercial VARCHAR (20) NOT NULL
-    , nombre_fiscal VARCHAR (40) NOT NULL
+    , nombre_fiscal VARCHAR (60) NOT NULL
     , imagen_url VARCHAR(100) NOT NULL
     , descripcion VARCHAR(40) NOT NULL
     , pagina_url VARCHAR(50) NOT NULL
