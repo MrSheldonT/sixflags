@@ -106,13 +106,13 @@ Ahora, puedes realizar modificaciones en los archivos clonados. Recuerda agradec
 
    Como dato adicional, dependiendo de cuando hiciste el add se mostrará el estado de los archivos en el lado izquierdo, poniendo el cursor sobre el te mostrará el estado actual.
    
-   ![Alt text](imagenes/../estado.png)
-8. **Realizar un Commit:**
+   ![Alt text](imagenes/estado.png)
+7. **Realizar un Commit:**
    - Crea un nuevo commit con un mensaje descriptivo.
    ```bash
    git commit -m "Agregué los datos de los parques"
    ```
-1. **Subir Cambios al Repositorio Remoto:**
+8. **Subir Cambios al Repositorio Remoto:**
    - Sube tu rama al repositorio remoto:
    ```bash
    git push origin nombre-de-la-rama
