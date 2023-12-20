@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS servicio (
   servicio_id INT NOT NULL AUTO_INCREMENT
   , parque_id TINYINT NOT NULL
   , nombre VARCHAR(70) NOT NULL
-  , descripcion TIMESTAMP NOT NULL
+  , descripcion TEXT NOT NULL
   , precio DECIMAL(6, 2) NOT NULL 
   , deposito_inicial DECIMAL (6, 2)
   , PRIMARY KEY(servicio_id)
