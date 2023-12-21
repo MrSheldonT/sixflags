@@ -1,7 +1,7 @@
 import json
+import random
 from random import randrange
 import datetime
-import random
 
 def random_date(start,l):
    current = start
@@ -37,13 +37,11 @@ VALUES
 ''')
     
     parque_id = []
-    categories = []
+    categorias = []
     descs = []
 
-    
     i = 0
     for x in data:
-
         match x['merchant_id']:
             case '54':
                 parque_id.append(1)
@@ -52,38 +50,36 @@ VALUES
         
         match x['package_class']:
             case 'Season Pass - New':
-                categories.append(1)
-            case 'Daily Tickets':
-                categories.append(2)
-            case 'Membership Dining':
-                categories.append(3)
-            case 'Meal Vouchers':
-                categories.append(3)
-            case 'Season Dining':
-                categories.append(3)
-            case 'VIP Tours':
-                categories.append(5)
-            case 'Group Tickets':
-                categories.append(6)
-            case 'Memberships':
-                categories.append(11)
+                categorias.append(1)
             case 'Annual Pass - Flex':
-                categories.append(12)
+                categorias.append(1)
+            case 'Daily Tickets':
+                categorias.append(2)
+            case 'Membership Dining':
+                categorias.append(3)
+            case 'Meal Vouchers':
+                categorias.append(3)
+            case 'Season Dining':
+                categorias.append(3)
+            case 'VIP Tours':
+                categorias.append(4)
+            case 'Group Tickets':
+                categorias.append(5)
+            case 'Memberships':
+                categorias.append(6)
             case 'Cabanas':
-                categories.append(13)
+                categorias.append(7)
             case _:
-                categories.append(10)
+                categorias.append(8)
 
-        
         raw_descs = [x['desc']]
         for desc in raw_descs:
-            temp_desc = desc
             for str in reemplazar:
-                temp_desc = temp_desc.replace(str, ' ')
-            descs.append(temp_desc)
+                desc = desc.replace(str, ' ')
+            descs.append(desc)
         
         fechas = list(random_date(startDate, 2))
 
-        file.write(f'''   , ('{x['id']}', {categories[i]} , {parque_id[i]}, '{x['name'].replace('?', '')}', '{descs[i]}', {x['min_retail_amount']}, '{fechas[0].strftime("%y/%m/%d %H:%M:%S")}', '{fechas[1].strftime("%y/%m/%d %H:%M:%S")}', {random.randint(0,1)}, {random.randint(0, 1500)}, {x['min_quantity']})\n''')
+        file.write(f'''   , ('{x['id']}', {categorias[i]} , {parque_id[i]}, '{x['name'].replace('?', '')}', '{descs[i]}', {x['min_retail_amount']}, '{fechas[0].strftime("%y/%m/%d %H:%M:%S")}', '{fechas[1].strftime("%y/%m/%d %H:%M:%S")}', {random.randint(0,1)}, {random.randint(0, 1500)}, {x['min_quantity']})\n''')
         i += 1
     file.write(';')
