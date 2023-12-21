@@ -84,6 +84,6 @@ VALUES
         
         fechas = list(random_date(startDate, 2))
 
-        file.write(f'''    , ('{x['id']}', {categories[i]} , {parque_id[i]}, '{x['name'].replace('?', '')}', '{descs[i]}', {x['min_retail_amount']}, '{fechas[0].strftime("%y/%m/%d %H:%M:%S")}', '{fechas[1].strftime("%y/%m/%d %H:%M:%S")}', {random.randint(0,1)}, {random.randint(0, 1500)}, {x['min_quantity']})\n''')
+        file.write(f'''   , ('{x['id']}', {categories[i]} , {parque_id[i]}, '{x['name'].replace('?', '')}', '{descs[i]}', {x['min_retail_amount']}, '{fechas[0].strftime("%y/%m/%d %H:%M:%S")}', '{fechas[1].strftime("%y/%m/%d %H:%M:%S")}', {random.randint(0,1)}, {random.randint(0, 1500)}, {x['min_quantity']})\n''')
         i += 1
     file.write(';')
