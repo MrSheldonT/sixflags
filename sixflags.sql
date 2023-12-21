@@ -15463,6 +15463,19 @@ VALUES
   , (1057, 1200)
   , (1822, 1200)
 ;
+
+-- beneficio --
+INSERT INTO beneficio(
+    beneficio_id
+    ,descripcion
+)
+VALUES
+    ()
+    , (1, 'Visitas ilimitadas a todos los parques Six Flags y Hurricane Harbor.')
+    ,(2, 'Estacionamiento general sin costo.')
+    ,(3,'15% de descuento en Alimentos y Souvenirs seleccionados.')
+;
+
 -- Bloque de alters
 -- Horario con parque
 ALTER TABLE horario
