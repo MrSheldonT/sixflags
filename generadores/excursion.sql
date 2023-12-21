@@ -4,7 +4,7 @@ INSERT INTO excursion(
     , fecha_hora
 )
 VALUES 
-    ,(2, 'NEZA-IXTAPALUCA', '2020-10-02 08:40:46')
+    (2, 'NEZA-IXTAPALUCA', '2020-10-02 08:40:46')
     ,(2, 'VILLA DE CORTÉS', '2020-10-03 08:12:06')
     ,(2, 'ACATITLA', '2020-10-03 09:31:17')
     ,(1, '18 DE MARZO', '2020-10-05 05:27:38')
