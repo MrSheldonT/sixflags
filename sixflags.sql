@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS evento (
     evento_id INT AUTO_INCREMENT
     , parque_id TINYINT NOT NULL
     , nombre VARCHAR(45) NOT NULL
-    , descripcion VARCHAR(255) NOT NULL
+    , descripcion TEXT NOT NULL
     , patrocinador VARCHAR(20)
     , fecha_inicio TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
     , fecha_fin TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS espectaculo (
   espectaculo_id INT NOT NULL AUTO_INCREMENT
   , villa_id INT NOT NULL
   , nombre VARCHAR(45) NOT NULL 
-  , descripcion VARCHAR(75) NOT NULL
+  , descripcion VARCHAR(175) NOT NULL
   , localizacion VARCHAR(45) NOT NULL 
   , hora_inicio TIME NOT NULL
   , hora_fin TIME NOT NULL
