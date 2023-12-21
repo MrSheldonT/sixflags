@@ -15466,14 +15466,12 @@ VALUES
 
 -- beneficio --
 INSERT INTO beneficio(
-    beneficio_id
-    ,descripcion
+    descripcion
 )
 VALUES
-    ()
-    , (1, 'Visitas ilimitadas a todos los parques Six Flags y Hurricane Harbor.')
-    ,(2, 'Estacionamiento general sin costo.')
-    ,(3,'15% de descuento en Alimentos y Souvenirs seleccionados.')
+    ('Visitas ilimitadas a todos los parques Six Flags y Hurricane Harbor.')
+    ,('Estacionamiento general sin costo.')
+    ,('15% de descuento en Alimentos y Souvenirs seleccionados.')
 ;
 
 -- Bloque de alters
