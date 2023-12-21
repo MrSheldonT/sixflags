@@ -1,15 +1,15 @@
 INSERT INTO producto(
-    plu
-    , categoria_producto_id
-    , parque_id
-    , nombre
-    , descripcion
-    , precio_unitario
-    , fecha_inicio_venta
-    , fecha_fin_venta
-    , descontinuacion
-    , stock
-    , cantidad_minimo_compra
+   plu
+   , categoria_producto_id
+   , parque_id
+   , nombre
+   , descripcion
+   , precio_unitario
+   , fecha_inicio_venta
+   , fecha_fin_venta
+   , descontinuacion
+   , stock
+   , cantidad_minimo_compra
     )
 VALUES
    ('10104581', 3 , 1, '2023 1 Meal One Day Dining', 'Waiting on Translations', 241.38, '23/06/23 00:00:00', '23/06/30 00:00:00', 1, 1082, 1)
