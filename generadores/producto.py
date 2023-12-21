@@ -10,7 +10,7 @@ def random_date(start,l):
     yield current
     l-=1
 
-with open('prueba.json', 'r', encoding="utf-8") as json_file:
+with open('producto.json', 'r', encoding="utf-8") as json_file:
     json_load = json.load(json_file)
 
 data = json_load['PS']['P']
@@ -19,7 +19,7 @@ reemplazar = ['</b>', '\n', '<b>', '<div class =" "inpromo" ">', '<div class="in
 
 startDate = datetime.datetime(2023, 1, 1, 00, 00, 00)
 
-with open('prueba.sql', 'w', encoding = 'utf-8') as file:
+with open('producto.sql', 'w', encoding = 'utf-8') as file:
     file.write('''INSERT INTO producto(
     plu
     , categoria_producto_id
