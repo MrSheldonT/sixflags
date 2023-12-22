@@ -274,7 +274,7 @@ CREATE TABLE IF NOT EXISTS paquete (
 
 CREATE TABLE IF NOT EXISTS beneficio (
   beneficio_id INT NOT NULL AUTO_INCREMENT
-  , descripcion VARCHAR(80) NOT NULL
+  , descripcion VARCHAR(200) NOT NULL
   , PRIMARY KEY (beneficio_id)
 );
 
@@ -15469,9 +15469,81 @@ INSERT INTO beneficio(
     descripcion
 )
 VALUES
-    ('Visitas ilimitadas a todos los parques Six Flags y Hurricane Harbor.')
+    -- boleto de un dia
+    ('Acceso de un día a Six Flags México')
+     -- platinum pass 2024
+    ,('Visitas ilimitadas a todos los parques Six Flags y Hurricane Harbor.')
     ,('Estacionamiento general sin costo.')
     ,('15% de descuento en Alimentos y Souvenirs seleccionados.')
+    ,('Vigencia al 31 de diciembre de 2024.')
+    ,('1 Flash Pass de un acceso (en total durante la vigencia del Pase.)')
+    ,('2 boletos a precio especial de $749.00 c/u para Six Flags México (aplicable a partir de la segunda visita).')
+    ,('2 boletos a precio especial de $252.00 c/u para Hurricane Harbor Oaxtepec.')
+     -- diamond pass 2024
+    ,('Estacionamiento sin costo en Zona Diamond (sujeto a capacidad).')
+    ,('20% de descuento en Alimentos y Souvenirs seleccionados.')
+    ,('4 Flash Pass de un acceso (en total durante la vigencia del Pase).')
+    ,('5 boletos a precio especial de $749.00 c/u para Six Flags México (aplicable a partir de la segunda visita).')
+    ,('5 boletos a precio especial de $252.00 c/u para Hurricane Harbor Oaxtepec.')
+    ,('Vaso Souvenir con refill ilimitado de refresco (periodo de 20 minutos entre cada refill).')
+    ,('50% de descuento entre semana en Cabana Regular en Hurricane Harbor.')
+    -- plan de alimentos 2024
+    ,('¡Agrega un Plan de Alimentos a tu Pase 2024!')
+    ,('Disfruta de una o dos comidas en cada visita (3 horas entre cada redención).')
+    ,('Úsalo en cualquier parque al que tenga acceso tu Pase 2024.')
+    -- transporte hurricane harbor oaxtepec
+    ,('Viaje Redondo en autobús de calidad turística')
+    ,('Acceso de un día al parque acuático')
+     -- plan de alimentos una comida
+    ,('¡Disfruta una comida en cada visita durante la vigencia de tu Pase!')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
+    ,('')
 ;
 
 -- Bloque de alters
