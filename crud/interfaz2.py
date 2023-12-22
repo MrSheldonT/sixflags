@@ -1,11 +1,11 @@
 from textual.app import App, ComposeResult
-from textual.widgets import Header, Footer, Button, Select, Static, Input, Label, TextArea, DataTable
+from textual.widgets import Header, Footer, Button, Select, Static, Input, Label, TextArea, DataTable, Log
 from textual import on
 import mysql.connector
 from rich.console import Console
 from textual.containers import ScrollableContainer, Container
 
-query = """SELECT
+querys = """SELECT
 	p.ProductID
     , p.ProductName
     , CHAR_LENGTH(p.ProductName) AS tamaño
@@ -34,18 +34,21 @@ class datos(Static):
 class consultas(Static):
     def compose(self) -> ComposeResult:
         yield Label("Consulta")
-        yield TextArea(query, language="python")
+        yield TextArea(querys, language="python")
         yield Button("Realizar consulta", id="consultar", variant="warning")
 
 class ConexionSQL(App):
     
     def __init__(self):
         super().__init__()
-        self.user_ = None
-        self.pass_ = None
-        self.host_ = None
-        self.database_ = None
+        super().__init__()
+        self.user_ = Input("root")
+        self.pass_ = Input("1221", id="pass_", password=True)
+        self.host_ = Input("127.0.0.1", id="host_")
+        self.database_ = Input("northwind", id="database_")
+        self.querys = TextArea(querys, language="python")
         self.cnx = None
+        self.log_ = Log()
 
     BINDINGS = [("|", "cambiar_tema", "Cambia el tema de pantalla")]
     
@@ -53,44 +56,50 @@ class ConexionSQL(App):
     def compose(self) -> ComposeResult:
         yield Header(show_clock=True)
         yield ScrollableContainer (conect())
-        yield ScrollableContainer(
-            Container(
-                Label("Usuario:"),
-                Input("root", id="user_"),
-                Label("Contraseña:"),
-                Input("1221", id="pass_", password=True),
-                Label("Host:"),
-                Input("127.0.0.1", id="host_"),
-                Label("Base de datos:"),
-                Input("northwind", id="database_"),
-            )
-        )
-        yield ScrollableContainer (consultas())
+        yield Label("Usuario:")
+        yield self.user_        
+        yield Label("Contraseña:")
+        yield self.pass_
+        yield Label("Host:")
+        yield self.host_
+        yield Label("Base de datos:")
+        yield self.database_
+        yield self.log_
+        yield Label("Consulta")
+        yield self.querys
+        yield Button("Realizar consulta", id="consultar", variant="warning")
         yield DataTable()
 
     @on(Button.Pressed, "#conexion")
     def conectar(self):
         try:
             #actualizar datos?
-            self.cnx = mysql.connector.connect(user= self.user_, password = self.pass_, host = self.host_, database = self.database_)
+            self.cnx = mysql.connector.connect(user= self.user_.value, password = self.pass_.value, host = self.host_.value, database = self.database_.value)
+            self.log_.write_line("Conexión exitosa")
         except mysql.connector.Error as e:
-            1#yield Label(f"Error al conectar: {e}")
+            self.log_.write_line("Error al conectarse")
 
     @on(Button.Pressed, "#desconectar")
     def desconectar(self):
         try:
            self.cnx.close()
+           self.log_.write_line("Se desconectó")
         except mysql.connector.Error as e:
-            yield Label(str(e))
+            self.log_.write_line("Hubo un pedo")
 
     @on(Button.Pressed, "#consultar")
     def realizar_consulta(self):
         try:
             cursor = self.cnx.cursor()
-
-            cursor.execute(TextArea.text)
+            cursor.execute(self.querys.text)
+            column_names = [column[0] for column in cursor.description]
+            self.log_.write_line(", ".join(column_names))
+            # Iterar sobre las filas y agregarlas al log
+            for row in cursor:
+                self.log_.write_line(", ".join(str(value) for value in row))
+            self.log_.write_line("Consulta realizada con éxito")
         except mysql.connector.Error as err:
-            yield Label(str(err))
+            self.log_.write_line("hubo pedo")
 
 if __name__ == "__main__":
     app = ConexionSQL()
