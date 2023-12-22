@@ -32,6 +32,8 @@ for _ in range(10000):
     reg_sql = f'({registro[0]}, "{registro[1]}", "{registro[2]}")'
     registros_sql.append(reg_sql)
 
+registros_sql.sort(key=lambda x: datetime.datetime.strptime(eval(x)[1], "%Y-%m-%d"))
+
 codigo_sql = "INSERT INTO venta (comprador_id, fecha, metodo_pago) VALUES \n" + ",\n".join(registros_sql) + ";"
 
 with open("ventas.sql", "w") as archivo:
