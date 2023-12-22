@@ -1,0 +1,18 @@
+App {
+	width: 100%;
+	contet-align: center middle;
+}
+
+Button {
+	width: 16;
+	text-style: bold;
+	padding: 5;
+}
+
+#conexion {
+	background-color: green;
+}
+
+#desconectar {
+	background-color: red;	
+}

@@ -16,7 +16,7 @@ WHERE
 
 class ConexionSQL(App):
     BINDINGS = [("|", "cambiar_tema", "Cambia el tema de pantalla")]
-
+    CSS_PATH = 'estilos.tcss'
     def compose(self) -> ComposeResult:
         yield Conexiones()
         yield Header(show_clock=True)
