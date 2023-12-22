@@ -1,0 +1,101 @@
+
+INSERT INTO espectaculo (villa_id
+                        , nombre
+                        , descripcion
+                        , localizacion
+                        , hora_inicio
+                        , hora_fin
+                        , fecha_inicio
+                        , fecha_fin)
+VALUES
+    (1,'Bienvenida con los Looney Tunes',' Estos queridos personajes estarán recibiendo a los asistentes con una divertida y colorida presentación que inyectará energía desde el inicio de la visita.','Quiosco Pueblo Mexicano','10:00:00','11:30:00','2024-01-01','2024-12-30')
+     -- Heroes & Villians Fest
+    , (1,'DC Colors',' Los integrantes de la Liga de la Justicia mostrarán sus cualidades y habilidades para combatir el mal y a los villanos que se atrevan a irrumpir con la diversión.','Villa Hollywood','11:30:00','12:30:00','2024-04-01','2024-05-28')
+    , (1,'Looney Tunes Color Time','Polvos de colores, confetti y encanto estarán presentes en este encuentro en donde se podrá tomar foto, cantar y abrazar a los personajes favoritos en el Castillo de los Sueños.','Castillo de los Sueños','12:30:00','13:30:00','2024-04-01','2024-05-28')
+    , (1,'Colors Party','Un grandioso performance con destellos de colores y con la presencia de un DJ, se encargará de hacer bailar a todas y todos los visitantes con sets llenos de energía y ritmos contagiosos.','Villa Hollywood','13:30:00','15:30:00','2024-04-01','2024-05-28')
+     , (1,'Héroes y Villanos Parade','Al finalizar un día lleno de emociones, un impactante desfile será el broche de oro y estará acompañado de diferentes personajes, héroes y villanos que realizarán detonaciones multicolores y contagiarán a más de uno a unirse a esta fiesta sin igual.','Villa Hollywood','16:30:00','20:30:00','2024-04-01','2024-05-28')
+     -- Fun Nights --
+    , (1,'Música en vivo','Se podrá bailar y cantar con éxitos en inglés y en español con una sensacional coverband que los llevará a un viaje musical acompañado de luces, colores, sonidos y gran performance.','Pueblo Francés','08:00:00','23:00:00','2024-03-08','2024-05-26')
+    , (1,'Mariachi','No hay persona que no se rinda ante las interpretaciones de un buen mariachi que haga gozar, cantar a todo pulmón y vivir la pasión e identidad mexicana en medio del pintoresco pueblo mexicano.','Pueblo Mexicano','08:00:00','23:00:00','2024-03-08','2024-05-26')
+     -- Scream Break
+    , (1,'Fotos con personajes','Hermosos personajes multicolor, catrinas y hasta zombies estarán saludando y tomándose fotos con los visitantes que buscan un grato recuerdo y complemento especial a su día.','Pueblo Mexicano','08:00:00','23:00:00','2024-04-13','2024-04-16')
+     -- Festival del terror
+    , (1,'La ruta caníbal','La calma del bosque termina para la extraña familia que habita en una vieja cabaña, cuando la civilización se quiere abrir paso construyendo una ruta que acaba con la tranquilidad. Pero esta misteriosa y peculiar familia no se quedará tranquila hasta vengarse de todos los que pasen por la carretera.','Motosierras','11:00:00','22:40:00','2024-09-12','2024-10-10')
+    , (1,'Mazmorras','Debajo de la tierra, existe un oscuro inframundo. En éste, habitan unas temibles gárgolas sedientas de dolor y temor para sobrevivir. Ellas se ocultan en las tinieblas y esperan por algún alma que torturar.','Motosierras','11:00:00','22:40:00','2024-09-12','2024-10-10')
+    , (1,'Terror en Paris','La Ciudad de la Luz oculta en lo más profundo de sus entrañas una huella siniestra de sangre y guerra, un recuerdo de las atrocidades que alguna vez se cometieron. Entra y jamás podrás salir.','Pueblo Francés','11:00:00','22:40:00','2024-09-12','2024-10-10')
+    , (1,'Espantapájaros','Existen sembradíos resguardados por un viejo espantapájaros. Su trabajo es sencillo: ahuyentar a las aves. Pero si se confía al cruzar esos terrenos, ¡todos los intrusos pagan un precio muy alto!','Calabajack','11:00:00','22:40:00','2024-09-12','2024-10-10')
+    , (1,'La Prisión','Seres deformes, perversos y agresivos son el resultado de pruebas realizadas a los reos que habitaban esta prisión. Han pasado años desde su clausura y nadie sabe que paso con ellos. Se buscan voluntarios para limpiar esta ubicación.','Esqueletos','11:00:00','22:40:00','2024-09-12','2024-10-10')
+    , (1,'Leyendas de México','Hay veces que las Leyendas se pueden volver realidad…buscarlas se puede volver tu peor pesadilla. ¡No busques lo que no quieres encontrar!','Pueblo Zombie','11:00:00','22:40:00','2024-09-12','2024-10-10')
+    , (1,'Catástrofe ','Un científico realiza experimentos de manera clandestina sin conocer las consecuencias…¿Te atreves a descubrir lo que puede suceder?','esqueletos','11:00:00','22:40:00','2024-09-12','2024-10-10')
+    , (1,'Región Extraterrestre','Hay secretos que durante mucho tiempo han sido ocultos por la humanidad, pero la verdad esta a punto de ser revelada y quizás esto pueda representar el final…o el comienzo de una nueva era …¿Te atreverás a descubrirla?','Calabajack','11:00:00','22:40:00','2024-09-12','2024-10-10')
+    -- Kid's Boo Fest
+    , (1,'Dulce o Truco presentada por Sonric\'s','Una atracción infantil donde niños y niñas podrán convivir con tiernos personajes a través de un recorrido de diferentes escenarios en donde obtendrán una rica recompensa.','DC Super Friends','11:00:00','22:00:00','2024-09-12','2024-10-10')
+    , (1,'Pumpkin Party','Aquí los pequeños visitantes podrán brincar, bailar y disfrutar una y otra vez dentro de un espacio lleno de alegría en donde serán envueltos con gran espuma blanca.','DC Super Friends','11:00:00','22:00:00','2024-09-12','2024-10-10')
+    , (1,'Boo Parade','Por medio de un pequeño desfile realizado por los amados personajes de Looney Tunes y los amigables mounstritos de Halloween, se acompañará a los niños y niñas a pedir dulces en cada puerta de Dulce Callejón.','Bugs Bunny Boomtown','11:00:00','22:00:00','2024-09-12','2024-10-10')
+    , (1,'Dulce Callejón','Personajes como Bugs Bunny, Pato Lucas o Silvestre, recibirán con una rica sorpresa a cada niño y niña que toque la puerta de su casa gritando la tradicional frase: ¡Dulce o Truco!','Bugs Bunny Boomtown','11:00:00','22:00:00','2024-09-12','2024-10-10')
+    , (1,'¡Hay brujas en Six Flags México!','Con el afán de seguir creando recuerdos memorables para toda la familia, Six Flags México inaugura un encantador espacio llamado:¡Hay brujas en Six Flags México!','Escenario de Pueblo Francés','10:00:00','10:45:00','2023-09-12','2023-10-10')
+    -- Nuevos espectaculos para la villa 'Castillo de los sueños (2022)
+    , (1,'Salón de las Princesas','Un maravilloso espacio en donde las niñas podrán convertirse en verdaderas y encantadoras princesas salidas de un cuento de hadas y los niños en heroicos y valientes caballeros de la corona.','Castillo de los Sueños','10:00:00','19:00:00','2022-01-01','2022-12-31')
+    , (1,'Fábrica de los Bloques del Castillo','Una divertida habitación en la cual niños y niñas no tendrán límites a su imaginación y serán ayudados por bloques de juguete de diferentes tamaños y colores donde podrán hacer estructuras de ensueño.','Castillo de los Sueños','10:00:00','19:00:00','2022-01-01','2022-12-31')
+    , (1,'Cueva del Slime del Dragón','Una increíble estancia en donde habrá muchas maneras de jugar por medio de la creación de slime de diferentes texturas y colores que el dragón del castillo ha colocado ahí para los pequeños visitantes.','Castillo de los Sueños','10:00:00','19:00:00','2022-01-01','2022-12-31')
+     -- Christmas in the Park
+    , (1,'Beyond Christmas','Una espectacular presentación que dará inicio al encendido de millones de luces por el parque, acompañada de un emotivo número musical, presencia de Looney Tunes y maravillosos fuegos artificiales.','Escenario de Pueblo Francés','21:00:00','22:00:00','2023-11-24','2024-01-21')
+    , (1,'Christmas Light Parade','El tradicional y querido desfile que recorrerá los pasillos del parque en compañía de comparsas, música y grandiosos personajes.',' Escenario de Pueblo Francés','21:30:00','23:30:00','2023-11-24','2024-01-21')
+    , (1,'Despedida con la Liga de la Justicia','Tus superhéroes favoritos te acompañan a terminar un día lleno de magia y diversión.','Pueblo Mexicano','18:00:00','23:59:59','2023-11-24','2024-01-21')
+    , (1,'Despedida con los personajes navideños y Looney Tunes.','El día termina con la compañía de los personajes más fantásticos y nuestros queridos Looney Tunes.','Explanada de Pueblo Francés','17:00:00','23:59:59','2023-11-24','2024-01-21')
+    , (1,'El Milagro de la Navidad','Un videomapping acompañado con los Looney Tunes y sus amigos que encenderá inimaginables sentimientos en esta Navidad.','19:00:00','Castillo de los Sueños','22:30:00','2023-11-24','2024-01-21')
+    , (1,'Jingle Magic Band','Agradable música en vivo que será interpretada por una banda que amenizará y creará un real ambiente navideño.','Escenario de Pueblo Francés','20:00:00','22:00:00','2023-11-24','2024-01-21')
+    , (1,'La Casita de Dulces del Polo Norte','Una interactiva atracción que espera a niños y niñas con deliciosos dulces entregados por Santa Claus y sus divertidos duendes.','Bugs Bunny BoomTown','18:00:00','23:00:00','2023-11-24','2024-01-21')
+    , (1,'Posadas Caramelo','Un alegre paseo por un pueblo que invitará a los niños y niñas que visitan el parque a pedir posada y recibir sabrosos dulces entregados por los tiernos Looney Tunes.','Pueblo Vaquero','19:38:00','22:40:00','2023-11-24','2024-01-21')
+    , (1,'Sesión fotográfica con la Liga de la Justicia','Tus superhéroes favoritos también forman parte de esta mágica temporada, encuéntralos por el parque y llévate el mejor recuerdo.','Explanada DC y Explanada Francés','13:00:00','22:30:00','2023-11-24','2024-01-21')
+    , (1,'Sesión fotográfica con las Princesas y Lola Bunny','Vive un momento mágico junto a Lola Bunny y las princesas del Castillo de los Sueños','Castillo de los Sueños','12:00:00','20:00:00','2023-11-24','2024-01-21')
+    , (1,'Sesión fotográfica con personajes navideños','Encuentra a los personajes más mágicos y divertidos de la Navidad para llevarte un recuerdo inolvidable.','Explanada de Pueblo Francés, Explanada Crazanity y Villa Navideña','11:00:00','22:00:00','2023-11-24','2024-01-21')
+     -- Holiday in the park USA
+    , (2,'A 1950’s Rockabilly Holiday','Featuring thousands of lights, classic cars,jolly jugglers, and timeless holiday hits.','HollyRock! ','12:00:00','19:00:00','2023-11-24','2024-01-21')
+    , (2,'Snap A Photo','Snap A Photo with the old school Six Flags Bus decked out for the holidays.','HollyRock! ','12:00:00','20:30:00','2023-11-24','2024-01-21')
+    , (2,'Revel in the enchanted atmosphere with Santa and Mrs. Claus','Revel in the enchanted atmosphere with Santa and Mrs. Claus, along with their merry elves.','The North Pole','12:00:00','20:40:00','2023-11-24','2024-01-21')
+    , (2,'Join Mrs. Claus for festive crafts and activities','','The North Pole','12:00:00','18:00:00','2023-11-24','2024-01-21')
+    , (2,'Take a Festive Ride','Take a Festive Ride aboard the North Pole Express Train.','','11:00:00','21:00:00','2023-11-24','2024-01-21')
+    , (2,'A Kaleidoscope of Color','A Kaleidoscope of Color featuring thousands of twinkling lights and snowfall approximately every 20 min. starting at 5pm','Holiday Square','17:00:00','23:30:00','2023-11-24','2024-01-21')
+    , (2,'Be Dazzled by a festive light show ','Be Dazzled by a festive light show choreographed to festive music and thousands of glimmering lights.','Gleampunk District','18:00:00','22:45:00','2023-11-24','2024-01-21')
+    , (2,'Snowfall','Snow falls every 20 minutes. Enjoy meet and greets with some of your favorite Looney Tunes characters in their holiday dress.','Gleampunk District ','17:00:00','22:00:00','2023-11-24','2024-01-21')
+    , (2,'Jingle Magic Band','In This Novel Celebration of the Season, enjoy contemporary music andDJs on the Full Throttle stage with interactive games and more.','Snowy Nights Located in the FULL THROTTLE PLAZA','16:00:00','20:00:00','2023-11-24','2024-01-21')
+    , (2,'Jingle Bell Way','Have a Ball Making Merry Memories in the Reimagined Jingle Bell Way with magnificent, larger-than-life 30-foot walk-thru ornaments, brilliantly lit with thousands of twinkling lights and choreographed to festive holiday music in a new dancing light show.','Jingle Bell Way','19:50:00','23:30:00','2023-11-24','2024-01-21')
+    , (2,'Roast Marshmallows','Make Merry Memories with a holiday photo and warm up near an open fire pit as you roast marshmallows. Plus, enjoy meet and greets with some of your favorite Looney Tunes characters in their holiday dress!','Polar Bear Pass','17:00:00','21:50:00','2023-11-24','2024-01-21')
+    , (2,'Spreading Holiday Cheer!','Six Flags Magic Mountain is proud to host XOMG Pop! during Holiday in the Park!','Full Throttle Plaza ','17:30:00','19:30:00','2023-11-24','2024-01-21')
+    , (2,'Peppermint Path','Enjoy a Country holiday with festive tunes and a twisted peppermint surprise along a path lined with thousands of candy cane red and white lights. Plus enjoy live country holiday music from Drivin\' Mama Crazy starting at 4:00pm on select Holiday in the Park days.','Holiday Square','16:00:00','22:00:00','2023-11-24','2024-01-21')
+    -- Holiday in the park pt.2
+    , (2,'Merry Mischief with the Elves','These elves are up to no good! Catch them at Santa’s Outpost stirring up a storm. Playtime and coloring Santa’s Outpost Ongoing','Santa\'s Outpost','16:00:00','22:00:00','2023-11-24','2024-01-21')
+    , (2,'A Jolly Holiday','A Holly Jolly experience full of dance and excitement. Located at the Silver Star Carousel Stage.','A Holly Jolly experience full of dance and excitement. Located at the Silver Star Carousel Stage.','16:00:00','22:00:00','2023-11-25','2024-01-01')
+    , (2,'Christmas at the Southern Palace',' Experience the magic of Christmas in this joyful showcase featuring classic holiday songs and larger-than-life sets to get you in the spirit.','Southern Palace','16:00:00','22:00:00','2023-11-24','2024-01-21')
+    , (2,'Christmas Crooners','These Christmas Crooners perform your favorite holiday tunes live at Blacksmith Shop.','Blacksmith Shop','16:00:00','22:00:00','2023-11-24','2024-01-21')
+    -- S.F Over Texas
+     , (2,'Holiday Express Light Spectacular','A festive train ride that takes you on a magical journey through Holiday in the Park at Six Flags Over Texas.','Boomtown AND Texas Depots','16:00:00','22:00:00','2023-11-24','2024-01-21')
+    , (2,'Holiday House of Horrors','Naughty kids beware! This haunted house is a holiday nightmare coming to life! Additional fee required.','Texas Section','16:00:00','22:00:00','2023-11-24','2024-01-21')
+    -- S.F Fiesta Texas
+    , (2,'Holiday House of Horrors','Naughty kids beware! This haunted house is a holiday nightmare coming to life! Additional fee required.','Texas Section','16:00:00','19:30:00','2023-11-24','2023-12-23')
+    , (2,'Have Yourself A Looney Tunes Christmas','Sing and dance along with Bugs Bunny and his Looney Tunes friends to family favorites that are sure to get you into the holiday spirit.','Teatro Fiesta','15:30:00','19:30:00','2023-11-24','2023-12-23')
+     -- Flavors of the World
+    , (2,'A Festival of Flavors! ITALY','Delight your tastebuds and sample up to 12 items from seven different countries around the globe. Sip, stroll and enjoy the Flavors of the World!','Golden Bear Plaza','10:00:00','22:00:00','2024-06-23','2024-08-13')
+    , (2,'A Festival of Flavors! GREECE','Delight your tastebuds and sample up to 12 items from seven different countries around the globe. Sip, stroll and enjoy the Flavors of the World!','Goliath','10:00:00','22:00:00','2024-06-23','2024-08-13')
+    , (2,'A Festival of Flavors! CARIBEAN','Delight your tastebuds and sample up to 12 items from seven different countries around the globe. Sip, stroll and enjoy the Flavors of the World!','Full Throttle Plaza','10:00:00','22:00:00','2024-06-23','2024-08-13')
+    , (2,'A Festival of Flavors! KOREA','Delight your tastebuds and sample up to 12 items from seven different countries around the globe. Sip, stroll and enjoy the Flavors of the World!','Bugs Bunny World','10:00:00','22:00:00','2024-06-23','2024-08-13')
+    , (2,'A Festival of Flavors! INDIA','Delight your tastebuds and sample up to 12 items from seven different countries around the globe. Sip, stroll and enjoy the Flavors of the World!',' Full Throttle Sports Bar','10:00:00','22:00:00','2024-06-23','2024-08-13')
+    , (2,'A Festival of Flavors! CHINA','Delight your tastebuds and sample up to 12 items from seven different countries around the globe. Sip, stroll and enjoy the Flavors of the World!','Golden Bear Plaza','10:00:00','22:00:00','2024-06-23','2024-08-13')
+    , (2,'A Festival of Flavors! FRANCE','Delight your tastebuds and sample up to 12 items from seven different countries around the globe. Sip, stroll and enjoy the Flavors of the World!','Whistlestop Park','10:00:00','22:00:00','2024-06-23','2024-08-13')
+    , (2,'ROUNDTRIP TO EUROPE','Drink around the world, choose your flight.','Full Throttle Sports Bar','10:00:00','22:00:00','2024-06-23','2024-08-13')
+    , (2,'ROUNDTRIP TO JAPAN','Drink around the world, choose your flight.','Full Throttle Sports Bar','10:00:00','22:00:00','2024-06-23','2024-08-13')
+    , (2,'ROUNDTRIP TO THE CARIBBEAN','Drink around the world, choose your flight.','Full Throttle Sports Bar','10:00:00','22:00:00','2024-06-23','2024-08-13')
+    , (2,'Bhangra Dance','Enjoy the many styles of dance inspired by Indian cultures. Plus, join in the celebration with instructional dance lessons.','Golden Bear Plaza','15:00:00','18:00:00','2024-06-23','2024-08-13')
+    , (2,'Pan y Vino','Enjoy the rhythm and beats of a steel drum band in celebration of the cultures.','Full Throttle Sports Bar','14:00:00','17:00:00','2024-06-23','2024-08-13')
+    , (2,'Kids Crafts','Let your little ones join the celebration of the cultures with different crafts and fun.','Near Full Throttle Sports Bar','10:00:00','22:00:00','2024-06-23','2024-08-13')
+    , (2,'LOONEY TUNES Meet & Greet','Sing and dance along with Bugs Bunny and his Looney Tunes friends to family favorites that are sure to get you into the holiday spirit.','Bugs Bunny Boomtown','16:00:00','22:00:00','2023-11-24','2024-01-21')
+    -- Viva La Fiesta
+    , (2,'Mariachi Los Soberanos','Mariachi Los Soberanos return to Texas State Square to celebrate ¡Viva la Fiesta! This show offering features talented musicians performing live mariachi music.','Texas Sate Square','10:00:00','16:00:00','2024-05-04','2024-06-02')
+    , (2,'Festival del Noche Fireworks Spectacular','The Festival del Noche Fireworks Spectacular debuts during this year’s ¡Viva la Fiesta¡ event. Taking place on Saturday evenings, the impressive display features pyrotechnics, projections and other multimedia elements.','Lone Star Lil’s Amphitheater','20:00:00','21:30:00','2024-05-04','2024-06-02')
+        -- S.F Fiesta Texas
+     , (2,'Noche de Musica Concerts','Six Flags Fiesta Texas celebrates Latin and Tejano hits during ¡Viva la Fiesta! inside Lone Star Lil’s Amphitheater every Saturday evening.','Lone Star Lil’s Amphitheater','20:00:00','21:30:00','2024-04-15','2024-05-13')
+    , (2,'Pop Summer','New for 2023, the Fiesta Band brings their talents back to Sangerfest Halle Stage. Beat the heat and grab a seat inside Sangerfest Halle to experience this live music performance.','Sangerfest Halle Stage','19:00:00','20:50:00','2023-05-14','2023-05-14')
+    , (2,'Sorority Quest: Adventures in Time','New for 2023, head into Rockville High to join four new pledges as they search for a 50-year-old time capsule and unlock secrets of the past. Prepare for a time-traveling twist that highlights destiny and friendship.','Teatro Fiesta','19:00:00','21:30:00','2024-05-04','2024-06-02')
+    , (2,'Ready, Set, Summer!','The Looney Tunes gang make their way back to Teatro Fiesta in 2023 for a brand new production. Ready, Set, Summer! invites guests of all ages for a celebration of music and silliness.','Rockville High School','19:00:00','21:30:00','2024-05-04','2024-06-02')
+;

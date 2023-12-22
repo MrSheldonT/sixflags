@@ -1,5 +1,10 @@
 
-INSERT INTO evento (parque_id, nombre, descripcion, patrocinador, fecha_inicio, fecha_fin)
+INSERT INTO evento (parque_id
+                   , nombre
+                   , descripcion
+                   , patrocinador
+                   , fecha_inicio
+                   , fecha_fin)
 VALUES
         -- S.F México ¿ Exclusive?--
         (1,'Christmas In the Park','La temporada más increíble del año regresa para iluminar y llenar de magia Six Flags México','Six Flags','2023-11-24','2024-01-21')
@@ -64,13 +69,19 @@ VALUES
         , (2,'Mardi Gras Festival™','The music, flavors, and culture of New Orleans are alive at Six Flags Fiesta Texas during Mardi Gras Festival. Enjoy live jazz music, street entertainers, and colorful décor along with all of your favorite rides.','Six Flags','2024-02-13','2024-02-25')
         , (2,'Roller Coaster Rodeo','Roller Coaster Rodeo is an annual multi-day, mega fan event with exclusive ride time and behind the scenes tours! Tickets go on sale on January 1 at HIGH NOON!','Six Flags','2024-06-07','2024-06-09')
         , (2,'4th of July Celebration','Let the excitement spark this 4th of July! Join us at Six Flags Fiesta Texas for a FOUR DAY celebration with rides, fireworks, music and more!','Six Flags','2024-07-04','2024-07-07')
-        , (2,'Oktoberfest Food Festival','Get your lederhosen and dirndls ready for the grandest Oktoberfest celebration yet! Indulge in traditional German foods and snacks while sipping on seasonal brews throughout the park. Fridays through Sundays from September 7 to October 27. With so much to eat, drink, and explore, the only thing missing is you.','Six Flags','2024-09-07','2024-10-27')
+        , (2,'Oktoberfest Food Festival','Get your lederhosen and dirndls ready for the grandest Oktoberfest celebration yet! Indulge in traditional German foods and snacks while sipping on seasonal brews throughout the park. With so much to eat, drink, and explore, the only thing missing is you.','Six Flags','2024-09-07','2024-10-27')
     -- La Ronde único evento --
         , (2,'L''International des Feux Loto-Québec','Montreal’s skies light up as the world’s greatest pyrotechnic artists take center stage in this international fireworks competition held every summer at La Ronde.','Tim Hortons & VIDÉCTRON','2024-06-29','2024-07-30')
     -- ¿Utilizables en todos menos México? --
     , (2,'Kids Boo Fest','Get ready for the best Halloween event of the season, featuring family-friendly thrills by day and the scariest frights by night!','Six Flags','2024-09-21','2024-11-03')
-    , (2,'Fright Fest','Experience the transformation and prepare for nights of frights into a realm of haunted horrors and eerie entertainment. With haunted mazes, terrifying scare zones, and hair-raising shows, it\'s a scream-inducing extravaganza for thrill-seekers. Enjoy the park''s rides in the dark, making it the ultimate destination chills of the Halloween season. *Some attractions and events require additional costs for admission','Snickers','2024-09-21','2024-11-03')
+    , (2,'Fright Fest','Experience the transformation and prepare for nights of frights into a realm of haunted horrors and eerie entertainment. With haunted mazes, terrifying scare zones, and hair-raising shows, it\'s a scream-inducing extravaganza for thrill-seekers. Enjoy the park\'s rides in the dark, making it the ultimate destination chills of the Halloween season.','Snickers','2024-09-21','2024-11-03')
+    , (2,'Spring Break','Kick off your Spring Break where you can enjoy thrilling rides, entertainment, and delicious treats! It\'s the perfect way to make lasting memories and kick off the spring season with a burst of excitement and adventure.','Six Flags','2024-03-16','2024-04-07')
                                     -- Christmas in the park para México--
     , (2,'Holiday in the Park','Celebrate the magic of the season during Holiday in the Park where Six Flags Over Georgia will transform into a festive wonderland complete with millions of lights, scrumptious holiday treats, and classic live entertainment!','Six Flags','2024-11-22','2025-01-19')
-    , (2,'Spring Break','Kick off your Spring Break where you can enjoy thrilling rides, entertainment, and delicious treats! It\'s the perfect way to make lasting memories and kick off the spring season with a burst of excitement and adventure.','Six Flags','2024-03-16','2024-04-07')
+
+    -- Eventos realizados en México pero no aparecen en la página oficial
+    , (1,'Park & Beat','En una tarde de juegos mecánicos, mucha gente, ligue, y muchos beats. Park and Beat se consolida como la mejor plataforma de musica electrónica en la CDMX.','beatcorp','2018-04-28 10:00:00','2018-04-28 21:00:00')
+    , (1,'Rockstage Live','Aquí les dejamos las postales del rocckkk celebrado en el Teatro Samoa de Six Flags.','Six Flags','2018-06-16 10:00:00','2018-06-16 21:00:00')
+    , (1,'Beer & BBQ Fest','Variedad de alimentos, cerveza y las mejores atracciones se encontrarán en un solo lugar.','Six Flags','2023-04-29','2023-05-28')
+    , (1,'Homenaje a las Fuerzas Armadas','Celebra con nosotros a los héroes mexicanos.','Six Flags','2022-09-03','2022-09-11')
 ;
