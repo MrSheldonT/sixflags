@@ -18666,6 +18666,27 @@ VALUES
     , (1, '2024-03-21', '10:00:00', '22:00:00')
     , (2, '2024-03-21', '10:00:00', '22:00:00')
 ;
+
+-- categoria_producto
+INSERT INTO categoria_producto (
+   nombre
+)
+VALUES
+   ('Pase de temporada')
+   , ('Boleto de un Día')
+   , ('Plan de alimentos')
+   , ('VIP')
+   , ('Grupos')
+   , ('Membresía')
+   , ('Cabaña')
+   , ('Estacionamiento')
+   , ('Paquete')
+   , ('General')
+   , ('Paquete de media digital')
+   , ('Transporte')
+   , ('Six Flags Plus')
+;
+
 -- productos
 INSERT INTO producto
 VALUES
@@ -18940,6 +18961,17 @@ VALUES
    , (10114506, 9, 1, 'Paquete de Admisión General + THE FLASH Pass Platino', 'Entrada de un día a Six Flags México y un pase THE FLASH de nivel platino para un solo pasajero, válido para la fecha que elijas durante la temporada 2023. Imprima y presente (o muéstrelo a través de su dispositivo móvil) en la puerta de entrada al parque. Siga las instrucciones impresas en su boleto para canjear THE FLASH Pass.Consulte sixflags.com para conocer el cronograma operativo, las políticas del parque y los protocolos de seguridad. No hay reembolsos en la compra de boletos. Tenga en cuenta que los niños menores de 2 años entran gratis y no necesitan entrada.', 2641.96, '23/09/08 00:00:00', '23/10/20 00:00:00', 1, 373, 1)
    , (10114507, 9, 1, 'Paquete de Admisión General + THE Flash Pass Regular', 'Entrada de un día a Six Flags México y un pase THE Flash Pass Regular para un solo pasajero, válido para la fecha que elijas durante la temporada 2023. Imprima y presente (o muéstrelo a través de su dispositivo móvil) en la puerta de entrada al parque. Siga las instrucciones impresas en su boleto para canjear THE FLASH Pass.Consulte sixflags.com para conocer el cronograma operativo, las políticas del parque y los protocolos de seguridad. No hay reembolsos en la compra de boletos. Tenga en cuenta que los niños menores de 2 años entran gratis y no necesitan entrada.', 1450.49, '23/09/29 00:00:00', '24/09/04 00:00:00', 1, 951, 1)
 ;
+
+-- paquete
+INSERT INTO paquete 
+VALUES
+   (90001597, 10104580)
+   , (90001597, 10104600)
+   , (90001597, 10104617)
+   , (10114506, 10123274)
+   , (10114507, 10123262)
+;
+
 -- Bloque de alters_______________________________________________________________________________________________
 -- Horario con parque
 ALTER TABLE horario
