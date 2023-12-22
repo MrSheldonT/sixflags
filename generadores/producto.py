@@ -55,20 +55,11 @@ with open('producto.sql', 'w', encoding = 'utf-8') as file:
 VALUES
 ''')
     
-    parque_id = []
     descs = []
     info = []
 
     i = 0
     for x in data:
-        match x['merchant_id']:
-            case '54':
-                parque_id.append(1)
-            case '60':
-                parque_id.append(2)
-            case _ :
-                parque_id.append(3)
-
         raw_descs = [x['desc']]
         try:
             info.append(x['more_info'])
