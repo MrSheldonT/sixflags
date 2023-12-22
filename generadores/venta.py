@@ -29,7 +29,7 @@ def generar_metodo_pago():
 registros_sql = []
 for _ in range(10000):
     registro = generar_registro_venta()
-    reg_sql = f'({registro[0]}, "{registro[1]}", "{registro[2]}")'
+    reg_sql = f'({registro[0]}, \'{registro[1]}\', \'{registro[2]}\')'
     registros_sql.append(reg_sql)
 
 registros_sql.sort(key=lambda x: datetime.datetime.strptime(eval(x)[1], "%Y-%m-%d"))
