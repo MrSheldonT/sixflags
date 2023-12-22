@@ -15463,6 +15463,117 @@ VALUES
   , (1057, 1200)
   , (1822, 1200)
 ;
+-- Villa
+INSERT INTO villa(
+     villa_id
+     , parque_id
+     , nombre
+)
+VALUES 
+     ('1', '1', 'Villa Hollywood')
+     , ('2', '1', 'Pueblo Mexicano')
+     , ('3', '1', 'DC Super Friends')
+     , ('4', '1', 'Pueblo Francés')
+     , ('5', '1', 'Bugs Bunny Boomtown')
+     , ('6', '1', 'Pueblo Vaquero')
+     , ('7', '1', 'Pueblo Suizo')
+     , ('8', '1', 'Circo de Bugs Bunny')
+     , ('9', '1', 'Pueblo Polinesio')
+     , ('10', '1', 'Pueblo infantil')
+     , ('11', '2', 'Hurricane Harbor')
+;
+
+-- Categoria restaurante
+INSERT INTO categoria_restaurante(
+    categoria_restaurante_id
+    , nombre
+)
+VALUES 
+    ('01', 'Antojos y Bebidas')
+    , ('02', 'Café y Demás')
+    , ('03', 'Comida Americana')
+    , ('04', 'Comida Baja en Grasa')
+    , ('05', 'Comida Italiana')
+    , ('06', 'Comida Mexicana')
+    , ('07', 'Helados y postres')
+;
+
+-- Restaurante
+INSERT INTO restaurante(restaurante_id, nombre, descripcion, categoria_restaurante_id, villa_id)
+VALUES ('001', 'Antigua Hacienda', 'Platillos tradicionales de la comida mexicana, tortillas hechas a mano, deliciosas bebidas, postres y un exquisito sazón.','06','2')
+	   , ('002', 'Café D´ París', 'Bebidas calientes o frías, crepas dulces o saladas, pastelería y delicioso pan','02','4')
+       , ('003', 'Capone\'s  ', '¡Deliciosa pizza y pasta!','05','7')
+       , ('004', 'Centro de relleno boulevard Justice League', 'No hagas filas! Rellena tu vaso souvenir o cubeta palomera.','05','1')
+       , ('005', 'DC VIllains Grill', 'Deliciosas hamburguesas, crujientes tiras de pollo y refrescantes malteadas.','03','1')
+       , ('006', 'Estación Coca Cola Francés ', 'Bebidas de la familia Coca Cola, Agua Ciel, Palomitas, Nachos, Icee y mucho más.','01','4')
+       , ('007', 'Estación Coca Cola Hollywood', 'Bebidas de la familia Coca Cola, Agua Ciel, Palomitas, Nachos, Icee y mucho más.','01','1')
+       , ('008', 'Estación Fanta', 'Bebidas de la familia Coca Cola, Agua Ciel, Palomitas, Nachos, Icee y mucho más.','01','2')
+       , ('009', 'Funnel Cake  ', 'Funnel Cake, bebidas, churros rellenos y más','07','2')
+       , ('010', 'Go Fresh Mexicano', 'Variedad de frutas de temporada, agua de sabor y más.','04','2')
+       , ('011', 'Go Fresh Suizo', 'Variedad de frutas de temporada, agua de sabor y más.','04','2')
+       , ('012', 'Grill Hollywood', '¡Deliciosos Hot Dogs a la parrilla!','03','1')
+       , ('013', 'Hot Dog Grill Boulevard Justice League', 'Los mejores hot dogs de Metropolis: texas chilli dog, pulled pork y tocino.','03','1')
+       , ('014', 'Johnny Rockets Hollywood', 'Hamburguesas, papas fritas, aros de cebolla y malteadas.','03','1')
+       , ('015', 'Johnny Rockets Mexicano', 'Hamburguesas, papas fritas, aros de cebolla y malteadas.','03','2')
+       , ('016', 'La Barrica Hollywood', 'Refrescante cerveza Corona.','01','1')
+       , ('017', 'La Crepería', 'Bebidas calientes o frías, crepas dulces o saladas.','02','10')
+       , ('018', 'Papa Kahuna', 'Papas al horno rellenas de jamón, tocino, o champicrema, nachos, icee y más.','03','2')
+       , ('019', 'Parrilla Vaquera', 'Hamburguesas, papas fritas, y ensalada de vegetales.','03','6')
+       , ('020', 'Saloon Corona', 'Pueblo Vaquero', 'Comida del viejo Oeste: Cortes de carne, alitas, ensaladas, postres y más.','03','6')
+       , ('021', 'Six Pizza Hollywood', 'Variedad de pizzas, elige tu favorita.','05','1')
+       , ('022', 'Six Pizza Vaquero', 'Variedad de pizzas, elige tu favorita.','05','6')
+       , ('023', 'Super Snacks', 'Bebidas de la familia Coca Cola, Agua Ciel, Palomitas, Nachos, Icee y mucho más.','01','5')
+       , ('024', 'Super Villanos Grill', 'Hamburguesas, papas fritas, y ensalada de vegetales.','03','2')
+       , ('025', 'Taquería Jacaranda', 'Tacos al pastor, de suadero, bistec, gringas y más.','06','2')
+       , ('026', 'Volcano Wings', 'Deliciosas alitas, boneless y refrescante cerveza de barril.','03','9')
+       , ('027', 'Beachside Grill', 'Disfruta con el calor de una cerveza sola o preparada tu elijes! También prueba nuestros nuevos calimochos o si quieres algo más tropical te va a encantar nuestra piña colada! También para los peques se refresquen pídeles una canica seguro les encantará!','01','11')
+       , ('028', 'Fábrica de Pollo', 'Prueba nuestros tradicionales pollos rostizados acompañados de una ensalada','06','11')
+       , ('029', 'H2O Snacks', 'Rellena tu cubeta palomera o vaso souvenir','01','11')
+       , ('030', 'Johnny Rockets', 'Hamburguesas, papas fritas, aros de cebolla y malteadas.','03','11')
+       , ('031', 'La Antigua Hacienda', 'Aquí encontrarás una gran variedad de gastronomía mexicana','06','11')
+       , ('032', 'La Hamaca Snacks', 'Rellena tu cubeta palomera o tu vaso souvenir', '01','11')
+       , ('033', 'Sharks Snacks', 'Refréscate con una botella de agua o un refresco o alguno de los sabores de nuestras bebidas congeladas carbonatadas, ¿antojo de una papas? Aquí podrás encontrarlas para compartirlas', '01','11')
+       , ('034', 'Six Pizza', 'Aquí podrás encontrar tu pizza favorita seguramente pepperoni, hawaiana disfrútalas al máximo. Complementa tu experiencia con una pasta a la boloñesa. No, olvides que también contamos con ensaladas para acompañar tus alimentos.', '05','11');
+
+-- Categoria tienda
+INSERT INTO categoria_tienda(
+    categoria_tienda_id
+    , nombre
+)
+VALUES 
+    ('01', 'Dulceria')
+    , ('02', 'Juguetes')
+    , ('03', 'Moda')
+    , ('04', 'Recuerdos');
+
+-- Tienda
+INSERT INTO tienda(
+    tienda_id
+    , nombre
+    , descripcion
+    , villa_id
+    , categoria_tienda_id
+)
+VALUES 
+       ('001', 'Bazar de las Banderas', 'Ubicada en la entrada principal del parque, en esta tienda encontrarás la mejor selección de artículos de Six Flags y tus Superhéroes favoritos de DC para todas las edades.','2','03')
+       , ('002', 'Capas y Personajes', 'Haz tu propio slime, explota tu creatividad armando figuras de bloques y conviértete en un superhéroe o superheroína con la variedad de disfraces y souvenirs disponibles.','5','03')
+       , ('003', 'Coaster Candy', 'Ubicada a la entrada de la Villa Hollywood, en esta tienda encontrarás una gran variedad de dulces, gomitas, paletas, algodón de azúcar, manzanas cubiertas y más.','1','03')
+       , ('004', 'DC Superhero Store', 'Ubicada a un costado de Supergirl Sky Flight, esta tienda será tu mejor opción para encontrar prendas y artículos de tus personajes favoritos de DC Comics.','1','02')
+       , ('005', 'El Castillo de los Sueños', 'Disfruta con tus hijos de una sesión súper divertida de fantasía con fotos, maquillaje, peinado, manicure y otras sorpresas, creando momentos de complicidad entrañables.','5','02')
+       , ('006', 'Medusa Steel Coaster Shop', 'Una vez que desafiaste a nuestra increíble montaña rusa híbrida, no olvides llevarte un recuerdo de tu hazaña en esta tienda.','6','04')
+       , ('007', 'Mercado de los Looney Tunes', '¿Eres fan de los Looney Tunes?, aquí podrás encontrar la más grande variedad de artículos de tus personajes favoritos.','2','02')
+       , ('008', 'Pacific Coast Surf Shop', 'Ubicada frente a CraZanity, esta tienda es tu mejor opción para adquirir sudaderas, capas, gorras, sombrillas, impermeables y mucho más.','1','03')
+       , ('009', 'Pirulí', 'Desde dulces, gomitas a granel, botanas y chocolates, hasta dulces típicos y souvenirs de tus personajes favoritos.','2','01')
+       , ('010', 'Superhéroes y Villanos', 'Después de la gran experiencia de The Dark Knight Coaster, no puedes perder la oportunidad de llevarte un recuerdo de tu villano o superhéroe favorito.','6','03')
+       , ('011', 'Superman: La Tienda de Metrópolis', 'En esta tienda encontrarás miles de artículos de Superman y más personajes del Universo DC, desde un bolígrafo hasta chamarras de colección.','2','03')
+       , ('012', 'The Fun House Shop', 'Un rincón especialmente dedicado al enemigo No. 1 de Batman, The Joker y su acompañante inseparable Harley Quinn.','4','03')
+       , ('013', 'Big Surf Shop', '¡Recuerda tu visita! Si pasaste un día lleno de inolvidables aventuras, estamos seguros que en Big Surf Shop encontrarás algún detalle para recordar tu visita o para esa persona especial.','11','04')
+       , ('014', 'Cyclone Supply', 'Renta tu llanta, compra lo que necesites para complementar tu visita o lleva un souvenir para regalar a esa persona especial.','11','04')
+       , ('015', 'Island Traders', 'Si se te olvidó algo que necesitas durante el día o simplemente quieres un increíble souvenir para hacer de tu visita algo inolvidable, ¡no te preocupes!','11','04');
+
+-- Mercancia
+
+
 -- Bloque de alters
 -- Horario con parque
 ALTER TABLE horario
