@@ -260,7 +260,7 @@ CREATE TABLE IF NOT EXISTS producto (
   , precio_unitario DECIMAL(8, 2) NOT NULL DEFAULT 0.00
   , fecha_inicio_venta TIMESTAMP NOT NULL
   , fecha_fin_venta TIMESTAMP NULL
-  , fecha_descontinuacion TIMESTAMP NULL
+  , fecha_descontinuacion TINYINT(1) NULL
   , stock MEDIUMINT UNSIGNED NOT NULL DEFAULT 0
   , cantidad_minimo_compra TINYINT NOT NULL
   , PRIMARY KEY (plu)
@@ -15519,7 +15519,7 @@ VALUES ('001', 'Antigua Hacienda', 'Platillos tradicionales de la comida mexican
        , ('017', 'La Crepería', 'Bebidas calientes o frías, crepas dulces o saladas.','02','10')
        , ('018', 'Papa Kahuna', 'Papas al horno rellenas de jamón, tocino, o champicrema, nachos, icee y más.','03','2')
        , ('019', 'Parrilla Vaquera', 'Hamburguesas, papas fritas, y ensalada de vegetales.','03','6')
-       , ('020', 'Saloon Corona', 'Pueblo Vaquero', 'Comida del viejo Oeste: Cortes de carne, alitas, ensaladas, postres y más.','03','6')
+       , ('020', 'Saloon Corona', 'Comida del viejo Oeste: Cortes de carne, alitas, ensaladas, postres y más.','03','6')
        , ('021', 'Six Pizza Hollywood', 'Variedad de pizzas, elige tu favorita.','05','1')
        , ('022', 'Six Pizza Vaquero', 'Variedad de pizzas, elige tu favorita.','05','6')
        , ('023', 'Super Snacks', 'Bebidas de la familia Coca Cola, Agua Ciel, Palomitas, Nachos, Icee y mucho más.','01','5')
