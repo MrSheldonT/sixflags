@@ -9,9 +9,10 @@ VALUES
    , ('Grupos')
    , ('Membresía')
    , ('Cabaña')
+   , ('Estacionamiento')
+   , ('Paquete')
    , ('General')
    , ('Paquete de media digital')
    , ('Transporte')
-   , ('Estacionamiento')
    , ('Six Flags Plus')
 ;

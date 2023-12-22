@@ -18149,7 +18149,7 @@
                 "min_quantity": "1",
                 "min_retail_amount": "213.25",
                 "name": "Noche Adicional - Por persona",
-                "package_class": "Bundles",
+                "package_class": "General",
                 "print_movie": "ticket_2col_sp.swf",
                 "rate_count": "1",
                 "reservable_flag": "0",
@@ -20823,7 +20823,7 @@
                 "min_retail_amount": "387.94",
                 "more_info": "Válido por una noche en la zona de Camping y acceso de dos días al parque acuático sólo para la fecha seleccionada. Boleto personal e intransferible. Niños y niñas menores de 90 cm de estatura no pagan entrada al parque ni zona de camping. El check-in será de 8 am. a 6 pm. y el check-out será máximo a las 6 pm. Consulta detalles y reglamento de la zona de Camping previa compra. Recuerda que debes llevar tu propia tienda de campaña.",
                 "name": "Zona de camping",
-                "package_class": "Bundles",
+                "package_class": "General",
                 "print_movie": "ticket_2col_sp.swf",
                 "rate_count": "1",
                 "reservable_flag": "0",
@@ -29793,6 +29793,251 @@
                 "CART_ADJUSTMENT": {
                     "amount": "40.00",
                     "id": "1",
+                    "name": "Processing Fee"
+                }
+            },
+            {
+                "assoc_keywords": "SnapWizard,SnapWizardDailyTickets",
+                "cart_limit_override": "1",
+                "date": "1",
+                "desc": "<b>OFERTA POR TIEMPO LIMITADO: Disponible solo en fechas operativas seleccionadas hasta el 7 de enero de 2024.</b><br>Este boleto es válido para un día de admisión a Six Flags México y una oferta de comidas ilimitadas. El impuesto sobre las ventas se agregará a la porción de comida de este boleto. <br><b>Válido para la fecha que elegiste durante la temporada 2023 para Six Flags Magic México.</b> <br><br>Consulta sixflags.com para conocer el cronograma de operación, las políticas del parque y los protocolos de seguridad. No hay reembolsos en compras de boletos de un solo día. Tenga en cuenta que los niños menores de 2 años entran gratis. Disfrute de una comida de su elección en los restaurantes participantes. Elija entre una variedad de opciones que incluyen tiras de pollo, hamburguesas, pizza y mucho más. <b>ADEMÁS</b>, ¡disfruta de refrescantes bebidas Coca-Cola durante todo el día con una botella Drink All Day 2023!",
+                "display_order": "99",
+                "headline": "Fuel your thrills!   ",
+                "id": "90001597",
+                "keyword": "SnapWizard,SnapWizardDailyTickets",
+                "keyword_description": "",
+                "max_quantity": "10",
+                "merchant_id": "54",
+                "min_quantity": "1",
+                "min_retail_amount": "1517.00",
+                "more_info": "<br><b>Válido para la fecha que elegiste durante la temporada 2023 para Six Flags México.</b> <br><br>Consulta sixflags.com para conocer el cronograma de operación, las políticas del parque y los protocolos de seguridad. No hay reembolsos en compras de boletos de un solo día. Tenga en cuenta que los niños menores de 2 años entran gratis. Disfrute de una comida de su elección en los restaurantes participantes. Elija entre una variedad de opciones que incluyen tiras de pollo, hamburguesas, pizza y mucho más. <b>ADEMÁS</b>, ¡disfruta de refrescantes bebidas Coca-Cola durante todo el día con una botella Drink All Day 2023!",
+                "name": "Paquete de Boleto de un día + Plan de Alimentos de un Día",
+                "package_class": "Bundles",
+                "print_movie": "SFMM_ticket_2col.swf",
+                "rate_count": "2",
+                "reservable_flag": "0",
+                "shipping_type_flag": "4",
+                "shop_image_v4": "2024DailyTicketTP_310x187.png",
+                "tax": "0",
+                "type": "N",
+                "KEYWORDS": {
+                    "K": [
+                        {
+                            "display_order": "99",
+                            "keyword": "SnapWizard",
+                            "keyword_description": ""
+                        },
+                        {
+                            "display_order": "109",
+                            "keyword": "SnapWizardDailyTickets",
+                            "keyword_description": ""
+                        }
+                    ]
+                },
+                "CT": {
+                    "active": "1",
+                    "desc": "General",
+                    "display_order": "1",
+                    "fee_total": "0.0",
+                    "fees": "0",
+                    "group_id": "0",
+                    "id": "1",
+                    "max_variable_price": "",
+                    "min_variable_price": "",
+                    "name": "General",
+                    "rate_id": "148407928",
+                    "renewal_flag": "0",
+                    "retail_amount": "89.00",
+                    "retail_value": "92.38",
+                    "tax_amount": "3.38"
+                },
+                "E": {
+                    "capacity": "-1",
+                    "capacity_type": "1",
+                    "date": "2",
+                    "id": "10120583",
+                    "isResourceEvent": "N",
+                    "name": "One-Day Ticket + Unlimited Dining Deal Bundle",
+                    "seating": "0",
+                    "vendor_id": "11",
+                    "vendor_name": "Six Flags Magic Mountain"
+                },
+                "CHARACS": {
+                    "block_purchase": "1",
+                    "disableStartDate": "1",
+                    "number_of_entitlements": "2",
+                    "snap_from_override": "snapFromOverride"
+                },
+                "CROSS_SELL": {},
+                "CART_ADJUSTMENT": {
+                    "amount": "1.99",
+                    "id": "3",
+                    "name": "Processing Fee"
+                }
+            },
+            {
+                "assoc_keywords": "Bundle1SnapWizardDailyTickets,Bundle1SnapWizard",
+                "cart_limit_override": "1",
+                "date": "1",
+                "desc": "Entrada de un día a Six Flags México y un pase THE FLASH de nivel platino para un solo pasajero, válido para la fecha que elijas durante la temporada 2023. Imprima y presente (o muéstrelo a través de su dispositivo móvil) en la puerta de entrada al parque. Siga las instrucciones impresas en su boleto para canjear THE FLASH Pass.",
+                "display_order": "2",
+                "headline": "Admission + THE FLASH Pass Platino",
+                "id": "10114506",
+                "keyword": "Bundle1SnapWizardDailyTickets,Bundle1SnapWizard",
+                "keyword_description": "",
+                "max_quantity": "10",
+                "merchant_id": "54",
+                "min_quantity": "1",
+                "min_retail_amount": "2641.96",
+                "more_info": "Consulte sixflags.com para conocer el cronograma operativo, las políticas del parque y los protocolos de seguridad. No hay reembolsos en la compra de boletos. Tenga en cuenta que los niños menores de 2 años entran gratis y no necesitan entrada.",
+                "name": "Paquete de Admisión General + THE FLASH Pass Platino",
+                "package_class": "Bundles",
+                "print_movie": "SFMM_ticket_2col.swf",
+                "rate_count": "2",
+                "reservable_flag": "0",
+                "shipping_type_flag": "4",
+                "shop_image_v4": "SDT_Flash_Bundle.png.jpg",
+                "tax": "0",
+                "type": "N",
+                "vendor_product_id": "114506",
+                "KEYWORDS": {
+                    "K": [
+                        {
+                            "display_order": "2",
+                            "keyword": "Bundle1SnapWizardDailyTickets",
+                            "keyword_description": ""
+                        },
+                        {
+                            "display_order": "2",
+                            "keyword": "Bundle1SnapWizard",
+                            "keyword_description": ""
+                        }
+                    ]
+                },
+                "CT": {
+                    "active": "1",
+                    "desc": "General",
+                    "display_order": "1",
+                    "fee_total": "0.0",
+                    "fees": "0",
+                    "group_id": "0",
+                    "id": "1",
+                    "max_variable_price": "",
+                    "min_variable_price": "",
+                    "name": "General",
+                    "park_rate_id": "201165",
+                    "plu": "10114506",
+                    "rate_id": "147721876",
+                    "renewal_flag": "0",
+                    "retail_amount": "235.02",
+                    "retail_value": "235.02",
+                    "tax_amount": "0.00"
+                },
+                "E": {
+                    "capacity": "-1",
+                    "capacity_type": "1",
+                    "date": "2",
+                    "id": "10114506",
+                    "isResourceEvent": "N",
+                    "name": "General Admission + THE FLASH Pass Gold Bundle",
+                    "seating": "0",
+                    "vendor_id": "11",
+                    "vendor_name": "Six Flags Magic Mountain"
+                },
+                "CHARACS": {
+                    "FulfillmentOptionID": "1",
+                    "disableStartDate": "1",
+                    "loqueue_entitlement_product": "1",
+                    "number_of_entitlements": "1",
+                    "parentPackageID": "90001487"
+                },
+                "CROSS_SELL": {},
+                "CART_ADJUSTMENT": {
+                    "amount": "9.53",
+                    "id": "3",
+                    "name": "Processing Fee"
+                }
+            },
+            {
+                "assoc_keywords": "Bundle1SnapWizardDailyTickets,Bundle1SnapWizard",
+                "cart_limit_override": "1",
+                "date": "1",
+                "desc": "Entrada de un día a Six Flags México y un pase THE Flash Pass Regular para un solo pasajero, válido para la fecha que elijas durante la temporada 2023. Imprima y presente (o muéstrelo a través de su dispositivo móvil) en la puerta de entrada al parque. Siga las instrucciones impresas en su boleto para canjear THE FLASH Pass.",
+                "display_order": "2",
+                "headline": "Admission + THE FLASH Pass Platino",
+                "id": "10114507",
+                "keyword": "Bundle1SnapWizardDailyTickets,Bundle1SnapWizard",
+                "keyword_description": "",
+                "max_quantity": "10",
+                "merchant_id": "54",
+                "min_quantity": "1",
+                "min_retail_amount": "1450.49",
+                "more_info": "Consulte sixflags.com para conocer el cronograma operativo, las políticas del parque y los protocolos de seguridad. No hay reembolsos en la compra de boletos. Tenga en cuenta que los niños menores de 2 años entran gratis y no necesitan entrada.",
+                "name": "Paquete de Admisión General + THE Flash Pass Regular",
+                "package_class": "Bundles",
+                "print_movie": "SFMM_ticket_2col.swf",
+                "rate_count": "2",
+                "reservable_flag": "0",
+                "shipping_type_flag": "4",
+                "shop_image_v4": "SDT_Flash_Bundle.png.jpg",
+                "tax": "0",
+                "type": "N",
+                "vendor_product_id": "114506",
+                "KEYWORDS": {
+                    "K": [
+                        {
+                            "display_order": "2",
+                            "keyword": "Bundle1SnapWizardDailyTickets",
+                            "keyword_description": ""
+                        },
+                        {
+                            "display_order": "2",
+                            "keyword": "Bundle1SnapWizard",
+                            "keyword_description": ""
+                        }
+                    ]
+                },
+                "CT": {
+                    "active": "1",
+                    "desc": "General",
+                    "display_order": "1",
+                    "fee_total": "0.0",
+                    "fees": "0",
+                    "group_id": "0",
+                    "id": "1",
+                    "max_variable_price": "",
+                    "min_variable_price": "",
+                    "name": "General",
+                    "park_rate_id": "201165",
+                    "plu": "10114506",
+                    "rate_id": "147721876",
+                    "renewal_flag": "0",
+                    "retail_amount": "235.02",
+                    "retail_value": "235.02",
+                    "tax_amount": "0.00"
+                },
+                "E": {
+                    "capacity": "-1",
+                    "capacity_type": "1",
+                    "date": "2",
+                    "id": "10114506",
+                    "isResourceEvent": "N",
+                    "name": "General Admission + THE FLASH Pass Gold Bundle",
+                    "seating": "0",
+                    "vendor_id": "11",
+                    "vendor_name": "Six Flags Magic Mountain"
+                },
+                "CHARACS": {
+                    "FulfillmentOptionID": "1",
+                    "disableStartDate": "1",
+                    "loqueue_entitlement_product": "1",
+                    "number_of_entitlements": "1",
+                    "parentPackageID": "90001487"
+                },
+                "CROSS_SELL": {},
+                "CART_ADJUSTMENT": {
+                    "amount": "9.53",
+                    "id": "3",
                     "name": "Processing Fee"
                 }
             }
