@@ -40,19 +40,7 @@ parques = {
 }
 
 with open('producto.sql', 'w', encoding = 'utf-8') as file:
-    file.write('''INSERT INTO producto(
-    plu
-    , categoria_producto_id
-    , parque_id
-    , nombre
-    , descripcion
-    , precio_unitario
-    , fecha_inicio_venta
-    , fecha_fin_venta
-    , descontinuacion
-    , stock
-    , cantidad_minimo_compra
-    )
+    file.write('''INSERT INTO producto
 VALUES
 ''')
     
