@@ -1,6 +1,7 @@
 DROP DATABASE IF EXISTS six_flags;
 CREATE DATABASE six_flags;
 USE six_flags;
+
 -- Definición de tablas
 CREATE TABLE IF NOT EXISTS parque (
     parque_id TINYINT NOT NULL AUTO_INCREMENT,
@@ -11,9 +12,9 @@ CREATE TABLE IF NOT EXISTS parque (
     estado VARCHAR(20) NOT NULL,
     pais VARCHAR(15) NOT NULL,
     fecha_inauguracion DATE NOT NULL,
-    fecha_cierre DATE NOT NULL,
-    area_ha SMALLINT NOT NULL,
-    pagina_url VARCHAR(50) NOT NULL,
+    fecha_cierre DATE,
+    area_ha SMALLINT,
+    pagina_url VARCHAR(100) NOT NULL,
     mapa_url VARCHAR(100) NOT NULL,
     PRIMARY KEY (parque_id)
 );
@@ -178,14 +179,14 @@ CREATE TABLE IF NOT EXISTS tienda (
 
 CREATE TABLE IF NOT EXISTS mercancia (
   mercancia_id INT NOT NULL
-  , nombre VARCHAR(45) NOT NULL
+  , nombre VARCHAR(100) NOT NULL
   , descripcion TEXT NOT NULL
   , precio DECIMAL(6, 2) NOT NULL
-  , fecha_inicio_venta TIMESTAMP NOT NULL
-  , fecha_fin_venta TIMESTAMP NULL
-  , fecha_descontinuacion TIMESTAMP NULL
+  , fecha_inicio_venta DATE NOT NULL
+  , fecha_fin_venta DATE NULL
+  , descontinuacion TINYINT(1) NULL
   , stock INT NOT NULL
-  , url_imagen VARCHAR(100) NOT NULL
+  , url_imagen VARCHAR(200) NOT NULL
   , PRIMARY KEY (mercancia_id)
 );
 
@@ -195,9 +196,9 @@ CREATE TABLE IF NOT EXISTS tienda_mercancia (
 );
 
 CREATE TABLE IF NOT EXISTS tipo_atraccion (
-  tipo_atraccion_id INT NOT NULL
-  , nombre VARCHAR(10) NOT NULL
-  , descripcion VARCHAR(255) NOT NULL
+  tipo_atraccion_id INT NOT NULL AUTO_INCREMENT
+  , nombre VARCHAR(30) NOT NULL
+  , descripcion VARCHAR(300) NOT NULL
   , PRIMARY KEY (tipo_atraccion_id)
 );
 
@@ -260,7 +261,7 @@ CREATE TABLE IF NOT EXISTS producto (
   , precio_unitario DECIMAL(8, 2) NOT NULL DEFAULT 0.00
   , fecha_inicio_venta TIMESTAMP NOT NULL
   , fecha_fin_venta TIMESTAMP NULL
-  , fecha_descontinuacion TIMESTAMP NULL
+  , descontinuacion TINYINT(1) NULL
   , stock MEDIUMINT UNSIGNED NOT NULL DEFAULT 0
   , cantidad_minimo_compra TINYINT NOT NULL
   , PRIMARY KEY (plu)
@@ -274,7 +275,7 @@ CREATE TABLE IF NOT EXISTS paquete (
 
 CREATE TABLE IF NOT EXISTS beneficio (
   beneficio_id INT NOT NULL AUTO_INCREMENT
-  , descripcion VARCHAR(80) NOT NULL
+  , descripcion VARCHAR(200) NOT NULL
   , PRIMARY KEY (beneficio_id)
 );
 
@@ -295,8 +296,9 @@ CREATE TABLE IF NOT EXISTS comprador (
 CREATE TABLE IF NOT EXISTS venta (
   venta_id INT NOT NULL AUTO_INCREMENT
   , comprador_id INT NOT NULL
-  , fecha TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()
+  , fecha DATE NOT NULL
   , cargo_proceso_linea DECIMAL(6, 2) NOT NULL DEFAULT 40
+  , tipo_pago VARCHAR(30) NOT NULL
   , PRIMARY KEY (venta_id)
 );
 

@@ -11,9 +11,9 @@ CREATE TABLE IF NOT EXISTS parque (
     estado VARCHAR(20) NOT NULL,
     pais VARCHAR(15) NOT NULL,
     fecha_inauguracion DATE NOT NULL,
-    fecha_cierre DATE NOT NULL,
-    area_ha SMALLINT NOT NULL,
-    pagina_url VARCHAR(50) NOT NULL,
+    fecha_cierre DATE,
+    area_ha SMALLINT,
+    pagina_url VARCHAR(100) NOT NULL,
     mapa_url VARCHAR(100) NOT NULL,
     PRIMARY KEY (parque_id)
 );
@@ -195,9 +195,9 @@ CREATE TABLE IF NOT EXISTS tienda_mercancia (
 );
 
 CREATE TABLE IF NOT EXISTS tipo_atraccion (
-  tipo_atraccion_id INT NOT NULL
-  , nombre VARCHAR(10) NOT NULL
-  , descripcion VARCHAR(255) NOT NULL
+  tipo_atraccion_id INT NOT NULL AUTO_INCREMENT
+  , nombre VARCHAR(30) NOT NULL
+  , descripcion VARCHAR(300) NOT NULL
   , PRIMARY KEY (tipo_atraccion_id)
 );
 
@@ -295,8 +295,9 @@ CREATE TABLE IF NOT EXISTS comprador (
 CREATE TABLE IF NOT EXISTS venta (
   venta_id INT NOT NULL AUTO_INCREMENT
   , comprador_id INT NOT NULL
-  , fecha TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()
+  , fecha DATE NOT NULL 
   , cargo_proceso_linea DECIMAL(6, 2) NOT NULL DEFAULT 40
+  , metodo_pago VARCHAR(30) NOT NULL
   , PRIMARY KEY (venta_id)
 );
 
@@ -332,8 +333,10 @@ CREATE TABLE IF NOT EXISTS tarjeta_complemento (
   tarjeta_principal INT NOT NULL
   , tarjeta_complemento_id INT NOT NULL
 );
+
+
 -- Insertar datos
--- parque_temporal
+-- parque
 INSERT INTO parque(
     parque_id,
     nombre,
@@ -349,8 +352,9 @@ INSERT INTO parque(
     mapa_url
 )
 VALUES
-    (1, 'Nombre Parque 1', 'Dirección Parque 1', 'Telefono', 'Cuidad Parque 1', 'Estado Parque 1', 'Pais Parque 1', '2022-03-07', '2023-04-13', 26, 'URL Pagina Parque 1', 'URL Mapa Parque 1'),
-    (2, 'Nombre Parque 2', 'Dirección Parque 2', 'Telefono', 'Cuidad Parque 2', 'Estado Parque 2', 'Pais Parque 2', '2028-01-12', '2030-06-18', 89, 'URL Pagina Parque 2', 'URL Mapa Parque 2');
+    (1, 'Six Flags México', 'Carr. Picacho-Ajusco Km 1.5, Jardines del Ajusco, Tlalpan, 14219 Ciudad de México, CDMX', 'T55 5339 3600', 'CDMX', 'Abierto', 'México', '1982-03-03', NULL, 45, 'https://www.sixflags.com.mx/mexico/plan-your-visit/park-map', 'https://www.sixflags.com.mx/mexico/plan-your-visit/park-map'),
+    (2, 'Hurricane Harbor Oaxtepec', 'Autopista México-Cuautla Km. 27 + 200, Centro, 62738 Oaxtepec, Mor.','735 356 9900', 'Oaxtepec, Yautepec', 'Abierto', 'México', '2017-07-01', NULL, 0, 'https://www.sixflags.com.mx/hurricaneharborox/', 'https://www.sixflags.com.mx/hurricaneharborox/plan-your-visit/park-map');
+
 
 -- empleado --
 INSERT INTO empleado(
@@ -15463,3210 +15467,10026 @@ VALUES
   , (1057, 1200)
   , (1822, 1200)
 ;
--- Villa
-INSERT INTO villa(
-     villa_id
-     , parque_id
-     , nombre
-)
+-- Registro ventas --
+INSERT INTO venta (
+    comprador_id
+    , fecha
+    , metodo_pago) 
 VALUES 
-     ('1', '1', 'Villa Hollywood')
-     , ('2', '1', 'Pueblo Mexicano')
-     , ('3', '1', 'DC Super Friends')
-     , ('4', '1', 'Pueblo Francés')
-     , ('5', '1', 'Bugs Bunny Boomtown')
-     , ('6', '1', 'Pueblo Vaquero')
-     , ('7', '1', 'Pueblo Suizo')
-     , ('8', '1', 'Circo de Bugs Bunny')
-     , ('9', '1', 'Pueblo Polinesio')
-     , ('10', '1', 'Pueblo infantil')
-     , ('11', '2', 'Hurricane Harbor')
+    (1849, '2020-01-01', 'Paypal'),
+    (2981, '2020-01-01', 'Visa'),
+    (2666, '2020-01-01', 'Efectivo'),
+    (482, '2020-01-01', 'Six Flags Gift Card'),
+    (595, '2020-01-02', 'Six Flags Gift Card'),
+    (3297, '2020-01-02', 'American Express'),
+    (1097, '2020-01-02', 'Paypal'),
+    (4639, '2020-01-03', 'American Express'),
+    (706, '2020-01-03', 'Mastercard'),
+    (4403, '2020-01-04', 'Visa'),
+    (725, '2020-01-04', 'Six Flags Membership'),
+    (694, '2020-01-04', 'Six Flags Gift Card'),
+    (702, '2020-01-04', 'Paypal'),
+    (1059, '2020-01-04', 'American Express'),
+    (2611, '2020-01-05', 'American Express'),
+    (2067, '2020-01-05', 'American Express'),
+    (352, '2020-01-05', 'Mastercard'),
+    (4505, '2020-01-05', 'American Express'),
+    (3274, '2020-01-05', 'Paypal'),
+    (3310, '2020-01-05', 'Efectivo'),
+    (1205, '2020-01-06', 'American Express'),
+    (2725, '2020-01-06', 'American Express'),
+    (4464, '2020-01-06', 'Visa'),
+    (4094, '2020-01-06', 'Efectivo'),
+    (4495, '2020-01-06', 'Paypal'),
+    (4933, '2020-01-06', 'Paypal'),
+    (812, '2020-01-06', 'Visa'),
+    (508, '2020-01-07', 'Efectivo'),
+    (4148, '2020-01-07', 'Paypal'),
+    (2076, '2020-01-07', 'Mastercard'),
+    (1706, '2020-01-07', 'Paypal'),
+    (1267, '2020-01-07', 'Visa'),
+    (3400, '2020-01-07', 'American Express'),
+    (2826, '2020-01-07', 'American Express'),
+    (4982, '2020-01-07', 'Paypal'),
+    (4901, '2020-01-07', 'Paypal'),
+    (2487, '2020-01-07', 'Six Flags Membership'),
+    (3729, '2020-01-07', 'American Express'),
+    (1647, '2020-01-07', 'Six Flags Membership'),
+    (2412, '2020-01-08', 'Mastercard'),
+    (240, '2020-01-08', 'Six Flags Membership'),
+    (3618, '2020-01-08', 'Efectivo'),
+    (1773, '2020-01-08', 'Efectivo'),
+    (1926, '2020-01-09', 'Six Flags Membership'),
+    (2515, '2020-01-09', 'Six Flags Gift Card'),
+    (433, '2020-01-09', 'American Express'),
+    (3273, '2020-01-09', 'Paypal'),
+    (661, '2020-01-09', 'Six Flags Membership'),
+    (215, '2020-01-09', 'Six Flags Membership'),
+    (602, '2020-01-09', 'Efectivo'),
+    (651, '2020-01-09', 'Visa'),
+    (1432, '2020-01-09', 'American Express'),
+    (2936, '2020-01-10', 'Efectivo'),
+    (4026, '2020-01-10', 'Six Flags Membership'),
+    (1943, '2020-01-10', 'Paypal'),
+    (3465, '2020-01-10', 'Paypal'),
+    (1248, '2020-01-10', 'Paypal'),
+    (2903, '2020-01-10', 'Mastercard'),
+    (952, '2020-01-10', 'Paypal'),
+    (3737, '2020-01-10', 'Six Flags Gift Card'),
+    (1122, '2020-01-10', 'Paypal'),
+    (3839, '2020-01-10', 'Six Flags Membership'),
+    (838, '2020-01-10', 'Mastercard'),
+    (2322, '2020-01-10', 'Efectivo'),
+    (3953, '2020-01-10', 'American Express'),
+    (4551, '2020-01-10', 'Six Flags Membership'),
+    (1152, '2020-01-11', 'Mastercard'),
+    (1398, '2020-01-11', 'American Express'),
+    (810, '2020-01-11', 'Visa'),
+    (3434, '2020-01-11', 'Six Flags Membership'),
+    (3260, '2020-01-11', 'Mastercard'),
+    (4584, '2020-01-11', 'Efectivo'),
+    (2023, '2020-01-11', 'Mastercard'),
+    (4182, '2020-01-11', 'Six Flags Membership'),
+    (1593, '2020-01-11', 'Six Flags Gift Card'),
+    (2068, '2020-01-11', 'Six Flags Membership'),
+    (1560, '2020-01-12', 'Visa'),
+    (4645, '2020-01-12', 'Visa'),
+    (4538, '2020-01-12', 'Mastercard'),
+    (2451, '2020-01-13', 'Efectivo'),
+    (2437, '2020-01-13', 'Efectivo'),
+    (1785, '2020-01-13', 'Efectivo'),
+    (4246, '2020-01-14', 'Visa'),
+    (1265, '2020-01-14', 'Six Flags Membership'),
+    (804, '2020-01-14', 'Paypal'),
+    (2679, '2020-01-14', 'Six Flags Gift Card'),
+    (4073, '2020-01-14', 'Visa'),
+    (4930, '2020-01-14', 'Six Flags Membership'),
+    (1605, '2020-01-14', 'Six Flags Membership'),
+    (2527, '2020-01-14', 'Six Flags Gift Card'),
+    (4325, '2020-01-14', 'Visa'),
+    (3137, '2020-01-14', 'Paypal'),
+    (3348, '2020-01-14', 'Mastercard'),
+    (4993, '2020-01-14', 'Six Flags Membership'),
+    (2467, '2020-01-15', 'American Express'),
+    (2988, '2020-01-15', 'Mastercard'),
+    (2578, '2020-01-15', 'Mastercard'),
+    (561, '2020-01-15', 'Six Flags Gift Card'),
+    (3649, '2020-01-16', 'Paypal'),
+    (3154, '2020-01-16', 'Mastercard'),
+    (4719, '2020-01-16', 'Efectivo'),
+    (2925, '2020-01-16', 'Mastercard'),
+    (4103, '2020-01-16', 'Mastercard'),
+    (785, '2020-01-17', 'American Express'),
+    (1755, '2020-01-17', 'American Express'),
+    (1712, '2020-01-17', 'Visa'),
+    (283, '2020-01-17', 'Mastercard'),
+    (2860, '2020-01-17', 'Mastercard'),
+    (1187, '2020-01-17', 'American Express'),
+    (3081, '2020-01-17', 'Six Flags Gift Card'),
+    (4502, '2020-01-17', 'Six Flags Membership'),
+    (2896, '2020-01-17', 'American Express'),
+    (4500, '2020-01-18', 'American Express'),
+    (4622, '2020-01-18', 'American Express'),
+    (4412, '2020-01-18', 'Visa'),
+    (4045, '2020-01-18', 'Six Flags Gift Card'),
+    (3638, '2020-01-19', 'Efectivo'),
+    (867, '2020-01-19', 'Six Flags Gift Card'),
+    (373, '2020-01-19', 'Efectivo'),
+    (3328, '2020-01-19', 'Visa'),
+    (849, '2020-01-20', 'American Express'),
+    (2712, '2020-01-20', 'Six Flags Gift Card'),
+    (2941, '2020-01-20', 'Paypal'),
+    (417, '2020-01-20', 'American Express'),
+    (2146, '2020-01-20', 'Efectivo'),
+    (577, '2020-01-20', 'American Express'),
+    (14, '2020-01-20', 'Six Flags Gift Card'),
+    (3670, '2020-01-20', 'Efectivo'),
+    (1128, '2020-01-20', 'Visa'),
+    (4521, '2020-01-21', 'Efectivo'),
+    (1028, '2020-01-21', 'Six Flags Gift Card'),
+    (693, '2020-01-21', 'Efectivo'),
+    (340, '2020-01-21', 'American Express'),
+    (676, '2020-01-21', 'Six Flags Membership'),
+    (4092, '2020-01-21', 'Visa'),
+    (1513, '2020-01-21', 'Mastercard'),
+    (1113, '2020-01-21', 'Six Flags Gift Card'),
+    (2641, '2020-01-22', 'American Express'),
+    (2889, '2020-01-22', 'Six Flags Membership'),
+    (1183, '2020-01-22', 'American Express'),
+    (3497, '2020-01-22', 'Six Flags Gift Card'),
+    (4428, '2020-01-22', 'Paypal'),
+    (3677, '2020-01-22', 'Efectivo'),
+    (4082, '2020-01-22', 'Visa'),
+    (2964, '2020-01-22', 'Visa'),
+    (647, '2020-01-23', 'Efectivo'),
+    (3988, '2020-01-23', 'Paypal'),
+    (3077, '2020-01-23', 'Efectivo'),
+    (2386, '2020-01-23', 'Six Flags Gift Card'),
+    (2726, '2020-01-23', 'Visa'),
+    (3645, '2020-01-24', 'Efectivo'),
+    (3, '2020-01-24', 'Paypal'),
+    (2422, '2020-01-24', 'American Express'),
+    (2872, '2020-01-24', 'Visa'),
+    (4069, '2020-01-25', 'American Express'),
+    (4200, '2020-01-25', 'Efectivo'),
+    (2555, '2020-01-25', 'Six Flags Membership'),
+    (895, '2020-01-25', 'Efectivo'),
+    (489, '2020-01-25', 'Paypal'),
+    (2223, '2020-01-25', 'Mastercard'),
+    (3621, '2020-01-25', 'Paypal'),
+    (3940, '2020-01-26', 'Six Flags Gift Card'),
+    (330, '2020-01-26', 'Six Flags Membership'),
+    (1965, '2020-01-26', 'Paypal'),
+    (4233, '2020-01-26', 'Mastercard'),
+    (2978, '2020-01-27', 'American Express'),
+    (3764, '2020-01-27', 'Six Flags Membership'),
+    (419, '2020-01-27', 'Six Flags Membership'),
+    (1474, '2020-01-27', 'American Express'),
+    (1808, '2020-01-27', 'Mastercard'),
+    (1975, '2020-01-27', 'Efectivo'),
+    (1518, '2020-01-27', 'Efectivo'),
+    (742, '2020-01-27', 'Six Flags Gift Card'),
+    (404, '2020-01-27', 'Visa'),
+    (4140, '2020-01-27', 'American Express'),
+    (1273, '2020-01-27', 'Six Flags Membership'),
+    (143, '2020-01-28', 'Six Flags Membership'),
+    (1258, '2020-01-28', 'Six Flags Membership'),
+    (1438, '2020-01-28', 'Six Flags Membership'),
+    (4290, '2020-01-28', 'American Express'),
+    (2358, '2020-01-28', 'Visa'),
+    (3926, '2020-01-28', 'Mastercard'),
+    (2063, '2020-01-28', 'Six Flags Membership'),
+    (4753, '2020-01-29', 'American Express'),
+    (2555, '2020-01-29', 'Paypal'),
+    (4432, '2020-01-29', 'Six Flags Membership'),
+    (3123, '2020-01-29', 'Visa'),
+    (1614, '2020-01-29', 'Visa'),
+    (2499, '2020-01-29', 'Efectivo'),
+    (671, '2020-01-30', 'American Express'),
+    (2516, '2020-01-30', 'Mastercard'),
+    (2723, '2020-01-30', 'Six Flags Membership'),
+    (21, '2020-01-30', 'American Express'),
+    (4626, '2020-01-30', 'Six Flags Gift Card'),
+    (3733, '2020-01-30', 'Visa'),
+    (699, '2020-01-30', 'American Express'),
+    (4738, '2020-01-31', 'Efectivo'),
+    (4004, '2020-01-31', 'Six Flags Membership'),
+    (2965, '2020-01-31', 'Visa'),
+    (2031, '2020-01-31', 'Paypal'),
+    (3102, '2020-01-31', 'Paypal'),
+    (1372, '2020-01-31', 'Mastercard'),
+    (335, '2020-02-01', 'Six Flags Gift Card'),
+    (3587, '2020-02-01', 'American Express'),
+    (3092, '2020-02-01', 'Mastercard'),
+    (4340, '2020-02-01', 'Six Flags Membership'),
+    (2785, '2020-02-01', 'American Express'),
+    (1327, '2020-02-01', 'Mastercard'),
+    (4653, '2020-02-01', 'Six Flags Gift Card'),
+    (1072, '2020-02-01', 'Visa'),
+    (1087, '2020-02-01', 'Mastercard'),
+    (976, '2020-02-01', 'Visa'),
+    (2193, '2020-02-02', 'Efectivo'),
+    (2543, '2020-02-02', 'Visa'),
+    (4195, '2020-02-02', 'Mastercard'),
+    (2896, '2020-02-02', 'Six Flags Gift Card'),
+    (796, '2020-02-02', 'Mastercard'),
+    (2573, '2020-02-02', 'Visa'),
+    (2794, '2020-02-02', 'Mastercard'),
+    (1577, '2020-02-02', 'American Express'),
+    (1350, '2020-02-02', 'Visa'),
+    (191, '2020-02-02', 'Mastercard'),
+    (589, '2020-02-03', 'Efectivo'),
+    (3537, '2020-02-03', 'Six Flags Gift Card'),
+    (3194, '2020-02-03', 'American Express'),
+    (2134, '2020-02-03', 'Six Flags Gift Card'),
+    (3815, '2020-02-03', 'Paypal'),
+    (3071, '2020-02-03', 'Paypal'),
+    (4875, '2020-02-03', 'Visa'),
+    (4580, '2020-02-04', 'Efectivo'),
+    (4841, '2020-02-04', 'Mastercard'),
+    (4144, '2020-02-04', 'Efectivo'),
+    (2287, '2020-02-04', 'Paypal'),
+    (2472, '2020-02-04', 'Paypal'),
+    (1644, '2020-02-04', 'Six Flags Gift Card'),
+    (1458, '2020-02-04', 'Mastercard'),
+    (1804, '2020-02-04', 'Efectivo'),
+    (2180, '2020-02-04', 'Visa'),
+    (3785, '2020-02-04', 'Paypal'),
+    (2930, '2020-02-05', 'Paypal'),
+    (3934, '2020-02-05', 'Mastercard'),
+    (3434, '2020-02-05', 'Six Flags Gift Card'),
+    (3579, '2020-02-05', 'Paypal'),
+    (1772, '2020-02-05', 'Six Flags Gift Card'),
+    (4044, '2020-02-05', 'Mastercard'),
+    (550, '2020-02-06', 'Six Flags Gift Card'),
+    (1362, '2020-02-06', 'Paypal'),
+    (565, '2020-02-06', 'Paypal'),
+    (2218, '2020-02-06', 'Visa'),
+    (2052, '2020-02-06', 'Mastercard'),
+    (1832, '2020-02-06', 'Efectivo'),
+    (2278, '2020-02-06', 'American Express'),
+    (4078, '2020-02-07', 'Six Flags Gift Card'),
+    (3661, '2020-02-07', 'Paypal'),
+    (3130, '2020-02-07', 'American Express'),
+    (1128, '2020-02-07', 'Mastercard'),
+    (1103, '2020-02-07', 'Visa'),
+    (2520, '2020-02-07', 'Paypal'),
+    (4057, '2020-02-07', 'Visa'),
+    (4070, '2020-02-07', 'Mastercard'),
+    (4632, '2020-02-07', 'American Express'),
+    (3697, '2020-02-07', 'American Express'),
+    (1287, '2020-02-07', 'Visa'),
+    (3886, '2020-02-07', 'Mastercard'),
+    (1898, '2020-02-07', 'Six Flags Gift Card'),
+    (3500, '2020-02-08', 'American Express'),
+    (233, '2020-02-08', 'Paypal'),
+    (3113, '2020-02-08', 'Efectivo'),
+    (1741, '2020-02-08', 'American Express'),
+    (4357, '2020-02-08', 'Mastercard'),
+    (4166, '2020-02-08', 'Six Flags Membership'),
+    (3004, '2020-02-08', 'Mastercard'),
+    (4947, '2020-02-08', 'Efectivo'),
+    (318, '2020-02-08', 'Mastercard'),
+    (504, '2020-02-09', 'Six Flags Membership'),
+    (1364, '2020-02-09', 'Mastercard'),
+    (818, '2020-02-09', 'Six Flags Gift Card'),
+    (2351, '2020-02-09', 'American Express'),
+    (4765, '2020-02-09', 'Six Flags Membership'),
+    (4336, '2020-02-09', 'Efectivo'),
+    (424, '2020-02-09', 'Efectivo'),
+    (1201, '2020-02-09', 'Six Flags Membership'),
+    (4822, '2020-02-09', 'Mastercard'),
+    (2183, '2020-02-09', 'Mastercard'),
+    (747, '2020-02-09', 'Six Flags Gift Card'),
+    (1820, '2020-02-10', 'Six Flags Membership'),
+    (1055, '2020-02-10', 'Mastercard'),
+    (2729, '2020-02-10', 'Six Flags Membership'),
+    (4710, '2020-02-10', 'Mastercard'),
+    (1440, '2020-02-10', 'Paypal'),
+    (1650, '2020-02-10', 'Visa'),
+    (1280, '2020-02-10', 'Visa'),
+    (2714, '2020-02-10', 'Paypal'),
+    (2768, '2020-02-10', 'Visa'),
+    (2716, '2020-02-11', 'Paypal'),
+    (2417, '2020-02-11', 'Efectivo'),
+    (227, '2020-02-12', 'Visa'),
+    (4090, '2020-02-12', 'Mastercard'),
+    (895, '2020-02-12', 'Paypal'),
+    (2487, '2020-02-12', 'Efectivo'),
+    (1583, '2020-02-12', 'Six Flags Gift Card'),
+    (1727, '2020-02-12', 'Six Flags Gift Card'),
+    (2559, '2020-02-12', 'Six Flags Gift Card'),
+    (3864, '2020-02-12', 'Visa'),
+    (3231, '2020-02-12', 'Paypal'),
+    (3858, '2020-02-12', 'Six Flags Membership'),
+    (1801, '2020-02-13', 'Visa'),
+    (2338, '2020-02-13', 'Efectivo'),
+    (2295, '2020-02-13', 'Mastercard'),
+    (2116, '2020-02-13', 'American Express'),
+    (1904, '2020-02-14', 'Paypal'),
+    (3894, '2020-02-14', 'Efectivo'),
+    (4379, '2020-02-14', 'Efectivo'),
+    (3626, '2020-02-14', 'Paypal'),
+    (3741, '2020-02-14', 'Mastercard'),
+    (4958, '2020-02-14', 'Six Flags Gift Card'),
+    (4361, '2020-02-14', 'Six Flags Membership'),
+    (1752, '2020-02-14', 'Visa'),
+    (4532, '2020-02-15', 'Mastercard'),
+    (4822, '2020-02-15', 'Efectivo'),
+    (1699, '2020-02-15', 'American Express'),
+    (4795, '2020-02-15', 'Paypal'),
+    (1940, '2020-02-15', 'Six Flags Gift Card'),
+    (1302, '2020-02-15', 'Six Flags Membership'),
+    (753, '2020-02-15', 'Mastercard'),
+    (2771, '2020-02-16', 'Six Flags Membership'),
+    (3276, '2020-02-16', 'Six Flags Gift Card'),
+    (3887, '2020-02-16', 'Six Flags Gift Card'),
+    (2130, '2020-02-16', 'Six Flags Gift Card'),
+    (3547, '2020-02-16', 'Paypal'),
+    (2549, '2020-02-16', 'Six Flags Membership'),
+    (484, '2020-02-16', 'Six Flags Membership'),
+    (1396, '2020-02-16', 'Visa'),
+    (1295, '2020-02-17', 'Six Flags Gift Card'),
+    (3827, '2020-02-17', 'Efectivo'),
+    (1186, '2020-02-17', 'Mastercard'),
+    (3089, '2020-02-17', 'Mastercard'),
+    (2108, '2020-02-17', 'American Express'),
+    (1135, '2020-02-17', 'Efectivo'),
+    (1529, '2020-02-17', 'Mastercard'),
+    (626, '2020-02-17', 'Six Flags Gift Card'),
+    (1810, '2020-02-17', 'American Express'),
+    (2854, '2020-02-18', 'Six Flags Membership'),
+    (1108, '2020-02-18', 'Six Flags Membership'),
+    (3199, '2020-02-18', 'Paypal'),
+    (2342, '2020-02-18', 'Paypal'),
+    (3612, '2020-02-18', 'American Express'),
+    (1091, '2020-02-18', 'American Express'),
+    (4311, '2020-02-18', 'Mastercard'),
+    (788, '2020-02-18', 'Six Flags Gift Card'),
+    (3749, '2020-02-18', 'American Express'),
+    (4709, '2020-02-18', 'Six Flags Gift Card'),
+    (3072, '2020-02-19', 'Efectivo'),
+    (4633, '2020-02-19', 'Six Flags Gift Card'),
+    (2188, '2020-02-19', 'American Express'),
+    (495, '2020-02-19', 'Efectivo'),
+    (4938, '2020-02-19', 'Efectivo'),
+    (1101, '2020-02-19', 'Mastercard'),
+    (4220, '2020-02-19', 'Paypal'),
+    (3586, '2020-02-19', 'Six Flags Gift Card'),
+    (3985, '2020-02-20', 'Paypal'),
+    (2746, '2020-02-20', 'Paypal'),
+    (1031, '2020-02-20', 'Mastercard'),
+    (4046, '2020-02-20', 'Six Flags Gift Card'),
+    (4849, '2020-02-21', 'American Express'),
+    (2827, '2020-02-21', 'Efectivo'),
+    (3030, '2020-02-21', 'Mastercard'),
+    (4466, '2020-02-21', 'Efectivo'),
+    (4403, '2020-02-21', 'Six Flags Membership'),
+    (65, '2020-02-21', 'Six Flags Membership'),
+    (2507, '2020-02-21', 'American Express'),
+    (4549, '2020-02-21', 'Mastercard'),
+    (4835, '2020-02-21', 'Efectivo'),
+    (304, '2020-02-21', 'Visa'),
+    (3665, '2020-02-22', 'Mastercard'),
+    (882, '2020-02-22', 'Six Flags Membership'),
+    (1525, '2020-02-22', 'American Express'),
+    (71, '2020-02-22', 'Visa'),
+    (3627, '2020-02-22', 'Visa'),
+    (4316, '2020-02-22', 'Visa'),
+    (4385, '2020-02-22', 'Mastercard'),
+    (4766, '2020-02-22', 'Mastercard'),
+    (3326, '2020-02-22', 'Visa'),
+    (2879, '2020-02-22', 'Efectivo'),
+    (2513, '2020-02-23', 'Six Flags Membership'),
+    (2826, '2020-02-23', 'Six Flags Membership'),
+    (1684, '2020-02-23', 'Mastercard'),
+    (3173, '2020-02-24', 'American Express'),
+    (1349, '2020-02-24', 'Six Flags Gift Card'),
+    (888, '2020-02-24', 'American Express'),
+    (2607, '2020-02-24', 'Paypal'),
+    (3900, '2020-02-24', 'Visa'),
+    (376, '2020-02-24', 'Six Flags Gift Card'),
+    (3926, '2020-02-24', 'American Express'),
+    (742, '2020-02-25', 'Six Flags Membership'),
+    (4101, '2020-02-25', 'Visa'),
+    (4793, '2020-02-25', 'Six Flags Gift Card'),
+    (3494, '2020-02-25', 'Six Flags Gift Card'),
+    (879, '2020-02-26', 'Mastercard'),
+    (4773, '2020-02-26', 'Efectivo'),
+    (3856, '2020-02-26', 'Six Flags Membership'),
+    (718, '2020-02-26', 'Efectivo'),
+    (914, '2020-02-26', 'Visa'),
+    (1935, '2020-02-26', 'Visa'),
+    (3381, '2020-02-26', 'Six Flags Gift Card'),
+    (2213, '2020-02-26', 'Paypal'),
+    (341, '2020-02-26', 'Paypal'),
+    (488, '2020-02-26', 'Mastercard'),
+    (779, '2020-02-26', 'Mastercard'),
+    (3264, '2020-02-27', 'American Express'),
+    (2779, '2020-02-27', 'Efectivo'),
+    (2342, '2020-02-27', 'American Express'),
+    (3600, '2020-02-27', 'Paypal'),
+    (3980, '2020-02-27', 'American Express'),
+    (3985, '2020-02-27', 'Six Flags Membership'),
+    (53, '2020-02-27', 'Six Flags Gift Card'),
+    (2973, '2020-02-28', 'Six Flags Gift Card'),
+    (3081, '2020-02-28', 'American Express'),
+    (1483, '2020-02-28', 'Six Flags Gift Card'),
+    (1150, '2020-02-28', 'Mastercard'),
+    (3312, '2020-02-29', 'American Express'),
+    (2389, '2020-02-29', 'Mastercard'),
+    (3027, '2020-02-29', 'Six Flags Membership'),
+    (4310, '2020-02-29', 'Paypal'),
+    (985, '2020-03-01', 'Six Flags Membership'),
+    (2531, '2020-03-01', 'Visa'),
+    (2364, '2020-03-01', 'Six Flags Membership'),
+    (2564, '2020-03-01', 'Six Flags Membership'),
+    (181, '2020-03-01', 'Paypal'),
+    (1923, '2020-03-02', 'American Express'),
+    (4005, '2020-03-02', 'Six Flags Gift Card'),
+    (320, '2020-03-02', 'American Express'),
+    (1812, '2020-03-02', 'American Express'),
+    (635, '2020-03-02', 'Paypal'),
+    (3759, '2020-03-03', 'Visa'),
+    (914, '2020-03-03', 'Paypal'),
+    (4292, '2020-03-03', 'Mastercard'),
+    (2604, '2020-03-03', 'American Express'),
+    (786, '2020-03-03', 'Six Flags Membership'),
+    (1215, '2020-03-03', 'Mastercard'),
+    (2677, '2020-03-03', 'Efectivo'),
+    (1034, '2020-03-04', 'Efectivo'),
+    (3047, '2020-03-04', 'American Express'),
+    (3611, '2020-03-04', 'Six Flags Membership'),
+    (3177, '2020-03-04', 'Six Flags Gift Card'),
+    (3780, '2020-03-04', 'Efectivo'),
+    (4528, '2020-03-04', 'Mastercard'),
+    (2042, '2020-03-04', 'Six Flags Membership'),
+    (1481, '2020-03-04', 'Six Flags Gift Card'),
+    (1398, '2020-03-05', 'Visa'),
+    (1556, '2020-03-05', 'American Express'),
+    (3856, '2020-03-05', 'Visa'),
+    (4681, '2020-03-05', 'American Express'),
+    (1340, '2020-03-06', 'Efectivo'),
+    (4290, '2020-03-06', 'Mastercard'),
+    (1729, '2020-03-06', 'Six Flags Gift Card'),
+    (1632, '2020-03-06', 'Paypal'),
+    (1349, '2020-03-06', 'Visa'),
+    (3403, '2020-03-06', 'Paypal'),
+    (2958, '2020-03-06', 'Mastercard'),
+    (3189, '2020-03-06', 'Efectivo'),
+    (809, '2020-03-06', 'Visa'),
+    (4043, '2020-03-06', 'American Express'),
+    (1914, '2020-03-07', 'Mastercard'),
+    (40, '2020-03-07', 'Mastercard'),
+    (2731, '2020-03-07', 'Mastercard'),
+    (2649, '2020-03-07', 'Efectivo'),
+    (2633, '2020-03-08', 'Paypal'),
+    (3971, '2020-03-08', 'Visa'),
+    (4410, '2020-03-08', 'Paypal'),
+    (4245, '2020-03-08', 'Efectivo'),
+    (2561, '2020-03-08', 'Mastercard'),
+    (2810, '2020-03-08', 'Visa'),
+    (3171, '2020-03-09', 'Visa'),
+    (592, '2020-03-09', 'American Express'),
+    (1006, '2020-03-10', 'Visa'),
+    (1979, '2020-03-10', 'Visa'),
+    (2522, '2020-03-10', 'Efectivo'),
+    (1784, '2020-03-11', 'Six Flags Membership'),
+    (4086, '2020-03-11', 'Six Flags Membership'),
+    (4969, '2020-03-11', 'Mastercard'),
+    (38, '2020-03-11', 'American Express'),
+    (941, '2020-03-11', 'Visa'),
+    (3490, '2020-03-11', 'Six Flags Gift Card'),
+    (2188, '2020-03-12', 'Efectivo'),
+    (109, '2020-03-12', 'American Express'),
+    (1180, '2020-03-12', 'Paypal'),
+    (764, '2020-03-12', 'Mastercard'),
+    (2816, '2020-03-12', 'Efectivo'),
+    (2756, '2020-03-12', 'Six Flags Membership'),
+    (4451, '2020-03-13', 'Efectivo'),
+    (356, '2020-03-13', 'Six Flags Membership'),
+    (4675, '2020-03-13', 'Six Flags Membership'),
+    (4665, '2020-03-13', 'Visa'),
+    (713, '2020-03-13', 'Six Flags Gift Card'),
+    (903, '2020-03-13', 'Paypal'),
+    (4199, '2020-03-14', 'Six Flags Gift Card'),
+    (3948, '2020-03-14', 'American Express'),
+    (3129, '2020-03-14', 'American Express'),
+    (3512, '2020-03-14', 'Mastercard'),
+    (4227, '2020-03-14', 'Paypal'),
+    (1200, '2020-03-14', 'Efectivo'),
+    (70, '2020-03-15', 'Paypal'),
+    (2104, '2020-03-15', 'Efectivo'),
+    (3845, '2020-03-16', 'Paypal'),
+    (2139, '2020-03-16', 'Visa'),
+    (2553, '2020-03-16', 'Six Flags Gift Card'),
+    (919, '2020-03-16', 'Paypal'),
+    (4744, '2020-03-16', 'Six Flags Membership'),
+    (991, '2020-03-16', 'Efectivo'),
+    (275, '2020-03-17', 'Six Flags Gift Card'),
+    (2122, '2020-03-17', 'Visa'),
+    (3922, '2020-03-17', 'Six Flags Gift Card'),
+    (3132, '2020-03-17', 'Paypal'),
+    (3132, '2020-03-17', 'Six Flags Gift Card'),
+    (4518, '2020-03-17', 'Six Flags Gift Card'),
+    (1640, '2020-03-17', 'Visa'),
+    (712, '2020-03-17', 'American Express'),
+    (2162, '2020-03-17', 'Six Flags Membership'),
+    (4106, '2020-03-17', 'Six Flags Gift Card'),
+    (3499, '2020-03-18', 'Efectivo'),
+    (1456, '2020-03-18', 'Mastercard'),
+    (948, '2020-03-18', 'Efectivo'),
+    (3724, '2020-03-18', 'Six Flags Gift Card'),
+    (4598, '2020-03-18', 'Paypal'),
+    (3020, '2020-03-18', 'Six Flags Gift Card'),
+    (901, '2020-03-18', 'Six Flags Membership'),
+    (4077, '2020-03-18', 'American Express'),
+    (315, '2020-03-18', 'Efectivo'),
+    (2386, '2020-03-18', 'American Express'),
+    (3111, '2020-03-18', 'Paypal'),
+    (2624, '2020-03-18', 'Mastercard'),
+    (683, '2020-03-19', 'American Express'),
+    (3651, '2020-03-19', 'Six Flags Membership'),
+    (2106, '2020-03-19', 'American Express'),
+    (1596, '2020-03-19', 'Efectivo'),
+    (3978, '2020-03-20', 'Visa'),
+    (171, '2020-03-20', 'Visa'),
+    (2503, '2020-03-20', 'Paypal'),
+    (887, '2020-03-20', 'Efectivo'),
+    (3860, '2020-03-20', 'Six Flags Membership'),
+    (4100, '2020-03-20', 'Six Flags Gift Card'),
+    (1058, '2020-03-20', 'Efectivo'),
+    (1830, '2020-03-20', 'American Express'),
+    (2836, '2020-03-20', 'Efectivo'),
+    (4499, '2020-03-21', 'American Express'),
+    (3776, '2020-03-21', 'Visa'),
+    (4276, '2020-03-21', 'Paypal'),
+    (1636, '2020-03-21', 'Paypal'),
+    (314, '2020-03-21', 'Six Flags Membership'),
+    (4492, '2020-03-21', 'Visa'),
+    (2531, '2020-03-21', 'Efectivo'),
+    (4726, '2020-03-22', 'Six Flags Gift Card'),
+    (2930, '2020-03-22', 'Mastercard'),
+    (4277, '2020-03-22', 'Efectivo'),
+    (193, '2020-03-22', 'American Express'),
+    (3106, '2020-03-22', 'American Express'),
+    (833, '2020-03-23', 'Six Flags Gift Card'),
+    (1995, '2020-03-23', 'Six Flags Gift Card'),
+    (761, '2020-03-23', 'Efectivo'),
+    (2890, '2020-03-23', 'Six Flags Membership'),
+    (138, '2020-03-23', 'Efectivo'),
+    (1201, '2020-03-23', 'Efectivo'),
+    (1916, '2020-03-23', 'American Express'),
+    (1739, '2020-03-23', 'Efectivo'),
+    (16, '2020-03-23', 'Six Flags Membership'),
+    (376, '2020-03-23', 'American Express'),
+    (3140, '2020-03-23', 'Efectivo'),
+    (328, '2020-03-23', 'Mastercard'),
+    (4434, '2020-03-24', 'Six Flags Gift Card'),
+    (901, '2020-03-24', 'Six Flags Gift Card'),
+    (2768, '2020-03-24', 'Six Flags Membership'),
+    (1030, '2020-03-24', 'Six Flags Gift Card'),
+    (1491, '2020-03-24', 'Visa'),
+    (2677, '2020-03-24', 'Six Flags Gift Card'),
+    (4036, '2020-03-24', 'Six Flags Gift Card'),
+    (2445, '2020-03-25', 'Six Flags Membership'),
+    (1210, '2020-03-25', 'Efectivo'),
+    (2375, '2020-03-25', 'Efectivo'),
+    (1514, '2020-03-25', 'Six Flags Membership'),
+    (2717, '2020-03-25', 'American Express'),
+    (4626, '2020-03-26', 'Six Flags Membership'),
+    (1438, '2020-03-26', 'Efectivo'),
+    (2006, '2020-03-26', 'Mastercard'),
+    (2642, '2020-03-26', 'Paypal'),
+    (1225, '2020-03-27', 'Efectivo'),
+    (2243, '2020-03-27', 'Visa'),
+    (1065, '2020-03-27', 'Mastercard'),
+    (879, '2020-03-27', 'American Express'),
+    (4071, '2020-03-28', 'American Express'),
+    (1516, '2020-03-28', 'Efectivo'),
+    (3834, '2020-03-28', 'American Express'),
+    (175, '2020-03-28', 'American Express'),
+    (997, '2020-03-28', 'Mastercard'),
+    (3539, '2020-03-28', 'Six Flags Gift Card'),
+    (2670, '2020-03-28', 'Paypal'),
+    (3482, '2020-03-29', 'Six Flags Gift Card'),
+    (1668, '2020-03-29', 'Mastercard'),
+    (561, '2020-03-29', 'American Express'),
+    (1771, '2020-03-29', 'American Express'),
+    (2081, '2020-03-29', 'Visa'),
+    (2151, '2020-03-29', 'Six Flags Membership'),
+    (3737, '2020-03-30', 'Mastercard'),
+    (2754, '2020-03-30', 'Efectivo'),
+    (4534, '2020-03-30', 'Paypal'),
+    (1947, '2020-03-30', 'Six Flags Membership'),
+    (3672, '2020-03-30', 'American Express'),
+    (445, '2020-03-30', 'Mastercard'),
+    (3779, '2020-03-31', 'Visa'),
+    (4207, '2020-03-31', 'Visa'),
+    (3757, '2020-03-31', 'American Express'),
+    (226, '2020-03-31', 'Efectivo'),
+    (3693, '2020-03-31', 'Mastercard'),
+    (4645, '2020-03-31', 'Visa'),
+    (2852, '2020-03-31', 'Visa'),
+    (4072, '2020-04-01', 'Six Flags Gift Card'),
+    (888, '2020-04-01', 'American Express'),
+    (4850, '2020-04-01', 'Visa'),
+    (2171, '2020-04-01', 'American Express'),
+    (3607, '2020-04-01', 'Visa'),
+    (1990, '2020-04-01', 'Visa'),
+    (481, '2020-04-01', 'Paypal'),
+    (321, '2020-04-01', 'Paypal'),
+    (983, '2020-04-01', 'Six Flags Membership'),
+    (4663, '2020-04-01', 'Visa'),
+    (2090, '2020-04-01', 'Mastercard'),
+    (2186, '2020-04-01', 'American Express'),
+    (4512, '2020-04-01', 'Efectivo'),
+    (2535, '2020-04-01', 'Paypal'),
+    (4076, '2020-04-02', 'Efectivo'),
+    (3177, '2020-04-02', 'Mastercard'),
+    (223, '2020-04-02', 'Six Flags Membership'),
+    (4220, '2020-04-02', 'Mastercard'),
+    (3188, '2020-04-02', 'Six Flags Membership'),
+    (2629, '2020-04-02', 'Mastercard'),
+    (2414, '2020-04-02', 'Paypal'),
+    (3161, '2020-04-02', 'American Express'),
+    (1605, '2020-04-02', 'American Express'),
+    (3889, '2020-04-02', 'Six Flags Gift Card'),
+    (3771, '2020-04-02', 'American Express'),
+    (3762, '2020-04-02', 'Efectivo'),
+    (4586, '2020-04-03', 'Six Flags Membership'),
+    (3330, '2020-04-03', 'American Express'),
+    (4824, '2020-04-03', 'Mastercard'),
+    (1471, '2020-04-04', 'Six Flags Membership'),
+    (524, '2020-04-04', 'Six Flags Membership'),
+    (4168, '2020-04-04', 'Efectivo'),
+    (707, '2020-04-04', 'Mastercard'),
+    (1452, '2020-04-04', 'Six Flags Membership'),
+    (2450, '2020-04-04', 'American Express'),
+    (1251, '2020-04-04', 'Mastercard'),
+    (791, '2020-04-04', 'Paypal'),
+    (4902, '2020-04-05', 'Visa'),
+    (2675, '2020-04-05', 'Visa'),
+    (1407, '2020-04-05', 'Six Flags Gift Card'),
+    (2321, '2020-04-05', 'Visa'),
+    (1097, '2020-04-05', 'Mastercard'),
+    (2802, '2020-04-05', 'Mastercard'),
+    (4650, '2020-04-05', 'Visa'),
+    (2858, '2020-04-05', 'American Express'),
+    (2001, '2020-04-06', 'Mastercard'),
+    (1096, '2020-04-06', 'Efectivo'),
+    (2588, '2020-04-06', 'American Express'),
+    (2422, '2020-04-06', 'Six Flags Gift Card'),
+    (1209, '2020-04-06', 'American Express'),
+    (2177, '2020-04-06', 'Efectivo'),
+    (2637, '2020-04-07', 'Mastercard'),
+    (558, '2020-04-07', 'Efectivo'),
+    (4644, '2020-04-07', 'Mastercard'),
+    (503, '2020-04-08', 'Visa'),
+    (4186, '2020-04-08', 'Efectivo'),
+    (3139, '2020-04-08', 'Visa'),
+    (3907, '2020-04-08', 'Six Flags Membership'),
+    (3497, '2020-04-08', 'Visa'),
+    (2436, '2020-04-08', 'Paypal'),
+    (1999, '2020-04-08', 'Visa'),
+    (1263, '2020-04-09', 'Six Flags Gift Card'),
+    (2406, '2020-04-09', 'Mastercard'),
+    (1927, '2020-04-10', 'Six Flags Gift Card'),
+    (2933, '2020-04-10', 'American Express'),
+    (2948, '2020-04-10', 'Paypal'),
+    (2503, '2020-04-10', 'Six Flags Gift Card'),
+    (2619, '2020-04-10', 'Mastercard'),
+    (1230, '2020-04-10', 'Mastercard'),
+    (22, '2020-04-10', 'Visa'),
+    (4949, '2020-04-10', 'American Express'),
+    (928, '2020-04-10', 'Efectivo'),
+    (1822, '2020-04-10', 'Paypal'),
+    (3563, '2020-04-11', 'Six Flags Membership'),
+    (953, '2020-04-11', 'Six Flags Gift Card'),
+    (4024, '2020-04-11', 'Efectivo'),
+    (3557, '2020-04-11', 'Efectivo'),
+    (899, '2020-04-11', 'American Express'),
+    (3184, '2020-04-11', 'Six Flags Membership'),
+    (1933, '2020-04-12', 'Efectivo'),
+    (3855, '2020-04-12', 'Six Flags Membership'),
+    (1414, '2020-04-12', 'Efectivo'),
+    (2742, '2020-04-12', 'Mastercard'),
+    (1606, '2020-04-12', 'Six Flags Gift Card'),
+    (683, '2020-04-12', 'Six Flags Gift Card'),
+    (4253, '2020-04-12', 'Mastercard'),
+    (794, '2020-04-12', 'Paypal'),
+    (3548, '2020-04-12', 'Mastercard'),
+    (4295, '2020-04-13', 'Six Flags Gift Card'),
+    (2378, '2020-04-13', 'Visa'),
+    (952, '2020-04-13', 'American Express'),
+    (4241, '2020-04-13', 'Six Flags Gift Card'),
+    (2571, '2020-04-13', 'Mastercard'),
+    (326, '2020-04-13', 'American Express'),
+    (2126, '2020-04-13', 'Paypal'),
+    (4532, '2020-04-13', 'Six Flags Membership'),
+    (4489, '2020-04-13', 'Six Flags Gift Card'),
+    (3640, '2020-04-14', 'Efectivo'),
+    (4986, '2020-04-14', 'American Express'),
+    (4400, '2020-04-14', 'Six Flags Membership'),
+    (3118, '2020-04-15', 'Six Flags Gift Card'),
+    (4349, '2020-04-15', 'Efectivo'),
+    (3081, '2020-04-15', 'Six Flags Membership'),
+    (3413, '2020-04-15', 'Paypal'),
+    (2929, '2020-04-15', 'Visa'),
+    (809, '2020-04-16', 'Visa'),
+    (3518, '2020-04-16', 'Six Flags Membership'),
+    (1423, '2020-04-16', 'Six Flags Membership'),
+    (910, '2020-04-16', 'Efectivo'),
+    (4182, '2020-04-16', 'Six Flags Membership'),
+    (2264, '2020-04-16', 'Six Flags Membership'),
+    (2755, '2020-04-16', 'Efectivo'),
+    (4092, '2020-04-17', 'American Express'),
+    (1159, '2020-04-17', 'American Express'),
+    (3337, '2020-04-17', 'Paypal'),
+    (3276, '2020-04-17', 'Efectivo'),
+    (4815, '2020-04-17', 'Paypal'),
+    (1264, '2020-04-17', 'Six Flags Membership'),
+    (4734, '2020-04-17', 'Paypal'),
+    (2276, '2020-04-17', 'Six Flags Membership'),
+    (971, '2020-04-17', 'Mastercard'),
+    (2798, '2020-04-17', 'Six Flags Gift Card'),
+    (2192, '2020-04-18', 'Mastercard'),
+    (2993, '2020-04-18', 'Six Flags Membership'),
+    (1380, '2020-04-18', 'Six Flags Gift Card'),
+    (1499, '2020-04-18', 'Six Flags Gift Card'),
+    (4657, '2020-04-19', 'Six Flags Membership'),
+    (799, '2020-04-19', 'American Express'),
+    (3822, '2020-04-19', 'Six Flags Membership'),
+    (1166, '2020-04-19', 'Efectivo'),
+    (2904, '2020-04-19', 'Paypal'),
+    (1139, '2020-04-19', 'Efectivo'),
+    (2023, '2020-04-20', 'Paypal'),
+    (1069, '2020-04-20', 'Visa'),
+    (2486, '2020-04-20', 'Six Flags Gift Card'),
+    (3438, '2020-04-20', 'Mastercard'),
+    (3537, '2020-04-21', 'Six Flags Membership'),
+    (3721, '2020-04-21', 'Visa'),
+    (4923, '2020-04-21', 'Efectivo'),
+    (4129, '2020-04-21', 'Six Flags Membership'),
+    (3283, '2020-04-21', 'Efectivo'),
+    (3857, '2020-04-21', 'Six Flags Gift Card'),
+    (3641, '2020-04-21', 'Six Flags Gift Card'),
+    (906, '2020-04-22', 'Six Flags Membership'),
+    (745, '2020-04-22', 'Six Flags Membership'),
+    (3836, '2020-04-22', 'Paypal'),
+    (2955, '2020-04-22', 'Mastercard'),
+    (172, '2020-04-22', 'Six Flags Membership'),
+    (251, '2020-04-23', 'American Express'),
+    (2522, '2020-04-23', 'Six Flags Membership'),
+    (1528, '2020-04-23', 'American Express'),
+    (3089, '2020-04-23', 'Six Flags Gift Card'),
+    (1788, '2020-04-23', 'American Express'),
+    (2352, '2020-04-23', 'Six Flags Gift Card'),
+    (4549, '2020-04-23', 'Mastercard'),
+    (3351, '2020-04-24', 'Paypal'),
+    (1391, '2020-04-24', 'Efectivo'),
+    (471, '2020-04-24', 'Paypal'),
+    (2398, '2020-04-24', 'Visa'),
+    (1985, '2020-04-24', 'Six Flags Gift Card'),
+    (1956, '2020-04-24', 'American Express'),
+    (4281, '2020-04-24', 'Paypal'),
+    (3887, '2020-04-25', 'Efectivo'),
+    (3589, '2020-04-25', 'Six Flags Membership'),
+    (3182, '2020-04-25', 'Efectivo'),
+    (819, '2020-04-25', 'Six Flags Membership'),
+    (2559, '2020-04-25', 'Paypal'),
+    (2160, '2020-04-25', 'Paypal'),
+    (4445, '2020-04-25', 'Paypal'),
+    (4189, '2020-04-25', 'Efectivo'),
+    (3245, '2020-04-25', 'Efectivo'),
+    (4608, '2020-04-25', 'Mastercard'),
+    (101, '2020-04-26', 'Mastercard'),
+    (4263, '2020-04-26', 'Efectivo'),
+    (2777, '2020-04-26', 'American Express'),
+    (1333, '2020-04-26', 'Visa'),
+    (2321, '2020-04-26', 'Efectivo'),
+    (82, '2020-04-27', 'American Express'),
+    (1174, '2020-04-27', 'Mastercard'),
+    (2766, '2020-04-27', 'Mastercard'),
+    (754, '2020-04-27', 'Six Flags Gift Card'),
+    (2517, '2020-04-27', 'Mastercard'),
+    (1394, '2020-04-27', 'Six Flags Membership'),
+    (3938, '2020-04-27', 'Efectivo'),
+    (3630, '2020-04-28', 'Efectivo'),
+    (1179, '2020-04-28', 'Efectivo'),
+    (2653, '2020-04-28', 'Six Flags Membership'),
+    (2186, '2020-04-28', 'Paypal'),
+    (1778, '2020-04-28', 'Visa'),
+    (939, '2020-04-28', 'Mastercard'),
+    (383, '2020-04-28', 'Paypal'),
+    (4627, '2020-04-28', 'Visa'),
+    (857, '2020-04-28', 'Visa'),
+    (4088, '2020-04-29', 'Paypal'),
+    (337, '2020-04-29', 'Six Flags Membership'),
+    (1936, '2020-04-29', 'Six Flags Membership'),
+    (678, '2020-04-29', 'Mastercard'),
+    (2670, '2020-04-30', 'Efectivo'),
+    (1896, '2020-04-30', 'Mastercard'),
+    (1807, '2020-04-30', 'American Express'),
+    (3735, '2020-04-30', 'Mastercard'),
+    (3835, '2020-04-30', 'Six Flags Membership'),
+    (1352, '2020-04-30', 'American Express'),
+    (3684, '2020-05-01', 'Mastercard'),
+    (593, '2020-05-01', 'Six Flags Membership'),
+    (4303, '2020-05-01', 'Visa'),
+    (310, '2020-05-01', 'Six Flags Membership'),
+    (2642, '2020-05-01', 'Mastercard'),
+    (1087, '2020-05-01', 'American Express'),
+    (4105, '2020-05-02', 'Six Flags Membership'),
+    (3316, '2020-05-02', 'Visa'),
+    (4428, '2020-05-02', 'American Express'),
+    (4675, '2020-05-02', 'Visa'),
+    (3303, '2020-05-02', 'Six Flags Gift Card'),
+    (4039, '2020-05-03', 'American Express'),
+    (283, '2020-05-03', 'Six Flags Membership'),
+    (843, '2020-05-03', 'Visa'),
+    (1099, '2020-05-03', 'Visa'),
+    (3716, '2020-05-03', 'Efectivo'),
+    (2446, '2020-05-03', 'Visa'),
+    (839, '2020-05-03', 'Efectivo'),
+    (1876, '2020-05-04', 'Visa'),
+    (4721, '2020-05-04', 'Paypal'),
+    (91, '2020-05-04', 'Visa'),
+    (2270, '2020-05-04', 'Visa'),
+    (2110, '2020-05-05', 'Mastercard'),
+    (3350, '2020-05-05', 'Visa'),
+    (3147, '2020-05-05', 'Efectivo'),
+    (1636, '2020-05-05', 'Mastercard'),
+    (4375, '2020-05-05', 'Six Flags Membership'),
+    (486, '2020-05-05', 'Mastercard'),
+    (4549, '2020-05-05', 'American Express'),
+    (2331, '2020-05-06', 'Six Flags Membership'),
+    (1343, '2020-05-06', 'Six Flags Membership'),
+    (754, '2020-05-06', 'Visa'),
+    (1605, '2020-05-06', 'Six Flags Membership'),
+    (3776, '2020-05-06', 'American Express'),
+    (3740, '2020-05-06', 'Six Flags Gift Card'),
+    (491, '2020-05-06', 'Mastercard'),
+    (1283, '2020-05-06', 'Paypal'),
+    (3541, '2020-05-07', 'Six Flags Membership'),
+    (204, '2020-05-07', 'Visa'),
+    (626, '2020-05-07', 'Mastercard'),
+    (2150, '2020-05-07', 'American Express'),
+    (4446, '2020-05-07', 'Six Flags Gift Card'),
+    (2483, '2020-05-07', 'Six Flags Membership'),
+    (2005, '2020-05-07', 'Six Flags Gift Card'),
+    (1249, '2020-05-08', 'American Express'),
+    (4769, '2020-05-08', 'American Express'),
+    (4154, '2020-05-08', 'Paypal'),
+    (763, '2020-05-08', 'Paypal'),
+    (3348, '2020-05-08', 'Efectivo'),
+    (114, '2020-05-09', 'Six Flags Gift Card'),
+    (1739, '2020-05-09', 'Mastercard'),
+    (3625, '2020-05-09', 'Efectivo'),
+    (3979, '2020-05-09', 'Mastercard'),
+    (2081, '2020-05-09', 'Visa'),
+    (1073, '2020-05-09', 'Six Flags Gift Card'),
+    (2490, '2020-05-10', 'Six Flags Membership'),
+    (4093, '2020-05-11', 'Paypal'),
+    (4706, '2020-05-11', 'Mastercard'),
+    (2122, '2020-05-11', 'Six Flags Gift Card'),
+    (1132, '2020-05-11', 'American Express'),
+    (777, '2020-05-11', 'Six Flags Membership'),
+    (3822, '2020-05-11', 'Six Flags Membership'),
+    (3686, '2020-05-11', 'Six Flags Membership'),
+    (4173, '2020-05-11', 'Six Flags Gift Card'),
+    (1286, '2020-05-11', 'Visa'),
+    (4137, '2020-05-11', 'Mastercard'),
+    (4507, '2020-05-12', 'Visa'),
+    (2895, '2020-05-12', 'Paypal'),
+    (4633, '2020-05-12', 'American Express'),
+    (3936, '2020-05-12', 'Mastercard'),
+    (2812, '2020-05-12', 'American Express'),
+    (2947, '2020-05-12', 'Visa'),
+    (1430, '2020-05-12', 'Paypal'),
+    (1063, '2020-05-12', 'Paypal'),
+    (2823, '2020-05-13', 'Mastercard'),
+    (3822, '2020-05-13', 'Paypal'),
+    (1805, '2020-05-13', 'Visa'),
+    (4962, '2020-05-13', 'Visa'),
+    (47, '2020-05-13', 'Visa'),
+    (246, '2020-05-13', 'Visa'),
+    (1872, '2020-05-14', 'Six Flags Membership'),
+    (145, '2020-05-14', 'Six Flags Membership'),
+    (1768, '2020-05-14', 'Mastercard'),
+    (730, '2020-05-14', 'Visa'),
+    (823, '2020-05-14', 'Paypal'),
+    (861, '2020-05-14', 'Visa'),
+    (3894, '2020-05-14', 'Mastercard'),
+    (1411, '2020-05-14', 'Visa'),
+    (1201, '2020-05-15', 'Paypal'),
+    (4438, '2020-05-15', 'Paypal'),
+    (1438, '2020-05-15', 'Efectivo'),
+    (2957, '2020-05-15', 'Visa'),
+    (2349, '2020-05-15', 'Visa'),
+    (4914, '2020-05-15', 'Efectivo'),
+    (1842, '2020-05-16', 'Efectivo'),
+    (4717, '2020-05-16', 'Mastercard'),
+    (4700, '2020-05-16', 'American Express'),
+    (1733, '2020-05-16', 'Mastercard'),
+    (3333, '2020-05-16', 'Mastercard'),
+    (350, '2020-05-16', 'Six Flags Gift Card'),
+    (274, '2020-05-16', 'Efectivo'),
+    (2651, '2020-05-16', 'Six Flags Gift Card'),
+    (404, '2020-05-17', 'Paypal'),
+    (2000, '2020-05-17', 'Six Flags Gift Card'),
+    (250, '2020-05-18', 'Paypal'),
+    (4346, '2020-05-18', 'Visa'),
+    (1690, '2020-05-18', 'Efectivo'),
+    (2001, '2020-05-18', 'Mastercard'),
+    (1923, '2020-05-18', 'Paypal'),
+    (888, '2020-05-18', 'Mastercard'),
+    (4699, '2020-05-18', 'Paypal'),
+    (3131, '2020-05-18', 'Efectivo'),
+    (162, '2020-05-19', 'Visa'),
+    (2497, '2020-05-19', 'Efectivo'),
+    (1571, '2020-05-19', 'Visa'),
+    (2853, '2020-05-20', 'Visa'),
+    (4902, '2020-05-20', 'Efectivo'),
+    (3019, '2020-05-21', 'American Express'),
+    (639, '2020-05-21', 'Mastercard'),
+    (1166, '2020-05-21', 'American Express'),
+    (1034, '2020-05-21', 'Visa'),
+    (48, '2020-05-21', 'Paypal'),
+    (826, '2020-05-21', 'Six Flags Membership'),
+    (2902, '2020-05-21', 'Six Flags Gift Card'),
+    (1620, '2020-05-21', 'Six Flags Membership'),
+    (594, '2020-05-22', 'Mastercard'),
+    (124, '2020-05-22', 'Six Flags Membership'),
+    (2934, '2020-05-22', 'Visa'),
+    (4397, '2020-05-22', 'Six Flags Gift Card'),
+    (3094, '2020-05-23', 'Visa'),
+    (297, '2020-05-23', 'Six Flags Gift Card'),
+    (312, '2020-05-23', 'Mastercard'),
+    (1215, '2020-05-23', 'Six Flags Gift Card'),
+    (3302, '2020-05-24', 'Six Flags Gift Card'),
+    (3091, '2020-05-24', 'Six Flags Gift Card'),
+    (3594, '2020-05-24', 'American Express'),
+    (416, '2020-05-24', 'Mastercard'),
+    (4399, '2020-05-24', 'Mastercard'),
+    (4512, '2020-05-24', 'Efectivo'),
+    (1682, '2020-05-24', 'Six Flags Membership'),
+    (3186, '2020-05-25', 'Six Flags Gift Card'),
+    (1326, '2020-05-25', 'Paypal'),
+    (4115, '2020-05-25', 'Efectivo'),
+    (2701, '2020-05-25', 'Six Flags Gift Card'),
+    (681, '2020-05-25', 'Visa'),
+    (4241, '2020-05-25', 'Visa'),
+    (858, '2020-05-25', 'Paypal'),
+    (1406, '2020-05-26', 'American Express'),
+    (2674, '2020-05-26', 'Paypal'),
+    (1386, '2020-05-26', 'Visa'),
+    (620, '2020-05-26', 'Six Flags Membership'),
+    (3093, '2020-05-26', 'Mastercard'),
+    (1164, '2020-05-26', 'American Express'),
+    (4135, '2020-05-27', 'Efectivo'),
+    (2943, '2020-05-27', 'Six Flags Membership'),
+    (3521, '2020-05-27', 'Six Flags Gift Card'),
+    (4747, '2020-05-27', 'Mastercard'),
+    (2617, '2020-05-27', 'American Express'),
+    (3147, '2020-05-27', 'American Express'),
+    (4536, '2020-05-27', 'American Express'),
+    (3403, '2020-05-27', 'Paypal'),
+    (162, '2020-05-27', 'Visa'),
+    (541, '2020-05-28', 'Six Flags Gift Card'),
+    (604, '2020-05-28', 'Mastercard'),
+    (906, '2020-05-28', 'Paypal'),
+    (2586, '2020-05-28', 'Six Flags Gift Card'),
+    (119, '2020-05-28', 'Paypal'),
+    (1138, '2020-05-28', 'Efectivo'),
+    (837, '2020-05-28', 'Mastercard'),
+    (3084, '2020-05-28', 'Paypal'),
+    (1015, '2020-05-29', 'Paypal'),
+    (4093, '2020-05-29', 'American Express'),
+    (992, '2020-05-29', 'Visa'),
+    (4379, '2020-05-29', 'Visa'),
+    (227, '2020-05-29', 'Efectivo'),
+    (994, '2020-05-30', 'American Express'),
+    (3244, '2020-05-30', 'American Express'),
+    (2366, '2020-05-30', 'Efectivo'),
+    (2952, '2020-05-30', 'Six Flags Gift Card'),
+    (4526, '2020-05-30', 'Visa'),
+    (529, '2020-05-30', 'American Express'),
+    (294, '2020-05-31', 'Efectivo'),
+    (2129, '2020-05-31', 'Paypal'),
+    (1677, '2020-05-31', 'Six Flags Membership'),
+    (777, '2020-05-31', 'Efectivo'),
+    (300, '2020-05-31', 'Paypal'),
+    (2801, '2020-05-31', 'Visa'),
+    (2992, '2020-06-01', 'Paypal'),
+    (3456, '2020-06-01', 'Six Flags Membership'),
+    (136, '2020-06-01', 'Paypal'),
+    (3286, '2020-06-01', 'Mastercard'),
+    (1275, '2020-06-01', 'Visa'),
+    (1872, '2020-06-01', 'Six Flags Membership'),
+    (1630, '2020-06-01', 'Visa'),
+    (3906, '2020-06-01', 'American Express'),
+    (2329, '2020-06-02', 'Mastercard'),
+    (2359, '2020-06-02', 'Six Flags Membership'),
+    (1517, '2020-06-02', 'American Express'),
+    (1931, '2020-06-02', 'Paypal'),
+    (4792, '2020-06-02', 'Efectivo'),
+    (110, '2020-06-02', 'Six Flags Gift Card'),
+    (1731, '2020-06-02', 'Efectivo'),
+    (3938, '2020-06-02', 'Paypal'),
+    (2665, '2020-06-03', 'Mastercard'),
+    (2072, '2020-06-03', 'American Express'),
+    (1137, '2020-06-03', 'Visa'),
+    (329, '2020-06-03', 'Efectivo'),
+    (4203, '2020-06-03', 'Six Flags Membership'),
+    (4255, '2020-06-04', 'Mastercard'),
+    (1621, '2020-06-04', 'Six Flags Gift Card'),
+    (3390, '2020-06-04', 'Visa'),
+    (3414, '2020-06-04', 'Paypal'),
+    (3017, '2020-06-04', 'Visa'),
+    (1909, '2020-06-04', 'Paypal'),
+    (3347, '2020-06-04', 'Six Flags Gift Card'),
+    (630, '2020-06-04', 'Six Flags Gift Card'),
+    (2399, '2020-06-04', 'Six Flags Membership'),
+    (1786, '2020-06-04', 'American Express'),
+    (3127, '2020-06-05', 'Visa'),
+    (4601, '2020-06-05', 'American Express'),
+    (4049, '2020-06-05', 'Six Flags Membership'),
+    (724, '2020-06-05', 'Paypal'),
+    (3335, '2020-06-05', 'Six Flags Gift Card'),
+    (811, '2020-06-05', 'Paypal'),
+    (1130, '2020-06-05', 'Efectivo'),
+    (4236, '2020-06-05', 'Mastercard'),
+    (3093, '2020-06-05', 'American Express'),
+    (1387, '2020-06-05', 'Six Flags Gift Card'),
+    (75, '2020-06-05', 'Visa'),
+    (371, '2020-06-05', 'Visa'),
+    (2450, '2020-06-05', 'Paypal'),
+    (1508, '2020-06-06', 'American Express'),
+    (1846, '2020-06-06', 'Efectivo'),
+    (377, '2020-06-06', 'Six Flags Gift Card'),
+    (3885, '2020-06-06', 'Paypal'),
+    (2724, '2020-06-06', 'American Express'),
+    (1758, '2020-06-06', 'Visa'),
+    (4108, '2020-06-07', 'American Express'),
+    (2513, '2020-06-07', 'Six Flags Membership'),
+    (54, '2020-06-07', 'American Express'),
+    (3501, '2020-06-07', 'Mastercard'),
+    (2346, '2020-06-07', 'Six Flags Gift Card'),
+    (2758, '2020-06-07', 'Mastercard'),
+    (1023, '2020-06-07', 'Mastercard'),
+    (646, '2020-06-07', 'Mastercard'),
+    (2285, '2020-06-07', 'Efectivo'),
+    (2602, '2020-06-07', 'Paypal'),
+    (1852, '2020-06-07', 'Visa'),
+    (2318, '2020-06-07', 'American Express'),
+    (2378, '2020-06-08', 'American Express'),
+    (3672, '2020-06-08', 'Six Flags Membership'),
+    (1929, '2020-06-08', 'Visa'),
+    (3338, '2020-06-08', 'Six Flags Gift Card'),
+    (1855, '2020-06-08', 'Mastercard'),
+    (2205, '2020-06-08', 'Efectivo'),
+    (190, '2020-06-08', 'Visa'),
+    (2708, '2020-06-08', 'Six Flags Gift Card'),
+    (3082, '2020-06-08', 'Paypal'),
+    (1925, '2020-06-09', 'Paypal'),
+    (1847, '2020-06-09', 'Six Flags Membership'),
+    (2752, '2020-06-09', 'Paypal'),
+    (2291, '2020-06-10', 'Paypal'),
+    (1696, '2020-06-10', 'Paypal'),
+    (3327, '2020-06-10', 'Visa'),
+    (4333, '2020-06-10', 'American Express'),
+    (948, '2020-06-10', 'American Express'),
+    (2529, '2020-06-10', 'Six Flags Membership'),
+    (1230, '2020-06-10', 'Six Flags Gift Card'),
+    (2404, '2020-06-11', 'Six Flags Membership'),
+    (1917, '2020-06-11', 'Paypal'),
+    (3403, '2020-06-11', 'Paypal'),
+    (4080, '2020-06-11', 'Six Flags Membership'),
+    (2333, '2020-06-11', 'American Express'),
+    (687, '2020-06-12', 'Efectivo'),
+    (3730, '2020-06-12', 'Mastercard'),
+    (2432, '2020-06-12', 'Paypal'),
+    (2050, '2020-06-13', 'Six Flags Gift Card'),
+    (2793, '2020-06-13', 'Six Flags Gift Card'),
+    (1285, '2020-06-13', 'Mastercard'),
+    (2585, '2020-06-13', 'Efectivo'),
+    (2524, '2020-06-13', 'Mastercard'),
+    (980, '2020-06-14', 'Visa'),
+    (777, '2020-06-14', 'Efectivo'),
+    (2251, '2020-06-14', 'Six Flags Membership'),
+    (4392, '2020-06-14', 'Efectivo'),
+    (4420, '2020-06-14', 'Paypal'),
+    (1241, '2020-06-15', 'Visa'),
+    (2581, '2020-06-15', 'Six Flags Membership'),
+    (1836, '2020-06-15', 'American Express'),
+    (2295, '2020-06-15', 'Mastercard'),
+    (4468, '2020-06-15', 'Visa'),
+    (4001, '2020-06-15', 'Mastercard'),
+    (4729, '2020-06-15', 'Six Flags Gift Card'),
+    (2027, '2020-06-16', 'Six Flags Membership'),
+    (2477, '2020-06-16', 'Efectivo'),
+    (3207, '2020-06-16', 'Efectivo'),
+    (1557, '2020-06-17', 'Paypal'),
+    (4239, '2020-06-17', 'American Express'),
+    (2433, '2020-06-17', 'Paypal'),
+    (2304, '2020-06-17', 'Visa'),
+    (4174, '2020-06-17', 'Visa'),
+    (917, '2020-06-17', 'Paypal'),
+    (728, '2020-06-18', 'Efectivo'),
+    (2662, '2020-06-18', 'Paypal'),
+    (3419, '2020-06-18', 'Six Flags Gift Card'),
+    (3128, '2020-06-18', 'Efectivo'),
+    (97, '2020-06-18', 'American Express'),
+    (2289, '2020-06-18', 'Efectivo'),
+    (725, '2020-06-18', 'Paypal'),
+    (1702, '2020-06-18', 'Six Flags Membership'),
+    (4382, '2020-06-18', 'Paypal'),
+    (573, '2020-06-19', 'Efectivo'),
+    (4153, '2020-06-19', 'Paypal'),
+    (3168, '2020-06-19', 'Paypal'),
+    (4128, '2020-06-20', 'Paypal'),
+    (4028, '2020-06-20', 'American Express'),
+    (2617, '2020-06-20', 'Efectivo'),
+    (2348, '2020-06-20', 'Paypal'),
+    (1489, '2020-06-20', 'Six Flags Membership'),
+    (2467, '2020-06-20', 'Paypal'),
+    (4225, '2020-06-21', 'Visa'),
+    (3389, '2020-06-21', 'Six Flags Gift Card'),
+    (3168, '2020-06-21', 'Visa'),
+    (2293, '2020-06-21', 'Six Flags Membership'),
+    (2326, '2020-06-22', 'Visa'),
+    (1207, '2020-06-22', 'Six Flags Membership'),
+    (1823, '2020-06-22', 'Efectivo'),
+    (2031, '2020-06-23', 'Visa'),
+    (507, '2020-06-23', 'Visa'),
+    (4844, '2020-06-23', 'Efectivo'),
+    (2808, '2020-06-23', 'Visa'),
+    (3070, '2020-06-23', 'Efectivo'),
+    (2344, '2020-06-23', 'Efectivo'),
+    (321, '2020-06-23', 'Six Flags Membership'),
+    (3820, '2020-06-23', 'American Express'),
+    (4288, '2020-06-23', 'American Express'),
+    (1100, '2020-06-23', 'Six Flags Gift Card'),
+    (412, '2020-06-24', 'Mastercard'),
+    (2471, '2020-06-24', 'Efectivo'),
+    (4204, '2020-06-24', 'Six Flags Membership'),
+    (4128, '2020-06-24', 'Six Flags Gift Card'),
+    (3631, '2020-06-24', 'Efectivo'),
+    (4147, '2020-06-24', 'Visa'),
+    (3442, '2020-06-24', 'Mastercard'),
+    (4280, '2020-06-24', 'Visa'),
+    (2972, '2020-06-25', 'American Express'),
+    (4435, '2020-06-25', 'American Express'),
+    (3296, '2020-06-25', 'Paypal'),
+    (565, '2020-06-25', 'Visa'),
+    (146, '2020-06-25', 'American Express'),
+    (1117, '2020-06-26', 'Six Flags Membership'),
+    (2978, '2020-06-26', 'Efectivo'),
+    (4676, '2020-06-26', 'Efectivo'),
+    (1633, '2020-06-26', 'Visa'),
+    (852, '2020-06-27', 'Visa'),
+    (2095, '2020-06-27', 'Paypal'),
+    (1836, '2020-06-27', 'Mastercard'),
+    (3832, '2020-06-27', 'Six Flags Gift Card'),
+    (4275, '2020-06-27', 'Mastercard'),
+    (3266, '2020-06-27', 'Mastercard'),
+    (3574, '2020-06-28', 'Six Flags Gift Card'),
+    (3673, '2020-06-28', 'Six Flags Gift Card'),
+    (4772, '2020-06-28', 'Visa'),
+    (2888, '2020-06-28', 'Visa'),
+    (1931, '2020-06-28', 'American Express'),
+    (1092, '2020-06-28', 'Six Flags Gift Card'),
+    (2552, '2020-06-29', 'Visa'),
+    (4087, '2020-06-29', 'Six Flags Gift Card'),
+    (4323, '2020-06-29', 'Mastercard'),
+    (701, '2020-06-29', 'Mastercard'),
+    (1414, '2020-06-29', 'Visa'),
+    (4682, '2020-06-29', 'Mastercard'),
+    (256, '2020-06-29', 'Six Flags Membership'),
+    (704, '2020-06-30', 'Visa'),
+    (2881, '2020-06-30', 'American Express'),
+    (1146, '2020-06-30', 'Six Flags Membership'),
+    (2042, '2020-06-30', 'Visa'),
+    (2964, '2020-06-30', 'Six Flags Membership'),
+    (1185, '2020-07-01', 'Six Flags Membership'),
+    (52, '2020-07-01', 'Visa'),
+    (3747, '2020-07-01', 'Visa'),
+    (2183, '2020-07-01', 'Mastercard'),
+    (1856, '2020-07-01', 'Six Flags Membership'),
+    (2235, '2020-07-01', 'Mastercard'),
+    (1865, '2020-07-01', 'Six Flags Gift Card'),
+    (1172, '2020-07-02', 'Six Flags Membership'),
+    (1772, '2020-07-02', 'Efectivo'),
+    (186, '2020-07-02', 'Efectivo'),
+    (3508, '2020-07-02', 'Efectivo'),
+    (263, '2020-07-02', 'Efectivo'),
+    (1923, '2020-07-02', 'Six Flags Membership'),
+    (3367, '2020-07-02', 'Visa'),
+    (1288, '2020-07-02', 'Visa'),
+    (4745, '2020-07-02', 'American Express'),
+    (4390, '2020-07-02', 'Visa'),
+    (651, '2020-07-03', 'Paypal'),
+    (1787, '2020-07-03', 'Visa'),
+    (413, '2020-07-03', 'Mastercard'),
+    (3747, '2020-07-03', 'Mastercard'),
+    (3435, '2020-07-04', 'American Express'),
+    (1156, '2020-07-04', 'Mastercard'),
+    (3603, '2020-07-04', 'Efectivo'),
+    (4417, '2020-07-04', 'Paypal'),
+    (2135, '2020-07-04', 'Efectivo'),
+    (2957, '2020-07-04', 'Visa'),
+    (1031, '2020-07-04', 'Six Flags Membership'),
+    (1286, '2020-07-05', 'American Express'),
+    (4413, '2020-07-05', 'Visa'),
+    (1417, '2020-07-05', 'Six Flags Gift Card'),
+    (4881, '2020-07-05', 'Visa'),
+    (1958, '2020-07-05', 'American Express'),
+    (1204, '2020-07-05', 'Efectivo'),
+    (2837, '2020-07-05', 'Paypal'),
+    (4504, '2020-07-06', 'Paypal'),
+    (2593, '2020-07-06', 'Visa'),
+    (1261, '2020-07-06', 'Visa'),
+    (1675, '2020-07-06', 'Efectivo'),
+    (505, '2020-07-06', 'American Express'),
+    (2476, '2020-07-07', 'American Express'),
+    (4674, '2020-07-07', 'Six Flags Gift Card'),
+    (690, '2020-07-07', 'Efectivo'),
+    (774, '2020-07-07', 'Visa'),
+    (4110, '2020-07-07', 'Mastercard'),
+    (3814, '2020-07-07', 'Six Flags Gift Card'),
+    (926, '2020-07-07', 'Visa'),
+    (360, '2020-07-08', 'Six Flags Membership'),
+    (1484, '2020-07-08', 'Efectivo'),
+    (2890, '2020-07-08', 'Visa'),
+    (2825, '2020-07-08', 'Six Flags Gift Card'),
+    (392, '2020-07-08', 'Mastercard'),
+    (2324, '2020-07-08', 'Efectivo'),
+    (2016, '2020-07-08', 'Paypal'),
+    (2219, '2020-07-08', 'Six Flags Gift Card'),
+    (2366, '2020-07-08', 'Efectivo'),
+    (31, '2020-07-08', 'Six Flags Gift Card'),
+    (2786, '2020-07-09', 'American Express'),
+    (958, '2020-07-09', 'Visa'),
+    (2997, '2020-07-09', 'American Express'),
+    (2491, '2020-07-09', 'Paypal'),
+    (2273, '2020-07-09', 'American Express'),
+    (1871, '2020-07-09', 'Six Flags Membership'),
+    (2554, '2020-07-09', 'Mastercard'),
+    (44, '2020-07-10', 'Paypal'),
+    (4054, '2020-07-10', 'Mastercard'),
+    (4541, '2020-07-10', 'Six Flags Membership'),
+    (1595, '2020-07-10', 'Six Flags Gift Card'),
+    (513, '2020-07-10', 'Visa'),
+    (4265, '2020-07-10', 'Six Flags Membership'),
+    (3970, '2020-07-10', 'Efectivo'),
+    (4027, '2020-07-10', 'American Express'),
+    (3909, '2020-07-10', 'Six Flags Gift Card'),
+    (3252, '2020-07-10', 'Six Flags Membership'),
+    (3988, '2020-07-11', 'Visa'),
+    (3794, '2020-07-11', 'Six Flags Membership'),
+    (433, '2020-07-11', 'Paypal'),
+    (3935, '2020-07-11', 'Mastercard'),
+    (1542, '2020-07-11', 'Visa'),
+    (1620, '2020-07-11', 'American Express'),
+    (4701, '2020-07-11', 'Efectivo'),
+    (1460, '2020-07-11', 'Visa'),
+    (4535, '2020-07-11', 'Visa'),
+    (1410, '2020-07-12', 'Six Flags Gift Card'),
+    (973, '2020-07-12', 'American Express'),
+    (3798, '2020-07-12', 'Six Flags Membership'),
+    (1544, '2020-07-12', 'Six Flags Gift Card'),
+    (1929, '2020-07-12', 'Six Flags Gift Card'),
+    (2511, '2020-07-13', 'Mastercard'),
+    (1846, '2020-07-13', 'Paypal'),
+    (2652, '2020-07-13', 'Efectivo'),
+    (2623, '2020-07-13', 'Mastercard'),
+    (2547, '2020-07-13', 'Paypal'),
+    (3715, '2020-07-13', 'Efectivo'),
+    (1973, '2020-07-13', 'Efectivo'),
+    (1644, '2020-07-13', 'Visa'),
+    (1342, '2020-07-14', 'Mastercard'),
+    (401, '2020-07-14', 'Paypal'),
+    (3342, '2020-07-14', 'Visa'),
+    (2689, '2020-07-14', 'Mastercard'),
+    (1858, '2020-07-14', 'American Express'),
+    (4440, '2020-07-14', 'Efectivo'),
+    (4423, '2020-07-14', 'Visa'),
+    (4046, '2020-07-15', 'Six Flags Gift Card'),
+    (1020, '2020-07-15', 'Paypal'),
+    (3169, '2020-07-15', 'Visa'),
+    (944, '2020-07-15', 'Six Flags Membership'),
+    (4852, '2020-07-15', 'American Express'),
+    (3777, '2020-07-15', 'Six Flags Gift Card'),
+    (3981, '2020-07-15', 'Visa'),
+    (399, '2020-07-16', 'Visa'),
+    (1943, '2020-07-16', 'Visa'),
+    (3210, '2020-07-16', 'Six Flags Gift Card'),
+    (4883, '2020-07-16', 'Paypal'),
+    (4800, '2020-07-17', 'Efectivo'),
+    (71, '2020-07-17', 'Mastercard'),
+    (2629, '2020-07-17', 'Mastercard'),
+    (1297, '2020-07-17', 'Visa'),
+    (846, '2020-07-17', 'Efectivo'),
+    (2610, '2020-07-18', 'Paypal'),
+    (3260, '2020-07-18', 'Visa'),
+    (4506, '2020-07-18', 'Paypal'),
+    (3554, '2020-07-18', 'Six Flags Gift Card'),
+    (1244, '2020-07-18', 'Mastercard'),
+    (271, '2020-07-18', 'American Express'),
+    (4508, '2020-07-18', 'Six Flags Membership'),
+    (2524, '2020-07-19', 'Six Flags Gift Card'),
+    (4396, '2020-07-19', 'Visa'),
+    (1822, '2020-07-19', 'Six Flags Gift Card'),
+    (3287, '2020-07-19', 'Six Flags Membership'),
+    (2018, '2020-07-19', 'Six Flags Membership'),
+    (2969, '2020-07-19', 'Six Flags Membership'),
+    (1577, '2020-07-19', 'Paypal'),
+    (4773, '2020-07-19', 'American Express'),
+    (4304, '2020-07-20', 'Six Flags Membership'),
+    (3723, '2020-07-20', 'Mastercard'),
+    (4015, '2020-07-20', 'Visa'),
+    (2545, '2020-07-20', 'Six Flags Gift Card'),
+    (2108, '2020-07-20', 'Six Flags Membership'),
+    (834, '2020-07-20', 'American Express'),
+    (4170, '2020-07-20', 'Visa'),
+    (954, '2020-07-20', 'Efectivo'),
+    (167, '2020-07-20', 'Mastercard'),
+    (3730, '2020-07-20', 'Paypal'),
+    (97, '2020-07-21', 'Six Flags Gift Card'),
+    (4035, '2020-07-21', 'Visa'),
+    (1273, '2020-07-21', 'American Express'),
+    (3265, '2020-07-21', 'Mastercard'),
+    (3404, '2020-07-21', 'Efectivo'),
+    (4965, '2020-07-22', 'Efectivo'),
+    (3221, '2020-07-22', 'Paypal'),
+    (4613, '2020-07-22', 'Six Flags Gift Card'),
+    (3364, '2020-07-22', 'Paypal'),
+    (3964, '2020-07-22', 'Six Flags Gift Card'),
+    (2026, '2020-07-22', 'Six Flags Gift Card'),
+    (2653, '2020-07-22', 'Visa'),
+    (2099, '2020-07-23', 'American Express'),
+    (2365, '2020-07-23', 'Six Flags Gift Card'),
+    (3950, '2020-07-23', 'Paypal'),
+    (4290, '2020-07-23', 'Visa'),
+    (2354, '2020-07-23', 'American Express'),
+    (3230, '2020-07-23', 'Paypal'),
+    (527, '2020-07-24', 'Six Flags Gift Card'),
+    (803, '2020-07-24', 'American Express'),
+    (4015, '2020-07-24', 'Visa'),
+    (1508, '2020-07-25', 'Mastercard'),
+    (4382, '2020-07-25', 'Visa'),
+    (302, '2020-07-25', 'Efectivo'),
+    (1022, '2020-07-25', 'Mastercard'),
+    (3685, '2020-07-25', 'American Express'),
+    (4206, '2020-07-25', 'American Express'),
+    (368, '2020-07-25', 'Six Flags Membership'),
+    (4954, '2020-07-26', 'American Express'),
+    (1447, '2020-07-26', 'American Express'),
+    (3288, '2020-07-26', 'Six Flags Gift Card'),
+    (3595, '2020-07-26', 'Six Flags Membership'),
+    (4114, '2020-07-26', 'Efectivo'),
+    (2054, '2020-07-26', 'Mastercard'),
+    (3852, '2020-07-26', 'Mastercard'),
+    (1547, '2020-07-26', 'Six Flags Gift Card'),
+    (4960, '2020-07-26', 'Efectivo'),
+    (973, '2020-07-27', 'Mastercard'),
+    (164, '2020-07-27', 'American Express'),
+    (3977, '2020-07-27', 'Mastercard'),
+    (4935, '2020-07-27', 'Six Flags Membership'),
+    (2621, '2020-07-27', 'American Express'),
+    (4974, '2020-07-27', 'Efectivo'),
+    (1792, '2020-07-28', 'Paypal'),
+    (4745, '2020-07-28', 'American Express'),
+    (621, '2020-07-28', 'Efectivo'),
+    (4713, '2020-07-29', 'Paypal'),
+    (2402, '2020-07-29', 'Six Flags Membership'),
+    (1939, '2020-07-29', 'Efectivo'),
+    (503, '2020-07-29', 'Six Flags Membership'),
+    (756, '2020-07-30', 'Visa'),
+    (4703, '2020-07-30', 'American Express'),
+    (1751, '2020-07-30', 'Six Flags Gift Card'),
+    (4682, '2020-07-30', 'Mastercard'),
+    (1140, '2020-07-30', 'Six Flags Gift Card'),
+    (4286, '2020-07-30', 'Paypal'),
+    (214, '2020-07-30', 'Six Flags Membership'),
+    (2834, '2020-07-31', 'Six Flags Membership'),
+    (2510, '2020-07-31', 'Visa'),
+    (1551, '2020-07-31', 'Mastercard'),
+    (575, '2020-08-01', 'Paypal'),
+    (2232, '2020-08-01', 'Mastercard'),
+    (540, '2020-08-01', 'Six Flags Gift Card'),
+    (1184, '2020-08-01', 'Paypal'),
+    (2641, '2020-08-01', 'Visa'),
+    (4098, '2020-08-02', 'Six Flags Gift Card'),
+    (3644, '2020-08-02', 'Six Flags Membership'),
+    (1452, '2020-08-02', 'Six Flags Membership'),
+    (3399, '2020-08-02', 'Efectivo'),
+    (2812, '2020-08-02', 'Mastercard'),
+    (4405, '2020-08-02', 'Paypal'),
+    (1103, '2020-08-02', 'American Express'),
+    (173, '2020-08-02', 'Efectivo'),
+    (2473, '2020-08-02', 'Efectivo'),
+    (3371, '2020-08-02', 'Efectivo'),
+    (4025, '2020-08-02', 'Mastercard'),
+    (4123, '2020-08-03', 'Mastercard'),
+    (542, '2020-08-03', 'Six Flags Membership'),
+    (2490, '2020-08-03', 'Paypal'),
+    (493, '2020-08-03', 'American Express'),
+    (199, '2020-08-03', 'Mastercard'),
+    (4820, '2020-08-03', 'Paypal'),
+    (3879, '2020-08-03', 'Six Flags Membership'),
+    (2364, '2020-08-03', 'Paypal'),
+    (4230, '2020-08-03', 'Mastercard'),
+    (1124, '2020-08-04', 'Paypal'),
+    (995, '2020-08-04', 'Mastercard'),
+    (74, '2020-08-04', 'Visa'),
+    (1491, '2020-08-05', 'Efectivo'),
+    (542, '2020-08-05', 'Mastercard'),
+    (24, '2020-08-05', 'Visa'),
+    (1951, '2020-08-05', 'Visa'),
+    (2849, '2020-08-05', 'Six Flags Membership'),
+    (1478, '2020-08-05', 'Efectivo'),
+    (3862, '2020-08-06', 'Visa'),
+    (3324, '2020-08-06', 'Paypal'),
+    (2035, '2020-08-06', 'Visa'),
+    (2071, '2020-08-06', 'Six Flags Gift Card'),
+    (4313, '2020-08-06', 'Six Flags Gift Card'),
+    (1753, '2020-08-06', 'Visa'),
+    (2274, '2020-08-06', 'Visa'),
+    (2672, '2020-08-06', 'Efectivo'),
+    (1035, '2020-08-07', 'Paypal'),
+    (3675, '2020-08-07', 'Mastercard'),
+    (3432, '2020-08-07', 'Six Flags Gift Card'),
+    (4, '2020-08-07', 'Paypal'),
+    (764, '2020-08-08', 'Mastercard'),
+    (4631, '2020-08-08', 'Paypal'),
+    (710, '2020-08-08', 'Six Flags Membership'),
+    (4535, '2020-08-08', 'Visa'),
+    (4570, '2020-08-08', 'Efectivo'),
+    (4929, '2020-08-08', 'Mastercard'),
+    (2069, '2020-08-08', 'Six Flags Membership'),
+    (1833, '2020-08-08', 'Six Flags Membership'),
+    (452, '2020-08-09', 'Visa'),
+    (1474, '2020-08-09', 'Visa'),
+    (1951, '2020-08-09', 'Mastercard'),
+    (3159, '2020-08-09', 'American Express'),
+    (1616, '2020-08-09', 'Six Flags Gift Card'),
+    (156, '2020-08-09', 'Paypal'),
+    (1535, '2020-08-09', 'Efectivo'),
+    (3307, '2020-08-09', 'Six Flags Gift Card'),
+    (2914, '2020-08-09', 'Mastercard'),
+    (3, '2020-08-10', 'Six Flags Gift Card'),
+    (86, '2020-08-10', 'Six Flags Membership'),
+    (1157, '2020-08-10', 'Visa'),
+    (800, '2020-08-10', 'Paypal'),
+    (3217, '2020-08-10', 'Paypal'),
+    (2382, '2020-08-10', 'Mastercard'),
+    (1595, '2020-08-10', 'Six Flags Gift Card'),
+    (3479, '2020-08-10', 'Six Flags Gift Card'),
+    (443, '2020-08-10', 'Six Flags Membership'),
+    (4768, '2020-08-11', 'Mastercard'),
+    (4523, '2020-08-11', 'Mastercard'),
+    (3228, '2020-08-11', 'Paypal'),
+    (4613, '2020-08-11', 'Paypal'),
+    (383, '2020-08-11', 'Mastercard'),
+    (2340, '2020-08-11', 'Six Flags Gift Card'),
+    (941, '2020-08-11', 'Efectivo'),
+    (3733, '2020-08-11', 'Six Flags Gift Card'),
+    (4062, '2020-08-11', 'Six Flags Membership'),
+    (3753, '2020-08-12', 'Visa'),
+    (3809, '2020-08-12', 'Visa'),
+    (1256, '2020-08-12', 'Six Flags Gift Card'),
+    (2526, '2020-08-12', 'Paypal'),
+    (4787, '2020-08-12', 'Six Flags Gift Card'),
+    (4648, '2020-08-13', 'American Express'),
+    (962, '2020-08-13', 'Efectivo'),
+    (2096, '2020-08-13', 'Six Flags Gift Card'),
+    (4764, '2020-08-13', 'Mastercard'),
+    (4343, '2020-08-13', 'Six Flags Membership'),
+    (186, '2020-08-13', 'Six Flags Membership'),
+    (1834, '2020-08-13', 'Mastercard'),
+    (1604, '2020-08-13', 'American Express'),
+    (3583, '2020-08-14', 'Six Flags Membership'),
+    (3690, '2020-08-14', 'Visa'),
+    (3380, '2020-08-14', 'Six Flags Membership'),
+    (3070, '2020-08-14', 'Mastercard'),
+    (1548, '2020-08-14', 'American Express'),
+    (3831, '2020-08-14', 'Paypal'),
+    (583, '2020-08-14', 'Efectivo'),
+    (67, '2020-08-14', 'American Express'),
+    (4965, '2020-08-14', 'American Express'),
+    (3675, '2020-08-15', 'Visa'),
+    (1922, '2020-08-15', 'Six Flags Gift Card'),
+    (633, '2020-08-15', 'Six Flags Membership'),
+    (4214, '2020-08-15', 'Mastercard'),
+    (621, '2020-08-15', 'Paypal'),
+    (1982, '2020-08-15', 'Visa'),
+    (3755, '2020-08-15', 'American Express'),
+    (119, '2020-08-16', 'Visa'),
+    (4254, '2020-08-16', 'Paypal'),
+    (4941, '2020-08-16', 'American Express'),
+    (2518, '2020-08-16', 'Efectivo'),
+    (2055, '2020-08-16', 'Efectivo'),
+    (3722, '2020-08-17', 'Visa'),
+    (3652, '2020-08-17', 'Paypal'),
+    (99, '2020-08-17', 'Six Flags Gift Card'),
+    (1801, '2020-08-17', 'Efectivo'),
+    (2320, '2020-08-17', 'Six Flags Gift Card'),
+    (397, '2020-08-18', 'Mastercard'),
+    (4593, '2020-08-18', 'Six Flags Membership'),
+    (2397, '2020-08-18', 'Mastercard'),
+    (1499, '2020-08-18', 'Six Flags Membership'),
+    (30, '2020-08-18', 'Six Flags Membership'),
+    (1583, '2020-08-18', 'Six Flags Gift Card'),
+    (1211, '2020-08-18', 'Efectivo'),
+    (2230, '2020-08-18', 'Mastercard'),
+    (2642, '2020-08-18', 'American Express'),
+    (4282, '2020-08-18', 'Six Flags Gift Card'),
+    (3483, '2020-08-18', 'American Express'),
+    (358, '2020-08-18', 'Visa'),
+    (3843, '2020-08-19', 'Six Flags Membership'),
+    (1927, '2020-08-19', 'Six Flags Membership'),
+    (728, '2020-08-19', 'Six Flags Gift Card'),
+    (3080, '2020-08-19', 'Six Flags Membership'),
+    (1343, '2020-08-19', 'Paypal'),
+    (1856, '2020-08-19', 'Six Flags Gift Card'),
+    (1625, '2020-08-20', 'Six Flags Gift Card'),
+    (1608, '2020-08-20', 'Six Flags Membership'),
+    (2443, '2020-08-20', 'Efectivo'),
+    (3548, '2020-08-20', 'Six Flags Gift Card'),
+    (2807, '2020-08-20', 'Six Flags Membership'),
+    (2145, '2020-08-20', 'Efectivo'),
+    (261, '2020-08-20', 'Efectivo'),
+    (1555, '2020-08-20', 'Efectivo'),
+    (2848, '2020-08-20', 'Six Flags Membership'),
+    (2591, '2020-08-21', 'Efectivo'),
+    (4386, '2020-08-21', 'Visa'),
+    (2349, '2020-08-21', 'American Express'),
+    (620, '2020-08-21', 'American Express'),
+    (1243, '2020-08-22', 'Efectivo'),
+    (19, '2020-08-22', 'Six Flags Membership'),
+    (3746, '2020-08-22', 'American Express'),
+    (1736, '2020-08-22', 'Efectivo'),
+    (4203, '2020-08-22', 'American Express'),
+    (1949, '2020-08-23', 'Efectivo'),
+    (2523, '2020-08-23', 'American Express'),
+    (3550, '2020-08-23', 'Efectivo'),
+    (4512, '2020-08-23', 'Six Flags Gift Card'),
+    (147, '2020-08-23', 'Visa'),
+    (3129, '2020-08-23', 'Six Flags Membership'),
+    (1691, '2020-08-23', 'Six Flags Gift Card'),
+    (540, '2020-08-24', 'Mastercard'),
+    (273, '2020-08-24', 'Six Flags Membership'),
+    (2612, '2020-08-24', 'Six Flags Gift Card'),
+    (4283, '2020-08-24', 'Six Flags Gift Card'),
+    (1817, '2020-08-24', 'Visa'),
+    (2222, '2020-08-24', 'Visa'),
+    (4608, '2020-08-24', 'Mastercard'),
+    (1167, '2020-08-24', 'American Express'),
+    (3358, '2020-08-25', 'Six Flags Membership'),
+    (4889, '2020-08-25', 'Six Flags Membership'),
+    (31, '2020-08-25', 'Visa'),
+    (1583, '2020-08-26', 'Visa'),
+    (2014, '2020-08-26', 'Mastercard'),
+    (3778, '2020-08-26', 'Mastercard'),
+    (916, '2020-08-26', 'American Express'),
+    (1650, '2020-08-26', 'Six Flags Gift Card'),
+    (2015, '2020-08-27', 'Paypal'),
+    (3691, '2020-08-27', 'Paypal'),
+    (4199, '2020-08-27', 'Efectivo'),
+    (1672, '2020-08-28', 'Six Flags Membership'),
+    (1218, '2020-08-28', 'Six Flags Membership'),
+    (2795, '2020-08-28', 'Paypal'),
+    (1218, '2020-08-28', 'Visa'),
+    (385, '2020-08-29', 'Six Flags Gift Card'),
+    (901, '2020-08-29', 'American Express'),
+    (4594, '2020-08-29', 'American Express'),
+    (3641, '2020-08-29', 'Six Flags Membership'),
+    (1075, '2020-08-29', 'Visa'),
+    (1246, '2020-08-29', 'Six Flags Membership'),
+    (1072, '2020-08-29', 'American Express'),
+    (3376, '2020-08-29', 'Mastercard'),
+    (1407, '2020-08-29', 'Paypal'),
+    (521, '2020-08-30', 'Six Flags Membership'),
+    (3250, '2020-08-30', 'Paypal'),
+    (700, '2020-08-30', 'American Express'),
+    (1964, '2020-08-30', 'Mastercard'),
+    (1818, '2020-08-30', 'American Express'),
+    (2205, '2020-08-30', 'Paypal'),
+    (4230, '2020-08-30', 'Visa'),
+    (4442, '2020-08-30', 'American Express'),
+    (2110, '2020-08-30', 'Six Flags Membership'),
+    (4615, '2020-08-31', 'Paypal'),
+    (909, '2020-08-31', 'American Express'),
+    (971, '2020-08-31', 'Six Flags Gift Card'),
+    (4429, '2020-08-31', 'Paypal'),
+    (4237, '2020-09-01', 'Six Flags Membership'),
+    (4062, '2020-09-01', 'American Express'),
+    (77, '2020-09-01', 'Six Flags Membership'),
+    (1659, '2020-09-01', 'Mastercard'),
+    (4604, '2020-09-01', 'Visa'),
+    (1558, '2020-09-01', 'Six Flags Gift Card'),
+    (1315, '2020-09-01', 'American Express'),
+    (2722, '2020-09-01', 'Mastercard'),
+    (4011, '2020-09-02', 'Efectivo'),
+    (3535, '2020-09-02', 'Efectivo'),
+    (3924, '2020-09-02', 'Six Flags Membership'),
+    (4691, '2020-09-02', 'Efectivo'),
+    (4338, '2020-09-02', 'Six Flags Membership'),
+    (2211, '2020-09-02', 'Paypal'),
+    (2202, '2020-09-02', 'Six Flags Membership'),
+    (956, '2020-09-02', 'American Express'),
+    (1084, '2020-09-02', 'American Express'),
+    (1069, '2020-09-02', 'Paypal'),
+    (3126, '2020-09-03', 'Six Flags Gift Card'),
+    (4157, '2020-09-03', 'Efectivo'),
+    (2609, '2020-09-03', 'American Express'),
+    (1916, '2020-09-03', 'American Express'),
+    (2705, '2020-09-03', 'Six Flags Gift Card'),
+    (1557, '2020-09-03', 'Paypal'),
+    (1520, '2020-09-04', 'Visa'),
+    (2973, '2020-09-04', 'Paypal'),
+    (4488, '2020-09-04', 'Six Flags Gift Card'),
+    (3637, '2020-09-04', 'Six Flags Membership'),
+    (4455, '2020-09-04', 'Mastercard'),
+    (1542, '2020-09-04', 'Efectivo'),
+    (2736, '2020-09-04', 'American Express'),
+    (4029, '2020-09-04', 'Paypal'),
+    (4304, '2020-09-04', 'Visa'),
+    (1733, '2020-09-05', 'Mastercard'),
+    (746, '2020-09-05', 'American Express'),
+    (4509, '2020-09-05', 'American Express'),
+    (4324, '2020-09-05', 'Mastercard'),
+    (2276, '2020-09-05', 'American Express'),
+    (3432, '2020-09-05', 'Efectivo'),
+    (196, '2020-09-06', 'Paypal'),
+    (1410, '2020-09-06', 'Paypal'),
+    (4748, '2020-09-06', 'Mastercard'),
+    (3555, '2020-09-06', 'Paypal'),
+    (1505, '2020-09-06', 'American Express'),
+    (3749, '2020-09-06', 'Mastercard'),
+    (3021, '2020-09-06', 'Mastercard'),
+    (4249, '2020-09-06', 'Six Flags Gift Card'),
+    (3870, '2020-09-06', 'Visa'),
+    (4790, '2020-09-07', 'Six Flags Membership'),
+    (4595, '2020-09-07', 'Efectivo'),
+    (596, '2020-09-07', 'Visa'),
+    (4145, '2020-09-07', 'Efectivo'),
+    (1746, '2020-09-07', 'Efectivo'),
+    (2580, '2020-09-07', 'American Express'),
+    (2052, '2020-09-07', 'Visa'),
+    (3194, '2020-09-08', 'Paypal'),
+    (4969, '2020-09-08', 'Six Flags Gift Card'),
+    (4928, '2020-09-08', 'Six Flags Gift Card'),
+    (1806, '2020-09-08', 'Efectivo'),
+    (4555, '2020-09-08', 'Mastercard'),
+    (3861, '2020-09-08', 'American Express'),
+    (1493, '2020-09-09', 'Visa'),
+    (3983, '2020-09-09', 'Visa'),
+    (2875, '2020-09-09', 'Six Flags Gift Card'),
+    (1034, '2020-09-09', 'Six Flags Gift Card'),
+    (4488, '2020-09-09', 'Six Flags Gift Card'),
+    (4249, '2020-09-10', 'Paypal'),
+    (1467, '2020-09-10', 'Paypal'),
+    (1153, '2020-09-10', 'Paypal'),
+    (1572, '2020-09-10', 'Six Flags Membership'),
+    (3653, '2020-09-10', 'Paypal'),
+    (4601, '2020-09-10', 'Six Flags Membership'),
+    (3465, '2020-09-10', 'American Express'),
+    (2655, '2020-09-10', 'Six Flags Gift Card'),
+    (3054, '2020-09-11', 'Mastercard'),
+    (4057, '2020-09-11', 'Six Flags Membership'),
+    (1358, '2020-09-11', 'Mastercard'),
+    (160, '2020-09-11', 'Efectivo'),
+    (1490, '2020-09-11', 'Six Flags Membership'),
+    (2434, '2020-09-11', 'Six Flags Membership'),
+    (2011, '2020-09-11', 'Six Flags Membership'),
+    (2220, '2020-09-11', 'Mastercard'),
+    (4171, '2020-09-11', 'Efectivo'),
+    (2485, '2020-09-11', 'American Express'),
+    (2671, '2020-09-12', 'American Express'),
+    (2663, '2020-09-12', 'Six Flags Membership'),
+    (1469, '2020-09-12', 'Visa'),
+    (1879, '2020-09-12', 'Six Flags Gift Card'),
+    (410, '2020-09-12', 'American Express'),
+    (4697, '2020-09-12', 'Efectivo'),
+    (2062, '2020-09-12', 'Six Flags Membership'),
+    (2867, '2020-09-12', 'Visa'),
+    (1375, '2020-09-13', 'Six Flags Gift Card'),
+    (849, '2020-09-13', 'Paypal'),
+    (4760, '2020-09-13', 'Paypal'),
+    (886, '2020-09-13', 'Visa'),
+    (2355, '2020-09-13', 'Visa'),
+    (4189, '2020-09-13', 'Paypal'),
+    (540, '2020-09-13', 'Mastercard'),
+    (1448, '2020-09-13', 'Efectivo'),
+    (4645, '2020-09-14', 'Six Flags Gift Card'),
+    (29, '2020-09-14', 'Paypal'),
+    (4082, '2020-09-14', 'American Express'),
+    (1505, '2020-09-14', 'Visa'),
+    (1165, '2020-09-15', 'Paypal'),
+    (4107, '2020-09-15', 'Six Flags Gift Card'),
+    (876, '2020-09-15', 'Visa'),
+    (3431, '2020-09-15', 'Efectivo'),
+    (303, '2020-09-15', 'Six Flags Gift Card'),
+    (2304, '2020-09-15', 'Six Flags Gift Card'),
+    (194, '2020-09-15', 'Efectivo'),
+    (2530, '2020-09-15', 'Six Flags Gift Card'),
+    (3158, '2020-09-15', 'Six Flags Gift Card'),
+    (2302, '2020-09-15', 'Six Flags Membership'),
+    (3872, '2020-09-15', 'Mastercard'),
+    (1815, '2020-09-16', 'Six Flags Gift Card'),
+    (2890, '2020-09-16', 'Paypal'),
+    (2520, '2020-09-16', 'Visa'),
+    (151, '2020-09-16', 'American Express'),
+    (347, '2020-09-17', 'Mastercard'),
+    (506, '2020-09-17', 'Six Flags Gift Card'),
+    (2981, '2020-09-17', 'Efectivo'),
+    (2083, '2020-09-17', 'Mastercard'),
+    (3556, '2020-09-17', 'American Express'),
+    (2674, '2020-09-18', 'Paypal'),
+    (4841, '2020-09-18', 'Efectivo'),
+    (2701, '2020-09-18', 'Efectivo'),
+    (4817, '2020-09-19', 'Mastercard'),
+    (767, '2020-09-19', 'Visa'),
+    (2678, '2020-09-19', 'Paypal'),
+    (1472, '2020-09-19', 'Efectivo'),
+    (3903, '2020-09-19', 'American Express'),
+    (1140, '2020-09-19', 'Six Flags Gift Card'),
+    (2182, '2020-09-19', 'Six Flags Membership'),
+    (3815, '2020-09-19', 'Mastercard'),
+    (3147, '2020-09-19', 'Paypal'),
+    (3460, '2020-09-19', 'Six Flags Membership'),
+    (3118, '2020-09-20', 'Six Flags Gift Card'),
+    (20, '2020-09-20', 'American Express'),
+    (1543, '2020-09-20', 'Six Flags Membership'),
+    (1605, '2020-09-20', 'Mastercard'),
+    (3133, '2020-09-20', 'Six Flags Membership'),
+    (406, '2020-09-20', 'Paypal'),
+    (393, '2020-09-20', 'Six Flags Membership'),
+    (2982, '2020-09-20', 'Visa'),
+    (4647, '2020-09-20', 'Paypal'),
+    (1251, '2020-09-21', 'Six Flags Membership'),
+    (2083, '2020-09-21', 'Paypal'),
+    (975, '2020-09-21', 'Mastercard'),
+    (1411, '2020-09-21', 'Six Flags Gift Card'),
+    (4328, '2020-09-22', 'Paypal'),
+    (2349, '2020-09-22', 'Efectivo'),
+    (4170, '2020-09-22', 'Six Flags Membership'),
+    (4132, '2020-09-22', 'American Express'),
+    (2253, '2020-09-22', 'Efectivo'),
+    (2207, '2020-09-22', 'Visa'),
+    (3958, '2020-09-22', 'Mastercard'),
+    (4234, '2020-09-23', 'Mastercard'),
+    (485, '2020-09-23', 'Visa'),
+    (1772, '2020-09-23', 'Efectivo'),
+    (4796, '2020-09-23', 'American Express'),
+    (2736, '2020-09-23', 'American Express'),
+    (953, '2020-09-23', 'Six Flags Membership'),
+    (1630, '2020-09-24', 'Visa'),
+    (1999, '2020-09-24', 'American Express'),
+    (444, '2020-09-24', 'Six Flags Membership'),
+    (3060, '2020-09-25', 'Mastercard'),
+    (1367, '2020-09-25', 'Six Flags Gift Card'),
+    (4722, '2020-09-25', 'Efectivo'),
+    (3298, '2020-09-25', 'Mastercard'),
+    (2696, '2020-09-25', 'American Express'),
+    (3433, '2020-09-25', 'Visa'),
+    (4725, '2020-09-25', 'Paypal'),
+    (673, '2020-09-25', 'Efectivo'),
+    (609, '2020-09-25', 'Mastercard'),
+    (2740, '2020-09-25', 'American Express'),
+    (2463, '2020-09-26', 'American Express'),
+    (2448, '2020-09-26', 'Six Flags Gift Card'),
+    (3878, '2020-09-26', 'Six Flags Gift Card'),
+    (2516, '2020-09-26', 'Six Flags Membership'),
+    (4972, '2020-09-26', 'American Express'),
+    (4210, '2020-09-26', 'Six Flags Membership'),
+    (3685, '2020-09-26', 'Efectivo'),
+    (2661, '2020-09-26', 'Six Flags Membership'),
+    (734, '2020-09-26', 'Efectivo'),
+    (4877, '2020-09-26', 'Six Flags Gift Card'),
+    (3830, '2020-09-27', 'Efectivo'),
+    (3538, '2020-09-27', 'Six Flags Membership'),
+    (479, '2020-09-28', 'American Express'),
+    (1701, '2020-09-28', 'American Express'),
+    (1377, '2020-09-28', 'American Express'),
+    (4213, '2020-09-28', 'Paypal'),
+    (73, '2020-09-28', 'Mastercard'),
+    (2548, '2020-09-28', 'Efectivo'),
+    (364, '2020-09-28', 'American Express'),
+    (2022, '2020-09-28', 'Efectivo'),
+    (2207, '2020-09-28', 'Mastercard'),
+    (3416, '2020-09-28', 'Paypal'),
+    (1244, '2020-09-28', 'Visa'),
+    (233, '2020-09-28', 'Efectivo'),
+    (299, '2020-09-28', 'Mastercard'),
+    (2126, '2020-09-29', 'Paypal'),
+    (1208, '2020-09-29', 'Efectivo'),
+    (826, '2020-09-29', 'Visa'),
+    (4640, '2020-09-29', 'Paypal'),
+    (678, '2020-09-29', 'American Express'),
+    (3340, '2020-09-29', 'Six Flags Gift Card'),
+    (1779, '2020-09-29', 'Paypal'),
+    (2059, '2020-09-29', 'Six Flags Gift Card'),
+    (2886, '2020-09-30', 'American Express'),
+    (1753, '2020-09-30', 'Mastercard'),
+    (2604, '2020-09-30', 'Mastercard'),
+    (1969, '2020-09-30', 'Mastercard'),
+    (590, '2020-09-30', 'American Express'),
+    (648, '2020-09-30', 'Mastercard'),
+    (3311, '2020-10-01', 'Efectivo'),
+    (4219, '2020-10-01', 'Six Flags Membership'),
+    (4328, '2020-10-01', 'Paypal'),
+    (65, '2020-10-01', 'Efectivo'),
+    (108, '2020-10-01', 'Six Flags Gift Card'),
+    (4723, '2020-10-01', 'Six Flags Gift Card'),
+    (4895, '2020-10-01', 'Mastercard'),
+    (740, '2020-10-02', 'Six Flags Membership'),
+    (962, '2020-10-02', 'Six Flags Gift Card'),
+    (4942, '2020-10-02', 'Paypal'),
+    (3135, '2020-10-02', 'Efectivo'),
+    (2663, '2020-10-03', 'Visa'),
+    (4670, '2020-10-03', 'Paypal'),
+    (3779, '2020-10-03', 'Six Flags Membership'),
+    (3749, '2020-10-03', 'Visa'),
+    (3639, '2020-10-03', 'Six Flags Membership'),
+    (658, '2020-10-03', 'Mastercard'),
+    (3517, '2020-10-03', 'Six Flags Gift Card'),
+    (2520, '2020-10-04', 'Efectivo'),
+    (4116, '2020-10-04', 'Visa'),
+    (2738, '2020-10-04', 'Six Flags Gift Card'),
+    (925, '2020-10-04', 'Mastercard'),
+    (4094, '2020-10-04', 'Mastercard'),
+    (1784, '2020-10-04', 'Mastercard'),
+    (3144, '2020-10-05', 'Six Flags Gift Card'),
+    (4018, '2020-10-05', 'Visa'),
+    (634, '2020-10-05', 'Six Flags Membership'),
+    (2513, '2020-10-05', 'Six Flags Gift Card'),
+    (2425, '2020-10-05', 'Visa'),
+    (2602, '2020-10-05', 'Six Flags Membership'),
+    (3025, '2020-10-06', 'Efectivo'),
+    (3957, '2020-10-06', 'Paypal'),
+    (4277, '2020-10-06', 'Six Flags Membership'),
+    (681, '2020-10-06', 'Visa'),
+    (1720, '2020-10-06', 'American Express'),
+    (2249, '2020-10-06', 'Six Flags Membership'),
+    (2024, '2020-10-07', 'Paypal'),
+    (1745, '2020-10-07', 'Efectivo'),
+    (117, '2020-10-07', 'Six Flags Membership'),
+    (4838, '2020-10-07', 'Mastercard'),
+    (4861, '2020-10-07', 'American Express'),
+    (803, '2020-10-07', 'Efectivo'),
+    (4303, '2020-10-07', 'Visa'),
+    (4560, '2020-10-08', 'American Express'),
+    (4079, '2020-10-08', 'Mastercard'),
+    (2708, '2020-10-08', 'Visa'),
+    (3364, '2020-10-08', 'Paypal'),
+    (2044, '2020-10-08', 'Mastercard'),
+    (2330, '2020-10-08', 'Visa'),
+    (4528, '2020-10-09', 'Six Flags Membership'),
+    (4866, '2020-10-09', 'Six Flags Gift Card'),
+    (560, '2020-10-09', 'American Express'),
+    (2602, '2020-10-09', 'Efectivo'),
+    (1521, '2020-10-09', 'Mastercard'),
+    (4941, '2020-10-09', 'American Express'),
+    (1280, '2020-10-09', 'Paypal'),
+    (2998, '2020-10-09', 'Six Flags Gift Card'),
+    (1069, '2020-10-10', 'Six Flags Gift Card'),
+    (4828, '2020-10-10', 'Six Flags Gift Card'),
+    (3874, '2020-10-10', 'Mastercard'),
+    (4941, '2020-10-10', 'Visa'),
+    (3388, '2020-10-10', 'American Express'),
+    (4360, '2020-10-10', 'Six Flags Membership'),
+    (3802, '2020-10-10', 'Visa'),
+    (4842, '2020-10-11', 'Mastercard'),
+    (3297, '2020-10-12', 'American Express'),
+    (1081, '2020-10-12', 'Mastercard'),
+    (2681, '2020-10-12', 'Six Flags Membership'),
+    (3111, '2020-10-12', 'Paypal'),
+    (2693, '2020-10-12', 'Mastercard'),
+    (1455, '2020-10-12', 'Mastercard'),
+    (3590, '2020-10-12', 'Efectivo'),
+    (2947, '2020-10-12', 'American Express'),
+    (848, '2020-10-12', 'Mastercard'),
+    (1111, '2020-10-12', 'Visa'),
+    (2077, '2020-10-12', 'Mastercard'),
+    (4553, '2020-10-13', 'Mastercard'),
+    (3866, '2020-10-13', 'Paypal'),
+    (4744, '2020-10-13', 'Mastercard'),
+    (342, '2020-10-13', 'Six Flags Membership'),
+    (1562, '2020-10-13', 'Six Flags Gift Card'),
+    (4565, '2020-10-13', 'Six Flags Membership'),
+    (641, '2020-10-13', 'Paypal'),
+    (1425, '2020-10-13', 'Six Flags Membership'),
+    (1814, '2020-10-13', 'American Express'),
+    (4770, '2020-10-14', 'Mastercard'),
+    (1266, '2020-10-14', 'Paypal'),
+    (1905, '2020-10-14', 'Mastercard'),
+    (2197, '2020-10-14', 'Six Flags Gift Card'),
+    (479, '2020-10-14', 'Six Flags Membership'),
+    (4007, '2020-10-14', 'Efectivo'),
+    (3002, '2020-10-15', 'American Express'),
+    (986, '2020-10-15', 'Six Flags Membership'),
+    (1406, '2020-10-15', 'Efectivo'),
+    (2639, '2020-10-15', 'Visa'),
+    (58, '2020-10-15', 'Mastercard'),
+    (2395, '2020-10-15', 'Six Flags Gift Card'),
+    (1246, '2020-10-16', 'Six Flags Gift Card'),
+    (2572, '2020-10-16', 'Six Flags Gift Card'),
+    (4974, '2020-10-16', 'Six Flags Gift Card'),
+    (4300, '2020-10-16', 'Paypal'),
+    (2147, '2020-10-16', 'Efectivo'),
+    (4004, '2020-10-16', 'Six Flags Gift Card'),
+    (312, '2020-10-16', 'Six Flags Gift Card'),
+    (3166, '2020-10-16', 'Six Flags Membership'),
+    (2317, '2020-10-17', 'Paypal'),
+    (2554, '2020-10-17', 'Paypal'),
+    (2901, '2020-10-17', 'Paypal'),
+    (724, '2020-10-17', 'Visa'),
+    (3345, '2020-10-17', 'American Express'),
+    (1551, '2020-10-17', 'Six Flags Gift Card'),
+    (3248, '2020-10-17', 'Visa'),
+    (3207, '2020-10-17', 'Paypal'),
+    (4074, '2020-10-17', 'Efectivo'),
+    (3641, '2020-10-17', 'Visa'),
+    (3613, '2020-10-17', 'Six Flags Membership'),
+    (3005, '2020-10-17', 'Efectivo'),
+    (1180, '2020-10-18', 'American Express'),
+    (4087, '2020-10-18', 'Six Flags Membership'),
+    (435, '2020-10-18', 'Mastercard'),
+    (10, '2020-10-18', 'American Express'),
+    (3862, '2020-10-18', 'Paypal'),
+    (638, '2020-10-18', 'Mastercard'),
+    (3275, '2020-10-18', 'American Express'),
+    (2941, '2020-10-18', 'Efectivo'),
+    (4638, '2020-10-18', 'Visa'),
+    (487, '2020-10-19', 'Six Flags Membership'),
+    (2844, '2020-10-19', 'Paypal'),
+    (789, '2020-10-19', 'Mastercard'),
+    (1070, '2020-10-20', 'Six Flags Gift Card'),
+    (901, '2020-10-20', 'Paypal'),
+    (4900, '2020-10-20', 'Paypal'),
+    (1394, '2020-10-20', 'Paypal'),
+    (4842, '2020-10-20', 'Visa'),
+    (3167, '2020-10-20', 'Paypal'),
+    (1037, '2020-10-20', 'Six Flags Gift Card'),
+    (4666, '2020-10-21', 'Mastercard'),
+    (3712, '2020-10-21', 'Paypal'),
+    (2329, '2020-10-21', 'Paypal'),
+    (3473, '2020-10-21', 'Mastercard'),
+    (2059, '2020-10-21', 'American Express'),
+    (2294, '2020-10-21', 'Six Flags Gift Card'),
+    (1289, '2020-10-21', 'Paypal'),
+    (1089, '2020-10-22', 'Six Flags Membership'),
+    (2927, '2020-10-22', 'Six Flags Membership'),
+    (1189, '2020-10-22', 'Six Flags Membership'),
+    (745, '2020-10-22', 'Six Flags Membership'),
+    (4763, '2020-10-22', 'Mastercard'),
+    (4573, '2020-10-22', 'Mastercard'),
+    (2180, '2020-10-22', 'Six Flags Membership'),
+    (1872, '2020-10-22', 'Efectivo'),
+    (2902, '2020-10-23', 'Paypal'),
+    (2239, '2020-10-23', 'American Express'),
+    (2782, '2020-10-23', 'Efectivo'),
+    (112, '2020-10-23', 'American Express'),
+    (1082, '2020-10-24', 'Six Flags Membership'),
+    (2572, '2020-10-24', 'Mastercard'),
+    (852, '2020-10-24', 'Six Flags Gift Card'),
+    (4543, '2020-10-24', 'Paypal'),
+    (80, '2020-10-24', 'Paypal'),
+    (4500, '2020-10-24', 'Mastercard'),
+    (1419, '2020-10-24', 'Mastercard'),
+    (3421, '2020-10-25', 'Mastercard'),
+    (2362, '2020-10-25', 'Efectivo'),
+    (1689, '2020-10-25', 'Six Flags Gift Card'),
+    (2666, '2020-10-25', 'Visa'),
+    (2775, '2020-10-25', 'Mastercard'),
+    (3479, '2020-10-25', 'Six Flags Gift Card'),
+    (4770, '2020-10-25', 'Paypal'),
+    (2075, '2020-10-25', 'Visa'),
+    (805, '2020-10-26', 'Mastercard'),
+    (822, '2020-10-26', 'Six Flags Gift Card'),
+    (870, '2020-10-26', 'Visa'),
+    (4028, '2020-10-26', 'Efectivo'),
+    (4279, '2020-10-26', 'Mastercard'),
+    (4267, '2020-10-26', 'Mastercard'),
+    (1450, '2020-10-27', 'Six Flags Gift Card'),
+    (4940, '2020-10-27', 'Paypal'),
+    (1530, '2020-10-27', 'Six Flags Gift Card'),
+    (1150, '2020-10-28', 'Paypal'),
+    (2143, '2020-10-28', 'Efectivo'),
+    (1844, '2020-10-28', 'Six Flags Gift Card'),
+    (4576, '2020-10-28', 'Efectivo'),
+    (4523, '2020-10-29', 'Visa'),
+    (434, '2020-10-29', 'Paypal'),
+    (3869, '2020-10-29', 'Visa'),
+    (893, '2020-10-29', 'Visa'),
+    (2590, '2020-10-29', 'Six Flags Membership'),
+    (1500, '2020-10-29', 'Mastercard'),
+    (1060, '2020-10-29', 'American Express'),
+    (2136, '2020-10-29', 'Visa'),
+    (313, '2020-10-30', 'Mastercard'),
+    (4712, '2020-10-30', 'Mastercard'),
+    (429, '2020-10-30', 'Six Flags Membership'),
+    (4202, '2020-10-30', 'Six Flags Membership'),
+    (4580, '2020-10-31', 'Six Flags Membership'),
+    (1515, '2020-10-31', 'American Express'),
+    (309, '2020-10-31', 'Six Flags Gift Card'),
+    (225, '2020-11-01', 'American Express'),
+    (4124, '2020-11-01', 'Paypal'),
+    (1923, '2020-11-01', 'Paypal'),
+    (2611, '2020-11-01', 'Mastercard'),
+    (117, '2020-11-01', 'Efectivo'),
+    (1236, '2020-11-01', 'Paypal'),
+    (4005, '2020-11-01', 'Mastercard'),
+    (3326, '2020-11-02', 'American Express'),
+    (4824, '2020-11-02', 'Efectivo'),
+    (3896, '2020-11-02', 'American Express'),
+    (2394, '2020-11-02', 'Six Flags Gift Card'),
+    (4668, '2020-11-02', 'Paypal'),
+    (3477, '2020-11-03', 'Efectivo'),
+    (30, '2020-11-03', 'American Express'),
+    (1816, '2020-11-03', 'Efectivo'),
+    (1899, '2020-11-03', 'Efectivo'),
+    (4477, '2020-11-03', 'Paypal'),
+    (2873, '2020-11-03', 'Mastercard'),
+    (1184, '2020-11-03', 'American Express'),
+    (1579, '2020-11-03', 'American Express'),
+    (4868, '2020-11-03', 'Six Flags Membership'),
+    (2423, '2020-11-04', 'Six Flags Gift Card'),
+    (1285, '2020-11-04', 'Visa'),
+    (1894, '2020-11-04', 'Mastercard'),
+    (4558, '2020-11-04', 'Six Flags Membership'),
+    (4717, '2020-11-04', 'Six Flags Gift Card'),
+    (4226, '2020-11-05', 'American Express'),
+    (3642, '2020-11-05', 'Mastercard'),
+    (2217, '2020-11-05', 'Visa'),
+    (3216, '2020-11-05', 'American Express'),
+    (3597, '2020-11-05', 'Efectivo'),
+    (3418, '2020-11-05', 'Six Flags Membership'),
+    (2352, '2020-11-06', 'American Express'),
+    (1934, '2020-11-06', 'Six Flags Gift Card'),
+    (3416, '2020-11-06', 'Efectivo'),
+    (349, '2020-11-06', 'Visa'),
+    (3611, '2020-11-06', 'Visa'),
+    (1770, '2020-11-07', 'Six Flags Membership'),
+    (853, '2020-11-07', 'Six Flags Gift Card'),
+    (966, '2020-11-07', 'Efectivo'),
+    (1953, '2020-11-07', 'Six Flags Gift Card'),
+    (167, '2020-11-07', 'Paypal'),
+    (918, '2020-11-07', 'Paypal'),
+    (1030, '2020-11-07', 'Paypal'),
+    (2576, '2020-11-07', 'Mastercard'),
+    (1791, '2020-11-07', 'Visa'),
+    (4631, '2020-11-08', 'Efectivo'),
+    (1454, '2020-11-08', 'Paypal'),
+    (860, '2020-11-08', 'Efectivo'),
+    (2776, '2020-11-08', 'Efectivo'),
+    (4169, '2020-11-08', 'Efectivo'),
+    (2034, '2020-11-09', 'Mastercard'),
+    (900, '2020-11-09', 'Mastercard'),
+    (117, '2020-11-09', 'Mastercard'),
+    (909, '2020-11-09', 'Six Flags Membership'),
+    (3036, '2020-11-09', 'Mastercard'),
+    (4385, '2020-11-09', 'Six Flags Gift Card'),
+    (4824, '2020-11-09', 'American Express'),
+    (4342, '2020-11-09', 'Six Flags Gift Card'),
+    (1455, '2020-11-10', 'Six Flags Gift Card'),
+    (4695, '2020-11-10', 'Mastercard'),
+    (3242, '2020-11-10', 'Paypal'),
+    (4152, '2020-11-10', 'American Express'),
+    (880, '2020-11-10', 'Six Flags Membership'),
+    (538, '2020-11-11', 'Mastercard'),
+    (4548, '2020-11-11', 'Efectivo'),
+    (2132, '2020-11-11', 'Six Flags Gift Card'),
+    (3975, '2020-11-11', 'American Express'),
+    (2566, '2020-11-11', 'Efectivo'),
+    (3983, '2020-11-11', 'Six Flags Gift Card'),
+    (2643, '2020-11-11', 'American Express'),
+    (915, '2020-11-12', 'Six Flags Gift Card'),
+    (874, '2020-11-12', 'Paypal'),
+    (476, '2020-11-12', 'Mastercard'),
+    (4728, '2020-11-12', 'Efectivo'),
+    (2462, '2020-11-12', 'Visa'),
+    (41, '2020-11-12', 'Paypal'),
+    (4255, '2020-11-12', 'Mastercard'),
+    (1903, '2020-11-12', 'Paypal'),
+    (4273, '2020-11-13', 'Visa'),
+    (3957, '2020-11-13', 'Mastercard'),
+    (1323, '2020-11-13', 'Visa'),
+    (1745, '2020-11-13', 'Efectivo'),
+    (1179, '2020-11-13', 'Six Flags Gift Card'),
+    (481, '2020-11-13', 'Visa'),
+    (2898, '2020-11-14', 'American Express'),
+    (2908, '2020-11-14', 'Six Flags Gift Card'),
+    (4114, '2020-11-14', 'Visa'),
+    (651, '2020-11-14', 'American Express'),
+    (292, '2020-11-15', 'Paypal'),
+    (3396, '2020-11-15', 'Mastercard'),
+    (4752, '2020-11-15', 'Visa'),
+    (4658, '2020-11-15', 'Paypal'),
+    (818, '2020-11-15', 'Efectivo'),
+    (3029, '2020-11-15', 'Visa'),
+    (1218, '2020-11-15', 'Visa'),
+    (1227, '2020-11-15', 'Visa'),
+    (4531, '2020-11-15', 'Visa'),
+    (2771, '2020-11-15', 'Six Flags Membership'),
+    (1387, '2020-11-15', 'Six Flags Gift Card'),
+    (2795, '2020-11-16', 'Six Flags Membership'),
+    (88, '2020-11-16', 'Paypal'),
+    (523, '2020-11-16', 'American Express'),
+    (3712, '2020-11-16', 'Efectivo'),
+    (4717, '2020-11-16', 'Visa'),
+    (2841, '2020-11-16', 'Six Flags Gift Card'),
+    (4181, '2020-11-16', 'American Express'),
+    (3499, '2020-11-16', 'Efectivo'),
+    (1173, '2020-11-17', 'Six Flags Gift Card'),
+    (4665, '2020-11-17', 'Efectivo'),
+    (2560, '2020-11-17', 'Six Flags Membership'),
+    (3164, '2020-11-17', 'Paypal'),
+    (2803, '2020-11-17', 'American Express'),
+    (2309, '2020-11-17', 'Six Flags Gift Card'),
+    (674, '2020-11-17', 'Six Flags Gift Card'),
+    (810, '2020-11-17', 'Mastercard'),
+    (1797, '2020-11-17', 'Paypal'),
+    (2989, '2020-11-17', 'Efectivo'),
+    (1998, '2020-11-18', 'Efectivo'),
+    (4041, '2020-11-18', 'American Express'),
+    (4500, '2020-11-18', 'Efectivo'),
+    (2510, '2020-11-18', 'Six Flags Gift Card'),
+    (3026, '2020-11-18', 'Visa'),
+    (2319, '2020-11-19', 'Mastercard'),
+    (3612, '2020-11-19', 'Six Flags Gift Card'),
+    (3462, '2020-11-19', 'Paypal'),
+    (1206, '2020-11-19', 'Six Flags Membership'),
+    (4533, '2020-11-19', 'Paypal'),
+    (3330, '2020-11-19', 'Paypal'),
+    (134, '2020-11-19', 'Visa'),
+    (232, '2020-11-20', 'Six Flags Gift Card'),
+    (3008, '2020-11-20', 'Efectivo'),
+    (1227, '2020-11-20', 'Six Flags Gift Card'),
+    (3582, '2020-11-20', 'Visa'),
+    (397, '2020-11-20', 'Visa'),
+    (605, '2020-11-20', 'Six Flags Membership'),
+    (29, '2020-11-20', 'Visa'),
+    (827, '2020-11-20', 'Mastercard'),
+    (2213, '2020-11-20', 'American Express'),
+    (3468, '2020-11-20', 'Mastercard'),
+    (4724, '2020-11-20', 'American Express'),
+    (1617, '2020-11-21', 'Six Flags Gift Card'),
+    (3678, '2020-11-21', 'Visa'),
+    (2759, '2020-11-21', 'Six Flags Gift Card'),
+    (3756, '2020-11-21', 'Efectivo'),
+    (442, '2020-11-21', 'Six Flags Gift Card'),
+    (2107, '2020-11-21', 'Six Flags Membership'),
+    (3846, '2020-11-21', 'Efectivo'),
+    (3763, '2020-11-21', 'Efectivo'),
+    (778, '2020-11-21', 'Mastercard'),
+    (3254, '2020-11-21', 'Efectivo'),
+    (518, '2020-11-21', 'Visa'),
+    (426, '2020-11-22', 'Mastercard'),
+    (598, '2020-11-22', 'Six Flags Gift Card'),
+    (1325, '2020-11-22', 'American Express'),
+    (4602, '2020-11-22', 'Efectivo'),
+    (4589, '2020-11-22', 'Mastercard'),
+    (4239, '2020-11-22', 'Mastercard'),
+    (3807, '2020-11-22', 'Visa'),
+    (4343, '2020-11-22', 'Six Flags Gift Card'),
+    (4739, '2020-11-22', 'Visa'),
+    (3599, '2020-11-23', 'Mastercard'),
+    (2454, '2020-11-23', 'Visa'),
+    (1569, '2020-11-23', 'Visa'),
+    (883, '2020-11-23', 'American Express'),
+    (2834, '2020-11-23', 'Paypal'),
+    (3726, '2020-11-24', 'Visa'),
+    (2840, '2020-11-24', 'Visa'),
+    (4092, '2020-11-24', 'Mastercard'),
+    (2548, '2020-11-24', 'Six Flags Gift Card'),
+    (2750, '2020-11-24', 'Paypal'),
+    (4898, '2020-11-24', 'Six Flags Gift Card'),
+    (470, '2020-11-25', 'Six Flags Membership'),
+    (3433, '2020-11-25', 'Six Flags Membership'),
+    (3131, '2020-11-25', 'American Express'),
+    (3252, '2020-11-25', 'Mastercard'),
+    (1112, '2020-11-25', 'Efectivo'),
+    (1410, '2020-11-25', 'Efectivo'),
+    (3263, '2020-11-26', 'Paypal'),
+    (4876, '2020-11-26', 'Six Flags Membership'),
+    (4226, '2020-11-26', 'Six Flags Gift Card'),
+    (3283, '2020-11-26', 'Six Flags Membership'),
+    (3090, '2020-11-26', 'American Express'),
+    (2032, '2020-11-26', 'Mastercard'),
+    (3095, '2020-11-26', 'Paypal'),
+    (2085, '2020-11-26', 'Six Flags Membership'),
+    (677, '2020-11-26', 'Mastercard'),
+    (2795, '2020-11-26', 'American Express'),
+    (4147, '2020-11-27', 'Mastercard'),
+    (442, '2020-11-27', 'Paypal'),
+    (2708, '2020-11-27', 'Six Flags Gift Card'),
+    (3413, '2020-11-27', 'Paypal'),
+    (4504, '2020-11-27', 'Mastercard'),
+    (2570, '2020-11-27', 'Paypal'),
+    (4480, '2020-11-27', 'Six Flags Gift Card'),
+    (916, '2020-11-27', 'Six Flags Gift Card'),
+    (2233, '2020-11-28', 'Six Flags Membership'),
+    (4188, '2020-11-28', 'American Express'),
+    (1215, '2020-11-28', 'Mastercard'),
+    (1576, '2020-11-28', 'American Express'),
+    (1221, '2020-11-28', 'American Express'),
+    (4523, '2020-11-28', 'Visa'),
+    (1237, '2020-11-28', 'Six Flags Gift Card'),
+    (3553, '2020-11-28', 'Efectivo'),
+    (2558, '2020-11-29', 'Mastercard'),
+    (3047, '2020-11-29', 'Six Flags Membership'),
+    (4539, '2020-11-29', 'Paypal'),
+    (4628, '2020-11-29', 'Six Flags Membership'),
+    (785, '2020-11-29', 'American Express'),
+    (3528, '2020-11-29', 'Visa'),
+    (1412, '2020-11-29', 'Six Flags Membership'),
+    (1020, '2020-11-30', 'Visa'),
+    (2862, '2020-11-30', 'Paypal'),
+    (3391, '2020-11-30', 'Six Flags Gift Card'),
+    (3287, '2020-11-30', 'American Express'),
+    (66, '2020-11-30', 'Visa'),
+    (1799, '2020-11-30', 'Paypal'),
+    (3928, '2020-11-30', 'Six Flags Membership'),
+    (3153, '2020-11-30', 'Mastercard'),
+    (2009, '2020-12-01', 'Visa'),
+    (4646, '2020-12-01', 'Six Flags Gift Card'),
+    (2774, '2020-12-01', 'Six Flags Membership'),
+    (678, '2020-12-01', 'Efectivo'),
+    (3991, '2020-12-01', 'Paypal'),
+    (2493, '2020-12-01', 'Paypal'),
+    (1003, '2020-12-01', 'Visa'),
+    (1659, '2020-12-01', 'Efectivo'),
+    (3018, '2020-12-01', 'American Express'),
+    (561, '2020-12-01', 'Efectivo'),
+    (1471, '2020-12-01', 'Visa'),
+    (1655, '2020-12-02', 'Paypal'),
+    (3408, '2020-12-02', 'Mastercard'),
+    (3799, '2020-12-02', 'Six Flags Membership'),
+    (2923, '2020-12-02', 'American Express'),
+    (3203, '2020-12-02', 'Six Flags Gift Card'),
+    (1274, '2020-12-02', 'Six Flags Membership'),
+    (682, '2020-12-02', 'Mastercard'),
+    (317, '2020-12-02', 'Visa'),
+    (390, '2020-12-02', 'Six Flags Gift Card'),
+    (3365, '2020-12-03', 'Six Flags Gift Card'),
+    (1350, '2020-12-03', 'Six Flags Gift Card'),
+    (4703, '2020-12-03', 'American Express'),
+    (255, '2020-12-03', 'American Express'),
+    (4580, '2020-12-03', 'Six Flags Gift Card'),
+    (662, '2020-12-03', 'Paypal'),
+    (999, '2020-12-03', 'Six Flags Membership'),
+    (1303, '2020-12-03', 'Efectivo'),
+    (4102, '2020-12-03', 'Six Flags Gift Card'),
+    (4748, '2020-12-03', 'Visa'),
+    (2570, '2020-12-04', 'Six Flags Membership'),
+    (108, '2020-12-04', 'Efectivo'),
+    (2774, '2020-12-04', 'Paypal'),
+    (1217, '2020-12-04', 'Six Flags Membership'),
+    (1482, '2020-12-04', 'Visa'),
+    (4713, '2020-12-05', 'Mastercard'),
+    (2251, '2020-12-05', 'Six Flags Gift Card'),
+    (2856, '2020-12-05', 'Visa'),
+    (3403, '2020-12-06', 'American Express'),
+    (2721, '2020-12-06', 'Efectivo'),
+    (3880, '2020-12-06', 'American Express'),
+    (3053, '2020-12-06', 'Visa'),
+    (1961, '2020-12-06', 'American Express'),
+    (3942, '2020-12-06', 'Paypal'),
+    (4917, '2020-12-06', 'Visa'),
+    (2123, '2020-12-07', 'Mastercard'),
+    (4896, '2020-12-07', 'American Express'),
+    (1379, '2020-12-07', 'American Express'),
+    (1506, '2020-12-07', 'American Express'),
+    (376, '2020-12-07', 'Mastercard'),
+    (3111, '2020-12-07', 'Paypal'),
+    (1270, '2020-12-07', 'Mastercard'),
+    (3597, '2020-12-07', 'Mastercard'),
+    (3298, '2020-12-09', 'Six Flags Gift Card'),
+    (886, '2020-12-09', 'Mastercard'),
+    (4056, '2020-12-09', 'Efectivo'),
+    (349, '2020-12-09', 'Six Flags Gift Card'),
+    (502, '2020-12-09', 'Paypal'),
+    (782, '2020-12-09', 'Six Flags Membership'),
+    (2706, '2020-12-09', 'Mastercard'),
+    (4486, '2020-12-09', 'Six Flags Gift Card'),
+    (1105, '2020-12-10', 'American Express'),
+    (3767, '2020-12-10', 'Visa'),
+    (4878, '2020-12-10', 'Efectivo'),
+    (4170, '2020-12-10', 'Six Flags Membership'),
+    (2645, '2020-12-10', 'Mastercard'),
+    (3044, '2020-12-10', 'American Express'),
+    (2842, '2020-12-11', 'Mastercard'),
+    (4316, '2020-12-11', 'Six Flags Membership'),
+    (533, '2020-12-11', 'Paypal'),
+    (2923, '2020-12-12', 'Visa'),
+    (710, '2020-12-12', 'Efectivo'),
+    (1442, '2020-12-12', 'Six Flags Gift Card'),
+    (4008, '2020-12-13', 'Mastercard'),
+    (3643, '2020-12-13', 'Six Flags Membership'),
+    (2738, '2020-12-13', 'Six Flags Gift Card'),
+    (106, '2020-12-13', 'Visa'),
+    (4028, '2020-12-13', 'Paypal'),
+    (2457, '2020-12-13', 'Paypal'),
+    (2431, '2020-12-13', 'Six Flags Gift Card'),
+    (1334, '2020-12-13', 'American Express'),
+    (1770, '2020-12-13', 'Six Flags Gift Card'),
+    (2146, '2020-12-14', 'American Express'),
+    (2497, '2020-12-14', 'Paypal'),
+    (735, '2020-12-14', 'Six Flags Gift Card'),
+    (2514, '2020-12-15', 'Efectivo'),
+    (1502, '2020-12-15', 'Mastercard'),
+    (871, '2020-12-16', 'Six Flags Membership'),
+    (3571, '2020-12-16', 'Paypal'),
+    (4785, '2020-12-16', 'Visa'),
+    (837, '2020-12-16', 'American Express'),
+    (2136, '2020-12-16', 'Visa'),
+    (2838, '2020-12-16', 'Six Flags Membership'),
+    (843, '2020-12-16', 'Mastercard'),
+    (2638, '2020-12-16', 'Mastercard'),
+    (4968, '2020-12-16', 'Six Flags Gift Card'),
+    (1618, '2020-12-16', 'Six Flags Membership'),
+    (4304, '2020-12-16', 'Six Flags Membership'),
+    (2053, '2020-12-16', 'Visa'),
+    (569, '2020-12-17', 'Visa'),
+    (580, '2020-12-17', 'Six Flags Gift Card'),
+    (4147, '2020-12-17', 'Six Flags Membership'),
+    (2773, '2020-12-17', 'Efectivo'),
+    (332, '2020-12-17', 'Visa'),
+    (1773, '2020-12-17', 'Visa'),
+    (889, '2020-12-17', 'Six Flags Gift Card'),
+    (128, '2020-12-17', 'Six Flags Membership'),
+    (3527, '2020-12-17', 'Efectivo'),
+    (2662, '2020-12-17', 'American Express'),
+    (3024, '2020-12-18', 'Six Flags Gift Card'),
+    (4785, '2020-12-18', 'American Express'),
+    (4656, '2020-12-18', 'Visa'),
+    (4162, '2020-12-18', 'Paypal'),
+    (4442, '2020-12-18', 'Six Flags Membership'),
+    (4012, '2020-12-18', 'Visa'),
+    (1780, '2020-12-18', 'Mastercard'),
+    (2807, '2020-12-18', 'Paypal'),
+    (2321, '2020-12-19', 'Six Flags Gift Card'),
+    (2221, '2020-12-19', 'Paypal'),
+    (436, '2020-12-19', 'American Express'),
+    (2387, '2020-12-19', 'Six Flags Gift Card'),
+    (4282, '2020-12-19', 'Paypal'),
+    (3578, '2020-12-19', 'American Express'),
+    (1781, '2020-12-19', 'Visa'),
+    (1027, '2020-12-20', 'Six Flags Membership'),
+    (1591, '2020-12-20', 'American Express'),
+    (4024, '2020-12-20', 'Efectivo'),
+    (2775, '2020-12-20', 'Visa'),
+    (1594, '2020-12-20', 'Six Flags Membership'),
+    (3611, '2020-12-21', 'Visa'),
+    (414, '2020-12-21', 'Paypal'),
+    (4180, '2020-12-21', 'Mastercard'),
+    (2721, '2020-12-21', 'American Express'),
+    (1707, '2020-12-21', 'Six Flags Gift Card'),
+    (2919, '2020-12-21', 'Six Flags Membership'),
+    (4636, '2020-12-21', 'Efectivo'),
+    (3967, '2020-12-21', 'Paypal'),
+    (4037, '2020-12-21', 'American Express'),
+    (171, '2020-12-22', 'Paypal'),
+    (4399, '2020-12-22', 'Mastercard'),
+    (938, '2020-12-22', 'Mastercard'),
+    (1390, '2020-12-22', 'Visa'),
+    (3037, '2020-12-22', 'Efectivo'),
+    (4376, '2020-12-22', 'Efectivo'),
+    (630, '2020-12-22', 'Mastercard'),
+    (1677, '2020-12-22', 'Six Flags Membership'),
+    (2794, '2020-12-22', 'Efectivo'),
+    (2675, '2020-12-22', 'Efectivo'),
+    (687, '2020-12-23', 'Six Flags Gift Card'),
+    (146, '2020-12-23', 'Paypal'),
+    (3951, '2020-12-23', 'American Express'),
+    (1992, '2020-12-23', 'Mastercard'),
+    (1838, '2020-12-23', 'Six Flags Membership'),
+    (4061, '2020-12-23', 'Mastercard'),
+    (3562, '2020-12-23', 'Six Flags Membership'),
+    (2764, '2020-12-23', 'Visa'),
+    (588, '2020-12-23', 'American Express'),
+    (2406, '2020-12-23', 'Paypal'),
+    (3337, '2020-12-24', 'Efectivo'),
+    (866, '2020-12-24', 'Visa'),
+    (2739, '2020-12-24', 'Efectivo'),
+    (2498, '2020-12-24', 'Six Flags Membership'),
+    (1573, '2020-12-24', 'Six Flags Membership'),
+    (2130, '2020-12-24', 'American Express'),
+    (926, '2020-12-24', 'Efectivo'),
+    (2950, '2020-12-24', 'Paypal'),
+    (851, '2020-12-24', 'American Express'),
+    (1511, '2020-12-25', 'Mastercard'),
+    (57, '2020-12-25', 'Paypal'),
+    (2517, '2020-12-25', 'Mastercard'),
+    (187, '2020-12-25', 'Efectivo'),
+    (407, '2020-12-25', 'Six Flags Gift Card'),
+    (1981, '2020-12-25', 'Six Flags Gift Card'),
+    (4930, '2020-12-26', 'Paypal'),
+    (294, '2020-12-26', 'Visa'),
+    (135, '2020-12-26', 'Paypal'),
+    (4079, '2020-12-26', 'Visa'),
+    (842, '2020-12-26', 'Visa'),
+    (3023, '2020-12-26', 'Paypal'),
+    (3162, '2020-12-26', 'Six Flags Membership'),
+    (4414, '2020-12-26', 'Paypal'),
+    (1253, '2020-12-27', 'Six Flags Membership'),
+    (3090, '2020-12-27', 'American Express'),
+    (3472, '2020-12-27', 'Mastercard'),
+    (3820, '2020-12-27', 'Efectivo'),
+    (4575, '2020-12-28', 'Visa'),
+    (1115, '2020-12-28', 'Paypal'),
+    (2149, '2020-12-28', 'Mastercard'),
+    (1826, '2020-12-28', 'Six Flags Membership'),
+    (2729, '2020-12-28', 'American Express'),
+    (1596, '2020-12-28', 'Six Flags Gift Card'),
+    (378, '2020-12-28', 'Visa'),
+    (1127, '2020-12-28', 'Six Flags Membership'),
+    (4558, '2020-12-28', 'Six Flags Membership'),
+    (1052, '2020-12-28', 'Paypal'),
+    (1018, '2020-12-29', 'Efectivo'),
+    (3312, '2020-12-29', 'Mastercard'),
+    (838, '2020-12-29', 'Paypal'),
+    (2252, '2020-12-29', 'American Express'),
+    (4597, '2020-12-29', 'Six Flags Gift Card'),
+    (2705, '2020-12-29', 'Paypal'),
+    (2271, '2020-12-29', 'Visa'),
+    (1844, '2020-12-29', 'Mastercard'),
+    (3548, '2020-12-29', 'Six Flags Gift Card'),
+    (313, '2020-12-29', 'American Express'),
+    (1190, '2020-12-30', 'Paypal'),
+    (808, '2020-12-30', 'Paypal'),
+    (2159, '2020-12-30', 'American Express'),
+    (4210, '2020-12-30', 'Efectivo'),
+    (1234, '2020-12-31', 'Mastercard'),
+    (4798, '2020-12-31', 'American Express'),
+    (837, '2020-12-31', 'Six Flags Gift Card'),
+    (32, '2020-12-31', 'American Express'),
+    (287, '2020-12-31', 'Efectivo'),
+    (1736, '2020-12-31', 'Six Flags Gift Card'),
+    (3272, '2021-01-01', 'Paypal'),
+    (1201, '2021-01-01', 'American Express'),
+    (930, '2021-01-01', 'Six Flags Gift Card'),
+    (934, '2021-01-01', 'Paypal'),
+    (4298, '2021-01-02', 'Efectivo'),
+    (1396, '2021-01-02', 'Six Flags Membership'),
+    (3095, '2021-01-02', 'Paypal'),
+    (1782, '2021-01-02', 'Six Flags Gift Card'),
+    (1516, '2021-01-02', 'American Express'),
+    (430, '2021-01-02', 'Paypal'),
+    (3189, '2021-01-02', 'Efectivo'),
+    (4727, '2021-01-02', 'Paypal'),
+    (4519, '2021-01-02', 'Six Flags Gift Card'),
+    (1568, '2021-01-03', 'Paypal'),
+    (1812, '2021-01-03', 'Six Flags Membership'),
+    (234, '2021-01-03', 'Paypal'),
+    (3526, '2021-01-03', 'Paypal'),
+    (4741, '2021-01-03', 'Mastercard'),
+    (1873, '2021-01-03', 'Efectivo'),
+    (4385, '2021-01-03', 'Six Flags Membership'),
+    (837, '2021-01-04', 'Six Flags Membership'),
+    (50, '2021-01-04', 'American Express'),
+    (45, '2021-01-04', 'American Express'),
+    (2371, '2021-01-04', 'Six Flags Gift Card'),
+    (1789, '2021-01-04', 'Mastercard'),
+    (1088, '2021-01-04', 'Efectivo'),
+    (1783, '2021-01-04', 'Six Flags Membership'),
+    (1577, '2021-01-05', 'Efectivo'),
+    (4608, '2021-01-05', 'Paypal'),
+    (1123, '2021-01-05', 'Six Flags Membership'),
+    (70, '2021-01-05', 'Paypal'),
+    (4222, '2021-01-06', 'Visa'),
+    (3924, '2021-01-06', 'Visa'),
+    (3115, '2021-01-06', 'Efectivo'),
+    (4742, '2021-01-06', 'Efectivo'),
+    (4199, '2021-01-06', 'Mastercard'),
+    (3754, '2021-01-06', 'Efectivo'),
+    (2462, '2021-01-06', 'American Express'),
+    (2288, '2021-01-06', 'American Express'),
+    (4223, '2021-01-06', 'Mastercard'),
+    (1081, '2021-01-07', 'Six Flags Membership'),
+    (2608, '2021-01-07', 'Mastercard'),
+    (2565, '2021-01-07', 'Efectivo'),
+    (2754, '2021-01-07', 'Efectivo'),
+    (3128, '2021-01-07', 'Visa'),
+    (1438, '2021-01-07', 'Six Flags Membership'),
+    (4865, '2021-01-07', 'Visa'),
+    (2219, '2021-01-08', 'Efectivo'),
+    (794, '2021-01-08', 'Visa'),
+    (4843, '2021-01-08', 'Mastercard'),
+    (465, '2021-01-08', 'Mastercard'),
+    (292, '2021-01-09', 'Six Flags Membership'),
+    (4349, '2021-01-09', 'Paypal'),
+    (3823, '2021-01-09', 'Visa'),
+    (1364, '2021-01-09', 'Mastercard'),
+    (315, '2021-01-09', 'American Express'),
+    (4594, '2021-01-09', 'Six Flags Gift Card'),
+    (1544, '2021-01-10', 'American Express'),
+    (3126, '2021-01-10', 'Six Flags Gift Card'),
+    (788, '2021-01-10', 'Efectivo'),
+    (743, '2021-01-10', 'Six Flags Membership'),
+    (2597, '2021-01-10', 'American Express'),
+    (4676, '2021-01-10', 'Paypal'),
+    (1, '2021-01-10', 'Six Flags Gift Card'),
+    (2575, '2021-01-10', 'Paypal'),
+    (4189, '2021-01-10', 'Efectivo'),
+    (1722, '2021-01-11', 'American Express'),
+    (820, '2021-01-11', 'Paypal'),
+    (2222, '2021-01-11', 'Efectivo'),
+    (4249, '2021-01-11', 'Six Flags Gift Card'),
+    (2394, '2021-01-11', 'Mastercard'),
+    (1896, '2021-01-11', 'Six Flags Membership'),
+    (55, '2021-01-11', 'Paypal'),
+    (3992, '2021-01-11', 'Efectivo'),
+    (2374, '2021-01-11', 'Paypal'),
+    (2673, '2021-01-12', 'American Express'),
+    (667, '2021-01-12', 'Six Flags Membership'),
+    (625, '2021-01-12', 'Paypal'),
+    (945, '2021-01-12', 'American Express'),
+    (4742, '2021-01-12', 'American Express'),
+    (1678, '2021-01-12', 'Six Flags Gift Card'),
+    (2741, '2021-01-12', 'Paypal'),
+    (2689, '2021-01-12', 'American Express'),
+    (1065, '2021-01-12', 'Mastercard'),
+    (4758, '2021-01-12', 'Six Flags Gift Card'),
+    (2593, '2021-01-12', 'Mastercard'),
+    (3308, '2021-01-13', 'Mastercard'),
+    (1852, '2021-01-13', 'Six Flags Membership'),
+    (934, '2021-01-13', 'Six Flags Gift Card'),
+    (1902, '2021-01-13', 'Efectivo'),
+    (307, '2021-01-14', 'Paypal'),
+    (3501, '2021-01-14', 'American Express'),
+    (4551, '2021-01-14', 'American Express'),
+    (2960, '2021-01-15', 'Mastercard'),
+    (3631, '2021-01-15', 'Six Flags Membership'),
+    (1693, '2021-01-15', 'Six Flags Gift Card'),
+    (3009, '2021-01-15', 'Visa'),
+    (2983, '2021-01-15', 'American Express'),
+    (3324, '2021-01-16', 'American Express'),
+    (1326, '2021-01-16', 'American Express'),
+    (2805, '2021-01-16', 'Visa'),
+    (2157, '2021-01-16', 'Mastercard'),
+    (1945, '2021-01-16', 'Paypal'),
+    (3008, '2021-01-16', 'Efectivo'),
+    (28, '2021-01-17', 'Visa'),
+    (4539, '2021-01-17', 'American Express'),
+    (1309, '2021-01-17', 'Mastercard'),
+    (2654, '2021-01-17', 'Paypal'),
+    (2919, '2021-01-18', 'Six Flags Gift Card'),
+    (3472, '2021-01-18', 'Six Flags Gift Card'),
+    (3343, '2021-01-18', 'Mastercard'),
+    (4789, '2021-01-18', 'Six Flags Membership'),
+    (4548, '2021-01-18', 'Paypal'),
+    (412, '2021-01-18', 'Paypal'),
+    (2738, '2021-01-18', 'Efectivo'),
+    (2018, '2021-01-18', 'Mastercard'),
+    (4598, '2021-01-19', 'Efectivo'),
+    (1402, '2021-01-19', 'American Express'),
+    (1161, '2021-01-19', 'Mastercard'),
+    (2380, '2021-01-19', 'Paypal'),
+    (2713, '2021-01-19', 'Six Flags Gift Card'),
+    (4584, '2021-01-19', 'Six Flags Membership'),
+    (3862, '2021-01-19', 'Paypal'),
+    (950, '2021-01-19', 'Visa'),
+    (4454, '2021-01-20', 'American Express'),
+    (2377, '2021-01-20', 'Visa'),
+    (4812, '2021-01-20', 'Mastercard'),
+    (4719, '2021-01-20', 'Efectivo'),
+    (1553, '2021-01-20', 'Paypal'),
+    (4456, '2021-01-21', 'Efectivo'),
+    (4922, '2021-01-21', 'Efectivo'),
+    (2443, '2021-01-21', 'Paypal'),
+    (4648, '2021-01-21', 'Paypal'),
+    (3190, '2021-01-22', 'Mastercard'),
+    (492, '2021-01-22', 'Six Flags Gift Card'),
+    (2516, '2021-01-22', 'Six Flags Gift Card'),
+    (1212, '2021-01-22', 'Six Flags Membership'),
+    (4516, '2021-01-22', 'American Express'),
+    (2447, '2021-01-22', 'Six Flags Gift Card'),
+    (2086, '2021-01-22', 'Mastercard'),
+    (1657, '2021-01-22', 'Paypal'),
+    (4901, '2021-01-22', 'Visa'),
+    (3339, '2021-01-22', 'Efectivo'),
+    (869, '2021-01-22', 'Six Flags Membership'),
+    (361, '2021-01-23', 'Paypal'),
+    (715, '2021-01-23', 'Paypal'),
+    (177, '2021-01-23', 'Mastercard'),
+    (3917, '2021-01-23', 'Paypal'),
+    (975, '2021-01-23', 'Efectivo'),
+    (4147, '2021-01-23', 'Efectivo'),
+    (1643, '2021-01-23', 'Mastercard'),
+    (3374, '2021-01-23', 'Paypal'),
+    (622, '2021-01-23', 'American Express'),
+    (1674, '2021-01-24', 'Visa'),
+    (4574, '2021-01-24', 'Paypal'),
+    (622, '2021-01-24', 'Efectivo'),
+    (3086, '2021-01-24', 'Paypal'),
+    (552, '2021-01-24', 'Paypal'),
+    (2589, '2021-01-24', 'Paypal'),
+    (354, '2021-01-24', 'Six Flags Membership'),
+    (3747, '2021-01-24', 'Paypal'),
+    (4774, '2021-01-24', 'Visa'),
+    (2084, '2021-01-25', 'Six Flags Gift Card'),
+    (2315, '2021-01-25', 'Efectivo'),
+    (923, '2021-01-25', 'Six Flags Membership'),
+    (3889, '2021-01-25', 'American Express'),
+    (4139, '2021-01-26', 'Six Flags Gift Card'),
+    (1011, '2021-01-26', 'American Express'),
+    (4694, '2021-01-26', 'Six Flags Membership'),
+    (700, '2021-01-26', 'Mastercard'),
+    (2293, '2021-01-26', 'Mastercard'),
+    (4889, '2021-01-26', 'Six Flags Membership'),
+    (1043, '2021-01-26', 'Six Flags Gift Card'),
+    (579, '2021-01-27', 'Mastercard'),
+    (2533, '2021-01-27', 'Six Flags Gift Card'),
+    (1529, '2021-01-27', 'Efectivo'),
+    (999, '2021-01-27', 'Six Flags Gift Card'),
+    (3864, '2021-01-27', 'Efectivo'),
+    (2063, '2021-01-27', 'Six Flags Membership'),
+    (3524, '2021-01-27', 'Visa'),
+    (1876, '2021-01-27', 'Six Flags Membership'),
+    (2828, '2021-01-27', 'Mastercard'),
+    (1707, '2021-01-27', 'Visa'),
+    (2661, '2021-01-27', 'Paypal'),
+    (589, '2021-01-27', 'Efectivo'),
+    (4225, '2021-01-28', 'Six Flags Gift Card'),
+    (960, '2021-01-28', 'American Express'),
+    (3533, '2021-01-28', 'Mastercard'),
+    (4900, '2021-01-28', 'Visa'),
+    (3237, '2021-01-28', 'Mastercard'),
+    (2940, '2021-01-28', 'American Express'),
+    (2896, '2021-01-28', 'Six Flags Gift Card'),
+    (4863, '2021-01-28', 'Paypal'),
+    (4151, '2021-01-28', 'Visa'),
+    (4070, '2021-01-28', 'American Express'),
+    (1322, '2021-01-29', 'American Express'),
+    (1750, '2021-01-29', 'Visa'),
+    (3551, '2021-01-29', 'Mastercard'),
+    (3037, '2021-01-29', 'Six Flags Membership'),
+    (4827, '2021-01-29', 'Paypal'),
+    (2959, '2021-01-29', 'Visa'),
+    (21, '2021-01-29', 'Visa'),
+    (2385, '2021-01-29', 'Efectivo'),
+    (955, '2021-01-29', 'Paypal'),
+    (2389, '2021-01-29', 'Visa'),
+    (745, '2021-01-30', 'Mastercard'),
+    (4142, '2021-01-30', 'Six Flags Gift Card'),
+    (3761, '2021-01-30', 'Six Flags Gift Card'),
+    (2688, '2021-01-30', 'Mastercard'),
+    (1995, '2021-01-30', 'American Express'),
+    (4847, '2021-01-30', 'American Express'),
+    (4576, '2021-01-30', 'Paypal'),
+    (2372, '2021-01-30', 'Paypal'),
+    (1932, '2021-01-30', 'Visa'),
+    (4035, '2021-01-31', 'Paypal'),
+    (4714, '2021-01-31', 'Mastercard'),
+    (4798, '2021-01-31', 'Visa'),
+    (4311, '2021-01-31', 'Visa'),
+    (4828, '2021-01-31', 'Paypal'),
+    (962, '2021-01-31', 'Six Flags Gift Card'),
+    (141, '2021-02-01', 'American Express'),
+    (4352, '2021-02-01', 'American Express'),
+    (4234, '2021-02-01', 'Six Flags Membership'),
+    (1685, '2021-02-01', 'Mastercard'),
+    (4940, '2021-02-01', 'American Express'),
+    (2955, '2021-02-01', 'American Express'),
+    (1713, '2021-02-01', 'Six Flags Membership'),
+    (546, '2021-02-02', 'Mastercard'),
+    (3364, '2021-02-02', 'Efectivo'),
+    (3664, '2021-02-02', 'Efectivo'),
+    (1674, '2021-02-02', 'American Express'),
+    (4009, '2021-02-02', 'Mastercard'),
+    (3424, '2021-02-02', 'Visa'),
+    (859, '2021-02-02', 'Efectivo'),
+    (4844, '2021-02-02', 'Six Flags Gift Card'),
+    (542, '2021-02-03', 'Mastercard'),
+    (1218, '2021-02-03', 'Six Flags Membership'),
+    (4919, '2021-02-03', 'American Express'),
+    (4863, '2021-02-03', 'Visa'),
+    (4642, '2021-02-03', 'Mastercard'),
+    (3511, '2021-02-04', 'Efectivo'),
+    (309, '2021-02-04', 'Six Flags Gift Card'),
+    (2717, '2021-02-04', 'Efectivo'),
+    (970, '2021-02-04', 'Six Flags Membership'),
+    (2339, '2021-02-04', 'American Express'),
+    (2277, '2021-02-04', 'Paypal'),
+    (876, '2021-02-04', 'Efectivo'),
+    (2735, '2021-02-05', 'Visa'),
+    (487, '2021-02-05', 'Six Flags Gift Card'),
+    (363, '2021-02-05', 'Visa'),
+    (2989, '2021-02-06', 'Efectivo'),
+    (4810, '2021-02-06', 'Six Flags Membership'),
+    (1482, '2021-02-06', 'American Express'),
+    (720, '2021-02-06', 'Paypal'),
+    (3267, '2021-02-07', 'Six Flags Membership'),
+    (491, '2021-02-07', 'Visa'),
+    (2046, '2021-02-07', 'Efectivo'),
+    (715, '2021-02-07', 'Paypal'),
+    (1400, '2021-02-07', 'Mastercard'),
+    (251, '2021-02-07', 'Visa'),
+    (2508, '2021-02-07', 'Visa'),
+    (1559, '2021-02-08', 'Visa'),
+    (259, '2021-02-08', 'Efectivo'),
+    (1028, '2021-02-08', 'Six Flags Membership'),
+    (2185, '2021-02-08', 'Six Flags Membership'),
+    (538, '2021-02-08', 'American Express'),
+    (1350, '2021-02-09', 'Visa'),
+    (1326, '2021-02-09', 'Efectivo'),
+    (550, '2021-02-09', 'Six Flags Membership'),
+    (4883, '2021-02-09', 'Six Flags Membership'),
+    (1772, '2021-02-09', 'Efectivo'),
+    (3213, '2021-02-09', 'American Express'),
+    (1522, '2021-02-09', 'Efectivo'),
+    (2987, '2021-02-09', 'Six Flags Membership'),
+    (2775, '2021-02-10', 'Mastercard'),
+    (3374, '2021-02-10', 'American Express'),
+    (2110, '2021-02-10', 'Paypal'),
+    (3809, '2021-02-10', 'Six Flags Membership'),
+    (3899, '2021-02-10', 'American Express'),
+    (1447, '2021-02-10', 'Six Flags Membership'),
+    (328, '2021-02-10', 'Six Flags Gift Card'),
+    (4554, '2021-02-10', 'Six Flags Gift Card'),
+    (2901, '2021-02-10', 'Paypal'),
+    (3571, '2021-02-11', 'Paypal'),
+    (3884, '2021-02-11', 'Mastercard'),
+    (2984, '2021-02-11', 'Efectivo'),
+    (70, '2021-02-11', 'Six Flags Membership'),
+    (2188, '2021-02-11', 'Efectivo'),
+    (1284, '2021-02-12', 'Visa'),
+    (2743, '2021-02-12', 'Six Flags Membership'),
+    (946, '2021-02-12', 'Mastercard'),
+    (1170, '2021-02-12', 'Mastercard'),
+    (1979, '2021-02-12', 'American Express'),
+    (940, '2021-02-12', 'Mastercard'),
+    (1420, '2021-02-13', 'American Express'),
+    (2443, '2021-02-13', 'Six Flags Membership'),
+    (2617, '2021-02-14', 'Visa'),
+    (1762, '2021-02-14', 'Six Flags Membership'),
+    (49, '2021-02-14', 'Mastercard'),
+    (1423, '2021-02-14', 'American Express'),
+    (2724, '2021-02-14', 'Six Flags Gift Card'),
+    (3226, '2021-02-15', 'Mastercard'),
+    (2912, '2021-02-15', 'American Express'),
+    (2334, '2021-02-15', 'Paypal'),
+    (1095, '2021-02-15', 'Six Flags Membership'),
+    (3770, '2021-02-15', 'Six Flags Gift Card'),
+    (4350, '2021-02-16', 'Mastercard'),
+    (312, '2021-02-16', 'Paypal'),
+    (4965, '2021-02-16', 'Paypal'),
+    (2405, '2021-02-16', 'Six Flags Membership'),
+    (2462, '2021-02-16', 'Mastercard'),
+    (1741, '2021-02-17', 'Six Flags Gift Card'),
+    (4973, '2021-02-17', 'Mastercard'),
+    (952, '2021-02-17', 'Efectivo'),
+    (4919, '2021-02-17', 'Six Flags Membership'),
+    (1276, '2021-02-17', 'American Express'),
+    (1548, '2021-02-17', 'Six Flags Membership'),
+    (3045, '2021-02-17', 'Six Flags Membership'),
+    (1819, '2021-02-17', 'Six Flags Membership'),
+    (2156, '2021-02-17', 'American Express'),
+    (1189, '2021-02-17', 'Six Flags Membership'),
+    (624, '2021-02-17', 'Paypal'),
+    (1967, '2021-02-17', 'Visa'),
+    (3915, '2021-02-17', 'Efectivo'),
+    (1948, '2021-02-18', 'Paypal'),
+    (202, '2021-02-18', 'Six Flags Gift Card'),
+    (1967, '2021-02-18', 'American Express'),
+    (2168, '2021-02-18', 'Mastercard'),
+    (3921, '2021-02-18', 'Visa'),
+    (3402, '2021-02-18', 'Six Flags Gift Card'),
+    (4657, '2021-02-18', 'Six Flags Gift Card'),
+    (1071, '2021-02-18', 'Mastercard'),
+    (1216, '2021-02-19', 'Six Flags Gift Card'),
+    (1460, '2021-02-19', 'Six Flags Membership'),
+    (4448, '2021-02-19', 'American Express'),
+    (2939, '2021-02-19', 'Six Flags Gift Card'),
+    (2855, '2021-02-19', 'Six Flags Membership'),
+    (2342, '2021-02-19', 'Six Flags Membership'),
+    (189, '2021-02-20', 'American Express'),
+    (2001, '2021-02-20', 'Paypal'),
+    (2798, '2021-02-20', 'Efectivo'),
+    (3261, '2021-02-20', 'American Express'),
+    (4605, '2021-02-20', 'American Express'),
+    (3849, '2021-02-21', 'Efectivo'),
+    (2017, '2021-02-21', 'Mastercard'),
+    (289, '2021-02-21', 'Six Flags Membership'),
+    (2024, '2021-02-21', 'Visa'),
+    (3598, '2021-02-21', 'Six Flags Membership'),
+    (1991, '2021-02-21', 'Efectivo'),
+    (1066, '2021-02-22', 'Mastercard'),
+    (784, '2021-02-22', 'Mastercard'),
+    (1943, '2021-02-22', 'American Express'),
+    (2359, '2021-02-22', 'Mastercard'),
+    (4785, '2021-02-22', 'Paypal'),
+    (1836, '2021-02-22', 'Six Flags Gift Card'),
+    (3328, '2021-02-22', 'Mastercard'),
+    (2435, '2021-02-22', 'Efectivo'),
+    (3921, '2021-02-23', 'Six Flags Gift Card'),
+    (994, '2021-02-23', 'Six Flags Gift Card'),
+    (2680, '2021-02-23', 'American Express'),
+    (1339, '2021-02-23', 'Six Flags Gift Card'),
+    (4081, '2021-02-23', 'Six Flags Gift Card'),
+    (3917, '2021-02-23', 'Paypal'),
+    (3687, '2021-02-23', 'Mastercard'),
+    (1106, '2021-02-23', 'Mastercard'),
+    (624, '2021-02-23', 'Efectivo'),
+    (430, '2021-02-23', 'American Express'),
+    (4780, '2021-02-24', 'Six Flags Membership'),
+    (177, '2021-02-24', 'American Express'),
+    (1028, '2021-02-24', 'Visa'),
+    (2037, '2021-02-24', 'American Express'),
+    (4512, '2021-02-24', 'Six Flags Membership'),
+    (4152, '2021-02-24', 'Six Flags Membership'),
+    (1329, '2021-02-24', 'Six Flags Membership'),
+    (1026, '2021-02-25', 'Mastercard'),
+    (2522, '2021-02-25', 'American Express'),
+    (4631, '2021-02-25', 'American Express'),
+    (1821, '2021-02-25', 'Six Flags Membership'),
+    (75, '2021-02-25', 'Six Flags Gift Card'),
+    (4269, '2021-02-26', 'Six Flags Membership'),
+    (3819, '2021-02-26', 'Paypal'),
+    (4854, '2021-02-26', 'Paypal'),
+    (714, '2021-02-26', 'Efectivo'),
+    (238, '2021-02-26', 'Mastercard'),
+    (1573, '2021-02-26', 'Six Flags Membership'),
+    (2268, '2021-02-26', 'Six Flags Gift Card'),
+    (4425, '2021-02-26', 'Efectivo'),
+    (3957, '2021-02-27', 'Paypal'),
+    (2723, '2021-02-27', 'Six Flags Membership'),
+    (1817, '2021-02-27', 'Paypal'),
+    (3945, '2021-02-27', 'American Express'),
+    (3182, '2021-02-27', 'Visa'),
+    (3136, '2021-02-27', 'Six Flags Membership'),
+    (3769, '2021-02-27', 'Paypal'),
+    (3328, '2021-02-27', 'Six Flags Gift Card'),
+    (2958, '2021-02-27', 'Paypal'),
+    (4626, '2021-02-27', 'Efectivo'),
+    (2162, '2021-02-27', 'Efectivo'),
+    (3314, '2021-02-27', 'Six Flags Membership'),
+    (195, '2021-02-27', 'Paypal'),
+    (572, '2021-02-28', 'Paypal'),
+    (712, '2021-02-28', 'American Express'),
+    (2822, '2021-02-28', 'Visa'),
+    (1576, '2021-02-28', 'Six Flags Membership'),
+    (915, '2021-02-28', 'Six Flags Gift Card'),
+    (1276, '2021-03-01', 'American Express'),
+    (1193, '2021-03-01', 'Visa'),
+    (2091, '2021-03-01', 'Efectivo'),
+    (253, '2021-03-01', 'Paypal'),
+    (852, '2021-03-01', 'Six Flags Gift Card'),
+    (4046, '2021-03-01', 'Six Flags Gift Card'),
+    (2140, '2021-03-01', 'Six Flags Membership'),
+    (4282, '2021-03-01', 'Six Flags Membership'),
+    (828, '2021-03-01', 'Six Flags Gift Card'),
+    (2364, '2021-03-01', 'Mastercard'),
+    (256, '2021-03-02', 'Six Flags Membership'),
+    (1795, '2021-03-02', 'American Express'),
+    (1960, '2021-03-02', 'Paypal'),
+    (3951, '2021-03-02', 'American Express'),
+    (2442, '2021-03-02', 'Mastercard'),
+    (2008, '2021-03-03', 'Efectivo'),
+    (101, '2021-03-03', 'Visa'),
+    (1646, '2021-03-03', 'Six Flags Gift Card'),
+    (4153, '2021-03-03', 'Efectivo'),
+    (2325, '2021-03-04', 'Paypal'),
+    (2327, '2021-03-04', 'Visa'),
+    (1381, '2021-03-04', 'Visa'),
+    (4210, '2021-03-04', 'Six Flags Gift Card'),
+    (2089, '2021-03-04', 'Six Flags Gift Card'),
+    (3403, '2021-03-05', 'Mastercard'),
+    (584, '2021-03-05', 'Mastercard'),
+    (3346, '2021-03-05', 'Mastercard'),
+    (3232, '2021-03-05', 'Visa'),
+    (1473, '2021-03-05', 'Paypal'),
+    (1777, '2021-03-05', 'Visa'),
+    (2276, '2021-03-05', 'Efectivo'),
+    (4425, '2021-03-05', 'Visa'),
+    (698, '2021-03-05', 'Six Flags Membership'),
+    (2457, '2021-03-06', 'American Express'),
+    (222, '2021-03-06', 'Efectivo'),
+    (1245, '2021-03-06', 'Paypal'),
+    (2615, '2021-03-06', 'Mastercard'),
+    (4090, '2021-03-06', 'Paypal'),
+    (1274, '2021-03-07', 'American Express'),
+    (4329, '2021-03-07', 'American Express'),
+    (4286, '2021-03-07', 'American Express'),
+    (1379, '2021-03-07', 'Six Flags Membership'),
+    (2241, '2021-03-07', 'Paypal'),
+    (1311, '2021-03-07', 'Efectivo'),
+    (4071, '2021-03-07', 'Six Flags Gift Card'),
+    (4664, '2021-03-07', 'Efectivo'),
+    (2067, '2021-03-08', 'Efectivo'),
+    (2679, '2021-03-08', 'Paypal'),
+    (2416, '2021-03-08', 'Visa'),
+    (2541, '2021-03-08', 'Mastercard'),
+    (1594, '2021-03-09', 'Mastercard'),
+    (623, '2021-03-09', 'Six Flags Membership'),
+    (3855, '2021-03-09', 'Six Flags Membership'),
+    (3927, '2021-03-09', 'Mastercard'),
+    (4338, '2021-03-09', 'Six Flags Gift Card'),
+    (4759, '2021-03-09', 'Visa'),
+    (2866, '2021-03-09', 'Paypal'),
+    (537, '2021-03-09', 'Efectivo'),
+    (2661, '2021-03-10', 'Six Flags Gift Card'),
+    (4240, '2021-03-10', 'Efectivo'),
+    (4847, '2021-03-10', 'Mastercard'),
+    (4635, '2021-03-10', 'Efectivo'),
+    (1222, '2021-03-10', 'Efectivo'),
+    (6, '2021-03-10', 'Visa'),
+    (655, '2021-03-11', 'Visa'),
+    (2302, '2021-03-11', 'Six Flags Membership'),
+    (550, '2021-03-11', 'American Express'),
+    (1576, '2021-03-11', 'Six Flags Gift Card'),
+    (1318, '2021-03-11', 'Six Flags Membership'),
+    (4996, '2021-03-11', 'Six Flags Gift Card'),
+    (4285, '2021-03-11', 'Visa'),
+    (1142, '2021-03-12', 'Visa'),
+    (660, '2021-03-12', 'Six Flags Membership'),
+    (31, '2021-03-12', 'American Express'),
+    (4954, '2021-03-12', 'American Express'),
+    (3378, '2021-03-12', 'Efectivo'),
+    (4211, '2021-03-12', 'Efectivo'),
+    (1985, '2021-03-13', 'Mastercard'),
+    (1280, '2021-03-13', 'Six Flags Membership'),
+    (826, '2021-03-13', 'Mastercard'),
+    (4006, '2021-03-13', 'Mastercard'),
+    (2713, '2021-03-13', 'Paypal'),
+    (2286, '2021-03-13', 'Visa'),
+    (2822, '2021-03-14', 'Paypal'),
+    (2457, '2021-03-14', 'Efectivo'),
+    (4512, '2021-03-14', 'Six Flags Gift Card'),
+    (1512, '2021-03-14', 'Visa'),
+    (1322, '2021-03-15', 'Paypal'),
+    (2604, '2021-03-15', 'Six Flags Gift Card'),
+    (2149, '2021-03-15', 'Six Flags Gift Card'),
+    (385, '2021-03-15', 'Efectivo'),
+    (2484, '2021-03-15', 'Efectivo'),
+    (2224, '2021-03-15', 'Mastercard'),
+    (4436, '2021-03-16', 'Efectivo'),
+    (4898, '2021-03-16', 'Six Flags Membership'),
+    (4962, '2021-03-16', 'Six Flags Gift Card'),
+    (3071, '2021-03-16', 'Visa'),
+    (1565, '2021-03-16', 'Paypal'),
+    (4132, '2021-03-16', 'Paypal'),
+    (4148, '2021-03-16', 'Efectivo'),
+    (4043, '2021-03-16', 'Visa'),
+    (3314, '2021-03-16', 'Six Flags Gift Card'),
+    (2847, '2021-03-17', 'Visa'),
+    (3698, '2021-03-17', 'Efectivo'),
+    (1205, '2021-03-17', 'American Express'),
+    (864, '2021-03-17', 'Efectivo'),
+    (1349, '2021-03-17', 'American Express'),
+    (4445, '2021-03-17', 'Six Flags Gift Card'),
+    (3820, '2021-03-17', 'Efectivo'),
+    (3581, '2021-03-17', 'Visa'),
+    (2335, '2021-03-18', 'Efectivo'),
+    (2177, '2021-03-18', 'Six Flags Gift Card'),
+    (1822, '2021-03-18', 'Visa'),
+    (879, '2021-03-18', 'Efectivo'),
+    (4067, '2021-03-18', 'Six Flags Gift Card'),
+    (4506, '2021-03-18', 'Paypal'),
+    (700, '2021-03-18', 'Mastercard'),
+    (560, '2021-03-18', 'American Express'),
+    (3114, '2021-03-18', 'Efectivo'),
+    (2554, '2021-03-18', 'Paypal'),
+    (62, '2021-03-19', 'Six Flags Membership'),
+    (3221, '2021-03-19', 'Six Flags Gift Card'),
+    (3828, '2021-03-19', 'Six Flags Membership'),
+    (3350, '2021-03-20', 'Six Flags Gift Card'),
+    (3178, '2021-03-20', 'Six Flags Gift Card'),
+    (439, '2021-03-20', 'Efectivo'),
+    (2692, '2021-03-20', 'Six Flags Gift Card'),
+    (3926, '2021-03-20', 'Six Flags Membership'),
+    (3871, '2021-03-20', 'Paypal'),
+    (4433, '2021-03-21', 'Visa'),
+    (1945, '2021-03-21', 'American Express'),
+    (2118, '2021-03-21', 'Six Flags Membership'),
+    (1513, '2021-03-21', 'Visa'),
+    (3473, '2021-03-21', 'Six Flags Membership'),
+    (1937, '2021-03-21', 'Mastercard'),
+    (2592, '2021-03-21', 'American Express'),
+    (2856, '2021-03-21', 'Paypal'),
+    (1230, '2021-03-21', 'Visa'),
+    (1038, '2021-03-21', 'Visa'),
+    (3597, '2021-03-22', 'Mastercard'),
+    (2945, '2021-03-22', 'Mastercard'),
+    (3826, '2021-03-22', 'Six Flags Gift Card'),
+    (50, '2021-03-22', 'Six Flags Membership'),
+    (2928, '2021-03-22', 'Efectivo'),
+    (2374, '2021-03-22', 'Paypal'),
+    (3485, '2021-03-22', 'Six Flags Membership'),
+    (4069, '2021-03-23', 'Paypal'),
+    (3436, '2021-03-23', 'Six Flags Gift Card'),
+    (727, '2021-03-23', 'Six Flags Gift Card'),
+    (2398, '2021-03-23', 'Mastercard'),
+    (4507, '2021-03-24', 'Mastercard'),
+    (1651, '2021-03-24', 'Visa'),
+    (2696, '2021-03-24', 'Visa'),
+    (3073, '2021-03-24', 'Mastercard'),
+    (3165, '2021-03-24', 'Visa'),
+    (2387, '2021-03-25', 'Mastercard'),
+    (2118, '2021-03-25', 'Paypal'),
+    (4875, '2021-03-25', 'Paypal'),
+    (1573, '2021-03-25', 'Mastercard'),
+    (4115, '2021-03-25', 'Mastercard'),
+    (2193, '2021-03-25', 'Efectivo'),
+    (1900, '2021-03-26', 'Paypal'),
+    (2730, '2021-03-26', 'Mastercard'),
+    (3551, '2021-03-26', 'Efectivo'),
+    (1155, '2021-03-26', 'Six Flags Gift Card'),
+    (2522, '2021-03-26', 'Six Flags Gift Card'),
+    (581, '2021-03-26', 'Six Flags Gift Card'),
+    (4810, '2021-03-26', 'Six Flags Membership'),
+    (2374, '2021-03-26', 'Visa'),
+    (4048, '2021-03-27', 'Efectivo'),
+    (4291, '2021-03-27', 'Six Flags Gift Card'),
+    (2910, '2021-03-27', 'Six Flags Gift Card'),
+    (3752, '2021-03-27', 'American Express'),
+    (4618, '2021-03-27', 'American Express'),
+    (1473, '2021-03-27', 'Six Flags Membership'),
+    (3030, '2021-03-28', 'Six Flags Gift Card'),
+    (80, '2021-03-28', 'Six Flags Membership'),
+    (2455, '2021-03-28', 'American Express'),
+    (4573, '2021-03-29', 'Paypal'),
+    (1103, '2021-03-29', 'Efectivo'),
+    (4880, '2021-03-29', 'Efectivo'),
+    (3979, '2021-03-29', 'Six Flags Membership'),
+    (1779, '2021-03-29', 'Efectivo'),
+    (692, '2021-03-29', 'Paypal'),
+    (3770, '2021-03-29', 'Mastercard'),
+    (369, '2021-03-29', 'Mastercard'),
+    (3394, '2021-03-30', 'Six Flags Gift Card'),
+    (64, '2021-03-30', 'Efectivo'),
+    (4849, '2021-03-30', 'Six Flags Gift Card'),
+    (1156, '2021-03-30', 'Six Flags Membership'),
+    (2397, '2021-03-30', 'Paypal'),
+    (499, '2021-03-30', 'American Express'),
+    (786, '2021-03-30', 'American Express'),
+    (405, '2021-03-31', 'Six Flags Membership'),
+    (189, '2021-03-31', 'Paypal'),
+    (4658, '2021-03-31', 'American Express'),
+    (2909, '2021-03-31', 'Six Flags Membership'),
+    (928, '2021-03-31', 'Visa'),
+    (3424, '2021-03-31', 'Visa'),
+    (3492, '2021-03-31', 'Mastercard'),
+    (4315, '2021-04-01', 'American Express'),
+    (2477, '2021-04-01', 'Efectivo'),
+    (2655, '2021-04-01', 'Visa'),
+    (3629, '2021-04-02', 'Paypal'),
+    (3523, '2021-04-02', 'Visa'),
+    (1668, '2021-04-02', 'Efectivo'),
+    (3219, '2021-04-02', 'Six Flags Membership'),
+    (4429, '2021-04-02', 'Six Flags Gift Card'),
+    (222, '2021-04-03', 'American Express'),
+    (868, '2021-04-03', 'Visa'),
+    (1335, '2021-04-03', 'Six Flags Membership'),
+    (954, '2021-04-03', 'Visa'),
+    (4458, '2021-04-03', 'Paypal'),
+    (1678, '2021-04-03', 'Six Flags Membership'),
+    (3243, '2021-04-04', 'Paypal'),
+    (1626, '2021-04-04', 'Paypal'),
+    (3281, '2021-04-04', 'Mastercard'),
+    (3911, '2021-04-04', 'Efectivo'),
+    (2680, '2021-04-04', 'Efectivo'),
+    (4118, '2021-04-04', 'Efectivo'),
+    (4453, '2021-04-04', 'Paypal'),
+    (4126, '2021-04-04', 'Paypal'),
+    (4122, '2021-04-04', 'American Express'),
+    (3375, '2021-04-04', 'Efectivo'),
+    (2924, '2021-04-04', 'Paypal'),
+    (2746, '2021-04-04', 'Six Flags Gift Card'),
+    (3023, '2021-04-05', 'Six Flags Gift Card'),
+    (1380, '2021-04-05', 'Efectivo'),
+    (1959, '2021-04-05', 'Six Flags Gift Card'),
+    (4178, '2021-04-05', 'Six Flags Membership'),
+    (3165, '2021-04-05', 'Efectivo'),
+    (3110, '2021-04-05', 'Efectivo'),
+    (3890, '2021-04-06', 'Six Flags Membership'),
+    (2682, '2021-04-06', 'American Express'),
+    (2964, '2021-04-06', 'Six Flags Gift Card'),
+    (623, '2021-04-06', 'American Express'),
+    (1847, '2021-04-06', 'Six Flags Gift Card'),
+    (1530, '2021-04-06', 'Paypal'),
+    (919, '2021-04-07', 'Paypal'),
+    (4382, '2021-04-07', 'Mastercard'),
+    (1946, '2021-04-07', 'Efectivo'),
+    (3575, '2021-04-07', 'Six Flags Membership'),
+    (2340, '2021-04-07', 'Efectivo'),
+    (2802, '2021-04-07', 'Efectivo'),
+    (4561, '2021-04-07', 'Six Flags Gift Card'),
+    (1804, '2021-04-08', 'Visa'),
+    (1185, '2021-04-08', 'Six Flags Membership'),
+    (1309, '2021-04-09', 'Paypal'),
+    (3468, '2021-04-09', 'Six Flags Gift Card'),
+    (1059, '2021-04-09', 'Visa'),
+    (631, '2021-04-09', 'Six Flags Gift Card'),
+    (2336, '2021-04-09', 'Six Flags Membership'),
+    (1544, '2021-04-09', 'Mastercard'),
+    (4692, '2021-04-09', 'Mastercard'),
+    (4857, '2021-04-09', 'Six Flags Membership'),
+    (1498, '2021-04-09', 'American Express'),
+    (1410, '2021-04-10', 'American Express'),
+    (2058, '2021-04-10', 'Paypal'),
+    (3167, '2021-04-11', 'Six Flags Membership'),
+    (1629, '2021-04-11', 'Paypal'),
+    (3789, '2021-04-11', 'Visa'),
+    (2049, '2021-04-11', 'Visa'),
+    (616, '2021-04-11', 'American Express'),
+    (1010, '2021-04-11', 'Visa'),
+    (4546, '2021-04-12', 'American Express'),
+    (2014, '2021-04-12', 'Six Flags Membership'),
+    (2136, '2021-04-12', 'Paypal'),
+    (2553, '2021-04-12', 'Paypal'),
+    (3698, '2021-04-12', 'Mastercard'),
+    (1085, '2021-04-12', 'Paypal'),
+    (1473, '2021-04-13', 'Efectivo'),
+    (2352, '2021-04-13', 'Mastercard'),
+    (664, '2021-04-13', 'Efectivo'),
+    (3613, '2021-04-13', 'Efectivo'),
+    (1187, '2021-04-13', 'Six Flags Gift Card'),
+    (2009, '2021-04-13', 'Paypal'),
+    (2139, '2021-04-14', 'American Express'),
+    (4591, '2021-04-14', 'Visa'),
+    (1897, '2021-04-14', 'Six Flags Membership'),
+    (3812, '2021-04-14', 'Paypal'),
+    (4898, '2021-04-15', 'Mastercard'),
+    (4244, '2021-04-15', 'Visa'),
+    (4079, '2021-04-15', 'Six Flags Gift Card'),
+    (2928, '2021-04-15', 'Mastercard'),
+    (4307, '2021-04-15', 'Six Flags Gift Card'),
+    (3021, '2021-04-15', 'Paypal'),
+    (1051, '2021-04-15', 'Paypal'),
+    (4722, '2021-04-15', 'Mastercard'),
+    (1478, '2021-04-16', 'Mastercard'),
+    (799, '2021-04-16', 'Six Flags Gift Card'),
+    (125, '2021-04-16', 'Visa'),
+    (1569, '2021-04-16', 'Six Flags Gift Card'),
+    (1873, '2021-04-16', 'Six Flags Gift Card'),
+    (3280, '2021-04-16', 'American Express'),
+    (2217, '2021-04-16', 'Six Flags Membership'),
+    (716, '2021-04-16', 'Efectivo'),
+    (2924, '2021-04-16', 'Six Flags Membership'),
+    (4626, '2021-04-17', 'Visa'),
+    (434, '2021-04-17', 'Mastercard'),
+    (549, '2021-04-17', 'Paypal'),
+    (81, '2021-04-17', 'American Express'),
+    (1698, '2021-04-17', 'Six Flags Membership'),
+    (605, '2021-04-17', 'American Express'),
+    (3710, '2021-04-17', 'American Express'),
+    (4581, '2021-04-17', 'Visa'),
+    (2041, '2021-04-17', 'Six Flags Gift Card'),
+    (3525, '2021-04-17', 'Efectivo'),
+    (4183, '2021-04-17', 'Paypal'),
+    (2780, '2021-04-17', 'Mastercard'),
+    (2056, '2021-04-17', 'Mastercard'),
+    (1710, '2021-04-17', 'Mastercard'),
+    (3320, '2021-04-18', 'Six Flags Gift Card'),
+    (4370, '2021-04-18', 'Paypal'),
+    (2835, '2021-04-18', 'Mastercard'),
+    (3237, '2021-04-18', 'Visa'),
+    (2239, '2021-04-18', 'Visa'),
+    (4974, '2021-04-18', 'Six Flags Membership'),
+    (3969, '2021-04-18', 'Mastercard'),
+    (597, '2021-04-19', 'Six Flags Gift Card'),
+    (3415, '2021-04-19', 'American Express'),
+    (2750, '2021-04-19', 'Six Flags Membership'),
+    (2706, '2021-04-19', 'Six Flags Membership'),
+    (1617, '2021-04-19', 'Six Flags Membership'),
+    (2998, '2021-04-19', 'American Express'),
+    (2134, '2021-04-19', 'Visa'),
+    (1382, '2021-04-20', 'Efectivo'),
+    (4519, '2021-04-20', 'Mastercard'),
+    (2445, '2021-04-20', 'Six Flags Membership'),
+    (833, '2021-04-20', 'Visa'),
+    (4528, '2021-04-20', 'Efectivo'),
+    (4232, '2021-04-20', 'Paypal'),
+    (4505, '2021-04-20', 'Paypal'),
+    (3730, '2021-04-21', 'Six Flags Membership'),
+    (725, '2021-04-21', 'Visa'),
+    (2037, '2021-04-21', 'Paypal'),
+    (1060, '2021-04-22', 'Paypal'),
+    (620, '2021-04-22', 'Six Flags Membership'),
+    (1728, '2021-04-22', 'Six Flags Membership'),
+    (2537, '2021-04-22', 'American Express'),
+    (3845, '2021-04-22', 'Mastercard'),
+    (4859, '2021-04-22', 'Paypal'),
+    (2691, '2021-04-22', 'Visa'),
+    (4307, '2021-04-22', 'Mastercard'),
+    (199, '2021-04-23', 'American Express'),
+    (4734, '2021-04-23', 'Six Flags Gift Card'),
+    (3347, '2021-04-23', 'Six Flags Membership'),
+    (139, '2021-04-23', 'Six Flags Gift Card'),
+    (3707, '2021-04-23', 'Efectivo'),
+    (2026, '2021-04-23', 'American Express'),
+    (234, '2021-04-23', 'American Express'),
+    (4215, '2021-04-23', 'Mastercard'),
+    (1489, '2021-04-24', 'Mastercard'),
+    (1910, '2021-04-24', 'Paypal'),
+    (70, '2021-04-24', 'Six Flags Gift Card'),
+    (4191, '2021-04-24', 'Visa'),
+    (3577, '2021-04-24', 'Six Flags Gift Card'),
+    (577, '2021-04-24', 'Visa'),
+    (1301, '2021-04-24', 'Mastercard'),
+    (3044, '2021-04-24', 'Visa'),
+    (2580, '2021-04-25', 'Efectivo'),
+    (1825, '2021-04-25', 'Visa'),
+    (780, '2021-04-25', 'Efectivo'),
+    (2043, '2021-04-25', 'Mastercard'),
+    (3834, '2021-04-25', 'Six Flags Membership'),
+    (2223, '2021-04-25', 'Mastercard'),
+    (1419, '2021-04-25', 'Efectivo'),
+    (1705, '2021-04-25', 'Six Flags Membership'),
+    (1446, '2021-04-26', 'Visa'),
+    (1307, '2021-04-26', 'American Express'),
+    (3461, '2021-04-26', 'Six Flags Gift Card'),
+    (229, '2021-04-26', 'Six Flags Gift Card'),
+    (2835, '2021-04-26', 'Efectivo'),
+    (3220, '2021-04-26', 'American Express'),
+    (3559, '2021-04-26', 'Efectivo'),
+    (136, '2021-04-26', 'Mastercard'),
+    (2148, '2021-04-27', 'Efectivo'),
+    (1064, '2021-04-27', 'Visa'),
+    (699, '2021-04-27', 'Six Flags Gift Card'),
+    (1966, '2021-04-27', 'American Express'),
+    (4007, '2021-04-27', 'Efectivo'),
+    (3861, '2021-04-27', 'Visa'),
+    (458, '2021-04-28', 'Efectivo'),
+    (1640, '2021-04-28', 'Paypal'),
+    (1677, '2021-04-28', 'Mastercard'),
+    (1847, '2021-04-28', 'Efectivo'),
+    (3775, '2021-04-28', 'Paypal'),
+    (4895, '2021-04-28', 'Six Flags Membership'),
+    (1682, '2021-04-28', 'Efectivo'),
+    (3516, '2021-04-29', 'Paypal'),
+    (3219, '2021-04-29', 'Paypal'),
+    (2067, '2021-04-29', 'Mastercard'),
+    (895, '2021-04-29', 'Paypal'),
+    (583, '2021-04-29', 'Six Flags Gift Card'),
+    (2658, '2021-04-30', 'American Express'),
+    (2555, '2021-04-30', 'American Express'),
+    (4976, '2021-04-30', 'Six Flags Gift Card'),
+    (4263, '2021-05-01', 'Six Flags Membership'),
+    (444, '2021-05-01', 'Visa'),
+    (1475, '2021-05-01', 'Six Flags Membership'),
+    (2724, '2021-05-01', 'Six Flags Gift Card'),
+    (1991, '2021-05-01', 'Six Flags Gift Card'),
+    (2239, '2021-05-01', 'Six Flags Membership'),
+    (2939, '2021-05-01', 'Visa'),
+    (3804, '2021-05-01', 'Six Flags Membership'),
+    (4240, '2021-05-02', 'Efectivo'),
+    (1579, '2021-05-02', 'Six Flags Gift Card'),
+    (2634, '2021-05-02', 'Visa'),
+    (4464, '2021-05-03', 'Efectivo'),
+    (1026, '2021-05-03', 'Six Flags Gift Card'),
+    (2955, '2021-05-03', 'Six Flags Gift Card'),
+    (1691, '2021-05-04', 'Mastercard'),
+    (454, '2021-05-04', 'Mastercard'),
+    (947, '2021-05-04', 'Six Flags Gift Card'),
+    (4221, '2021-05-04', 'Visa'),
+    (3460, '2021-05-04', 'Mastercard'),
+    (2118, '2021-05-04', 'Mastercard'),
+    (3849, '2021-05-04', 'Visa'),
+    (100, '2021-05-04', 'Six Flags Gift Card'),
+    (1810, '2021-05-04', 'Six Flags Membership'),
+    (4956, '2021-05-04', 'Mastercard'),
+    (3104, '2021-05-05', 'Visa'),
+    (575, '2021-05-05', 'Paypal'),
+    (3363, '2021-05-05', 'American Express'),
+    (2638, '2021-05-05', 'Efectivo'),
+    (37, '2021-05-05', 'Six Flags Membership'),
+    (3124, '2021-05-05', 'Paypal'),
+    (2658, '2021-05-06', 'American Express'),
+    (3088, '2021-05-06', 'Efectivo'),
+    (1366, '2021-05-06', 'Paypal'),
+    (460, '2021-05-06', 'Mastercard'),
+    (1931, '2021-05-06', 'Six Flags Membership'),
+    (2004, '2021-05-06', 'Six Flags Gift Card'),
+    (937, '2021-05-06', 'Six Flags Gift Card'),
+    (4939, '2021-05-06', 'Six Flags Membership'),
+    (203, '2021-05-06', 'American Express'),
+    (3088, '2021-05-06', 'Visa'),
+    (311, '2021-05-06', 'Efectivo'),
+    (2804, '2021-05-06', 'Six Flags Gift Card'),
+    (747, '2021-05-06', 'Paypal'),
+    (1053, '2021-05-06', 'Six Flags Gift Card'),
+    (2978, '2021-05-07', 'Efectivo'),
+    (553, '2021-05-07', 'Visa'),
+    (2651, '2021-05-07', 'Six Flags Gift Card'),
+    (3030, '2021-05-08', 'Six Flags Membership'),
+    (120, '2021-05-08', 'Six Flags Membership'),
+    (1025, '2021-05-08', 'Six Flags Gift Card'),
+    (2567, '2021-05-08', 'Efectivo'),
+    (2070, '2021-05-08', 'Efectivo'),
+    (475, '2021-05-09', 'Six Flags Gift Card'),
+    (1934, '2021-05-09', 'Mastercard'),
+    (2348, '2021-05-09', 'Mastercard'),
+    (1446, '2021-05-09', 'Visa'),
+    (1305, '2021-05-10', 'Six Flags Gift Card'),
+    (2094, '2021-05-10', 'Mastercard'),
+    (1283, '2021-05-10', 'Six Flags Gift Card'),
+    (4719, '2021-05-10', 'Mastercard'),
+    (2813, '2021-05-10', 'Six Flags Gift Card'),
+    (3649, '2021-05-10', 'Mastercard'),
+    (193, '2021-05-10', 'Visa'),
+    (2864, '2021-05-10', 'Visa'),
+    (2660, '2021-05-11', 'Six Flags Membership'),
+    (738, '2021-05-11', 'Efectivo'),
+    (2106, '2021-05-11', 'Six Flags Membership'),
+    (4176, '2021-05-11', 'Mastercard'),
+    (2416, '2021-05-11', 'Visa'),
+    (1041, '2021-05-11', 'American Express'),
+    (3091, '2021-05-11', 'Paypal'),
+    (1632, '2021-05-11', 'Six Flags Membership'),
+    (841, '2021-05-11', 'Six Flags Membership'),
+    (18, '2021-05-12', 'Visa'),
+    (3528, '2021-05-12', 'American Express'),
+    (2474, '2021-05-12', 'Visa'),
+    (1130, '2021-05-12', 'Six Flags Membership'),
+    (4534, '2021-05-12', 'Paypal'),
+    (4148, '2021-05-13', 'Mastercard'),
+    (824, '2021-05-13', 'Visa'),
+    (4682, '2021-05-13', 'Efectivo'),
+    (3750, '2021-05-13', 'Mastercard'),
+    (1072, '2021-05-13', 'American Express'),
+    (3905, '2021-05-13', 'Visa'),
+    (2354, '2021-05-13', 'Paypal'),
+    (4665, '2021-05-13', 'Six Flags Gift Card'),
+    (2193, '2021-05-13', 'American Express'),
+    (4281, '2021-05-13', 'Mastercard'),
+    (2055, '2021-05-13', 'American Express'),
+    (4674, '2021-05-13', 'Paypal'),
+    (2008, '2021-05-13', 'Six Flags Membership'),
+    (3722, '2021-05-13', 'American Express'),
+    (2128, '2021-05-13', 'Six Flags Gift Card'),
+    (3952, '2021-05-13', 'Mastercard'),
+    (4493, '2021-05-14', 'Six Flags Membership'),
+    (2960, '2021-05-14', 'Visa'),
+    (2254, '2021-05-14', 'Six Flags Gift Card'),
+    (467, '2021-05-14', 'Six Flags Gift Card'),
+    (1677, '2021-05-14', 'Visa'),
+    (2330, '2021-05-14', 'Six Flags Membership'),
+    (4284, '2021-05-14', 'Paypal'),
+    (308, '2021-05-15', 'Mastercard'),
+    (4834, '2021-05-15', 'Six Flags Membership'),
+    (4680, '2021-05-15', 'American Express'),
+    (1312, '2021-05-15', 'Visa'),
+    (2902, '2021-05-15', 'Efectivo'),
+    (437, '2021-05-15', 'Six Flags Gift Card'),
+    (2621, '2021-05-15', 'Efectivo'),
+    (2114, '2021-05-15', 'American Express'),
+    (3652, '2021-05-15', 'Efectivo'),
+    (1488, '2021-05-15', 'Efectivo'),
+    (2480, '2021-05-16', 'Efectivo'),
+    (2770, '2021-05-16', 'Mastercard'),
+    (785, '2021-05-16', 'Efectivo'),
+    (3960, '2021-05-16', 'American Express'),
+    (1142, '2021-05-16', 'Efectivo'),
+    (4360, '2021-05-16', 'American Express'),
+    (4589, '2021-05-16', 'Six Flags Gift Card'),
+    (1246, '2021-05-16', 'Six Flags Membership'),
+    (1827, '2021-05-17', 'Mastercard'),
+    (995, '2021-05-17', 'Paypal'),
+    (3074, '2021-05-17', 'Six Flags Gift Card'),
+    (4, '2021-05-17', 'Efectivo'),
+    (333, '2021-05-17', 'American Express'),
+    (3375, '2021-05-18', 'Efectivo'),
+    (3361, '2021-05-18', 'Visa'),
+    (974, '2021-05-18', 'American Express'),
+    (1171, '2021-05-18', 'American Express'),
+    (4676, '2021-05-18', 'Mastercard'),
+    (2596, '2021-05-18', 'Mastercard'),
+    (2994, '2021-05-18', 'Mastercard'),
+    (452, '2021-05-18', 'Mastercard'),
+    (3486, '2021-05-18', 'Visa'),
+    (920, '2021-05-18', 'Six Flags Gift Card'),
+    (3412, '2021-05-18', 'Visa'),
+    (383, '2021-05-18', 'American Express'),
+    (3253, '2021-05-18', 'American Express'),
+    (238, '2021-05-18', 'Paypal'),
+    (343, '2021-05-19', 'Six Flags Membership'),
+    (1938, '2021-05-19', 'Six Flags Membership'),
+    (3270, '2021-05-19', 'American Express'),
+    (3667, '2021-05-19', 'Mastercard'),
+    (58, '2021-05-19', 'Mastercard'),
+    (936, '2021-05-19', 'American Express'),
+    (2597, '2021-05-19', 'Visa'),
+    (812, '2021-05-19', 'Paypal'),
+    (1428, '2021-05-19', 'Visa'),
+    (3102, '2021-05-19', 'Paypal'),
+    (3315, '2021-05-19', 'Paypal'),
+    (1288, '2021-05-19', 'Efectivo'),
+    (1921, '2021-05-19', 'Mastercard'),
+    (1926, '2021-05-20', 'Six Flags Gift Card'),
+    (3086, '2021-05-20', 'Efectivo'),
+    (3493, '2021-05-20', 'Paypal'),
+    (1852, '2021-05-20', 'Efectivo'),
+    (266, '2021-05-20', 'Paypal'),
+    (362, '2021-05-20', 'Mastercard'),
+    (1036, '2021-05-21', 'Mastercard'),
+    (2148, '2021-05-21', 'Efectivo'),
+    (2, '2021-05-21', 'Six Flags Gift Card'),
+    (1282, '2021-05-22', 'Mastercard'),
+    (4864, '2021-05-22', 'Efectivo'),
+    (3095, '2021-05-22', 'Efectivo'),
+    (2819, '2021-05-23', 'Six Flags Membership'),
+    (4375, '2021-05-23', 'Mastercard'),
+    (4386, '2021-05-23', 'Paypal'),
+    (4854, '2021-05-23', 'Efectivo'),
+    (1954, '2021-05-23', 'Six Flags Membership'),
+    (547, '2021-05-24', 'Mastercard'),
+    (3779, '2021-05-24', 'Six Flags Gift Card'),
+    (1180, '2021-05-24', 'Paypal'),
+    (4467, '2021-05-24', 'Paypal'),
+    (4567, '2021-05-24', 'Six Flags Gift Card'),
+    (4573, '2021-05-25', 'Six Flags Gift Card'),
+    (869, '2021-05-25', 'Paypal'),
+    (3783, '2021-05-25', 'Six Flags Membership'),
+    (829, '2021-05-25', 'Mastercard'),
+    (4145, '2021-05-25', 'Six Flags Membership'),
+    (3210, '2021-05-26', 'Efectivo'),
+    (2683, '2021-05-26', 'American Express'),
+    (615, '2021-05-27', 'Paypal'),
+    (4577, '2021-05-27', 'Six Flags Gift Card'),
+    (2433, '2021-05-27', 'Visa'),
+    (831, '2021-05-27', 'American Express'),
+    (404, '2021-05-27', 'Efectivo'),
+    (3377, '2021-05-28', 'Visa'),
+    (4105, '2021-05-28', 'American Express'),
+    (2951, '2021-05-28', 'Efectivo'),
+    (4078, '2021-05-28', 'Mastercard'),
+    (2476, '2021-05-28', 'Visa'),
+    (4381, '2021-05-28', 'Six Flags Gift Card'),
+    (3356, '2021-05-28', 'American Express'),
+    (46, '2021-05-29', 'Visa'),
+    (875, '2021-05-29', 'Efectivo'),
+    (303, '2021-05-29', 'Visa'),
+    (767, '2021-05-30', 'Visa'),
+    (4973, '2021-05-30', 'American Express'),
+    (2787, '2021-05-30', 'Visa'),
+    (3568, '2021-05-30', 'Efectivo'),
+    (2811, '2021-05-30', 'American Express'),
+    (4727, '2021-05-30', 'Six Flags Gift Card'),
+    (283, '2021-05-30', 'Mastercard'),
+    (3393, '2021-05-30', 'Efectivo'),
+    (1066, '2021-05-31', 'Efectivo'),
+    (4890, '2021-05-31', 'Visa'),
+    (4921, '2021-05-31', 'Visa'),
+    (4502, '2021-05-31', 'Visa'),
+    (4455, '2021-05-31', 'Six Flags Gift Card'),
+    (250, '2021-05-31', 'Paypal'),
+    (2248, '2021-05-31', 'Efectivo'),
+    (992, '2021-05-31', 'Paypal'),
+    (345, '2021-05-31', 'Efectivo'),
+    (2755, '2021-05-31', 'Visa'),
+    (4419, '2021-06-01', 'Six Flags Gift Card'),
+    (3726, '2021-06-01', 'Mastercard'),
+    (556, '2021-06-01', 'Mastercard'),
+    (2319, '2021-06-01', 'Efectivo'),
+    (159, '2021-06-01', 'Visa'),
+    (2207, '2021-06-01', 'Paypal'),
+    (3723, '2021-06-01', 'Paypal'),
+    (4064, '2021-06-01', 'Six Flags Membership'),
+    (3424, '2021-06-01', 'Paypal'),
+    (235, '2021-06-01', 'Paypal'),
+    (4591, '2021-06-01', 'Mastercard'),
+    (3677, '2021-06-01', 'Six Flags Membership'),
+    (4236, '2021-06-01', 'Six Flags Gift Card'),
+    (514, '2021-06-02', 'American Express'),
+    (3874, '2021-06-02', 'Six Flags Gift Card'),
+    (1147, '2021-06-02', 'Efectivo'),
+    (4637, '2021-06-02', 'Mastercard'),
+    (4148, '2021-06-02', 'Six Flags Gift Card'),
+    (881, '2021-06-03', 'Efectivo'),
+    (4453, '2021-06-03', 'Paypal'),
+    (2289, '2021-06-03', 'Efectivo'),
+    (3389, '2021-06-03', 'American Express'),
+    (1566, '2021-06-03', 'American Express'),
+    (1706, '2021-06-03', 'Paypal'),
+    (3187, '2021-06-04', 'American Express'),
+    (3772, '2021-06-04', 'Six Flags Membership'),
+    (1944, '2021-06-04', 'Visa'),
+    (3579, '2021-06-04', 'Six Flags Membership'),
+    (2183, '2021-06-04', 'Visa'),
+    (1931, '2021-06-04', 'Visa'),
+    (4725, '2021-06-04', 'Visa'),
+    (1969, '2021-06-04', 'Six Flags Gift Card'),
+    (883, '2021-06-04', 'Mastercard'),
+    (2839, '2021-06-04', 'Efectivo'),
+    (466, '2021-06-05', 'American Express'),
+    (3679, '2021-06-05', 'Six Flags Membership'),
+    (1517, '2021-06-05', 'American Express'),
+    (2820, '2021-06-05', 'Visa'),
+    (2977, '2021-06-05', 'Six Flags Gift Card'),
+    (4070, '2021-06-05', 'Efectivo'),
+    (2298, '2021-06-06', 'Paypal'),
+    (4280, '2021-06-06', 'Six Flags Gift Card'),
+    (1226, '2021-06-06', 'Six Flags Gift Card'),
+    (2730, '2021-06-06', 'Six Flags Gift Card'),
+    (4606, '2021-06-06', 'Paypal'),
+    (4967, '2021-06-06', 'Paypal'),
+    (281, '2021-06-06', 'Visa'),
+    (2897, '2021-06-06', 'Paypal'),
+    (3525, '2021-06-07', 'American Express'),
+    (840, '2021-06-07', 'American Express'),
+    (1428, '2021-06-07', 'Six Flags Membership'),
+    (793, '2021-06-07', 'Visa'),
+    (2067, '2021-06-07', 'Mastercard'),
+    (1392, '2021-06-07', 'Six Flags Gift Card'),
+    (4842, '2021-06-08', 'Efectivo'),
+    (1359, '2021-06-08', 'Mastercard'),
+    (2893, '2021-06-08', 'American Express'),
+    (2918, '2021-06-08', 'Six Flags Membership'),
+    (92, '2021-06-08', 'Paypal'),
+    (3975, '2021-06-08', 'Visa'),
+    (4295, '2021-06-08', 'Visa'),
+    (173, '2021-06-09', 'Paypal'),
+    (3380, '2021-06-09', 'Six Flags Membership'),
+    (4611, '2021-06-09', 'Six Flags Gift Card'),
+    (2258, '2021-06-09', 'Paypal'),
+    (2929, '2021-06-09', 'Mastercard'),
+    (3091, '2021-06-09', 'Six Flags Membership'),
+    (2663, '2021-06-09', 'Visa'),
+    (3494, '2021-06-09', 'Six Flags Membership'),
+    (1606, '2021-06-10', 'Visa'),
+    (3992, '2021-06-10', 'Paypal'),
+    (4517, '2021-06-10', 'Six Flags Gift Card'),
+    (1951, '2021-06-10', 'Six Flags Membership'),
+    (1908, '2021-06-10', 'Six Flags Membership'),
+    (2042, '2021-06-10', 'Six Flags Gift Card'),
+    (3087, '2021-06-10', 'American Express'),
+    (4959, '2021-06-11', 'Mastercard'),
+    (2422, '2021-06-11', 'American Express'),
+    (2989, '2021-06-11', 'American Express'),
+    (2409, '2021-06-11', 'Six Flags Gift Card'),
+    (105, '2021-06-11', 'Mastercard'),
+    (4357, '2021-06-11', 'Six Flags Membership'),
+    (3028, '2021-06-12', 'Efectivo'),
+    (928, '2021-06-12', 'Visa'),
+    (3888, '2021-06-12', 'Efectivo'),
+    (3721, '2021-06-12', 'Visa'),
+    (3814, '2021-06-12', 'Six Flags Gift Card'),
+    (3474, '2021-06-12', 'Visa'),
+    (4264, '2021-06-12', 'Six Flags Membership'),
+    (463, '2021-06-12', 'Six Flags Membership'),
+    (1319, '2021-06-13', 'Six Flags Gift Card'),
+    (1502, '2021-06-13', 'Visa'),
+    (2174, '2021-06-13', 'Efectivo'),
+    (3255, '2021-06-13', 'Six Flags Gift Card'),
+    (1787, '2021-06-13', 'Six Flags Membership'),
+    (3771, '2021-06-14', 'Efectivo'),
+    (1246, '2021-06-14', 'Six Flags Gift Card'),
+    (3462, '2021-06-14', 'Mastercard'),
+    (1304, '2021-06-14', 'American Express'),
+    (4817, '2021-06-14', 'Six Flags Membership'),
+    (315, '2021-06-14', 'American Express'),
+    (1377, '2021-06-14', 'Visa'),
+    (3632, '2021-06-14', 'Mastercard'),
+    (68, '2021-06-14', 'Mastercard'),
+    (1436, '2021-06-14', 'Paypal'),
+    (2479, '2021-06-15', 'Visa'),
+    (699, '2021-06-15', 'Visa'),
+    (2394, '2021-06-15', 'Mastercard'),
+    (1830, '2021-06-15', 'Mastercard'),
+    (714, '2021-06-15', 'Six Flags Membership'),
+    (844, '2021-06-15', 'Mastercard'),
+    (2609, '2021-06-15', 'Paypal'),
+    (3946, '2021-06-15', 'Efectivo'),
+    (2051, '2021-06-15', 'Six Flags Gift Card'),
+    (1027, '2021-06-15', 'Visa'),
+    (2769, '2021-06-15', 'American Express'),
+    (1269, '2021-06-15', 'Efectivo'),
+    (2517, '2021-06-15', 'Paypal'),
+    (907, '2021-06-15', 'Visa'),
+    (3970, '2021-06-15', 'American Express'),
+    (3192, '2021-06-15', 'American Express'),
+    (1778, '2021-06-16', 'American Express'),
+    (3786, '2021-06-16', 'Mastercard'),
+    (312, '2021-06-16', 'Efectivo'),
+    (3351, '2021-06-16', 'Six Flags Gift Card'),
+    (2083, '2021-06-16', 'American Express'),
+    (3151, '2021-06-16', 'American Express'),
+    (3491, '2021-06-16', 'Six Flags Gift Card'),
+    (4694, '2021-06-16', 'Mastercard'),
+    (3975, '2021-06-16', 'Six Flags Gift Card'),
+    (2696, '2021-06-17', 'Six Flags Gift Card'),
+    (7, '2021-06-17', 'Paypal'),
+    (3670, '2021-06-17', 'Visa'),
+    (2420, '2021-06-17', 'Visa'),
+    (4578, '2021-06-17', 'Mastercard'),
+    (3950, '2021-06-17', 'American Express'),
+    (1238, '2021-06-17', 'Paypal'),
+    (723, '2021-06-18', 'Efectivo'),
+    (1344, '2021-06-18', 'Six Flags Gift Card'),
+    (179, '2021-06-18', 'American Express'),
+    (2662, '2021-06-18', 'Visa'),
+    (2127, '2021-06-18', 'Paypal'),
+    (2646, '2021-06-18', 'Six Flags Gift Card'),
+    (2789, '2021-06-18', 'Mastercard'),
+    (4554, '2021-06-18', 'Paypal'),
+    (2401, '2021-06-19', 'American Express'),
+    (4747, '2021-06-19', 'Six Flags Membership'),
+    (4366, '2021-06-19', 'Paypal'),
+    (1577, '2021-06-19', 'Six Flags Gift Card'),
+    (4539, '2021-06-19', 'Six Flags Gift Card'),
+    (2762, '2021-06-19', 'Six Flags Membership'),
+    (286, '2021-06-20', 'Paypal'),
+    (725, '2021-06-20', 'Mastercard'),
+    (1647, '2021-06-20', 'Visa'),
+    (4, '2021-06-20', 'Efectivo'),
+    (4896, '2021-06-20', 'Visa'),
+    (3680, '2021-06-20', 'Paypal'),
+    (4066, '2021-06-20', 'Paypal'),
+    (2975, '2021-06-20', 'Six Flags Gift Card'),
+    (1458, '2021-06-20', 'American Express'),
+    (382, '2021-06-20', 'Six Flags Membership'),
+    (83, '2021-06-20', 'Six Flags Gift Card'),
+    (3317, '2021-06-20', 'Six Flags Membership'),
+    (3802, '2021-06-20', 'Efectivo'),
+    (2296, '2021-06-20', 'Six Flags Gift Card'),
+    (641, '2021-06-20', 'Six Flags Membership'),
+    (2765, '2021-06-21', 'Visa'),
+    (207, '2021-06-21', 'Mastercard'),
+    (4135, '2021-06-21', 'American Express'),
+    (1540, '2021-06-21', 'Mastercard'),
+    (3556, '2021-06-21', 'American Express'),
+    (4818, '2021-06-21', 'Efectivo'),
+    (2805, '2021-06-21', 'Six Flags Gift Card'),
+    (4854, '2021-06-22', 'Six Flags Gift Card'),
+    (3076, '2021-06-22', 'Mastercard'),
+    (2907, '2021-06-22', 'Mastercard'),
+    (4665, '2021-06-22', 'Paypal'),
+    (950, '2021-06-22', 'Six Flags Gift Card'),
+    (4252, '2021-06-22', 'Six Flags Membership'),
+    (4551, '2021-06-22', 'American Express'),
+    (4450, '2021-06-23', 'Efectivo'),
+    (3387, '2021-06-23', 'American Express'),
+    (3349, '2021-06-23', 'Six Flags Membership'),
+    (121, '2021-06-23', 'Mastercard'),
+    (2273, '2021-06-23', 'American Express'),
+    (55, '2021-06-23', 'Visa'),
+    (3404, '2021-06-23', 'Mastercard'),
+    (1239, '2021-06-23', 'American Express'),
+    (396, '2021-06-23', 'Six Flags Membership'),
+    (1877, '2021-06-24', 'Six Flags Membership'),
+    (1964, '2021-06-24', 'Efectivo'),
+    (4069, '2021-06-24', 'American Express'),
+    (3525, '2021-06-24', 'Visa'),
+    (3213, '2021-06-24', 'Six Flags Membership'),
+    (3743, '2021-06-24', 'Visa'),
+    (1173, '2021-06-24', 'Efectivo'),
+    (2639, '2021-06-25', 'Efectivo'),
+    (3650, '2021-06-25', 'Six Flags Membership'),
+    (1803, '2021-06-25', 'Visa'),
+    (4401, '2021-06-25', 'Six Flags Gift Card'),
+    (2307, '2021-06-25', 'Paypal'),
+    (1159, '2021-06-26', 'American Express'),
+    (3666, '2021-06-26', 'American Express'),
+    (600, '2021-06-26', 'Six Flags Gift Card'),
+    (1927, '2021-06-26', 'Efectivo'),
+    (4100, '2021-06-27', 'Paypal'),
+    (1003, '2021-06-27', 'Six Flags Gift Card'),
+    (4598, '2021-06-27', 'Visa'),
+    (2446, '2021-06-27', 'American Express'),
+    (863, '2021-06-27', 'Six Flags Gift Card'),
+    (643, '2021-06-27', 'American Express'),
+    (134, '2021-06-27', 'Visa'),
+    (3649, '2021-06-28', 'Paypal'),
+    (698, '2021-06-28', 'Paypal'),
+    (4116, '2021-06-28', 'American Express'),
+    (4139, '2021-06-28', 'American Express'),
+    (4258, '2021-06-28', 'Six Flags Gift Card'),
+    (2595, '2021-06-28', 'Mastercard'),
+    (3234, '2021-06-28', 'Six Flags Gift Card'),
+    (3337, '2021-06-29', 'Visa'),
+    (388, '2021-06-29', 'American Express'),
+    (4673, '2021-06-29', 'Mastercard'),
+    (4284, '2021-06-29', 'Efectivo'),
+    (3882, '2021-06-29', 'Six Flags Membership'),
+    (4578, '2021-06-29', 'Efectivo'),
+    (4665, '2021-06-29', 'Paypal'),
+    (722, '2021-06-29', 'Mastercard'),
+    (847, '2021-06-29', 'Paypal'),
+    (856, '2021-06-30', 'Six Flags Gift Card'),
+    (4675, '2021-06-30', 'Mastercard'),
+    (2210, '2021-06-30', 'Mastercard'),
+    (880, '2021-06-30', 'Mastercard'),
+    (3276, '2021-06-30', 'Visa'),
+    (3152, '2021-06-30', 'Six Flags Gift Card'),
+    (4728, '2021-06-30', 'Efectivo'),
+    (701, '2021-06-30', 'Mastercard'),
+    (4090, '2021-06-30', 'Paypal'),
+    (3817, '2021-07-01', 'Six Flags Gift Card'),
+    (2805, '2021-07-01', 'Mastercard'),
+    (632, '2021-07-01', 'Mastercard'),
+    (3072, '2021-07-01', 'Mastercard'),
+    (429, '2021-07-02', 'Visa'),
+    (194, '2021-07-02', 'Efectivo'),
+    (1619, '2021-07-02', 'Mastercard'),
+    (959, '2021-07-02', 'Mastercard'),
+    (4744, '2021-07-02', 'Paypal'),
+    (903, '2021-07-02', 'Mastercard'),
+    (2991, '2021-07-02', 'Efectivo'),
+    (4041, '2021-07-02', 'Paypal'),
+    (2701, '2021-07-02', 'Visa'),
+    (639, '2021-07-03', 'American Express'),
+    (2437, '2021-07-03', 'Six Flags Gift Card'),
+    (1549, '2021-07-03', 'Visa'),
+    (4630, '2021-07-03', 'Paypal'),
+    (3924, '2021-07-03', 'Mastercard'),
+    (3280, '2021-07-04', 'Six Flags Gift Card'),
+    (4572, '2021-07-04', 'Mastercard'),
+    (3759, '2021-07-04', 'Mastercard'),
+    (1405, '2021-07-04', 'Mastercard'),
+    (3969, '2021-07-04', 'Paypal'),
+    (1513, '2021-07-04', 'Mastercard'),
+    (1279, '2021-07-04', 'Paypal'),
+    (1025, '2021-07-05', 'American Express'),
+    (751, '2021-07-05', 'American Express'),
+    (654, '2021-07-05', 'Six Flags Membership'),
+    (4148, '2021-07-05', 'Mastercard'),
+    (122, '2021-07-05', 'Efectivo'),
+    (4745, '2021-07-06', 'Six Flags Membership'),
+    (2428, '2021-07-06', 'American Express'),
+    (1515, '2021-07-06', 'Paypal'),
+    (3496, '2021-07-06', 'Mastercard'),
+    (1385, '2021-07-07', 'Efectivo'),
+    (2037, '2021-07-07', 'Mastercard'),
+    (706, '2021-07-07', 'American Express'),
+    (4740, '2021-07-07', 'Visa'),
+    (735, '2021-07-07', 'Six Flags Membership'),
+    (2910, '2021-07-07', 'Six Flags Membership'),
+    (4835, '2021-07-08', 'Visa'),
+    (425, '2021-07-08', 'Paypal'),
+    (3357, '2021-07-08', 'Paypal'),
+    (474, '2021-07-08', 'Six Flags Gift Card'),
+    (3181, '2021-07-08', 'Six Flags Membership'),
+    (295, '2021-07-08', 'Mastercard'),
+    (2393, '2021-07-08', 'American Express'),
+    (4287, '2021-07-09', 'Six Flags Membership'),
+    (3784, '2021-07-09', 'Paypal'),
+    (1303, '2021-07-09', 'Mastercard'),
+    (2247, '2021-07-09', 'Paypal'),
+    (4237, '2021-07-09', 'Visa'),
+    (587, '2021-07-09', 'Mastercard'),
+    (4252, '2021-07-10', 'Six Flags Gift Card'),
+    (3076, '2021-07-10', 'Six Flags Gift Card'),
+    (4591, '2021-07-10', 'Six Flags Membership'),
+    (2107, '2021-07-10', 'Six Flags Gift Card'),
+    (200, '2021-07-10', 'Six Flags Membership'),
+    (3870, '2021-07-10', 'American Express'),
+    (3292, '2021-07-10', 'Visa'),
+    (3199, '2021-07-10', 'American Express'),
+    (1865, '2021-07-10', 'Efectivo'),
+    (3547, '2021-07-10', 'Efectivo'),
+    (4876, '2021-07-10', 'Six Flags Membership'),
+    (4853, '2021-07-11', 'American Express'),
+    (4412, '2021-07-11', 'Six Flags Membership'),
+    (9, '2021-07-11', 'Six Flags Membership'),
+    (1732, '2021-07-11', 'Six Flags Gift Card'),
+    (2381, '2021-07-11', 'Visa'),
+    (3988, '2021-07-11', 'Mastercard'),
+    (4994, '2021-07-12', 'Six Flags Gift Card'),
+    (4872, '2021-07-12', 'Six Flags Gift Card'),
+    (1087, '2021-07-12', 'Six Flags Gift Card'),
+    (4500, '2021-07-12', 'Efectivo'),
+    (182, '2021-07-12', 'Visa'),
+    (4973, '2021-07-13', 'Six Flags Gift Card'),
+    (2178, '2021-07-13', 'Visa'),
+    (2309, '2021-07-13', 'Visa'),
+    (4579, '2021-07-13', 'Six Flags Membership'),
+    (1657, '2021-07-13', 'Mastercard'),
+    (526, '2021-07-14', 'American Express'),
+    (3293, '2021-07-14', 'Visa'),
+    (921, '2021-07-14', 'Efectivo'),
+    (736, '2021-07-14', 'Mastercard'),
+    (1383, '2021-07-14', 'Six Flags Gift Card'),
+    (3472, '2021-07-14', 'Efectivo'),
+    (995, '2021-07-15', 'Mastercard'),
+    (3296, '2021-07-15', 'Six Flags Gift Card'),
+    (1377, '2021-07-15', 'Visa'),
+    (3484, '2021-07-15', 'Mastercard'),
+    (989, '2021-07-15', 'Mastercard'),
+    (4938, '2021-07-15', 'American Express'),
+    (737, '2021-07-16', 'Paypal'),
+    (3662, '2021-07-16', 'Six Flags Membership'),
+    (4793, '2021-07-16', 'Six Flags Gift Card'),
+    (301, '2021-07-16', 'Six Flags Membership'),
+    (3291, '2021-07-16', 'Paypal'),
+    (732, '2021-07-16', 'Paypal'),
+    (4964, '2021-07-16', 'Efectivo'),
+    (3827, '2021-07-16', 'Visa'),
+    (4838, '2021-07-16', 'Six Flags Gift Card'),
+    (4757, '2021-07-16', 'Mastercard'),
+    (4252, '2021-07-16', 'Mastercard'),
+    (2337, '2021-07-17', 'Six Flags Gift Card'),
+    (3050, '2021-07-17', 'Efectivo'),
+    (1380, '2021-07-17', 'Mastercard'),
+    (92, '2021-07-17', 'Mastercard'),
+    (4326, '2021-07-17', 'Paypal'),
+    (3130, '2021-07-17', 'Visa'),
+    (2188, '2021-07-17', 'Six Flags Gift Card'),
+    (1490, '2021-07-17', 'Paypal'),
+    (2631, '2021-07-17', 'Mastercard'),
+    (2312, '2021-07-17', 'Paypal'),
+    (915, '2021-07-17', 'Paypal'),
+    (3126, '2021-07-18', 'Six Flags Membership'),
+    (3685, '2021-07-18', 'Six Flags Gift Card'),
+    (4114, '2021-07-18', 'Mastercard'),
+    (1200, '2021-07-18', 'Efectivo'),
+    (2573, '2021-07-18', 'American Express'),
+    (661, '2021-07-19', 'American Express'),
+    (473, '2021-07-19', 'Six Flags Membership'),
+    (4128, '2021-07-19', 'Six Flags Membership'),
+    (2952, '2021-07-19', 'Efectivo'),
+    (746, '2021-07-19', 'Six Flags Gift Card'),
+    (2009, '2021-07-19', 'Paypal'),
+    (3679, '2021-07-19', 'Mastercard'),
+    (3737, '2021-07-19', 'Visa'),
+    (2024, '2021-07-19', 'Paypal'),
+    (1026, '2021-07-20', 'Mastercard'),
+    (4804, '2021-07-20', 'Six Flags Membership'),
+    (1234, '2021-07-20', 'Six Flags Membership'),
+    (930, '2021-07-20', 'Efectivo'),
+    (4339, '2021-07-20', 'Visa'),
+    (3299, '2021-07-20', 'Paypal'),
+    (4884, '2021-07-20', 'Six Flags Membership'),
+    (4157, '2021-07-20', 'Six Flags Gift Card'),
+    (1175, '2021-07-20', 'Mastercard'),
+    (4579, '2021-07-21', 'Paypal'),
+    (2882, '2021-07-21', 'Visa'),
+    (2039, '2021-07-21', 'Efectivo'),
+    (4714, '2021-07-21', 'American Express'),
+    (4567, '2021-07-21', 'Paypal'),
+    (801, '2021-07-21', 'Mastercard'),
+    (1101, '2021-07-21', 'American Express'),
+    (2987, '2021-07-21', 'Visa'),
+    (44, '2021-07-22', 'Mastercard'),
+    (4441, '2021-07-22', 'Six Flags Membership'),
+    (4558, '2021-07-22', 'American Express'),
+    (1222, '2021-07-22', 'Mastercard'),
+    (892, '2021-07-22', 'American Express'),
+    (2298, '2021-07-22', 'American Express'),
+    (2870, '2021-07-22', 'Visa'),
+    (1767, '2021-07-22', 'Visa'),
+    (200, '2021-07-22', 'Six Flags Membership'),
+    (640, '2021-07-22', 'Six Flags Gift Card'),
+    (4160, '2021-07-23', 'Six Flags Gift Card'),
+    (4953, '2021-07-23', 'Six Flags Membership'),
+    (615, '2021-07-23', 'American Express'),
+    (2665, '2021-07-23', 'Mastercard'),
+    (1024, '2021-07-24', 'American Express'),
+    (2108, '2021-07-24', 'Mastercard'),
+    (2538, '2021-07-24', 'Efectivo'),
+    (1367, '2021-07-24', 'Six Flags Membership'),
+    (3811, '2021-07-25', 'Efectivo'),
+    (3177, '2021-07-25', 'Mastercard'),
+    (2976, '2021-07-25', 'Six Flags Gift Card'),
+    (3693, '2021-07-25', 'Efectivo'),
+    (1062, '2021-07-25', 'Six Flags Membership'),
+    (2620, '2021-07-25', 'American Express'),
+    (852, '2021-07-25', 'Paypal'),
+    (2452, '2021-07-26', 'Paypal'),
+    (4641, '2021-07-26', 'Visa'),
+    (4154, '2021-07-26', 'Efectivo'),
+    (4696, '2021-07-26', 'Paypal'),
+    (2459, '2021-07-26', 'Paypal'),
+    (4939, '2021-07-26', 'Visa'),
+    (1487, '2021-07-26', 'Mastercard'),
+    (293, '2021-07-26', 'Mastercard'),
+    (1978, '2021-07-27', 'Visa'),
+    (4663, '2021-07-27', 'Visa'),
+    (4847, '2021-07-27', 'Efectivo'),
+    (4031, '2021-07-27', 'Mastercard'),
+    (696, '2021-07-27', 'Paypal'),
+    (4891, '2021-07-28', 'Efectivo'),
+    (3751, '2021-07-28', 'Paypal'),
+    (4385, '2021-07-28', 'Paypal'),
+    (1035, '2021-07-28', 'Mastercard'),
+    (1335, '2021-07-28', 'American Express'),
+    (3485, '2021-07-28', 'American Express'),
+    (4353, '2021-07-28', 'Six Flags Membership'),
+    (1718, '2021-07-29', 'Efectivo'),
+    (3830, '2021-07-29', 'Paypal'),
+    (912, '2021-07-29', 'Visa'),
+    (4139, '2021-07-29', 'Efectivo'),
+    (124, '2021-07-29', 'Six Flags Membership'),
+    (35, '2021-07-29', 'Visa'),
+    (2910, '2021-07-29', 'Mastercard'),
+    (3718, '2021-07-29', 'Mastercard'),
+    (121, '2021-07-29', 'Visa'),
+    (4785, '2021-07-30', 'American Express'),
+    (4606, '2021-07-30', 'American Express'),
+    (4100, '2021-07-30', 'Visa'),
+    (4392, '2021-07-30', 'Six Flags Gift Card'),
+    (1221, '2021-07-30', 'Six Flags Gift Card'),
+    (1165, '2021-07-30', 'American Express'),
+    (2101, '2021-07-30', 'Six Flags Gift Card'),
+    (1300, '2021-07-31', 'Visa'),
+    (2557, '2021-07-31', 'Efectivo'),
+    (3114, '2021-07-31', 'Visa'),
+    (4281, '2021-07-31', 'Efectivo'),
+    (1151, '2021-07-31', 'Six Flags Membership'),
+    (3879, '2021-07-31', 'Efectivo'),
+    (1072, '2021-07-31', 'Six Flags Gift Card'),
+    (3467, '2021-07-31', 'Visa'),
+    (3078, '2021-08-01', 'Six Flags Gift Card'),
+    (2874, '2021-08-01', 'American Express'),
+    (555, '2021-08-01', 'Six Flags Gift Card'),
+    (2689, '2021-08-01', 'Paypal'),
+    (961, '2021-08-02', 'Paypal'),
+    (252, '2021-08-02', 'American Express'),
+    (230, '2021-08-02', 'American Express'),
+    (3940, '2021-08-03', 'Six Flags Membership'),
+    (2157, '2021-08-03', 'Efectivo'),
+    (1512, '2021-08-03', 'Visa'),
+    (796, '2021-08-03', 'Mastercard'),
+    (1237, '2021-08-03', 'American Express'),
+    (1739, '2021-08-03', 'Six Flags Gift Card'),
+    (2830, '2021-08-03', 'Visa'),
+    (4491, '2021-08-03', 'Paypal'),
+    (2354, '2021-08-04', 'Efectivo'),
+    (1044, '2021-08-04', 'American Express'),
+    (4596, '2021-08-04', 'Efectivo'),
+    (2677, '2021-08-04', 'Paypal'),
+    (2432, '2021-08-04', 'Six Flags Membership'),
+    (4108, '2021-08-04', 'Efectivo'),
+    (2293, '2021-08-04', 'Mastercard'),
+    (4413, '2021-08-05', 'Paypal'),
+    (2897, '2021-08-05', 'Six Flags Membership'),
+    (340, '2021-08-05', 'Paypal'),
+    (3282, '2021-08-05', 'Paypal'),
+    (171, '2021-08-05', 'Visa'),
+    (4664, '2021-08-05', 'Mastercard'),
+    (2196, '2021-08-06', 'Efectivo'),
+    (192, '2021-08-06', 'Visa'),
+    (4777, '2021-08-06', 'Mastercard'),
+    (1061, '2021-08-06', 'Paypal'),
+    (359, '2021-08-07', 'Visa'),
+    (4495, '2021-08-07', 'Visa'),
+    (11, '2021-08-07', 'Visa'),
+    (3446, '2021-08-07', 'Efectivo'),
+    (3228, '2021-08-07', 'Efectivo'),
+    (2699, '2021-08-07', 'Efectivo'),
+    (4495, '2021-08-07', 'American Express'),
+    (4758, '2021-08-08', 'Paypal'),
+    (4849, '2021-08-08', 'Paypal'),
+    (4817, '2021-08-08', 'Efectivo'),
+    (1072, '2021-08-08', 'Mastercard'),
+    (2999, '2021-08-08', 'American Express'),
+    (4010, '2021-08-09', 'Mastercard'),
+    (1353, '2021-08-09', 'American Express'),
+    (3472, '2021-08-09', 'Six Flags Membership'),
+    (2354, '2021-08-09', 'Paypal'),
+    (348, '2021-08-09', 'Mastercard'),
+    (833, '2021-08-09', 'Visa'),
+    (3532, '2021-08-09', 'Six Flags Gift Card'),
+    (667, '2021-08-09', 'Paypal'),
+    (3032, '2021-08-09', 'Visa'),
+    (1677, '2021-08-10', 'American Express'),
+    (3854, '2021-08-10', 'Mastercard'),
+    (2245, '2021-08-10', 'Visa'),
+    (4018, '2021-08-10', 'Six Flags Gift Card'),
+    (3665, '2021-08-10', 'Visa'),
+    (2893, '2021-08-10', 'Efectivo'),
+    (4414, '2021-08-10', 'Six Flags Membership'),
+    (3938, '2021-08-10', 'Six Flags Membership'),
+    (213, '2021-08-10', 'Paypal'),
+    (3627, '2021-08-10', 'Six Flags Gift Card'),
+    (1968, '2021-08-11', 'Paypal'),
+    (2372, '2021-08-11', 'Six Flags Gift Card'),
+    (505, '2021-08-11', 'Visa'),
+    (3919, '2021-08-11', 'Efectivo'),
+    (2180, '2021-08-11', 'Six Flags Gift Card'),
+    (3605, '2021-08-11', 'Six Flags Membership'),
+    (3790, '2021-08-11', 'Six Flags Membership'),
+    (2046, '2021-08-12', 'Mastercard'),
+    (3476, '2021-08-12', 'Visa'),
+    (517, '2021-08-12', 'Mastercard'),
+    (3424, '2021-08-12', 'Visa'),
+    (27, '2021-08-12', 'Six Flags Membership'),
+    (3826, '2021-08-12', 'Paypal'),
+    (205, '2021-08-12', 'American Express'),
+    (183, '2021-08-12', 'American Express'),
+    (620, '2021-08-12', 'Mastercard'),
+    (1400, '2021-08-13', 'Efectivo'),
+    (1391, '2021-08-13', 'Six Flags Membership'),
+    (3241, '2021-08-13', 'Paypal'),
+    (3510, '2021-08-13', 'Six Flags Gift Card'),
+    (1480, '2021-08-13', 'Mastercard'),
+    (3895, '2021-08-13', 'Six Flags Membership'),
+    (1114, '2021-08-13', 'Paypal'),
+    (4570, '2021-08-13', 'American Express'),
+    (4639, '2021-08-13', 'Six Flags Gift Card'),
+    (4927, '2021-08-14', 'Six Flags Membership'),
+    (2892, '2021-08-14', 'American Express'),
+    (4713, '2021-08-14', 'Mastercard'),
+    (2735, '2021-08-14', 'American Express'),
+    (4347, '2021-08-14', 'Mastercard'),
+    (2723, '2021-08-14', 'Six Flags Gift Card'),
+    (4937, '2021-08-15', 'American Express'),
+    (4276, '2021-08-15', 'American Express'),
+    (2683, '2021-08-15', 'Paypal'),
+    (3645, '2021-08-15', 'Six Flags Membership'),
+    (2674, '2021-08-15', 'Paypal'),
+    (964, '2021-08-16', 'Visa'),
+    (1800, '2021-08-16', 'Mastercard'),
+    (4305, '2021-08-16', 'Efectivo'),
+    (707, '2021-08-16', 'American Express'),
+    (4759, '2021-08-16', 'Paypal'),
+    (2143, '2021-08-16', 'Visa'),
+    (4297, '2021-08-17', 'Paypal'),
+    (3433, '2021-08-17', 'Mastercard'),
+    (1473, '2021-08-17', 'Paypal'),
+    (1564, '2021-08-17', 'Six Flags Membership'),
+    (764, '2021-08-17', 'Efectivo'),
+    (104, '2021-08-17', 'Mastercard'),
+    (3508, '2021-08-17', 'Six Flags Membership'),
+    (1926, '2021-08-18', 'Mastercard'),
+    (3765, '2021-08-18', 'American Express'),
+    (137, '2021-08-18', 'Six Flags Membership'),
+    (4241, '2021-08-18', 'Mastercard'),
+    (204, '2021-08-18', 'Six Flags Gift Card'),
+    (706, '2021-08-18', 'Efectivo'),
+    (2783, '2021-08-19', 'Paypal'),
+    (4351, '2021-08-19', 'Visa'),
+    (1651, '2021-08-19', 'Six Flags Gift Card'),
+    (3908, '2021-08-19', 'Six Flags Gift Card'),
+    (3331, '2021-08-19', 'Paypal'),
+    (2071, '2021-08-19', 'Six Flags Membership'),
+    (721, '2021-08-19', 'Six Flags Gift Card'),
+    (4045, '2021-08-19', 'Paypal'),
+    (2801, '2021-08-19', 'Efectivo'),
+    (1723, '2021-08-19', 'Six Flags Gift Card'),
+    (174, '2021-08-20', 'Efectivo'),
+    (79, '2021-08-20', 'American Express'),
+    (1880, '2021-08-20', 'Paypal'),
+    (1034, '2021-08-20', 'Six Flags Gift Card'),
+    (3860, '2021-08-20', 'Efectivo'),
+    (1647, '2021-08-20', 'Six Flags Membership'),
+    (1460, '2021-08-20', 'Visa'),
+    (4121, '2021-08-21', 'American Express'),
+    (1867, '2021-08-21', 'Six Flags Gift Card'),
+    (4166, '2021-08-21', 'Efectivo'),
+    (3528, '2021-08-21', 'Paypal'),
+    (4877, '2021-08-21', 'Efectivo'),
+    (680, '2021-08-21', 'Six Flags Gift Card'),
+    (4654, '2021-08-22', 'American Express'),
+    (3809, '2021-08-22', 'Visa'),
+    (1708, '2021-08-22', 'Visa'),
+    (3461, '2021-08-22', 'Six Flags Gift Card'),
+    (72, '2021-08-22', 'American Express'),
+    (442, '2021-08-22', 'Six Flags Gift Card'),
+    (2803, '2021-08-23', 'Mastercard'),
+    (3315, '2021-08-23', 'Mastercard'),
+    (4440, '2021-08-23', 'Six Flags Membership'),
+    (4489, '2021-08-23', 'Six Flags Gift Card'),
+    (817, '2021-08-23', 'Six Flags Membership'),
+    (587, '2021-08-24', 'Efectivo'),
+    (4478, '2021-08-24', 'Six Flags Gift Card'),
+    (162, '2021-08-24', 'Efectivo'),
+    (4144, '2021-08-24', 'Efectivo'),
+    (3284, '2021-08-24', 'Six Flags Membership'),
+    (2759, '2021-08-24', 'American Express'),
+    (451, '2021-08-24', 'Visa'),
+    (4463, '2021-08-24', 'Six Flags Gift Card'),
+    (4095, '2021-08-24', 'American Express'),
+    (1831, '2021-08-25', 'Efectivo'),
+    (149, '2021-08-25', 'Six Flags Membership'),
+    (296, '2021-08-25', 'Six Flags Membership'),
+    (3466, '2021-08-25', 'Efectivo'),
+    (4670, '2021-08-25', 'Mastercard'),
+    (4302, '2021-08-25', 'Efectivo'),
+    (2219, '2021-08-25', 'Six Flags Membership'),
+    (2010, '2021-08-25', 'Visa'),
+    (1405, '2021-08-26', 'Mastercard'),
+    (2364, '2021-08-26', 'Paypal'),
+    (4937, '2021-08-26', 'Efectivo'),
+    (4621, '2021-08-26', 'Six Flags Membership'),
+    (1647, '2021-08-26', 'American Express'),
+    (2811, '2021-08-26', 'Six Flags Membership'),
+    (268, '2021-08-27', 'Paypal'),
+    (492, '2021-08-27', 'Paypal'),
+    (4360, '2021-08-27', 'Efectivo'),
+    (2656, '2021-08-27', 'American Express'),
+    (3581, '2021-08-28', 'Visa'),
+    (673, '2021-08-28', 'Visa'),
+    (2628, '2021-08-28', 'Efectivo'),
+    (769, '2021-08-28', 'Six Flags Membership'),
+    (1447, '2021-08-28', 'Visa'),
+    (3352, '2021-08-28', 'American Express'),
+    (4938, '2021-08-28', 'Six Flags Gift Card'),
+    (3007, '2021-08-28', 'Paypal'),
+    (449, '2021-08-28', 'Visa'),
+    (3045, '2021-08-29', 'Paypal'),
+    (3999, '2021-08-29', 'Six Flags Gift Card'),
+    (4715, '2021-08-29', 'Visa'),
+    (272, '2021-08-29', 'Mastercard'),
+    (4362, '2021-08-29', 'American Express'),
+    (3166, '2021-08-29', 'Visa'),
+    (3051, '2021-08-29', 'American Express'),
+    (1303, '2021-08-29', 'Mastercard'),
+    (4989, '2021-08-29', 'Visa'),
+    (1608, '2021-08-30', 'Mastercard'),
+    (3469, '2021-08-30', 'Visa'),
+    (1819, '2021-08-30', 'Efectivo'),
+    (4616, '2021-08-30', 'American Express'),
+    (2608, '2021-08-30', 'Six Flags Membership'),
+    (3461, '2021-08-30', 'Six Flags Membership'),
+    (3713, '2021-08-30', 'Efectivo'),
+    (3075, '2021-08-30', 'Efectivo'),
+    (864, '2021-08-30', 'Mastercard'),
+    (4942, '2021-08-30', 'Visa'),
+    (635, '2021-08-30', 'Efectivo'),
+    (4602, '2021-08-31', 'American Express'),
+    (716, '2021-08-31', 'Efectivo'),
+    (4873, '2021-08-31', 'Visa'),
+    (1825, '2021-08-31', 'Six Flags Gift Card'),
+    (2403, '2021-08-31', 'Paypal'),
+    (670, '2021-08-31', 'Efectivo'),
+    (3091, '2021-09-01', 'American Express'),
+    (1968, '2021-09-01', 'Visa'),
+    (731, '2021-09-02', 'Visa'),
+    (2571, '2021-09-02', 'Six Flags Gift Card'),
+    (3006, '2021-09-02', 'Paypal'),
+    (1870, '2021-09-02', 'Six Flags Gift Card'),
+    (2189, '2021-09-02', 'American Express'),
+    (3322, '2021-09-02', 'Mastercard'),
+    (3129, '2021-09-02', 'Paypal'),
+    (3182, '2021-09-03', 'Visa'),
+    (670, '2021-09-03', 'American Express'),
+    (3979, '2021-09-03', 'Efectivo'),
+    (364, '2021-09-03', 'Six Flags Membership'),
+    (2470, '2021-09-03', 'Efectivo'),
+    (4380, '2021-09-03', 'Visa'),
+    (3355, '2021-09-03', 'American Express'),
+    (4596, '2021-09-03', 'Six Flags Membership'),
+    (84, '2021-09-03', 'Paypal'),
+    (2980, '2021-09-03', 'Mastercard'),
+    (770, '2021-09-04', 'Six Flags Gift Card'),
+    (2050, '2021-09-04', 'Paypal'),
+    (857, '2021-09-04', 'Efectivo'),
+    (4815, '2021-09-04', 'Six Flags Gift Card'),
+    (4399, '2021-09-04', 'Mastercard'),
+    (821, '2021-09-04', 'Visa'),
+    (1622, '2021-09-04', 'American Express'),
+    (1875, '2021-09-05', 'Six Flags Membership'),
+    (4141, '2021-09-05', 'Six Flags Membership'),
+    (806, '2021-09-05', 'Six Flags Gift Card'),
+    (2788, '2021-09-05', 'Six Flags Membership'),
+    (3741, '2021-09-05', 'Six Flags Gift Card'),
+    (2899, '2021-09-05', 'Mastercard'),
+    (1091, '2021-09-05', 'Mastercard'),
+    (2824, '2021-09-05', 'Efectivo'),
+    (3003, '2021-09-05', 'Six Flags Gift Card'),
+    (3528, '2021-09-05', 'Efectivo'),
+    (1994, '2021-09-06', 'Paypal'),
+    (4358, '2021-09-06', 'Six Flags Gift Card'),
+    (1941, '2021-09-06', 'Mastercard'),
+    (3626, '2021-09-06', 'Visa'),
+    (837, '2021-09-06', 'Visa'),
+    (3472, '2021-09-06', 'Visa'),
+    (2875, '2021-09-06', 'Visa'),
+    (1024, '2021-09-06', 'Visa'),
+    (3911, '2021-09-06', 'Six Flags Membership'),
+    (806, '2021-09-07', 'Mastercard'),
+    (2741, '2021-09-07', 'Paypal'),
+    (832, '2021-09-07', 'Visa'),
+    (4392, '2021-09-07', 'American Express'),
+    (1664, '2021-09-07', 'Efectivo'),
+    (3369, '2021-09-07', 'Mastercard'),
+    (598, '2021-09-07', 'Mastercard'),
+    (3389, '2021-09-08', 'Six Flags Membership'),
+    (1534, '2021-09-08', 'Six Flags Membership'),
+    (4001, '2021-09-08', 'Paypal'),
+    (28, '2021-09-08', 'American Express'),
+    (1061, '2021-09-08', 'Visa'),
+    (4537, '2021-09-08', 'Six Flags Gift Card'),
+    (935, '2021-09-09', 'Visa'),
+    (199, '2021-09-09', 'Paypal'),
+    (3221, '2021-09-09', 'Six Flags Gift Card'),
+    (4594, '2021-09-09', 'Visa'),
+    (284, '2021-09-09', 'Visa'),
+    (168, '2021-09-09', 'Visa'),
+    (4782, '2021-09-10', 'American Express'),
+    (4703, '2021-09-10', 'Mastercard'),
+    (3186, '2021-09-10', 'Efectivo'),
+    (3832, '2021-09-11', 'Visa'),
+    (4647, '2021-09-11', 'Paypal'),
+    (1071, '2021-09-11', 'Visa'),
+    (3939, '2021-09-11', 'Efectivo'),
+    (3128, '2021-09-11', 'American Express'),
+    (3753, '2021-09-11', 'Efectivo'),
+    (3117, '2021-09-11', 'Six Flags Gift Card'),
+    (4141, '2021-09-11', 'Six Flags Gift Card'),
+    (1556, '2021-09-11', 'Visa'),
+    (1605, '2021-09-12', 'Six Flags Membership'),
+    (2430, '2021-09-12', 'Efectivo'),
+    (1620, '2021-09-12', 'American Express'),
+    (524, '2021-09-12', 'Paypal'),
+    (873, '2021-09-12', 'American Express'),
+    (1480, '2021-09-12', 'Mastercard'),
+    (4494, '2021-09-12', 'Six Flags Membership'),
+    (1566, '2021-09-13', 'American Express'),
+    (1550, '2021-09-13', 'Six Flags Membership'),
+    (2235, '2021-09-13', 'Visa'),
+    (2223, '2021-09-13', 'Visa'),
+    (4493, '2021-09-13', 'Efectivo'),
+    (370, '2021-09-13', 'Six Flags Membership'),
+    (3696, '2021-09-14', 'Efectivo'),
+    (1524, '2021-09-14', 'Visa'),
+    (2689, '2021-09-14', 'American Express'),
+    (4338, '2021-09-14', 'Six Flags Membership'),
+    (4614, '2021-09-14', 'Six Flags Membership'),
+    (3512, '2021-09-14', 'Visa'),
+    (4273, '2021-09-14', 'Six Flags Gift Card'),
+    (3172, '2021-09-15', 'Six Flags Gift Card'),
+    (1027, '2021-09-15', 'Visa'),
+    (4673, '2021-09-15', 'Visa'),
+    (2014, '2021-09-15', 'Mastercard'),
+    (324, '2021-09-16', 'Efectivo'),
+    (1280, '2021-09-16', 'American Express'),
+    (1904, '2021-09-16', 'Paypal'),
+    (4174, '2021-09-16', 'Six Flags Membership'),
+    (1043, '2021-09-16', 'Six Flags Gift Card'),
+    (3196, '2021-09-17', 'Visa'),
+    (4704, '2021-09-17', 'American Express'),
+    (774, '2021-09-17', 'Six Flags Membership'),
+    (1754, '2021-09-17', 'Mastercard'),
+    (3168, '2021-09-17', 'Paypal'),
+    (2748, '2021-09-17', 'American Express'),
+    (2173, '2021-09-17', 'Six Flags Membership'),
+    (709, '2021-09-17', 'Visa'),
+    (1297, '2021-09-18', 'Paypal'),
+    (857, '2021-09-18', 'Six Flags Gift Card'),
+    (4279, '2021-09-18', 'Six Flags Gift Card'),
+    (674, '2021-09-18', 'Six Flags Gift Card'),
+    (4404, '2021-09-19', 'Mastercard'),
+    (1819, '2021-09-19', 'Six Flags Gift Card'),
+    (823, '2021-09-19', 'American Express'),
+    (3844, '2021-09-19', 'Six Flags Gift Card'),
+    (4499, '2021-09-19', 'Paypal'),
+    (1453, '2021-09-20', 'Efectivo'),
+    (129, '2021-09-20', 'American Express'),
+    (4760, '2021-09-20', 'Paypal'),
+    (4627, '2021-09-20', 'American Express'),
+    (3182, '2021-09-20', 'Six Flags Gift Card'),
+    (3936, '2021-09-20', 'Paypal'),
+    (4249, '2021-09-20', 'American Express'),
+    (412, '2021-09-21', 'Paypal'),
+    (722, '2021-09-21', 'American Express'),
+    (3974, '2021-09-21', 'American Express'),
+    (2053, '2021-09-21', 'Visa'),
+    (4692, '2021-09-21', 'Six Flags Membership'),
+    (2957, '2021-09-21', 'Six Flags Membership'),
+    (2665, '2021-09-21', 'American Express'),
+    (382, '2021-09-22', 'Visa'),
+    (2436, '2021-09-22', 'Mastercard'),
+    (427, '2021-09-22', 'Efectivo'),
+    (103, '2021-09-22', 'Visa'),
+    (3143, '2021-09-22', 'Six Flags Gift Card'),
+    (329, '2021-09-22', 'Six Flags Gift Card'),
+    (3499, '2021-09-22', 'Visa'),
+    (665, '2021-09-22', 'Visa'),
+    (1191, '2021-09-23', 'American Express'),
+    (2314, '2021-09-23', 'Paypal'),
+    (2672, '2021-09-23', 'Six Flags Membership'),
+    (3084, '2021-09-23', 'Visa'),
+    (748, '2021-09-23', 'Paypal'),
+    (4108, '2021-09-23', 'Six Flags Membership'),
+    (2693, '2021-09-23', 'Visa'),
+    (3803, '2021-09-23', 'Six Flags Membership'),
+    (3970, '2021-09-23', 'Mastercard'),
+    (4493, '2021-09-23', 'Efectivo'),
+    (3767, '2021-09-23', 'Visa'),
+    (1585, '2021-09-23', 'Six Flags Membership'),
+    (4598, '2021-09-23', 'Paypal'),
+    (906, '2021-09-24', 'Mastercard'),
+    (4588, '2021-09-24', 'Six Flags Gift Card'),
+    (3522, '2021-09-24', 'Six Flags Gift Card'),
+    (2785, '2021-09-25', 'Mastercard'),
+    (1479, '2021-09-25', 'Visa'),
+    (18, '2021-09-25', 'Mastercard'),
+    (3264, '2021-09-25', 'Mastercard'),
+    (2036, '2021-09-25', 'Six Flags Gift Card'),
+    (506, '2021-09-25', 'Six Flags Membership'),
+    (3992, '2021-09-25', 'Efectivo'),
+    (85, '2021-09-25', 'Visa'),
+    (1887, '2021-09-25', 'Mastercard'),
+    (4426, '2021-09-25', 'American Express'),
+    (1817, '2021-09-26', 'Six Flags Membership'),
+    (646, '2021-09-26', 'American Express'),
+    (4501, '2021-09-26', 'Visa'),
+    (4657, '2021-09-26', 'Six Flags Gift Card'),
+    (1281, '2021-09-26', 'Efectivo'),
+    (2761, '2021-09-26', 'American Express'),
+    (4461, '2021-09-27', 'Visa'),
+    (3873, '2021-09-27', 'Visa'),
+    (1522, '2021-09-27', 'American Express'),
+    (4914, '2021-09-27', 'Paypal'),
+    (3711, '2021-09-27', 'Efectivo'),
+    (971, '2021-09-27', 'Six Flags Membership'),
+    (4760, '2021-09-27', 'Paypal'),
+    (4656, '2021-09-27', 'Mastercard'),
+    (4460, '2021-09-28', 'Six Flags Membership'),
+    (3994, '2021-09-28', 'Efectivo'),
+    (4404, '2021-09-28', 'Six Flags Membership'),
+    (118, '2021-09-28', 'Visa'),
+    (3928, '2021-09-28', 'Six Flags Membership'),
+    (4933, '2021-09-28', 'Visa'),
+    (3771, '2021-09-29', 'Efectivo'),
+    (2684, '2021-09-29', 'Paypal'),
+    (42, '2021-09-30', 'Six Flags Gift Card'),
+    (3966, '2021-09-30', 'Visa'),
+    (1183, '2021-09-30', 'Six Flags Membership'),
+    (2358, '2021-09-30', 'Six Flags Membership'),
+    (4239, '2021-09-30', 'Visa'),
+    (4682, '2021-09-30', 'Paypal'),
+    (100, '2021-09-30', 'Six Flags Gift Card'),
+    (602, '2021-09-30', 'Six Flags Gift Card'),
+    (2250, '2021-09-30', 'Paypal'),
+    (2427, '2021-10-01', 'American Express'),
+    (2302, '2021-10-01', 'American Express'),
+    (4530, '2021-10-01', 'Six Flags Membership'),
+    (1292, '2021-10-01', 'Mastercard'),
+    (2987, '2021-10-01', 'Efectivo'),
+    (3439, '2021-10-01', 'Six Flags Membership'),
+    (1881, '2021-10-02', 'Efectivo'),
+    (3576, '2021-10-02', 'Mastercard'),
+    (1079, '2021-10-02', 'American Express'),
+    (4885, '2021-10-02', 'Visa'),
+    (310, '2021-10-02', 'Mastercard'),
+    (669, '2021-10-02', 'Paypal'),
+    (3437, '2021-10-02', 'Mastercard'),
+    (1111, '2021-10-02', 'Mastercard'),
+    (715, '2021-10-03', 'Six Flags Membership'),
+    (4062, '2021-10-03', 'Mastercard'),
+    (3777, '2021-10-03', 'American Express'),
+    (1133, '2021-10-03', 'Mastercard'),
+    (3980, '2021-10-03', 'Visa'),
+    (2780, '2021-10-04', 'Efectivo'),
+    (4627, '2021-10-04', 'Visa'),
+    (343, '2021-10-04', 'American Express'),
+    (1903, '2021-10-04', 'Six Flags Membership'),
+    (1478, '2021-10-04', 'American Express'),
+    (697, '2021-10-04', 'Efectivo'),
+    (4728, '2021-10-04', 'Six Flags Membership'),
+    (1269, '2021-10-05', 'American Express'),
+    (4689, '2021-10-05', 'American Express'),
+    (3000, '2021-10-05', 'Efectivo'),
+    (2989, '2021-10-05', 'Visa'),
+    (3851, '2021-10-05', 'Six Flags Gift Card'),
+    (1883, '2021-10-05', 'Visa'),
+    (2475, '2021-10-05', 'American Express'),
+    (3726, '2021-10-06', 'Visa'),
+    (1438, '2021-10-06', 'Paypal'),
+    (1821, '2021-10-06', 'Visa'),
+    (2423, '2021-10-06', 'Efectivo'),
+    (2543, '2021-10-06', 'Paypal'),
+    (2843, '2021-10-06', 'Six Flags Membership'),
+    (1881, '2021-10-06', 'American Express'),
+    (4134, '2021-10-06', 'Visa'),
+    (4699, '2021-10-06', 'Efectivo'),
+    (3935, '2021-10-06', 'Visa'),
+    (4627, '2021-10-07', 'Visa'),
+    (4467, '2021-10-07', 'Mastercard'),
+    (3808, '2021-10-07', 'Six Flags Membership'),
+    (1335, '2021-10-07', 'Mastercard'),
+    (1239, '2021-10-07', 'American Express'),
+    (1652, '2021-10-07', 'Mastercard'),
+    (3002, '2021-10-07', 'American Express'),
+    (4524, '2021-10-07', 'Visa'),
+    (3447, '2021-10-08', 'American Express'),
+    (1122, '2021-10-08', 'Six Flags Membership'),
+    (4828, '2021-10-08', 'Paypal'),
+    (4342, '2021-10-08', 'Six Flags Membership'),
+    (3680, '2021-10-08', 'Paypal'),
+    (328, '2021-10-08', 'Efectivo'),
+    (3308, '2021-10-08', 'Paypal'),
+    (1212, '2021-10-08', 'Six Flags Membership'),
+    (1808, '2021-10-08', 'American Express'),
+    (417, '2021-10-08', 'Efectivo'),
+    (2687, '2021-10-08', 'Six Flags Gift Card'),
+    (4004, '2021-10-08', 'Visa'),
+    (953, '2021-10-08', 'Visa'),
+    (3347, '2021-10-09', 'Visa'),
+    (1856, '2021-10-09', 'Mastercard'),
+    (2323, '2021-10-09', 'Paypal'),
+    (1249, '2021-10-09', 'Paypal'),
+    (426, '2021-10-10', 'Six Flags Gift Card'),
+    (3186, '2021-10-10', 'Six Flags Gift Card'),
+    (3301, '2021-10-10', 'Mastercard'),
+    (1503, '2021-10-10', 'American Express'),
+    (4917, '2021-10-11', 'Visa'),
+    (3050, '2021-10-11', 'Six Flags Membership'),
+    (3963, '2021-10-11', 'Paypal'),
+    (1623, '2021-10-11', 'Mastercard'),
+    (1718, '2021-10-11', 'Mastercard'),
+    (1866, '2021-10-11', 'Six Flags Membership'),
+    (406, '2021-10-11', 'Six Flags Membership'),
+    (2505, '2021-10-11', 'Visa'),
+    (3042, '2021-10-12', 'Six Flags Membership'),
+    (2409, '2021-10-12', 'Six Flags Gift Card'),
+    (1992, '2021-10-12', 'Mastercard'),
+    (697, '2021-10-12', 'Visa'),
+    (3537, '2021-10-12', 'Paypal'),
+    (2469, '2021-10-12', 'Six Flags Gift Card'),
+    (1852, '2021-10-13', 'Visa'),
+    (4899, '2021-10-13', 'Paypal'),
+    (4534, '2021-10-13', 'American Express'),
+    (3778, '2021-10-13', 'Mastercard'),
+    (3873, '2021-10-13', 'Six Flags Membership'),
+    (1241, '2021-10-13', 'Six Flags Membership'),
+    (200, '2021-10-13', 'Paypal'),
+    (50, '2021-10-13', 'American Express'),
+    (4359, '2021-10-13', 'American Express'),
+    (1162, '2021-10-13', 'Efectivo'),
+    (3423, '2021-10-13', 'American Express'),
+    (3692, '2021-10-13', 'Six Flags Membership'),
+    (4085, '2021-10-13', 'Paypal'),
+    (4922, '2021-10-14', 'Mastercard'),
+    (1967, '2021-10-14', 'Visa'),
+    (4871, '2021-10-14', 'Efectivo'),
+    (4466, '2021-10-15', 'Six Flags Gift Card'),
+    (1807, '2021-10-15', 'Paypal'),
+    (1279, '2021-10-15', 'Six Flags Membership'),
+    (2265, '2021-10-15', 'Six Flags Membership'),
+    (2819, '2021-10-15', 'Six Flags Gift Card'),
+    (1329, '2021-10-15', 'Six Flags Gift Card'),
+    (4218, '2021-10-15', 'Efectivo'),
+    (261, '2021-10-15', 'Visa'),
+    (4514, '2021-10-15', 'Six Flags Gift Card'),
+    (1369, '2021-10-15', 'Efectivo'),
+    (2358, '2021-10-16', 'Paypal'),
+    (3764, '2021-10-16', 'Paypal'),
+    (4992, '2021-10-16', 'Paypal'),
+    (290, '2021-10-16', 'Six Flags Membership'),
+    (3186, '2021-10-16', 'Mastercard'),
+    (183, '2021-10-16', 'American Express'),
+    (3084, '2021-10-16', 'Paypal'),
+    (3879, '2021-10-16', 'Visa'),
+    (1777, '2021-10-16', 'Visa'),
+    (1229, '2021-10-16', 'Six Flags Membership'),
+    (1952, '2021-10-16', 'American Express'),
+    (532, '2021-10-17', 'Efectivo'),
+    (1521, '2021-10-17', 'Visa'),
+    (1374, '2021-10-17', 'Visa'),
+    (3885, '2021-10-17', 'Visa'),
+    (1489, '2021-10-17', 'Six Flags Membership'),
+    (1830, '2021-10-18', 'Six Flags Membership'),
+    (3038, '2021-10-18', 'Paypal'),
+    (4626, '2021-10-18', 'Six Flags Membership'),
+    (443, '2021-10-18', 'Mastercard'),
+    (1209, '2021-10-18', 'Mastercard'),
+    (2668, '2021-10-18', 'Six Flags Membership'),
+    (2008, '2021-10-18', 'Mastercard'),
+    (767, '2021-10-18', 'Paypal'),
+    (1805, '2021-10-18', 'Visa'),
+    (2768, '2021-10-19', 'Efectivo'),
+    (1865, '2021-10-19', 'Visa'),
+    (1267, '2021-10-19', 'Efectivo'),
+    (2471, '2021-10-19', 'Six Flags Membership'),
+    (4191, '2021-10-19', 'Six Flags Membership'),
+    (3625, '2021-10-20', 'Visa'),
+    (3754, '2021-10-20', 'American Express'),
+    (2808, '2021-10-20', 'Paypal'),
+    (3573, '2021-10-20', 'Six Flags Gift Card'),
+    (1661, '2021-10-20', 'Mastercard'),
+    (2298, '2021-10-20', 'Mastercard'),
+    (4960, '2021-10-21', 'Visa'),
+    (492, '2021-10-21', 'Six Flags Membership'),
+    (4603, '2021-10-21', 'American Express'),
+    (895, '2021-10-21', 'Efectivo'),
+    (1885, '2021-10-21', 'Six Flags Membership'),
+    (1221, '2021-10-21', 'Efectivo'),
+    (72, '2021-10-21', 'American Express'),
+    (279, '2021-10-21', 'Six Flags Gift Card'),
+    (1243, '2021-10-21', 'Efectivo'),
+    (2536, '2021-10-22', 'Six Flags Gift Card'),
+    (10, '2021-10-22', 'Six Flags Membership'),
+    (3958, '2021-10-22', 'Mastercard'),
+    (1771, '2021-10-22', 'Efectivo'),
+    (3516, '2021-10-22', 'Six Flags Membership'),
+    (3639, '2021-10-22', 'Efectivo'),
+    (3709, '2021-10-23', 'Six Flags Membership'),
+    (1750, '2021-10-23', 'Paypal'),
+    (3338, '2021-10-23', 'Mastercard'),
+    (3357, '2021-10-23', 'Six Flags Membership'),
+    (1842, '2021-10-24', 'Six Flags Membership'),
+    (3768, '2021-10-24', 'Paypal'),
+    (4479, '2021-10-24', 'Six Flags Gift Card'),
+    (3658, '2021-10-24', 'Visa'),
+    (3169, '2021-10-24', 'Efectivo'),
+    (1597, '2021-10-24', 'Six Flags Membership'),
+    (837, '2021-10-25', 'Six Flags Membership'),
+    (1076, '2021-10-25', 'Efectivo'),
+    (1992, '2021-10-25', 'American Express'),
+    (578, '2021-10-25', 'Visa'),
+    (74, '2021-10-25', 'Six Flags Membership'),
+    (4106, '2021-10-25', 'Paypal'),
+    (4287, '2021-10-25', 'Efectivo'),
+    (749, '2021-10-25', 'Six Flags Gift Card'),
+    (4784, '2021-10-25', 'Paypal'),
+    (4481, '2021-10-26', 'Efectivo'),
+    (1064, '2021-10-26', 'Paypal'),
+    (2116, '2021-10-26', 'Six Flags Membership'),
+    (1451, '2021-10-26', 'Six Flags Gift Card'),
+    (3963, '2021-10-26', 'American Express'),
+    (2278, '2021-10-26', 'Paypal'),
+    (2559, '2021-10-27', 'Paypal'),
+    (3105, '2021-10-27', 'Six Flags Membership'),
+    (2381, '2021-10-27', 'Six Flags Membership'),
+    (2506, '2021-10-27', 'Paypal'),
+    (4221, '2021-10-27', 'Efectivo'),
+    (685, '2021-10-27', 'Six Flags Membership'),
+    (1511, '2021-10-28', 'Six Flags Gift Card'),
+    (3742, '2021-10-28', 'American Express'),
+    (2784, '2021-10-28', 'American Express'),
+    (4937, '2021-10-28', 'Efectivo'),
+    (4240, '2021-10-28', 'American Express'),
+    (1013, '2021-10-28', 'Visa'),
+    (4956, '2021-10-28', 'Efectivo'),
+    (2756, '2021-10-28', 'Six Flags Gift Card'),
+    (1160, '2021-10-29', 'Paypal'),
+    (1322, '2021-10-29', 'Visa'),
+    (631, '2021-10-29', 'American Express'),
+    (4753, '2021-10-29', 'Paypal'),
+    (3512, '2021-10-29', 'Paypal'),
+    (2172, '2021-10-29', 'Visa'),
+    (3869, '2021-10-29', 'Visa'),
+    (4216, '2021-10-29', 'Mastercard'),
+    (3369, '2021-10-30', 'Six Flags Membership'),
+    (2331, '2021-10-30', 'Paypal'),
+    (1965, '2021-10-30', 'American Express'),
+    (3036, '2021-10-30', 'American Express'),
+    (681, '2021-10-30', 'Six Flags Gift Card'),
+    (1908, '2021-10-30', 'Paypal'),
+    (3538, '2021-10-31', 'Six Flags Membership'),
+    (4727, '2021-10-31', 'Six Flags Gift Card'),
+    (1732, '2021-10-31', 'Six Flags Membership'),
+    (4269, '2021-10-31', 'Mastercard'),
+    (3389, '2021-10-31', 'Six Flags Membership'),
+    (2581, '2021-10-31', 'American Express'),
+    (3544, '2021-10-31', 'Six Flags Membership'),
+    (1037, '2021-10-31', 'Paypal'),
+    (2731, '2021-11-01', 'Paypal'),
+    (1199, '2021-11-01', 'Efectivo'),
+    (3998, '2021-11-01', 'Six Flags Gift Card'),
+    (2544, '2021-11-01', 'American Express'),
+    (691, '2021-11-01', 'Mastercard'),
+    (2566, '2021-11-01', 'Six Flags Membership'),
+    (2056, '2021-11-01', 'Six Flags Membership'),
+    (2322, '2021-11-01', 'Six Flags Membership'),
+    (2468, '2021-11-02', 'Visa'),
+    (3789, '2021-11-02', 'Mastercard'),
+    (3542, '2021-11-02', 'American Express'),
+    (4013, '2021-11-02', 'Paypal'),
+    (2336, '2021-11-02', 'American Express'),
+    (426, '2021-11-02', 'Mastercard'),
+    (1714, '2021-11-03', 'Visa'),
+    (3588, '2021-11-03', 'Visa'),
+    (3858, '2021-11-03', 'Six Flags Membership'),
+    (3365, '2021-11-03', 'Six Flags Gift Card'),
+    (1876, '2021-11-04', 'Six Flags Membership'),
+    (3985, '2021-11-04', 'American Express'),
+    (1819, '2021-11-04', 'Visa'),
+    (4284, '2021-11-04', 'Six Flags Gift Card'),
+    (42, '2021-11-04', 'Visa'),
+    (2801, '2021-11-05', 'Six Flags Membership'),
+    (1986, '2021-11-05', 'Six Flags Gift Card'),
+    (2649, '2021-11-05', 'American Express'),
+    (3067, '2021-11-05', 'Efectivo'),
+    (1895, '2021-11-05', 'Paypal'),
+    (174, '2021-11-05', 'Visa'),
+    (2902, '2021-11-05', 'Visa'),
+    (1881, '2021-11-05', 'Visa'),
+    (991, '2021-11-06', 'American Express'),
+    (2833, '2021-11-06', 'Six Flags Membership'),
+    (182, '2021-11-06', 'Six Flags Membership'),
+    (4929, '2021-11-06', 'Six Flags Membership'),
+    (130, '2021-11-07', 'Visa'),
+    (132, '2021-11-07', 'Six Flags Membership'),
+    (3244, '2021-11-07', 'Six Flags Gift Card'),
+    (1140, '2021-11-07', 'Six Flags Membership'),
+    (2381, '2021-11-07', 'Paypal'),
+    (2524, '2021-11-07', 'Paypal'),
+    (1759, '2021-11-07', 'Mastercard'),
+    (708, '2021-11-08', 'Visa'),
+    (4819, '2021-11-08', 'Paypal'),
+    (4363, '2021-11-08', 'American Express'),
+    (1019, '2021-11-08', 'Efectivo'),
+    (2957, '2021-11-08', 'Paypal'),
+    (3482, '2021-11-08', 'Six Flags Gift Card'),
+    (1521, '2021-11-08', 'American Express'),
+    (4156, '2021-11-08', 'American Express'),
+    (3291, '2021-11-08', 'Six Flags Gift Card'),
+    (3748, '2021-11-08', 'Six Flags Membership'),
+    (1304, '2021-11-08', 'Visa'),
+    (3955, '2021-11-09', 'Efectivo'),
+    (1079, '2021-11-09', 'Mastercard'),
+    (4328, '2021-11-09', 'Visa'),
+    (2719, '2021-11-10', 'Paypal'),
+    (3431, '2021-11-10', 'Visa'),
+    (3895, '2021-11-10', 'Paypal'),
+    (1632, '2021-11-10', 'Efectivo'),
+    (1636, '2021-11-10', 'Mastercard'),
+    (174, '2021-11-10', 'Paypal'),
+    (4081, '2021-11-10', 'Paypal'),
+    (4050, '2021-11-10', 'Paypal'),
+    (1369, '2021-11-10', 'Visa'),
+    (4338, '2021-11-10', 'Mastercard'),
+    (408, '2021-11-10', 'Six Flags Gift Card'),
+    (4261, '2021-11-10', 'Visa'),
+    (1115, '2021-11-10', 'Visa'),
+    (4273, '2021-11-10', 'Paypal'),
+    (683, '2021-11-10', 'Paypal'),
+    (4607, '2021-11-11', 'American Express'),
+    (4147, '2021-11-11', 'Paypal'),
+    (1476, '2021-11-11', 'Efectivo'),
+    (3824, '2021-11-11', 'Mastercard'),
+    (424, '2021-11-11', 'Mastercard'),
+    (1476, '2021-11-11', 'Efectivo'),
+    (1858, '2021-11-12', 'Paypal'),
+    (1574, '2021-11-12', 'Six Flags Gift Card'),
+    (517, '2021-11-13', 'Six Flags Gift Card'),
+    (1299, '2021-11-13', 'Six Flags Gift Card'),
+    (1933, '2021-11-13', 'Visa'),
+    (4181, '2021-11-13', 'Six Flags Gift Card'),
+    (4083, '2021-11-13', 'Mastercard'),
+    (2431, '2021-11-13', 'Six Flags Membership'),
+    (2605, '2021-11-13', 'Paypal'),
+    (2576, '2021-11-14', 'Visa'),
+    (3546, '2021-11-14', 'Efectivo'),
+    (102, '2021-11-14', 'Efectivo'),
+    (3013, '2021-11-15', 'Efectivo'),
+    (2171, '2021-11-15', 'Efectivo'),
+    (2312, '2021-11-15', 'Visa'),
+    (2003, '2021-11-15', 'Mastercard'),
+    (3129, '2021-11-15', 'American Express'),
+    (787, '2021-11-15', 'Six Flags Gift Card'),
+    (1478, '2021-11-15', 'American Express'),
+    (4553, '2021-11-15', 'Six Flags Gift Card'),
+    (4601, '2021-11-16', 'Efectivo'),
+    (4939, '2021-11-16', 'Paypal'),
+    (561, '2021-11-16', 'Efectivo'),
+    (3310, '2021-11-16', 'Mastercard'),
+    (3840, '2021-11-16', 'American Express'),
+    (1209, '2021-11-16', 'Mastercard'),
+    (802, '2021-11-16', 'Paypal'),
+    (1231, '2021-11-17', 'Six Flags Membership'),
+    (1843, '2021-11-17', 'Visa'),
+    (3222, '2021-11-17', 'Paypal'),
+    (3605, '2021-11-17', 'Six Flags Gift Card'),
+    (921, '2021-11-17', 'Mastercard'),
+    (4518, '2021-11-17', 'Visa'),
+    (2694, '2021-11-17', 'Efectivo'),
+    (4215, '2021-11-17', 'Visa'),
+    (398, '2021-11-17', 'Paypal'),
+    (855, '2021-11-18', 'Six Flags Gift Card'),
+    (646, '2021-11-18', 'Visa'),
+    (2349, '2021-11-18', 'Six Flags Gift Card'),
+    (3925, '2021-11-18', 'Visa'),
+    (3052, '2021-11-18', 'Paypal'),
+    (1225, '2021-11-18', 'Six Flags Membership'),
+    (2939, '2021-11-18', 'Mastercard'),
+    (4696, '2021-11-19', 'Visa'),
+    (3652, '2021-11-19', 'Paypal'),
+    (701, '2021-11-19', 'Efectivo'),
+    (1821, '2021-11-19', 'Visa'),
+    (4109, '2021-11-19', 'Visa'),
+    (4710, '2021-11-19', 'American Express'),
+    (3820, '2021-11-20', 'Efectivo'),
+    (1139, '2021-11-20', 'Six Flags Gift Card'),
+    (2905, '2021-11-20', 'Six Flags Membership'),
+    (3185, '2021-11-20', 'Mastercard'),
+    (3170, '2021-11-20', 'Mastercard'),
+    (781, '2021-11-20', 'Mastercard'),
+    (2253, '2021-11-21', 'Visa'),
+    (1681, '2021-11-21', 'Efectivo'),
+    (657, '2021-11-21', 'Efectivo'),
+    (1047, '2021-11-21', 'Six Flags Membership'),
+    (4624, '2021-11-21', 'Visa'),
+    (2834, '2021-11-22', 'Paypal'),
+    (4739, '2021-11-22', 'American Express'),
+    (16, '2021-11-22', 'Six Flags Membership'),
+    (1886, '2021-11-22', 'American Express'),
+    (4172, '2021-11-22', 'Efectivo'),
+    (606, '2021-11-22', 'Six Flags Membership'),
+    (285, '2021-11-23', 'Six Flags Membership'),
+    (2877, '2021-11-23', 'Paypal'),
+    (3202, '2021-11-23', 'Visa'),
+    (4761, '2021-11-23', 'Visa'),
+    (4565, '2021-11-23', 'Six Flags Gift Card'),
+    (1394, '2021-11-23', 'American Express'),
+    (1427, '2021-11-23', 'Visa'),
+    (1360, '2021-11-23', 'Mastercard'),
+    (480, '2021-11-23', 'Six Flags Gift Card'),
+    (2920, '2021-11-23', 'Mastercard'),
+    (1125, '2021-11-23', 'Paypal'),
+    (3794, '2021-11-24', 'Visa'),
+    (4651, '2021-11-24', 'Efectivo'),
+    (1716, '2021-11-24', 'Visa'),
+    (1253, '2021-11-24', 'Visa'),
+    (2613, '2021-11-24', 'Efectivo'),
+    (1454, '2021-11-24', 'American Express'),
+    (3201, '2021-11-25', 'Six Flags Membership'),
+    (4013, '2021-11-25', 'American Express'),
+    (4836, '2021-11-25', 'Visa'),
+    (1780, '2021-11-25', 'Mastercard'),
+    (3018, '2021-11-25', 'Efectivo'),
+    (116, '2021-11-25', 'American Express'),
+    (2220, '2021-11-25', 'Six Flags Gift Card'),
+    (2479, '2021-11-25', 'Six Flags Gift Card'),
+    (2910, '2021-11-25', 'Efectivo'),
+    (4868, '2021-11-26', 'Six Flags Gift Card'),
+    (4165, '2021-11-26', 'Six Flags Membership'),
+    (2398, '2021-11-26', 'Efectivo'),
+    (2921, '2021-11-26', 'Mastercard'),
+    (1117, '2021-11-26', 'Six Flags Gift Card'),
+    (3446, '2021-11-26', 'Paypal'),
+    (2650, '2021-11-27', 'Paypal'),
+    (3923, '2021-11-27', 'American Express'),
+    (3894, '2021-11-27', 'Six Flags Membership'),
+    (1927, '2021-11-27', 'Efectivo'),
+    (4494, '2021-11-27', 'Six Flags Gift Card'),
+    (3920, '2021-11-28', 'Six Flags Gift Card'),
+    (3525, '2021-11-28', 'Efectivo'),
+    (1433, '2021-11-28', 'American Express'),
+    (2641, '2021-11-28', 'Six Flags Membership'),
+    (2844, '2021-11-29', 'Mastercard'),
+    (2398, '2021-11-29', 'Efectivo'),
+    (2835, '2021-11-29', 'American Express'),
+    (4388, '2021-11-29', 'Efectivo'),
+    (1151, '2021-11-29', 'Six Flags Membership'),
+    (3534, '2021-11-30', 'Six Flags Membership'),
+    (4084, '2021-11-30', 'American Express'),
+    (4523, '2021-11-30', 'Six Flags Gift Card'),
+    (3248, '2021-11-30', 'Paypal'),
+    (1411, '2021-11-30', 'Six Flags Membership'),
+    (945, '2021-11-30', 'Six Flags Membership'),
+    (2624, '2021-11-30', 'Six Flags Membership'),
+    (3122, '2021-11-30', 'Visa'),
+    (1862, '2021-11-30', 'American Express'),
+    (4897, '2021-11-30', 'Six Flags Gift Card'),
+    (1581, '2021-11-30', 'Mastercard'),
+    (3543, '2021-11-30', 'American Express'),
+    (3890, '2021-11-30', 'Efectivo'),
+    (2018, '2021-11-30', 'Six Flags Gift Card'),
+    (3614, '2021-12-01', 'Efectivo'),
+    (3929, '2021-12-01', 'Six Flags Gift Card'),
+    (2483, '2021-12-01', 'Six Flags Gift Card'),
+    (1438, '2021-12-01', 'Six Flags Membership'),
+    (3046, '2021-12-01', 'Paypal'),
+    (3435, '2021-12-01', 'Visa'),
+    (1624, '2021-12-01', 'Six Flags Membership'),
+    (34, '2021-12-01', 'Six Flags Membership'),
+    (2783, '2021-12-02', 'Efectivo'),
+    (2212, '2021-12-02', 'Mastercard'),
+    (1772, '2021-12-02', 'Efectivo'),
+    (4523, '2021-12-02', 'Mastercard'),
+    (4653, '2021-12-02', 'American Express'),
+    (1828, '2021-12-02', 'Mastercard'),
+    (3974, '2021-12-02', 'Mastercard'),
+    (2257, '2021-12-02', 'Six Flags Membership'),
+    (2280, '2021-12-02', 'Efectivo'),
+    (4890, '2021-12-02', 'Six Flags Gift Card'),
+    (4196, '2021-12-02', 'Efectivo'),
+    (804, '2021-12-03', 'Six Flags Membership'),
+    (4506, '2021-12-03', 'Six Flags Gift Card'),
+    (1649, '2021-12-03', 'Visa'),
+    (1672, '2021-12-03', 'Six Flags Membership'),
+    (2954, '2021-12-03', 'American Express'),
+    (4467, '2021-12-03', 'Visa'),
+    (1335, '2021-12-03', 'Efectivo'),
+    (2500, '2021-12-04', 'Six Flags Gift Card'),
+    (4051, '2021-12-04', 'Six Flags Membership'),
+    (4542, '2021-12-04', 'Visa'),
+    (3583, '2021-12-04', 'Visa'),
+    (1751, '2021-12-04', 'Efectivo'),
+    (3457, '2021-12-04', 'Paypal'),
+    (2788, '2021-12-04', 'Mastercard'),
+    (3993, '2021-12-04', 'Mastercard'),
+    (4908, '2021-12-05', 'Efectivo'),
+    (991, '2021-12-05', 'American Express'),
+    (1289, '2021-12-05', 'Paypal'),
+    (2416, '2021-12-05', 'American Express'),
+    (420, '2021-12-05', 'Efectivo'),
+    (3661, '2021-12-05', 'Six Flags Gift Card'),
+    (492, '2021-12-05', 'Six Flags Gift Card'),
+    (564, '2021-12-05', 'American Express'),
+    (4911, '2021-12-05', 'Paypal'),
+    (3542, '2021-12-05', 'Six Flags Membership'),
+    (4552, '2021-12-05', 'Efectivo'),
+    (3833, '2021-12-06', 'Mastercard'),
+    (2338, '2021-12-06', 'Six Flags Gift Card'),
+    (1478, '2021-12-06', 'Mastercard'),
+    (1415, '2021-12-06', 'Six Flags Membership'),
+    (3077, '2021-12-06', 'Six Flags Membership'),
+    (4332, '2021-12-06', 'Efectivo'),
+    (1645, '2021-12-06', 'American Express'),
+    (4407, '2021-12-06', 'Six Flags Gift Card'),
+    (3123, '2021-12-07', 'Mastercard'),
+    (3313, '2021-12-07', 'Paypal'),
+    (3811, '2021-12-07', 'Mastercard'),
+    (3283, '2021-12-08', 'Paypal'),
+    (870, '2021-12-08', 'Six Flags Gift Card'),
+    (4454, '2021-12-08', 'Paypal'),
+    (3786, '2021-12-08', 'Paypal'),
+    (2271, '2021-12-08', 'Paypal'),
+    (894, '2021-12-08', 'Efectivo'),
+    (654, '2021-12-08', 'Paypal'),
+    (1498, '2021-12-08', 'American Express'),
+    (3667, '2021-12-08', 'Efectivo'),
+    (586, '2021-12-09', 'Mastercard'),
+    (3716, '2021-12-09', 'Visa'),
+    (4074, '2021-12-09', 'Visa'),
+    (3910, '2021-12-09', 'Paypal'),
+    (2155, '2021-12-09', 'Visa'),
+    (2454, '2021-12-09', 'Six Flags Membership'),
+    (4906, '2021-12-09', 'Efectivo'),
+    (1714, '2021-12-09', 'Visa'),
+    (995, '2021-12-09', 'Visa'),
+    (329, '2021-12-09', 'Mastercard'),
+    (4224, '2021-12-09', 'Six Flags Membership'),
+    (4180, '2021-12-09', 'Six Flags Gift Card'),
+    (4997, '2021-12-09', 'Efectivo'),
+    (2732, '2021-12-10', 'Visa'),
+    (3108, '2021-12-10', 'American Express'),
+    (3534, '2021-12-10', 'Mastercard'),
+    (640, '2021-12-10', 'Mastercard'),
+    (3350, '2021-12-10', 'Six Flags Gift Card'),
+    (2466, '2021-12-10', 'Six Flags Gift Card'),
+    (1518, '2021-12-10', 'Mastercard'),
+    (3410, '2021-12-10', 'Paypal'),
+    (1327, '2021-12-10', 'Visa'),
+    (1669, '2021-12-11', 'Six Flags Membership'),
+    (2411, '2021-12-11', 'Visa'),
+    (3065, '2021-12-11', 'American Express'),
+    (2744, '2021-12-11', 'American Express'),
+    (4635, '2021-12-11', 'Efectivo'),
+    (3732, '2021-12-11', 'Paypal'),
+    (3603, '2021-12-11', 'Paypal'),
+    (4570, '2021-12-11', 'Six Flags Gift Card'),
+    (2042, '2021-12-11', 'Mastercard'),
+    (3982, '2021-12-11', 'Efectivo'),
+    (918, '2021-12-11', 'Mastercard'),
+    (2565, '2021-12-11', 'Six Flags Membership'),
+    (4124, '2021-12-11', 'Paypal'),
+    (2714, '2021-12-11', 'Visa'),
+    (3596, '2021-12-12', 'Visa'),
+    (989, '2021-12-12', 'Paypal'),
+    (2963, '2021-12-12', 'Six Flags Gift Card'),
+    (207, '2021-12-12', 'Efectivo'),
+    (1031, '2021-12-12', 'Efectivo'),
+    (3152, '2021-12-12', 'Paypal'),
+    (4708, '2021-12-13', 'Six Flags Gift Card'),
+    (3674, '2021-12-13', 'American Express'),
+    (4013, '2021-12-13', 'Visa'),
+    (2680, '2021-12-13', 'Paypal'),
+    (2290, '2021-12-13', 'Efectivo'),
+    (3252, '2021-12-13', 'Six Flags Gift Card'),
+    (3782, '2021-12-13', 'Visa'),
+    (847, '2021-12-13', 'Six Flags Membership'),
+    (2902, '2021-12-13', 'Efectivo'),
+    (2495, '2021-12-13', 'Paypal'),
+    (3722, '2021-12-13', 'American Express'),
+    (117, '2021-12-14', 'Six Flags Membership'),
+    (4231, '2021-12-14', 'Six Flags Gift Card'),
+    (642, '2021-12-14', 'Efectivo'),
+    (3124, '2021-12-14', 'Six Flags Membership'),
+    (50, '2021-12-14', 'American Express'),
+    (1859, '2021-12-14', 'Visa'),
+    (1662, '2021-12-14', 'Paypal'),
+    (879, '2021-12-14', 'Visa'),
+    (2648, '2021-12-15', 'Mastercard'),
+    (2386, '2021-12-15', 'Six Flags Membership'),
+    (489, '2021-12-15', 'Mastercard'),
+    (3413, '2021-12-15', 'Six Flags Gift Card'),
+    (722, '2021-12-15', 'American Express'),
+    (4646, '2021-12-15', 'Mastercard'),
+    (1326, '2021-12-15', 'Efectivo'),
+    (457, '2021-12-15', 'Paypal'),
+    (3669, '2021-12-15', 'Mastercard'),
+    (169, '2021-12-16', 'Efectivo'),
+    (441, '2021-12-16', 'Efectivo'),
+    (2100, '2021-12-16', 'Efectivo'),
+    (1092, '2021-12-16', 'American Express'),
+    (3697, '2021-12-16', 'Six Flags Gift Card'),
+    (754, '2021-12-16', 'Paypal'),
+    (606, '2021-12-17', 'Visa'),
+    (1024, '2021-12-17', 'Paypal'),
+    (160, '2021-12-17', 'Six Flags Membership'),
+    (27, '2021-12-18', 'Six Flags Gift Card'),
+    (2267, '2021-12-18', 'Six Flags Membership'),
+    (2282, '2021-12-18', 'Mastercard'),
+    (2178, '2021-12-18', 'Six Flags Gift Card'),
+    (3590, '2021-12-18', 'American Express'),
+    (726, '2021-12-19', 'Mastercard'),
+    (3474, '2021-12-19', 'Six Flags Gift Card'),
+    (818, '2021-12-19', 'Mastercard'),
+    (2523, '2021-12-19', 'Six Flags Membership'),
+    (2323, '2021-12-19', 'Mastercard'),
+    (3767, '2021-12-19', 'Efectivo'),
+    (4873, '2021-12-19', 'Six Flags Membership'),
+    (4492, '2021-12-20', 'Six Flags Membership'),
+    (2484, '2021-12-20', 'American Express'),
+    (67, '2021-12-20', 'Six Flags Gift Card'),
+    (4001, '2021-12-20', 'Six Flags Gift Card'),
+    (1381, '2021-12-20', 'Paypal'),
+    (1879, '2021-12-20', 'Visa'),
+    (2924, '2021-12-21', 'Efectivo'),
+    (193, '2021-12-21', 'Six Flags Gift Card'),
+    (3543, '2021-12-21', 'Six Flags Membership'),
+    (4206, '2021-12-21', 'Efectivo'),
+    (3844, '2021-12-21', 'Paypal'),
+    (2218, '2021-12-22', 'Visa'),
+    (2582, '2021-12-22', 'American Express'),
+    (4222, '2021-12-22', 'American Express'),
+    (532, '2021-12-22', 'Six Flags Membership'),
+    (2594, '2021-12-22', 'American Express'),
+    (3770, '2021-12-23', 'Six Flags Gift Card'),
+    (2500, '2021-12-23', 'Six Flags Membership'),
+    (682, '2021-12-23', 'Efectivo'),
+    (4358, '2021-12-23', 'Visa'),
+    (69, '2021-12-23', 'Six Flags Gift Card'),
+    (4015, '2021-12-23', 'Six Flags Gift Card'),
+    (2719, '2021-12-24', 'American Express'),
+    (4314, '2021-12-24', 'Efectivo'),
+    (2994, '2021-12-24', 'Visa'),
+    (3577, '2021-12-24', 'Mastercard'),
+    (1636, '2021-12-24', 'American Express'),
+    (845, '2021-12-24', 'Six Flags Membership'),
+    (2691, '2021-12-25', 'Mastercard'),
+    (3857, '2021-12-25', 'Visa'),
+    (1071, '2021-12-25', 'Visa'),
+    (695, '2021-12-25', 'Six Flags Membership'),
+    (745, '2021-12-25', 'Paypal'),
+    (4219, '2021-12-25', 'Paypal'),
+    (3110, '2021-12-26', 'American Express'),
+    (4136, '2021-12-26', 'Mastercard'),
+    (3708, '2021-12-26', 'Paypal'),
+    (1283, '2021-12-26', 'American Express'),
+    (1506, '2021-12-26', 'Six Flags Gift Card'),
+    (1452, '2021-12-26', 'Efectivo'),
+    (2862, '2021-12-26', 'Efectivo'),
+    (2353, '2021-12-27', 'Paypal'),
+    (3933, '2021-12-27', 'Visa'),
+    (1260, '2021-12-27', 'Mastercard'),
+    (2251, '2021-12-27', 'Six Flags Gift Card'),
+    (1045, '2021-12-27', 'Efectivo'),
+    (2102, '2021-12-27', 'Mastercard'),
+    (2023, '2021-12-27', 'Paypal'),
+    (3265, '2021-12-28', 'Paypal'),
+    (1920, '2021-12-28', 'Six Flags Gift Card'),
+    (729, '2021-12-28', 'Efectivo'),
+    (1369, '2021-12-28', 'Efectivo'),
+    (610, '2021-12-28', 'Six Flags Gift Card'),
+    (737, '2021-12-28', 'Six Flags Gift Card'),
+    (3101, '2021-12-28', 'Six Flags Gift Card'),
+    (1481, '2021-12-28', 'Six Flags Gift Card'),
+    (3084, '2021-12-28', 'Mastercard'),
+    (1882, '2021-12-28', 'Six Flags Membership'),
+    (3361, '2021-12-28', 'Six Flags Membership'),
+    (4242, '2021-12-29', 'Six Flags Gift Card'),
+    (4733, '2021-12-29', 'Mastercard'),
+    (939, '2021-12-29', 'American Express'),
+    (1549, '2021-12-29', 'Six Flags Gift Card'),
+    (1760, '2021-12-30', 'Visa'),
+    (3057, '2021-12-30', 'Six Flags Gift Card'),
+    (1748, '2021-12-30', 'Six Flags Membership'),
+    (3196, '2021-12-30', 'Efectivo'),
+    (3308, '2021-12-31', 'Paypal'),
+    (635, '2021-12-31', 'Six Flags Membership'),
+    (2949, '2021-12-31', 'American Express'),
+    (2383, '2021-12-31', 'Six Flags Membership'),
+    (2325, '2021-12-31', 'Visa'),
+    (3932, '2021-12-31', 'Six Flags Gift Card'),
+    (3381, '2021-12-31', 'Visa'),
+    (2830, '2021-12-31', 'Efectivo'),
+    (4796, '2021-12-31', 'Mastercard'),
+    (145, '2021-12-31', 'Efectivo'),
+    (3894, '2021-12-31', 'Six Flags Membership'),
+    (637, '2021-12-31', 'Six Flags Membership'),
+    (468, '2021-12-31', 'Paypal'),
+    (4229, '2022-01-01', 'American Express'),
+    (1151, '2022-01-01', 'Visa'),
+    (921, '2022-01-01', 'Mastercard'),
+    (2942, '2022-01-01', 'Six Flags Membership'),
+    (1012, '2022-01-01', 'Mastercard'),
+    (4564, '2022-01-01', 'Six Flags Gift Card'),
+    (1654, '2022-01-01', 'American Express'),
+    (3785, '2022-01-01', 'Mastercard'),
+    (2257, '2022-01-01', 'Mastercard'),
+    (3776, '2022-01-01', 'Visa'),
+    (1942, '2022-01-01', 'American Express'),
+    (2924, '2022-01-01', 'Six Flags Gift Card'),
+    (4705, '2022-01-02', 'Efectivo'),
+    (2175, '2022-01-02', 'Visa'),
+    (4069, '2022-01-02', 'Visa'),
+    (988, '2022-01-02', 'Visa'),
+    (3493, '2022-01-02', 'Efectivo'),
+    (1348, '2022-01-03', 'Visa'),
+    (3820, '2022-01-03', 'Six Flags Gift Card'),
+    (4583, '2022-01-03', 'Efectivo'),
+    (195, '2022-01-03', 'Efectivo'),
+    (1762, '2022-01-03', 'Paypal'),
+    (1824, '2022-01-03', 'Efectivo'),
+    (4630, '2022-01-03', 'American Express'),
+    (4632, '2022-01-03', 'Mastercard'),
+    (2157, '2022-01-03', 'Paypal'),
+    (2691, '2022-01-03', 'Six Flags Membership'),
+    (2821, '2022-01-03', 'Paypal'),
+    (2282, '2022-01-04', 'Efectivo'),
+    (3847, '2022-01-04', 'Paypal'),
+    (2314, '2022-01-04', 'Six Flags Gift Card'),
+    (474, '2022-01-04', 'Mastercard'),
+    (1678, '2022-01-04', 'Visa'),
+    (1253, '2022-01-04', 'Mastercard'),
+    (2719, '2022-01-04', 'Six Flags Membership'),
+    (690, '2022-01-04', 'Six Flags Membership'),
+    (1954, '2022-01-04', 'Six Flags Membership'),
+    (338, '2022-01-05', 'Efectivo'),
+    (3044, '2022-01-05', 'Six Flags Membership'),
+    (3503, '2022-01-05', 'American Express'),
+    (1220, '2022-01-05', 'Six Flags Membership'),
+    (4986, '2022-01-05', 'Six Flags Gift Card'),
+    (4121, '2022-01-05', 'Efectivo'),
+    (3736, '2022-01-05', 'Efectivo'),
+    (582, '2022-01-06', 'American Express'),
+    (2786, '2022-01-06', 'Efectivo'),
+    (550, '2022-01-06', 'Visa'),
+    (1217, '2022-01-06', 'Six Flags Membership'),
+    (578, '2022-01-06', 'Six Flags Membership'),
+    (4506, '2022-01-07', 'Six Flags Gift Card'),
+    (4452, '2022-01-07', 'Six Flags Gift Card'),
+    (2588, '2022-01-07', 'Efectivo'),
+    (2100, '2022-01-07', 'Efectivo'),
+    (3818, '2022-01-07', 'Paypal'),
+    (385, '2022-01-07', 'Visa'),
+    (1915, '2022-01-07', 'Paypal'),
+    (770, '2022-01-07', 'American Express'),
+    (430, '2022-01-08', 'Paypal'),
+    (1444, '2022-01-08', 'Visa'),
+    (168, '2022-01-08', 'Six Flags Gift Card'),
+    (848, '2022-01-08', 'Six Flags Membership'),
+    (2403, '2022-01-08', 'Paypal'),
+    (2546, '2022-01-08', 'American Express'),
+    (776, '2022-01-08', 'Mastercard'),
+    (1697, '2022-01-08', 'Six Flags Gift Card'),
+    (3323, '2022-01-08', 'Efectivo'),
+    (1723, '2022-01-09', 'Paypal'),
+    (307, '2022-01-09', 'American Express'),
+    (3347, '2022-01-09', 'Paypal'),
+    (1447, '2022-01-09', 'Visa'),
+    (2185, '2022-01-09', 'Efectivo'),
+    (2176, '2022-01-09', 'Visa'),
+    (4820, '2022-01-09', 'Mastercard'),
+    (213, '2022-01-10', 'Paypal'),
+    (1186, '2022-01-10', 'Visa'),
+    (2476, '2022-01-10', 'Paypal'),
+    (3551, '2022-01-10', 'Visa'),
+    (2210, '2022-01-10', 'Six Flags Gift Card'),
+    (730, '2022-01-10', 'American Express'),
+    (3016, '2022-01-10', 'Paypal'),
+    (3775, '2022-01-11', 'Six Flags Membership'),
+    (550, '2022-01-11', 'Six Flags Gift Card'),
+    (3750, '2022-01-11', 'Paypal'),
+    (3340, '2022-01-11', 'Visa'),
+    (3389, '2022-01-11', 'Six Flags Gift Card'),
+    (4214, '2022-01-11', 'Mastercard'),
+    (3917, '2022-01-11', 'Six Flags Gift Card'),
+    (2603, '2022-01-11', 'Paypal'),
+    (296, '2022-01-11', 'Six Flags Membership'),
+    (408, '2022-01-12', 'Six Flags Gift Card'),
+    (2606, '2022-01-12', 'American Express'),
+    (4009, '2022-01-12', 'American Express'),
+    (2090, '2022-01-12', 'Paypal'),
+    (716, '2022-01-13', 'Mastercard'),
+    (612, '2022-01-13', 'Visa'),
+    (1784, '2022-01-13', 'Efectivo'),
+    (3074, '2022-01-13', 'Visa'),
+    (4001, '2022-01-13', 'Visa'),
+    (524, '2022-01-13', 'Mastercard'),
+    (1541, '2022-01-13', 'Visa'),
+    (2651, '2022-01-14', 'American Express'),
+    (3276, '2022-01-14', 'Efectivo'),
+    (3671, '2022-01-14', 'American Express'),
+    (4647, '2022-01-14', 'Six Flags Gift Card'),
+    (1765, '2022-01-14', 'Six Flags Membership'),
+    (227, '2022-01-14', 'Mastercard'),
+    (3303, '2022-01-14', 'Six Flags Gift Card'),
+    (4506, '2022-01-15', 'Paypal'),
+    (3361, '2022-01-15', 'American Express'),
+    (4425, '2022-01-15', 'Efectivo'),
+    (1695, '2022-01-15', 'Six Flags Membership'),
+    (3873, '2022-01-15', 'Mastercard'),
+    (1027, '2022-01-15', 'Paypal'),
+    (917, '2022-01-15', 'Visa'),
+    (4677, '2022-01-15', 'Efectivo'),
+    (671, '2022-01-15', 'Mastercard'),
+    (1851, '2022-01-15', 'Six Flags Gift Card'),
+    (963, '2022-01-15', 'Mastercard'),
+    (327, '2022-01-16', 'American Express'),
+    (541, '2022-01-16', 'Six Flags Membership'),
+    (578, '2022-01-16', 'Efectivo'),
+    (4819, '2022-01-16', 'Visa'),
+    (71, '2022-01-16', 'Mastercard'),
+    (2890, '2022-01-17', 'American Express'),
+    (1906, '2022-01-17', 'Visa'),
+    (1019, '2022-01-17', 'Efectivo'),
+    (2679, '2022-01-17', 'Paypal'),
+    (174, '2022-01-17', 'Paypal'),
+    (4688, '2022-01-17', 'Six Flags Gift Card'),
+    (1108, '2022-01-17', 'Efectivo'),
+    (1766, '2022-01-17', 'Paypal'),
+    (639, '2022-01-17', 'Six Flags Gift Card'),
+    (2949, '2022-01-18', 'American Express'),
+    (3864, '2022-01-18', 'American Express'),
+    (2777, '2022-01-18', 'Visa'),
+    (2586, '2022-01-18', 'Visa'),
+    (940, '2022-01-18', 'Mastercard'),
+    (3901, '2022-01-18', 'Mastercard'),
+    (217, '2022-01-18', 'Six Flags Membership'),
+    (1192, '2022-01-18', 'American Express'),
+    (896, '2022-01-19', 'Mastercard'),
+    (174, '2022-01-19', 'Efectivo'),
+    (18, '2022-01-19', 'Mastercard'),
+    (3068, '2022-01-19', 'Mastercard'),
+    (3329, '2022-01-19', 'American Express'),
+    (2749, '2022-01-19', 'Six Flags Membership'),
+    (1175, '2022-01-19', 'Efectivo'),
+    (4540, '2022-01-19', 'Paypal'),
+    (2750, '2022-01-19', 'Mastercard'),
+    (2105, '2022-01-19', 'Paypal'),
+    (2766, '2022-01-20', 'American Express'),
+    (3628, '2022-01-20', 'Mastercard'),
+    (1778, '2022-01-20', 'American Express'),
+    (3098, '2022-01-20', 'American Express'),
+    (3627, '2022-01-20', 'Mastercard'),
+    (3210, '2022-01-20', 'Efectivo'),
+    (534, '2022-01-20', 'Mastercard'),
+    (3135, '2022-01-21', 'Six Flags Membership'),
+    (3829, '2022-01-21', 'Six Flags Gift Card'),
+    (29, '2022-01-21', 'Six Flags Gift Card'),
+    (3988, '2022-01-21', 'Mastercard'),
+    (3949, '2022-01-21', 'Visa'),
+    (3127, '2022-01-21', 'Six Flags Membership'),
+    (1850, '2022-01-21', 'Paypal'),
+    (94, '2022-01-21', 'Six Flags Gift Card'),
+    (1158, '2022-01-21', 'Mastercard'),
+    (3304, '2022-01-22', 'Visa'),
+    (141, '2022-01-22', 'Mastercard'),
+    (3442, '2022-01-22', 'Paypal'),
+    (3459, '2022-01-22', 'Efectivo'),
+    (4549, '2022-01-23', 'American Express'),
+    (2723, '2022-01-23', 'American Express'),
+    (3185, '2022-01-23', 'Six Flags Gift Card'),
+    (2807, '2022-01-23', 'Six Flags Membership'),
+    (3313, '2022-01-23', 'Six Flags Gift Card'),
+    (992, '2022-01-24', 'Mastercard'),
+    (746, '2022-01-24', 'Paypal'),
+    (110, '2022-01-24', 'Paypal'),
+    (657, '2022-01-24', 'Six Flags Gift Card'),
+    (4231, '2022-01-24', 'Visa'),
+    (3042, '2022-01-24', 'Paypal'),
+    (470, '2022-01-24', 'Mastercard'),
+    (435, '2022-01-24', 'Six Flags Membership'),
+    (1178, '2022-01-25', 'Visa'),
+    (2139, '2022-01-25', 'Paypal'),
+    (1622, '2022-01-25', 'Efectivo'),
+    (1148, '2022-01-25', 'Visa'),
+    (1327, '2022-01-26', 'Six Flags Gift Card'),
+    (170, '2022-01-27', 'Six Flags Gift Card'),
+    (1643, '2022-01-27', 'American Express'),
+    (846, '2022-01-27', 'American Express'),
+    (4603, '2022-01-27', 'Six Flags Gift Card'),
+    (4053, '2022-01-27', 'Six Flags Membership'),
+    (3325, '2022-01-27', 'Six Flags Gift Card'),
+    (3152, '2022-01-27', 'Paypal'),
+    (2472, '2022-01-27', 'Six Flags Gift Card'),
+    (4249, '2022-01-28', 'Paypal'),
+    (4166, '2022-01-28', 'American Express'),
+    (845, '2022-01-28', 'American Express'),
+    (326, '2022-01-28', 'Visa'),
+    (4755, '2022-01-28', 'Six Flags Membership'),
+    (2916, '2022-01-29', 'American Express'),
+    (623, '2022-01-29', 'American Express'),
+    (4780, '2022-01-29', 'Mastercard'),
+    (3507, '2022-01-29', 'American Express'),
+    (3306, '2022-01-29', 'Six Flags Gift Card'),
+    (3648, '2022-01-29', 'Visa'),
+    (1140, '2022-01-30', 'Paypal'),
+    (576, '2022-01-30', 'Mastercard'),
+    (525, '2022-01-30', 'Efectivo'),
+    (4293, '2022-01-30', 'Paypal'),
+    (2324, '2022-01-30', 'Six Flags Gift Card'),
+    (4672, '2022-01-30', 'Visa'),
+    (118, '2022-01-30', 'Efectivo'),
+    (3654, '2022-01-30', 'Six Flags Gift Card'),
+    (1644, '2022-01-30', 'Six Flags Membership'),
+    (3509, '2022-01-31', 'Efectivo'),
+    (2356, '2022-01-31', 'Efectivo'),
+    (62, '2022-01-31', 'Paypal'),
+    (1113, '2022-01-31', 'Visa'),
+    (4012, '2022-01-31', 'Six Flags Membership'),
+    (1146, '2022-01-31', 'Six Flags Membership'),
+    (1180, '2022-02-01', 'Six Flags Membership'),
+    (631, '2022-02-01', 'Six Flags Membership'),
+    (3206, '2022-02-01', 'Six Flags Membership'),
+    (4877, '2022-02-01', 'Efectivo'),
+    (2582, '2022-02-01', 'Efectivo'),
+    (4544, '2022-02-01', 'Mastercard'),
+    (579, '2022-02-01', 'Six Flags Gift Card'),
+    (1562, '2022-02-01', 'Paypal'),
+    (2770, '2022-02-01', 'American Express'),
+    (4301, '2022-02-01', 'Efectivo'),
+    (4166, '2022-02-01', 'American Express'),
+    (211, '2022-02-01', 'Mastercard'),
+    (3935, '2022-02-01', 'Mastercard'),
+    (2107, '2022-02-02', 'American Express'),
+    (2744, '2022-02-02', 'Six Flags Membership'),
+    (1392, '2022-02-02', 'American Express'),
+    (2479, '2022-02-02', 'Efectivo'),
+    (3452, '2022-02-02', 'Mastercard'),
+    (2801, '2022-02-02', 'Efectivo'),
+    (3845, '2022-02-02', 'American Express'),
+    (3813, '2022-02-03', 'Six Flags Membership'),
+    (1348, '2022-02-03', 'Visa'),
+    (2013, '2022-02-03', 'American Express'),
+    (2979, '2022-02-03', 'Efectivo'),
+    (3048, '2022-02-03', 'Efectivo'),
+    (395, '2022-02-04', 'Visa'),
+    (1711, '2022-02-04', 'Six Flags Gift Card'),
+    (4781, '2022-02-04', 'Paypal'),
+    (3953, '2022-02-04', 'Efectivo'),
+    (1866, '2022-02-04', 'Visa'),
+    (4395, '2022-02-04', 'Mastercard'),
+    (1873, '2022-02-04', 'Paypal'),
+    (2841, '2022-02-05', 'Paypal'),
+    (432, '2022-02-05', 'Six Flags Membership'),
+    (4017, '2022-02-05', 'Six Flags Membership'),
+    (4110, '2022-02-05', 'Paypal'),
+    (1322, '2022-02-05', 'Paypal'),
+    (3165, '2022-02-05', 'Paypal'),
+    (1884, '2022-02-05', 'Efectivo'),
+    (2332, '2022-02-05', 'Paypal'),
+    (4319, '2022-02-05', 'American Express'),
+    (2391, '2022-02-05', 'Efectivo'),
+    (1697, '2022-02-05', 'Paypal'),
+    (3437, '2022-02-06', 'Six Flags Gift Card'),
+    (326, '2022-02-06', 'Visa'),
+    (2261, '2022-02-06', 'Mastercard'),
+    (1093, '2022-02-06', 'Mastercard'),
+    (2109, '2022-02-06', 'Efectivo'),
+    (4756, '2022-02-06', 'American Express'),
+    (2125, '2022-02-06', 'Mastercard'),
+    (1433, '2022-02-07', 'Visa'),
+    (3041, '2022-02-07', 'Visa'),
+    (4372, '2022-02-07', 'Six Flags Membership'),
+    (382, '2022-02-07', 'Visa'),
+    (1541, '2022-02-07', 'Mastercard'),
+    (4176, '2022-02-08', 'Visa'),
+    (4140, '2022-02-08', 'Six Flags Gift Card'),
+    (2410, '2022-02-08', 'Six Flags Membership'),
+    (4759, '2022-02-08', 'Visa'),
+    (3120, '2022-02-08', 'Six Flags Gift Card'),
+    (2219, '2022-02-08', 'American Express'),
+    (2570, '2022-02-08', 'Visa'),
+    (1621, '2022-02-08', 'Mastercard'),
+    (835, '2022-02-08', 'Paypal'),
+    (2261, '2022-02-08', 'American Express'),
+    (4584, '2022-02-08', 'Six Flags Membership'),
+    (3217, '2022-02-09', 'Paypal'),
+    (4923, '2022-02-09', 'Visa'),
+    (1300, '2022-02-09', 'Six Flags Membership'),
+    (4786, '2022-02-09', 'Six Flags Membership'),
+    (1547, '2022-02-09', 'Visa'),
+    (4033, '2022-02-09', 'Six Flags Membership'),
+    (3997, '2022-02-09', 'Six Flags Gift Card'),
+    (1214, '2022-02-09', 'Efectivo'),
+    (4895, '2022-02-09', 'Efectivo'),
+    (2078, '2022-02-09', 'Six Flags Membership'),
+    (229, '2022-02-09', 'Six Flags Gift Card'),
+    (1425, '2022-02-09', 'Paypal'),
+    (704, '2022-02-10', 'Paypal'),
+    (3267, '2022-02-10', 'Efectivo'),
+    (2825, '2022-02-10', 'Efectivo'),
+    (2936, '2022-02-10', 'Six Flags Gift Card'),
+    (988, '2022-02-10', 'Mastercard'),
+    (1041, '2022-02-10', 'Six Flags Gift Card'),
+    (2578, '2022-02-11', 'Visa'),
+    (4498, '2022-02-11', 'American Express'),
+    (4714, '2022-02-11', 'Efectivo'),
+    (3375, '2022-02-12', 'Six Flags Membership'),
+    (3424, '2022-02-12', 'Paypal'),
+    (3904, '2022-02-12', 'Six Flags Membership'),
+    (4054, '2022-02-12', 'Visa'),
+    (800, '2022-02-12', 'American Express'),
+    (4037, '2022-02-12', 'Paypal'),
+    (4340, '2022-02-13', 'Visa'),
+    (4986, '2022-02-13', 'Visa'),
+    (2749, '2022-02-13', 'Visa'),
+    (1576, '2022-02-13', 'Efectivo'),
+    (991, '2022-02-13', 'Efectivo'),
+    (1342, '2022-02-13', 'Efectivo'),
+    (4110, '2022-02-13', 'Six Flags Membership'),
+    (2582, '2022-02-13', 'American Express'),
+    (1902, '2022-02-13', 'Six Flags Gift Card'),
+    (295, '2022-02-13', 'Paypal'),
+    (3642, '2022-02-14', 'Paypal'),
+    (655, '2022-02-14', 'Six Flags Membership'),
+    (3134, '2022-02-14', 'Six Flags Membership'),
+    (2233, '2022-02-14', 'Six Flags Membership'),
+    (1667, '2022-02-14', 'Visa'),
+    (2211, '2022-02-14', 'Six Flags Gift Card'),
+    (2449, '2022-02-14', 'Six Flags Membership'),
+    (4563, '2022-02-14', 'Six Flags Gift Card'),
+    (3410, '2022-02-14', 'Mastercard'),
+    (2486, '2022-02-14', 'Paypal'),
+    (313, '2022-02-15', 'Six Flags Gift Card'),
+    (830, '2022-02-15', 'Six Flags Gift Card'),
+    (3142, '2022-02-15', 'Six Flags Membership'),
+    (3448, '2022-02-15', 'Efectivo'),
+    (1358, '2022-02-15', 'Efectivo'),
+    (2553, '2022-02-15', 'Six Flags Membership'),
+    (883, '2022-02-15', 'Efectivo'),
+    (1246, '2022-02-15', 'Mastercard'),
+    (2518, '2022-02-16', 'Six Flags Gift Card'),
+    (2495, '2022-02-16', 'Visa'),
+    (2480, '2022-02-16', 'Six Flags Gift Card'),
+    (3490, '2022-02-16', 'Efectivo'),
+    (280, '2022-02-16', 'Six Flags Membership'),
+    (1303, '2022-02-16', 'Six Flags Gift Card'),
+    (4193, '2022-02-16', 'American Express'),
+    (3322, '2022-02-17', 'Visa'),
+    (4094, '2022-02-17', 'American Express'),
+    (2632, '2022-02-17', 'Six Flags Gift Card'),
+    (2557, '2022-02-17', 'Six Flags Gift Card'),
+    (2539, '2022-02-17', 'Visa'),
+    (1973, '2022-02-17', 'American Express'),
+    (1479, '2022-02-17', 'American Express'),
+    (4926, '2022-02-17', 'Visa'),
+    (1961, '2022-02-17', 'Six Flags Gift Card'),
+    (1662, '2022-02-18', 'American Express'),
+    (3132, '2022-02-18', 'Paypal'),
+    (4436, '2022-02-18', 'Paypal'),
+    (4063, '2022-02-18', 'Visa'),
+    (1630, '2022-02-18', 'Efectivo'),
+    (1626, '2022-02-18', 'Six Flags Gift Card'),
+    (1681, '2022-02-18', 'Six Flags Gift Card'),
+    (4463, '2022-02-18', 'Efectivo'),
+    (4540, '2022-02-19', 'Visa'),
+    (4628, '2022-02-19', 'Efectivo'),
+    (1230, '2022-02-19', 'Six Flags Membership'),
+    (3913, '2022-02-19', 'Mastercard'),
+    (3928, '2022-02-19', 'Paypal'),
+    (3122, '2022-02-19', 'Visa'),
+    (1658, '2022-02-20', 'Paypal'),
+    (4429, '2022-02-20', 'Six Flags Membership'),
+    (3873, '2022-02-20', 'Six Flags Gift Card'),
+    (4099, '2022-02-20', 'Visa'),
+    (4372, '2022-02-20', 'Six Flags Gift Card'),
+    (3263, '2022-02-20', 'Six Flags Membership'),
+    (986, '2022-02-21', 'Efectivo'),
+    (3435, '2022-02-21', 'Visa'),
+    (4611, '2022-02-21', 'Efectivo'),
+    (2639, '2022-02-22', 'Six Flags Gift Card'),
+    (4326, '2022-02-22', 'Mastercard'),
+    (1046, '2022-02-22', 'American Express'),
+    (3353, '2022-02-22', 'Efectivo'),
+    (1398, '2022-02-22', 'Six Flags Gift Card'),
+    (3983, '2022-02-22', 'Paypal'),
+    (2817, '2022-02-22', 'Six Flags Gift Card'),
+    (2805, '2022-02-22', 'Visa'),
+    (1444, '2022-02-23', 'Visa'),
+    (365, '2022-02-23', 'Paypal'),
+    (3206, '2022-02-23', 'Paypal'),
+    (3223, '2022-02-23', 'Mastercard'),
+    (1549, '2022-02-23', 'American Express'),
+    (515, '2022-02-24', 'American Express'),
+    (1744, '2022-02-24', 'Paypal'),
+    (2265, '2022-02-24', 'Efectivo'),
+    (4296, '2022-02-24', 'Six Flags Membership'),
+    (4740, '2022-02-24', 'Six Flags Membership'),
+    (1561, '2022-02-24', 'Six Flags Gift Card'),
+    (821, '2022-02-24', 'Paypal'),
+    (423, '2022-02-24', 'Six Flags Gift Card'),
+    (1944, '2022-02-24', 'Efectivo'),
+    (2236, '2022-02-24', 'Mastercard'),
+    (661, '2022-02-24', 'Six Flags Membership'),
+    (2704, '2022-02-25', 'Visa'),
+    (1521, '2022-02-25', 'Efectivo'),
+    (3298, '2022-02-25', 'American Express'),
+    (373, '2022-02-25', 'Efectivo'),
+    (3585, '2022-02-25', 'Six Flags Membership'),
+    (1182, '2022-02-25', 'American Express'),
+    (3359, '2022-02-25', 'Visa'),
+    (1688, '2022-02-26', 'Mastercard'),
+    (4347, '2022-02-26', 'Visa'),
+    (3977, '2022-02-26', 'Efectivo'),
+    (13, '2022-02-26', 'Six Flags Membership'),
+    (1746, '2022-02-26', 'Visa'),
+    (4757, '2022-02-26', 'American Express'),
+    (1503, '2022-02-27', 'Visa'),
+    (1994, '2022-02-27', 'Efectivo'),
+    (2587, '2022-02-27', 'Six Flags Gift Card'),
+    (3133, '2022-02-27', 'Visa'),
+    (2376, '2022-02-27', 'Six Flags Membership'),
+    (4902, '2022-02-27', 'Six Flags Membership'),
+    (3807, '2022-02-27', 'Visa'),
+    (3317, '2022-02-28', 'Six Flags Membership'),
+    (668, '2022-02-28', 'Visa'),
+    (11, '2022-02-28', 'Efectivo'),
+    (3731, '2022-03-01', 'Paypal'),
+    (3918, '2022-03-01', 'Six Flags Gift Card'),
+    (1201, '2022-03-01', 'Mastercard'),
+    (4511, '2022-03-01', 'Visa'),
+    (4535, '2022-03-01', 'Six Flags Membership'),
+    (4027, '2022-03-01', 'Efectivo'),
+    (624, '2022-03-01', 'Six Flags Membership'),
+    (178, '2022-03-01', 'Six Flags Membership'),
+    (1232, '2022-03-01', 'Efectivo'),
+    (4645, '2022-03-01', 'Efectivo'),
+    (2430, '2022-03-01', 'American Express'),
+    (1614, '2022-03-02', 'Paypal'),
+    (4170, '2022-03-02', 'Visa'),
+    (1456, '2022-03-02', 'Paypal'),
+    (3265, '2022-03-03', 'Efectivo'),
+    (2223, '2022-03-03', 'Mastercard'),
+    (2225, '2022-03-03', 'Six Flags Gift Card'),
+    (3689, '2022-03-03', 'Six Flags Gift Card'),
+    (1084, '2022-03-04', 'Visa'),
+    (2055, '2022-03-04', 'Six Flags Membership'),
+    (195, '2022-03-04', 'American Express'),
+    (1334, '2022-03-04', 'Visa'),
+    (2643, '2022-03-04', 'Mastercard'),
+    (1378, '2022-03-04', 'Visa'),
+    (4563, '2022-03-04', 'Paypal'),
+    (4051, '2022-03-05', 'Mastercard'),
+    (4495, '2022-03-05', 'Six Flags Membership'),
+    (1691, '2022-03-05', 'Efectivo'),
+    (3331, '2022-03-05', 'Six Flags Gift Card'),
+    (3657, '2022-03-05', 'Six Flags Membership'),
+    (3145, '2022-03-05', 'American Express'),
+    (3457, '2022-03-05', 'Mastercard'),
+    (4924, '2022-03-05', 'Paypal'),
+    (3870, '2022-03-05', 'Mastercard'),
+    (2263, '2022-03-05', 'Mastercard'),
+    (1877, '2022-03-05', 'Efectivo'),
+    (3613, '2022-03-06', 'Paypal'),
+    (1298, '2022-03-06', 'Mastercard'),
+    (3797, '2022-03-06', 'Visa'),
+    (1495, '2022-03-06', 'Paypal'),
+    (1494, '2022-03-06', 'Mastercard'),
+    (4410, '2022-03-06', 'Visa'),
+    (4046, '2022-03-06', 'Six Flags Gift Card'),
+    (730, '2022-03-06', 'Paypal'),
+    (2844, '2022-03-06', 'Mastercard'),
+    (2766, '2022-03-06', 'Visa'),
+    (58, '2022-03-07', 'Efectivo'),
+    (3957, '2022-03-07', 'Paypal'),
+    (2656, '2022-03-07', 'Visa'),
+    (4937, '2022-03-07', 'American Express'),
+    (2163, '2022-03-07', 'Efectivo'),
+    (947, '2022-03-07', 'Six Flags Membership'),
+    (1754, '2022-03-07', 'Six Flags Membership'),
+    (1600, '2022-03-07', 'Mastercard'),
+    (3299, '2022-03-07', 'Efectivo'),
+    (3747, '2022-03-07', 'Efectivo'),
+    (2386, '2022-03-08', 'American Express'),
+    (196, '2022-03-08', 'Mastercard'),
+    (3090, '2022-03-08', 'Mastercard'),
+    (3073, '2022-03-08', 'Six Flags Membership'),
+    (307, '2022-03-08', 'Six Flags Membership'),
+    (2208, '2022-03-08', 'Visa'),
+    (429, '2022-03-08', 'Efectivo'),
+    (878, '2022-03-08', 'Six Flags Membership'),
+    (22, '2022-03-08', 'Six Flags Membership'),
+    (1413, '2022-03-08', 'Six Flags Membership'),
+    (1296, '2022-03-08', 'Visa'),
+    (1548, '2022-03-09', 'Visa'),
+    (1423, '2022-03-09', 'Efectivo'),
+    (4506, '2022-03-09', 'Efectivo'),
+    (3954, '2022-03-09', 'Paypal'),
+    (944, '2022-03-09', 'Six Flags Membership'),
+    (4876, '2022-03-09', 'Six Flags Gift Card'),
+    (2255, '2022-03-09', 'Six Flags Gift Card'),
+    (1748, '2022-03-10', 'Visa'),
+    (1603, '2022-03-10', 'Mastercard'),
+    (4927, '2022-03-10', 'Mastercard'),
+    (3182, '2022-03-10', 'Six Flags Gift Card'),
+    (531, '2022-03-10', 'Mastercard'),
+    (932, '2022-03-10', 'Six Flags Gift Card'),
+    (515, '2022-03-10', 'Paypal'),
+    (1626, '2022-03-10', 'Six Flags Membership'),
+    (3561, '2022-03-11', 'Six Flags Gift Card'),
+    (4415, '2022-03-11', 'American Express'),
+    (3880, '2022-03-11', 'Mastercard'),
+    (3861, '2022-03-11', 'Efectivo'),
+    (4248, '2022-03-11', 'Six Flags Membership'),
+    (4453, '2022-03-11', 'Six Flags Membership'),
+    (3256, '2022-03-11', 'Paypal'),
+    (589, '2022-03-11', 'Visa'),
+    (445, '2022-03-11', 'Mastercard'),
+    (3114, '2022-03-11', 'Six Flags Gift Card'),
+    (2155, '2022-03-11', 'Efectivo'),
+    (1530, '2022-03-11', 'Six Flags Gift Card'),
+    (4918, '2022-03-11', 'Six Flags Gift Card'),
+    (2291, '2022-03-12', 'Mastercard'),
+    (273, '2022-03-12', 'Paypal'),
+    (4319, '2022-03-12', 'Mastercard'),
+    (3025, '2022-03-12', 'Six Flags Gift Card'),
+    (280, '2022-03-12', 'Paypal'),
+    (3641, '2022-03-13', 'Six Flags Gift Card'),
+    (497, '2022-03-13', 'Visa'),
+    (359, '2022-03-13', 'Visa'),
+    (1804, '2022-03-13', 'Paypal'),
+    (666, '2022-03-13', 'Efectivo'),
+    (580, '2022-03-13', 'Paypal'),
+    (4654, '2022-03-13', 'Six Flags Membership'),
+    (1700, '2022-03-13', 'Paypal'),
+    (1844, '2022-03-13', 'Six Flags Membership'),
+    (976, '2022-03-13', 'Six Flags Membership'),
+    (2657, '2022-03-14', 'Paypal'),
+    (4744, '2022-03-14', 'Six Flags Membership'),
+    (4468, '2022-03-14', 'Efectivo'),
+    (4870, '2022-03-14', 'Efectivo'),
+    (3796, '2022-03-14', 'Paypal'),
+    (2263, '2022-03-14', 'Visa'),
+    (1194, '2022-03-15', 'Paypal'),
+    (240, '2022-03-15', 'Paypal'),
+    (4314, '2022-03-15', 'Visa'),
+    (1386, '2022-03-15', 'Six Flags Gift Card'),
+    (3332, '2022-03-15', 'American Express'),
+    (2171, '2022-03-15', 'American Express'),
+    (82, '2022-03-15', 'Six Flags Membership'),
+    (2955, '2022-03-16', 'Six Flags Membership'),
+    (609, '2022-03-16', 'Efectivo'),
+    (1165, '2022-03-16', 'American Express'),
+    (2363, '2022-03-16', 'Six Flags Gift Card'),
+    (3740, '2022-03-16', 'Paypal'),
+    (4272, '2022-03-16', 'American Express'),
+    (4661, '2022-03-17', 'American Express'),
+    (913, '2022-03-17', 'Six Flags Membership'),
+    (2768, '2022-03-17', 'Efectivo'),
+    (4185, '2022-03-17', 'Paypal'),
+    (1951, '2022-03-17', 'Visa'),
+    (911, '2022-03-17', 'Visa'),
+    (2215, '2022-03-17', 'Six Flags Membership'),
+    (4397, '2022-03-17', 'Paypal'),
+    (4886, '2022-03-17', 'Visa'),
+    (3590, '2022-03-17', 'American Express'),
+    (2772, '2022-03-18', 'Efectivo'),
+    (2756, '2022-03-18', 'Mastercard'),
+    (3701, '2022-03-18', 'Visa'),
+    (2798, '2022-03-18', 'Paypal'),
+    (3671, '2022-03-18', 'Efectivo'),
+    (2991, '2022-03-18', 'Six Flags Membership'),
+    (1496, '2022-03-18', 'American Express'),
+    (4775, '2022-03-18', 'American Express'),
+    (2208, '2022-03-19', 'Efectivo'),
+    (1127, '2022-03-19', 'Six Flags Gift Card'),
+    (2903, '2022-03-19', 'Visa'),
+    (3467, '2022-03-19', 'Efectivo'),
+    (749, '2022-03-19', 'Paypal'),
+    (1766, '2022-03-19', 'American Express'),
+    (2741, '2022-03-19', 'Six Flags Gift Card'),
+    (4174, '2022-03-19', 'Paypal'),
+    (3001, '2022-03-20', 'Six Flags Gift Card'),
+    (2184, '2022-03-20', 'Six Flags Membership'),
+    (4661, '2022-03-20', 'Efectivo'),
+    (3308, '2022-03-20', 'Mastercard'),
+    (1334, '2022-03-20', 'Efectivo'),
+    (3186, '2022-03-21', 'Six Flags Membership'),
+    (1694, '2022-03-21', 'Visa'),
+    (217, '2022-03-21', 'Mastercard'),
+    (817, '2022-03-21', 'Mastercard'),
+    (335, '2022-03-21', 'Visa'),
+    (1583, '2022-03-21', 'Six Flags Membership'),
+    (3870, '2022-03-22', 'American Express'),
+    (4231, '2022-03-22', 'Mastercard'),
+    (443, '2022-03-22', 'Efectivo'),
+    (2334, '2022-03-22', 'American Express'),
+    (4255, '2022-03-22', 'Efectivo'),
+    (3160, '2022-03-22', 'American Express'),
+    (3809, '2022-03-22', 'Visa'),
+    (1496, '2022-03-22', 'Visa'),
+    (3027, '2022-03-22', 'Efectivo'),
+    (4389, '2022-03-22', 'Mastercard'),
+    (759, '2022-03-22', 'Paypal'),
+    (807, '2022-03-23', 'Six Flags Membership'),
+    (4308, '2022-03-23', 'Paypal'),
+    (4882, '2022-03-23', 'American Express'),
+    (4337, '2022-03-23', 'Mastercard'),
+    (2092, '2022-03-23', 'Six Flags Gift Card'),
+    (2587, '2022-03-23', 'Paypal'),
+    (1403, '2022-03-23', 'Efectivo'),
+    (3243, '2022-03-23', 'Six Flags Membership'),
+    (1025, '2022-03-24', 'Six Flags Membership'),
+    (2468, '2022-03-24', 'Six Flags Gift Card'),
+    (1022, '2022-03-24', 'Efectivo'),
+    (3458, '2022-03-24', 'Visa'),
+    (1531, '2022-03-24', 'Visa'),
+    (1581, '2022-03-24', 'Mastercard'),
+    (2641, '2022-03-24', 'Mastercard'),
+    (907, '2022-03-25', 'Mastercard'),
+    (2374, '2022-03-25', 'Six Flags Gift Card'),
+    (3072, '2022-03-25', 'American Express'),
+    (4980, '2022-03-25', 'Paypal'),
+    (3698, '2022-03-26', 'Paypal'),
+    (2740, '2022-03-26', 'American Express'),
+    (3683, '2022-03-26', 'Paypal'),
+    (1538, '2022-03-26', 'Mastercard'),
+    (4684, '2022-03-26', 'Mastercard'),
+    (2329, '2022-03-26', 'American Express'),
+    (896, '2022-03-26', 'Visa'),
+    (1765, '2022-03-27', 'Mastercard'),
+    (2053, '2022-03-27', 'Paypal'),
+    (3676, '2022-03-27', 'Six Flags Gift Card'),
+    (1798, '2022-03-27', 'Visa'),
+    (4476, '2022-03-27', 'Visa'),
+    (4376, '2022-03-27', 'Six Flags Gift Card'),
+    (2406, '2022-03-27', 'Six Flags Gift Card'),
+    (2205, '2022-03-27', 'Mastercard'),
+    (802, '2022-03-28', 'Visa'),
+    (3870, '2022-03-28', 'Paypal'),
+    (1548, '2022-03-28', 'American Express'),
+    (2858, '2022-03-28', 'American Express'),
+    (1073, '2022-03-28', 'American Express'),
+    (60, '2022-03-28', 'Six Flags Membership'),
+    (3445, '2022-03-29', 'Six Flags Membership'),
+    (2538, '2022-03-29', 'Paypal'),
+    (667, '2022-03-29', 'Six Flags Gift Card'),
+    (478, '2022-03-29', 'Mastercard'),
+    (4957, '2022-03-29', 'Mastercard'),
+    (2650, '2022-03-30', 'Six Flags Membership'),
+    (3231, '2022-03-30', 'Mastercard'),
+    (4184, '2022-03-30', 'Mastercard'),
+    (1556, '2022-03-31', 'Six Flags Gift Card'),
+    (3986, '2022-03-31', 'Efectivo'),
+    (228, '2022-03-31', 'Visa'),
+    (2822, '2022-03-31', 'Mastercard'),
+    (4245, '2022-03-31', 'Efectivo'),
+    (2266, '2022-04-01', 'Six Flags Gift Card'),
+    (452, '2022-04-01', 'American Express'),
+    (3069, '2022-04-01', 'Visa'),
+    (2414, '2022-04-01', 'Six Flags Gift Card'),
+    (3902, '2022-04-01', 'Paypal'),
+    (468, '2022-04-02', 'Visa'),
+    (906, '2022-04-02', 'Visa'),
+    (4781, '2022-04-02', 'Paypal'),
+    (3383, '2022-04-02', 'Six Flags Membership'),
+    (2383, '2022-04-02', 'Efectivo'),
+    (1010, '2022-04-02', 'Visa'),
+    (4448, '2022-04-02', 'Six Flags Membership'),
+    (4640, '2022-04-02', 'Paypal'),
+    (3201, '2022-04-02', 'Mastercard'),
+    (1389, '2022-04-03', 'Visa'),
+    (3964, '2022-04-03', 'Mastercard'),
+    (446, '2022-04-03', 'Paypal'),
+    (4858, '2022-04-04', 'Mastercard'),
+    (2640, '2022-04-04', 'Visa'),
+    (3807, '2022-04-04', 'Visa'),
+    (4483, '2022-04-04', 'Six Flags Membership'),
+    (776, '2022-04-05', 'Six Flags Gift Card'),
+    (2656, '2022-04-05', 'American Express'),
+    (4254, '2022-04-05', 'Paypal'),
+    (3526, '2022-04-05', 'Mastercard'),
+    (4242, '2022-04-05', 'Mastercard'),
+    (602, '2022-04-06', 'Visa'),
+    (2614, '2022-04-06', 'Efectivo'),
+    (2437, '2022-04-06', 'Mastercard'),
+    (4444, '2022-04-06', 'Paypal'),
+    (1016, '2022-04-07', 'Visa'),
+    (4328, '2022-04-07', 'Six Flags Gift Card'),
+    (4789, '2022-04-07', 'American Express'),
+    (4665, '2022-04-07', 'Efectivo'),
+    (1023, '2022-04-07', 'Efectivo'),
+    (2868, '2022-04-08', 'Six Flags Membership'),
+    (3269, '2022-04-08', 'Six Flags Gift Card'),
+    (485, '2022-04-08', 'Visa'),
+    (3916, '2022-04-08', 'Visa'),
+    (3987, '2022-04-08', 'Six Flags Gift Card'),
+    (1686, '2022-04-08', 'Six Flags Membership'),
+    (4914, '2022-04-09', 'Mastercard'),
+    (1705, '2022-04-09', 'Efectivo'),
+    (1878, '2022-04-10', 'Six Flags Gift Card'),
+    (2274, '2022-04-10', 'Visa'),
+    (3180, '2022-04-10', 'Paypal'),
+    (922, '2022-04-10', 'Six Flags Gift Card'),
+    (2211, '2022-04-10', 'American Express'),
+    (2634, '2022-04-10', 'Paypal'),
+    (815, '2022-04-11', 'Six Flags Gift Card'),
+    (969, '2022-04-11', 'Efectivo'),
+    (4253, '2022-04-11', 'Mastercard'),
+    (2837, '2022-04-11', 'Efectivo'),
+    (3215, '2022-04-12', 'Paypal'),
+    (44, '2022-04-12', 'Mastercard'),
+    (2325, '2022-04-12', 'Six Flags Membership'),
+    (2038, '2022-04-12', 'Paypal'),
+    (2228, '2022-04-12', 'Six Flags Gift Card'),
+    (468, '2022-04-12', 'Mastercard'),
+    (3856, '2022-04-12', 'Paypal'),
+    (1657, '2022-04-12', 'Visa'),
+    (824, '2022-04-12', 'Mastercard'),
+    (1150, '2022-04-12', 'Visa'),
+    (3212, '2022-04-13', 'Paypal'),
+    (3812, '2022-04-13', 'Paypal'),
+    (869, '2022-04-13', 'Efectivo'),
+    (4141, '2022-04-13', 'American Express'),
+    (3949, '2022-04-13', 'Visa'),
+    (3927, '2022-04-13', 'Visa'),
+    (1553, '2022-04-14', 'Six Flags Gift Card'),
+    (174, '2022-04-14', 'Efectivo'),
+    (3500, '2022-04-14', 'Mastercard'),
+    (222, '2022-04-14', 'Six Flags Membership'),
+    (188, '2022-04-14', 'Paypal'),
+    (3445, '2022-04-14', 'Paypal'),
+    (2200, '2022-04-15', 'Six Flags Membership'),
+    (343, '2022-04-15', 'Visa'),
+    (2565, '2022-04-15', 'Six Flags Gift Card'),
+    (2985, '2022-04-15', 'Six Flags Membership'),
+    (2704, '2022-04-15', 'Paypal'),
+    (4339, '2022-04-15', 'Paypal'),
+    (3879, '2022-04-15', 'American Express'),
+    (772, '2022-04-15', 'Paypal'),
+    (1203, '2022-04-15', 'Six Flags Gift Card'),
+    (3288, '2022-04-15', 'Paypal'),
+    (1713, '2022-04-16', 'Mastercard'),
+    (3475, '2022-04-16', 'Paypal'),
+    (601, '2022-04-16', 'Mastercard'),
+    (4743, '2022-04-16', 'Visa'),
+    (3610, '2022-04-16', 'Six Flags Membership'),
+    (2049, '2022-04-16', 'Visa'),
+    (4279, '2022-04-16', 'Visa'),
+    (572, '2022-04-17', 'Mastercard'),
+    (94, '2022-04-17', 'Mastercard'),
+    (3834, '2022-04-17', 'Six Flags Gift Card'),
+    (3395, '2022-04-17', 'Six Flags Membership'),
+    (3236, '2022-04-17', 'American Express'),
+    (700, '2022-04-17', 'Six Flags Gift Card'),
+    (1672, '2022-04-17', 'American Express'),
+    (932, '2022-04-17', 'Efectivo'),
+    (3451, '2022-04-18', 'Efectivo'),
+    (2946, '2022-04-18', 'Six Flags Membership'),
+    (1337, '2022-04-18', 'Mastercard'),
+    (3271, '2022-04-18', 'Six Flags Gift Card'),
+    (4641, '2022-04-18', 'Efectivo'),
+    (2862, '2022-04-18', 'Visa'),
+    (582, '2022-04-18', 'Mastercard'),
+    (4012, '2022-04-18', 'Six Flags Gift Card'),
+    (742, '2022-04-19', 'Six Flags Gift Card'),
+    (62, '2022-04-19', 'Paypal'),
+    (986, '2022-04-19', 'Paypal'),
+    (4115, '2022-04-19', 'American Express'),
+    (4205, '2022-04-20', 'Six Flags Membership'),
+    (3413, '2022-04-20', 'Mastercard'),
+    (2181, '2022-04-20', 'Six Flags Membership'),
+    (3078, '2022-04-20', 'American Express'),
+    (822, '2022-04-20', 'Mastercard'),
+    (2827, '2022-04-20', 'Six Flags Membership'),
+    (4160, '2022-04-20', 'Visa'),
+    (3605, '2022-04-20', 'Visa'),
+    (492, '2022-04-21', 'Six Flags Membership'),
+    (57, '2022-04-21', 'Six Flags Gift Card'),
+    (1530, '2022-04-21', 'Mastercard'),
+    (761, '2022-04-21', 'Visa'),
+    (4057, '2022-04-21', 'Mastercard'),
+    (1751, '2022-04-22', 'Six Flags Membership'),
+    (1587, '2022-04-22', 'American Express'),
+    (4262, '2022-04-22', 'Six Flags Membership'),
+    (416, '2022-04-23', 'Paypal'),
+    (1946, '2022-04-23', 'Six Flags Gift Card'),
+    (4657, '2022-04-23', 'Visa'),
+    (1640, '2022-04-23', 'Efectivo'),
+    (3158, '2022-04-23', 'Efectivo'),
+    (1203, '2022-04-23', 'Visa'),
+    (90, '2022-04-24', 'Six Flags Membership'),
+    (2113, '2022-04-24', 'American Express'),
+    (4993, '2022-04-24', 'Efectivo'),
+    (1705, '2022-04-24', 'Visa'),
+    (3798, '2022-04-24', 'Visa'),
+    (1981, '2022-04-24', 'Visa'),
+    (23, '2022-04-24', 'Mastercard'),
+    (1283, '2022-04-24', 'Mastercard'),
+    (3237, '2022-04-24', 'Efectivo'),
+    (403, '2022-04-25', 'Six Flags Gift Card'),
+    (2778, '2022-04-25', 'Paypal'),
+    (1874, '2022-04-25', 'Six Flags Gift Card'),
+    (2025, '2022-04-26', 'Paypal'),
+    (2793, '2022-04-26', 'Six Flags Membership'),
+    (933, '2022-04-26', 'American Express'),
+    (4497, '2022-04-26', 'Six Flags Membership'),
+    (479, '2022-04-26', 'Six Flags Membership'),
+    (3637, '2022-04-26', 'Visa'),
+    (1224, '2022-04-26', 'Visa'),
+    (4917, '2022-04-27', 'Visa'),
+    (2945, '2022-04-27', 'Mastercard'),
+    (43, '2022-04-27', 'Paypal'),
+    (2233, '2022-04-28', 'Visa'),
+    (2753, '2022-04-28', 'Visa'),
+    (512, '2022-04-29', 'Efectivo'),
+    (331, '2022-04-29', 'Visa'),
+    (1994, '2022-04-29', 'Paypal'),
+    (4439, '2022-04-29', 'Efectivo'),
+    (2764, '2022-04-29', 'Visa'),
+    (1510, '2022-04-30', 'Efectivo'),
+    (1537, '2022-04-30', 'Visa'),
+    (614, '2022-04-30', 'American Express'),
+    (1795, '2022-04-30', 'American Express'),
+    (3006, '2022-04-30', 'American Express'),
+    (1879, '2022-04-30', 'Visa'),
+    (1173, '2022-04-30', 'Six Flags Gift Card'),
+    (808, '2022-04-30', 'Six Flags Gift Card'),
+    (2437, '2022-04-30', 'Six Flags Gift Card'),
+    (1128, '2022-04-30', 'American Express'),
+    (2760, '2022-04-30', 'Paypal'),
+    (3652, '2022-04-30', 'Visa'),
+    (373, '2022-04-30', 'American Express'),
+    (2493, '2022-05-01', 'Mastercard'),
+    (3248, '2022-05-01', 'American Express'),
+    (1861, '2022-05-01', 'Visa'),
+    (3700, '2022-05-01', 'Visa'),
+    (761, '2022-05-01', 'Efectivo'),
+    (3183, '2022-05-01', 'Visa'),
+    (181, '2022-05-01', 'Six Flags Membership'),
+    (1771, '2022-05-01', 'Six Flags Membership'),
+    (1377, '2022-05-02', 'American Express'),
+    (4464, '2022-05-02', 'Paypal'),
+    (4484, '2022-05-02', 'Paypal'),
+    (3272, '2022-05-02', 'Visa'),
+    (1786, '2022-05-02', 'Paypal'),
+    (1068, '2022-05-03', 'Visa'),
+    (3125, '2022-05-03', 'American Express'),
+    (4863, '2022-05-03', 'Paypal'),
+    (3410, '2022-05-03', 'Visa'),
+    (2853, '2022-05-03', 'Efectivo'),
+    (3327, '2022-05-03', 'Efectivo'),
+    (3860, '2022-05-03', 'Visa'),
+    (4480, '2022-05-03', 'Efectivo'),
+    (36, '2022-05-04', 'Mastercard'),
+    (1376, '2022-05-04', 'American Express'),
+    (2016, '2022-05-04', 'Paypal'),
+    (4908, '2022-05-04', 'Six Flags Gift Card'),
+    (140, '2022-05-04', 'American Express'),
+    (4806, '2022-05-04', 'American Express'),
+    (2949, '2022-05-04', 'Efectivo'),
+    (960, '2022-05-04', 'Six Flags Gift Card'),
+    (4755, '2022-05-04', 'American Express'),
+    (4968, '2022-05-04', 'Efectivo'),
+    (3917, '2022-05-04', 'Paypal'),
+    (870, '2022-05-04', 'Six Flags Gift Card'),
+    (3272, '2022-05-04', 'Paypal'),
+    (3865, '2022-05-04', 'Efectivo'),
+    (3094, '2022-05-04', 'Efectivo'),
+    (790, '2022-05-04', 'American Express'),
+    (2673, '2022-05-05', 'Visa'),
+    (1200, '2022-05-05', 'Efectivo'),
+    (498, '2022-05-05', 'Visa'),
+    (2806, '2022-05-05', 'Efectivo'),
+    (1648, '2022-05-05', 'Visa'),
+    (344, '2022-05-05', 'American Express'),
+    (1929, '2022-05-06', 'Six Flags Membership'),
+    (524, '2022-05-06', 'American Express'),
+    (4034, '2022-05-06', 'Six Flags Membership'),
+    (2299, '2022-05-06', 'American Express'),
+    (4410, '2022-05-07', 'Six Flags Membership'),
+    (1168, '2022-05-07', 'Efectivo'),
+    (367, '2022-05-07', 'Visa'),
+    (1886, '2022-05-07', 'Visa'),
+    (927, '2022-05-07', 'Mastercard'),
+    (3112, '2022-05-07', 'Visa'),
+    (3294, '2022-05-07', 'Paypal'),
+    (913, '2022-05-07', 'Six Flags Membership'),
+    (3006, '2022-05-07', 'Efectivo'),
+    (2611, '2022-05-07', 'Efectivo'),
+    (2932, '2022-05-07', 'Six Flags Membership'),
+    (1343, '2022-05-08', 'Visa'),
+    (4615, '2022-05-08', 'American Express'),
+    (2498, '2022-05-08', 'Visa'),
+    (1752, '2022-05-08', 'Six Flags Gift Card'),
+    (4515, '2022-05-08', 'Paypal'),
+    (3770, '2022-05-08', 'American Express'),
+    (1079, '2022-05-08', 'Paypal'),
+    (4486, '2022-05-08', 'American Express'),
+    (885, '2022-05-08', 'Visa'),
+    (4830, '2022-05-08', 'Efectivo'),
+    (486, '2022-05-08', 'Mastercard'),
+    (4567, '2022-05-08', 'American Express'),
+    (2278, '2022-05-09', 'Visa'),
+    (837, '2022-05-09', 'Visa'),
+    (3323, '2022-05-09', 'Paypal'),
+    (2295, '2022-05-09', 'Six Flags Gift Card'),
+    (675, '2022-05-09', 'American Express'),
+    (2772, '2022-05-09', 'Visa'),
+    (339, '2022-05-10', 'American Express'),
+    (4070, '2022-05-10', 'Mastercard'),
+    (3876, '2022-05-10', 'Visa'),
+    (1651, '2022-05-10', 'Visa'),
+    (71, '2022-05-10', 'Six Flags Membership'),
+    (4179, '2022-05-11', 'Six Flags Membership'),
+    (1087, '2022-05-11', 'Efectivo'),
+    (1351, '2022-05-11', 'Six Flags Membership'),
+    (4429, '2022-05-11', 'Paypal'),
+    (2588, '2022-05-11', 'Efectivo'),
+    (786, '2022-05-11', 'Visa'),
+    (1851, '2022-05-11', 'American Express'),
+    (4577, '2022-05-11', 'Six Flags Membership'),
+    (2185, '2022-05-12', 'Mastercard'),
+    (3052, '2022-05-12', 'Six Flags Membership'),
+    (2777, '2022-05-12', 'Six Flags Gift Card'),
+    (2074, '2022-05-12', 'Mastercard'),
+    (3919, '2022-05-12', 'Mastercard'),
+    (3087, '2022-05-12', 'Mastercard'),
+    (2623, '2022-05-12', 'Paypal'),
+    (4895, '2022-05-12', 'Efectivo'),
+    (3267, '2022-05-12', 'Paypal'),
+    (1755, '2022-05-13', 'Visa'),
+    (2608, '2022-05-13', 'Six Flags Gift Card'),
+    (3116, '2022-05-13', 'Efectivo'),
+    (2390, '2022-05-13', 'Paypal'),
+    (2580, '2022-05-13', 'Efectivo'),
+    (4455, '2022-05-13', 'Paypal'),
+    (536, '2022-05-14', 'Paypal'),
+    (2187, '2022-05-14', 'Paypal'),
+    (4008, '2022-05-14', 'Six Flags Membership'),
+    (1844, '2022-05-14', 'Mastercard'),
+    (4554, '2022-05-14', 'Six Flags Membership'),
+    (4578, '2022-05-14', 'Visa'),
+    (1074, '2022-05-14', 'Paypal'),
+    (3398, '2022-05-14', 'Mastercard'),
+    (604, '2022-05-14', 'Mastercard'),
+    (2061, '2022-05-14', 'American Express'),
+    (1549, '2022-05-14', 'Visa'),
+    (1556, '2022-05-15', 'Visa'),
+    (3219, '2022-05-15', 'American Express'),
+    (4003, '2022-05-15', 'Six Flags Membership'),
+    (83, '2022-05-15', 'Mastercard'),
+    (3192, '2022-05-15', 'Six Flags Gift Card'),
+    (1167, '2022-05-16', 'Paypal'),
+    (343, '2022-05-16', 'Efectivo'),
+    (3875, '2022-05-16', 'Paypal'),
+    (762, '2022-05-16', 'American Express'),
+    (3101, '2022-05-16', 'Visa'),
+    (1177, '2022-05-16', 'Paypal'),
+    (838, '2022-05-16', 'Six Flags Membership'),
+    (1758, '2022-05-16', 'American Express'),
+    (4720, '2022-05-17', 'Mastercard'),
+    (1329, '2022-05-17', 'Mastercard'),
+    (533, '2022-05-17', 'Efectivo'),
+    (4286, '2022-05-17', 'Efectivo'),
+    (1354, '2022-05-17', 'American Express'),
+    (4083, '2022-05-18', 'Visa'),
+    (3282, '2022-05-18', 'Six Flags Membership'),
+    (2660, '2022-05-18', 'Six Flags Membership'),
+    (4317, '2022-05-18', 'Visa'),
+    (30, '2022-05-18', 'Visa'),
+    (1014, '2022-05-18', 'Visa'),
+    (1905, '2022-05-18', 'Paypal'),
+    (3196, '2022-05-19', 'Six Flags Membership'),
+    (2702, '2022-05-19', 'Paypal'),
+    (4085, '2022-05-19', 'Efectivo'),
+    (3033, '2022-05-19', 'Efectivo'),
+    (741, '2022-05-20', 'American Express'),
+    (1940, '2022-05-20', 'Efectivo'),
+    (4165, '2022-05-20', 'American Express'),
+    (3099, '2022-05-20', 'Six Flags Membership'),
+    (791, '2022-05-20', 'Paypal'),
+    (3039, '2022-05-21', 'Paypal'),
+    (3794, '2022-05-21', 'Mastercard'),
+    (237, '2022-05-21', 'Efectivo'),
+    (3349, '2022-05-21', 'Six Flags Membership'),
+    (83, '2022-05-21', 'Mastercard'),
+    (4597, '2022-05-21', 'Six Flags Gift Card'),
+    (3025, '2022-05-21', 'Six Flags Membership'),
+    (4277, '2022-05-22', 'American Express'),
+    (3261, '2022-05-22', 'Efectivo'),
+    (555, '2022-05-22', 'Six Flags Membership'),
+    (1735, '2022-05-22', 'Six Flags Gift Card'),
+    (4108, '2022-05-23', 'Six Flags Gift Card'),
+    (2175, '2022-05-23', 'Visa'),
+    (4364, '2022-05-23', 'Efectivo'),
+    (3192, '2022-05-23', 'Mastercard'),
+    (4992, '2022-05-23', 'American Express'),
+    (2501, '2022-05-23', 'American Express'),
+    (1039, '2022-05-23', 'Six Flags Gift Card'),
+    (3054, '2022-05-23', 'Visa'),
+    (1639, '2022-05-24', 'Mastercard'),
+    (1051, '2022-05-24', 'Efectivo'),
+    (3312, '2022-05-24', 'Paypal'),
+    (2629, '2022-05-24', 'Paypal'),
+    (1062, '2022-05-24', 'Six Flags Gift Card'),
+    (2935, '2022-05-25', 'Paypal'),
+    (889, '2022-05-25', 'Six Flags Membership'),
+    (955, '2022-05-25', 'Six Flags Membership'),
+    (3804, '2022-05-26', 'Mastercard'),
+    (2776, '2022-05-26', 'Visa'),
+    (4185, '2022-05-26', 'Six Flags Membership'),
+    (3956, '2022-05-26', 'Six Flags Membership'),
+    (4910, '2022-05-26', 'Paypal'),
+    (3316, '2022-05-27', 'Six Flags Membership'),
+    (3842, '2022-05-27', 'Six Flags Membership'),
+    (98, '2022-05-27', 'Paypal'),
+    (688, '2022-05-27', 'Mastercard'),
+    (3099, '2022-05-27', 'Paypal'),
+    (4104, '2022-05-27', 'American Express'),
+    (1756, '2022-05-27', 'Mastercard'),
+    (4647, '2022-05-27', 'Paypal'),
+    (624, '2022-05-27', 'Six Flags Membership'),
+    (4979, '2022-05-28', 'Visa'),
+    (2595, '2022-05-28', 'Efectivo'),
+    (638, '2022-05-29', 'Six Flags Membership'),
+    (4506, '2022-05-29', 'Efectivo'),
+    (3765, '2022-05-29', 'Efectivo'),
+    (3755, '2022-05-29', 'Visa'),
+    (4655, '2022-05-29', 'Mastercard'),
+    (1704, '2022-05-29', 'American Express'),
+    (3377, '2022-05-29', 'Six Flags Membership'),
+    (1692, '2022-05-30', 'Six Flags Gift Card'),
+    (2623, '2022-05-30', 'American Express'),
+    (3997, '2022-05-30', 'Six Flags Membership'),
+    (3627, '2022-05-30', 'Six Flags Gift Card'),
+    (788, '2022-05-30', 'American Express'),
+    (632, '2022-05-30', 'Paypal'),
+    (693, '2022-05-30', 'Six Flags Membership'),
+    (3030, '2022-05-30', 'Six Flags Membership'),
+    (3397, '2022-05-30', 'Six Flags Membership'),
+    (3749, '2022-05-31', 'Mastercard'),
+    (1493, '2022-05-31', 'Paypal'),
+    (3507, '2022-05-31', 'Mastercard'),
+    (2276, '2022-05-31', 'American Express'),
+    (460, '2022-05-31', 'Efectivo'),
+    (2341, '2022-05-31', 'Six Flags Membership'),
+    (4875, '2022-05-31', 'American Express'),
+    (640, '2022-06-01', 'American Express'),
+    (3679, '2022-06-01', 'Six Flags Membership'),
+    (572, '2022-06-01', 'Visa'),
+    (2643, '2022-06-01', 'Efectivo'),
+    (2864, '2022-06-01', 'Six Flags Gift Card'),
+    (366, '2022-06-01', 'Efectivo'),
+    (4340, '2022-06-01', 'Mastercard'),
+    (1584, '2022-06-01', 'American Express'),
+    (4197, '2022-06-01', 'Visa'),
+    (3669, '2022-06-02', 'American Express'),
+    (406, '2022-06-02', 'Paypal'),
+    (2060, '2022-06-02', 'Six Flags Gift Card'),
+    (72, '2022-06-02', 'Mastercard'),
+    (673, '2022-06-02', 'American Express'),
+    (264, '2022-06-03', 'American Express'),
+    (3659, '2022-06-03', 'American Express'),
+    (4348, '2022-06-03', 'Visa'),
+    (444, '2022-06-03', 'American Express'),
+    (2077, '2022-06-03', 'American Express'),
+    (1924, '2022-06-03', 'Six Flags Gift Card'),
+    (3751, '2022-06-03', 'Paypal'),
+    (215, '2022-06-04', 'American Express'),
+    (3927, '2022-06-04', 'Efectivo'),
+    (3436, '2022-06-04', 'Mastercard'),
+    (4670, '2022-06-05', 'Paypal'),
+    (2684, '2022-06-05', 'Six Flags Gift Card'),
+    (2055, '2022-06-05', 'Paypal'),
+    (3614, '2022-06-05', 'Paypal'),
+    (3518, '2022-06-05', 'Visa'),
+    (3967, '2022-06-05', 'Paypal'),
+    (3621, '2022-06-05', 'Paypal'),
+    (2267, '2022-06-05', 'Six Flags Gift Card'),
+    (3516, '2022-06-05', 'Paypal'),
+    (2054, '2022-06-05', 'Six Flags Membership'),
+    (1452, '2022-06-05', 'Six Flags Gift Card'),
+    (364, '2022-06-05', 'Six Flags Membership'),
+    (3597, '2022-06-05', 'Mastercard'),
+    (2309, '2022-06-06', 'Six Flags Membership'),
+    (1353, '2022-06-06', 'American Express'),
+    (2689, '2022-06-06', 'Six Flags Gift Card'),
+    (983, '2022-06-06', 'Paypal'),
+    (642, '2022-06-06', 'Visa'),
+    (3429, '2022-06-06', 'Paypal'),
+    (4808, '2022-06-06', 'Efectivo'),
+    (4358, '2022-06-06', 'Six Flags Membership'),
+    (2672, '2022-06-07', 'Six Flags Gift Card'),
+    (105, '2022-06-07', 'Mastercard'),
+    (4817, '2022-06-07', 'Mastercard'),
+    (1232, '2022-06-07', 'Visa'),
+    (1760, '2022-06-07', 'Mastercard'),
+    (413, '2022-06-07', 'Six Flags Membership'),
+    (4877, '2022-06-08', 'Efectivo'),
+    (2525, '2022-06-08', 'Visa'),
+    (4994, '2022-06-08', 'Visa'),
+    (2758, '2022-06-08', 'Six Flags Gift Card'),
+    (2333, '2022-06-08', 'Efectivo'),
+    (749, '2022-06-08', 'Mastercard'),
+    (3070, '2022-06-09', 'Six Flags Gift Card'),
+    (2540, '2022-06-09', 'Visa'),
+    (1843, '2022-06-09', 'Visa'),
+    (4320, '2022-06-09', 'American Express'),
+    (1315, '2022-06-09', 'Six Flags Gift Card'),
+    (1145, '2022-06-09', 'Paypal'),
+    (2135, '2022-06-10', 'Six Flags Membership'),
+    (468, '2022-06-10', 'Six Flags Gift Card'),
+    (1383, '2022-06-10', 'Six Flags Membership'),
+    (4265, '2022-06-10', 'Mastercard'),
+    (4076, '2022-06-10', 'Mastercard'),
+    (2977, '2022-06-11', 'Efectivo'),
+    (4378, '2022-06-11', 'Paypal'),
+    (641, '2022-06-11', 'Mastercard'),
+    (1206, '2022-06-11', 'Visa'),
+    (4713, '2022-06-11', 'American Express'),
+    (3139, '2022-06-11', 'Six Flags Membership'),
+    (3155, '2022-06-11', 'Paypal'),
+    (2210, '2022-06-12', 'Six Flags Membership'),
+    (2086, '2022-06-12', 'Efectivo'),
+    (1592, '2022-06-12', 'Mastercard'),
+    (2283, '2022-06-12', 'Visa'),
+    (3675, '2022-06-13', 'Efectivo'),
+    (2315, '2022-06-13', 'Efectivo'),
+    (1089, '2022-06-13', 'Six Flags Membership'),
+    (4012, '2022-06-13', 'Six Flags Membership'),
+    (3091, '2022-06-13', 'Efectivo'),
+    (1526, '2022-06-13', 'Mastercard'),
+    (756, '2022-06-13', 'Visa'),
+    (3145, '2022-06-14', 'Six Flags Membership'),
+    (3154, '2022-06-14', 'Six Flags Gift Card'),
+    (4546, '2022-06-14', 'Visa'),
+    (2495, '2022-06-14', 'Visa'),
+    (772, '2022-06-14', 'Visa'),
+    (1396, '2022-06-14', 'Six Flags Membership'),
+    (1484, '2022-06-15', 'Mastercard'),
+    (2102, '2022-06-15', 'Six Flags Membership'),
+    (4276, '2022-06-15', 'Six Flags Membership'),
+    (1903, '2022-06-16', 'Six Flags Membership'),
+    (4602, '2022-06-16', 'Efectivo'),
+    (3067, '2022-06-16', 'Six Flags Gift Card'),
+    (4945, '2022-06-16', 'American Express'),
+    (3729, '2022-06-16', 'American Express'),
+    (3562, '2022-06-16', 'Mastercard'),
+    (2573, '2022-06-16', 'American Express'),
+    (2417, '2022-06-17', 'Visa'),
+    (2469, '2022-06-17', 'Efectivo'),
+    (1964, '2022-06-17', 'Visa'),
+    (3491, '2022-06-17', 'Visa'),
+    (361, '2022-06-17', 'Efectivo'),
+    (3326, '2022-06-17', 'Six Flags Membership'),
+    (363, '2022-06-17', 'Six Flags Membership'),
+    (4990, '2022-06-17', 'Visa'),
+    (2533, '2022-06-17', 'Six Flags Gift Card'),
+    (488, '2022-06-17', 'Six Flags Gift Card'),
+    (2271, '2022-06-17', 'Paypal'),
+    (4068, '2022-06-18', 'Six Flags Gift Card'),
+    (2200, '2022-06-18', 'Six Flags Membership'),
+    (518, '2022-06-18', 'Mastercard'),
+    (1448, '2022-06-18', 'Paypal'),
+    (2029, '2022-06-18', 'American Express'),
+    (1834, '2022-06-18', 'American Express'),
+    (2334, '2022-06-18', 'Six Flags Gift Card'),
+    (1684, '2022-06-18', 'Six Flags Gift Card'),
+    (4062, '2022-06-18', 'American Express'),
+    (4987, '2022-06-18', 'American Express'),
+    (2527, '2022-06-19', 'Mastercard'),
+    (206, '2022-06-19', 'American Express'),
+    (4400, '2022-06-19', 'Efectivo'),
+    (1430, '2022-06-19', 'Six Flags Gift Card'),
+    (148, '2022-06-19', 'American Express'),
+    (301, '2022-06-19', 'Visa'),
+    (2747, '2022-06-19', 'Mastercard'),
+    (24, '2022-06-20', 'Mastercard'),
+    (4663, '2022-06-20', 'American Express'),
+    (1328, '2022-06-20', 'Paypal'),
+    (3577, '2022-06-20', 'Visa'),
+    (4887, '2022-06-20', 'American Express'),
+    (2655, '2022-06-21', 'Mastercard'),
+    (2394, '2022-06-21', 'Efectivo'),
+    (894, '2022-06-21', 'Mastercard'),
+    (772, '2022-06-21', 'Visa'),
+    (4361, '2022-06-21', 'Six Flags Membership'),
+    (4975, '2022-06-21', 'American Express'),
+    (1043, '2022-06-22', 'Paypal'),
+    (2776, '2022-06-22', 'American Express'),
+    (3917, '2022-06-22', 'Six Flags Gift Card'),
+    (4593, '2022-06-22', 'Visa'),
+    (3719, '2022-06-22', 'American Express'),
+    (4826, '2022-06-22', 'Paypal'),
+    (4715, '2022-06-22', 'Paypal'),
+    (1102, '2022-06-22', 'Paypal'),
+    (2946, '2022-06-22', 'Mastercard'),
+    (2413, '2022-06-22', 'Visa'),
+    (4506, '2022-06-23', 'Paypal'),
+    (3497, '2022-06-23', 'Mastercard'),
+    (878, '2022-06-23', 'American Express'),
+    (4999, '2022-06-23', 'Six Flags Gift Card'),
+    (2018, '2022-06-24', 'Visa'),
+    (1264, '2022-06-24', 'Visa'),
+    (2016, '2022-06-24', 'Visa'),
+    (223, '2022-06-24', 'Visa'),
+    (2976, '2022-06-24', 'Visa'),
+    (3983, '2022-06-24', 'Six Flags Membership'),
+    (2547, '2022-06-24', 'Paypal'),
+    (1064, '2022-06-24', 'Paypal'),
+    (282, '2022-06-24', 'Efectivo'),
+    (2692, '2022-06-24', 'Efectivo'),
+    (2230, '2022-06-24', 'Six Flags Gift Card'),
+    (846, '2022-06-25', 'Six Flags Gift Card'),
+    (1697, '2022-06-25', 'Six Flags Gift Card'),
+    (2836, '2022-06-25', 'Mastercard'),
+    (1323, '2022-06-25', 'Six Flags Membership'),
+    (430, '2022-06-25', 'American Express'),
+    (49, '2022-06-25', 'Visa'),
+    (2316, '2022-06-25', 'Six Flags Membership'),
+    (3369, '2022-06-25', 'Paypal'),
+    (3530, '2022-06-25', 'Visa'),
+    (2347, '2022-06-25', 'Visa'),
+    (4191, '2022-06-25', 'Visa'),
+    (4981, '2022-06-26', 'Paypal'),
+    (1642, '2022-06-26', 'Mastercard'),
+    (59, '2022-06-26', 'Mastercard'),
+    (1598, '2022-06-26', 'American Express'),
+    (3049, '2022-06-26', 'Mastercard'),
+    (3220, '2022-06-26', 'Efectivo'),
+    (2682, '2022-06-27', 'Efectivo'),
+    (2864, '2022-06-27', 'Paypal'),
+    (212, '2022-06-27', 'Six Flags Membership'),
+    (4962, '2022-06-27', 'Six Flags Gift Card'),
+    (3729, '2022-06-27', 'Six Flags Gift Card'),
+    (4829, '2022-06-28', 'Paypal'),
+    (1382, '2022-06-28', 'Visa'),
+    (473, '2022-06-28', 'Paypal'),
+    (4698, '2022-06-28', 'Visa'),
+    (3709, '2022-06-28', 'Six Flags Membership'),
+    (2302, '2022-06-29', 'American Express'),
+    (4533, '2022-06-29', 'Efectivo'),
+    (3372, '2022-06-29', 'Six Flags Gift Card'),
+    (1430, '2022-06-29', 'Efectivo'),
+    (4382, '2022-06-29', 'Six Flags Membership'),
+    (3695, '2022-06-29', 'Efectivo'),
+    (1257, '2022-06-29', 'Six Flags Gift Card'),
+    (143, '2022-06-30', 'Six Flags Gift Card'),
+    (4063, '2022-06-30', 'Paypal'),
+    (4158, '2022-06-30', 'Six Flags Membership'),
+    (1695, '2022-06-30', 'Six Flags Gift Card'),
+    (663, '2022-06-30', 'Mastercard'),
+    (139, '2022-06-30', 'Efectivo'),
+    (2033, '2022-07-01', 'Efectivo'),
+    (3945, '2022-07-01', 'Six Flags Gift Card'),
+    (4841, '2022-07-01', 'Six Flags Membership'),
+    (390, '2022-07-01', 'Six Flags Membership'),
+    (495, '2022-07-01', 'Visa'),
+    (4988, '2022-07-01', 'Paypal'),
+    (3532, '2022-07-01', 'Six Flags Gift Card'),
+    (877, '2022-07-01', 'Visa'),
+    (122, '2022-07-01', 'Six Flags Gift Card'),
+    (2802, '2022-07-01', 'Six Flags Gift Card'),
+    (4888, '2022-07-02', 'Visa'),
+    (970, '2022-07-02', 'Efectivo'),
+    (1587, '2022-07-02', 'Paypal'),
+    (169, '2022-07-02', 'Mastercard'),
+    (811, '2022-07-02', 'Paypal'),
+    (2335, '2022-07-03', 'Six Flags Membership'),
+    (2416, '2022-07-03', 'American Express'),
+    (2880, '2022-07-03', 'Paypal'),
+    (3856, '2022-07-03', 'American Express'),
+    (658, '2022-07-03', 'Efectivo'),
+    (4567, '2022-07-03', 'Mastercard'),
+    (710, '2022-07-03', 'Six Flags Membership'),
+    (2765, '2022-07-03', 'Efectivo'),
+    (3669, '2022-07-04', 'Efectivo'),
+    (1221, '2022-07-04', 'Mastercard'),
+    (3689, '2022-07-05', 'Efectivo'),
+    (429, '2022-07-05', 'Six Flags Membership'),
+    (4680, '2022-07-05', 'American Express'),
+    (1475, '2022-07-05', 'Six Flags Membership'),
+    (2816, '2022-07-05', 'Mastercard'),
+    (1479, '2022-07-05', 'Mastercard'),
+    (3172, '2022-07-05', 'Six Flags Gift Card'),
+    (4523, '2022-07-05', 'Visa'),
+    (1512, '2022-07-06', 'American Express'),
+    (2262, '2022-07-06', 'Mastercard'),
+    (720, '2022-07-06', 'Six Flags Gift Card'),
+    (2585, '2022-07-07', 'Visa'),
+    (1847, '2022-07-07', 'Paypal'),
+    (4463, '2022-07-07', 'Six Flags Membership'),
+    (804, '2022-07-07', 'Visa'),
+    (3954, '2022-07-07', 'Visa'),
+    (1775, '2022-07-08', 'American Express'),
+    (514, '2022-07-08', 'Six Flags Gift Card'),
+    (4145, '2022-07-08', 'Six Flags Membership'),
+    (3670, '2022-07-08', 'Visa'),
+    (3033, '2022-07-08', 'Six Flags Gift Card'),
+    (4954, '2022-07-08', 'Visa'),
+    (2947, '2022-07-08', 'Mastercard'),
+    (1505, '2022-07-08', 'Efectivo'),
+    (2567, '2022-07-08', 'Efectivo'),
+    (3493, '2022-07-08', 'American Express'),
+    (3387, '2022-07-09', 'Six Flags Gift Card'),
+    (3317, '2022-07-09', 'Six Flags Membership'),
+    (415, '2022-07-09', 'American Express'),
+    (2841, '2022-07-09', 'Visa'),
+    (4857, '2022-07-09', 'Paypal'),
+    (2108, '2022-07-10', 'American Express'),
+    (2701, '2022-07-10', 'Paypal'),
+    (3173, '2022-07-10', 'American Express'),
+    (2235, '2022-07-10', 'Paypal'),
+    (4484, '2022-07-10', 'Paypal'),
+    (3079, '2022-07-11', 'Six Flags Gift Card'),
+    (4923, '2022-07-11', 'Visa'),
+    (1530, '2022-07-11', 'Mastercard'),
+    (4604, '2022-07-11', 'Six Flags Membership'),
+    (374, '2022-07-11', 'American Express'),
+    (2183, '2022-07-11', 'Paypal'),
+    (1209, '2022-07-11', 'Visa'),
+    (2472, '2022-07-11', 'American Express'),
+    (1169, '2022-07-12', 'Six Flags Gift Card'),
+    (1076, '2022-07-12', 'Six Flags Gift Card'),
+    (143, '2022-07-12', 'Paypal'),
+    (333, '2022-07-12', 'Visa'),
+    (4850, '2022-07-12', 'Six Flags Gift Card'),
+    (4738, '2022-07-12', 'Efectivo'),
+    (1546, '2022-07-12', 'American Express'),
+    (4299, '2022-07-13', 'Six Flags Membership'),
+    (1274, '2022-07-13', 'Efectivo'),
+    (2667, '2022-07-13', 'Visa'),
+    (1471, '2022-07-13', 'Paypal'),
+    (336, '2022-07-13', 'Paypal'),
+    (3609, '2022-07-13', 'Efectivo'),
+    (3215, '2022-07-13', 'American Express'),
+    (3100, '2022-07-13', 'Efectivo'),
+    (2266, '2022-07-14', 'Mastercard'),
+    (3500, '2022-07-14', 'Six Flags Gift Card'),
+    (2924, '2022-07-14', 'Paypal'),
+    (3168, '2022-07-14', 'Mastercard'),
+    (3229, '2022-07-15', 'Six Flags Membership'),
+    (3152, '2022-07-15', 'Paypal'),
+    (1682, '2022-07-15', 'Paypal'),
+    (3819, '2022-07-15', 'Six Flags Membership'),
+    (2525, '2022-07-15', 'Six Flags Membership'),
+    (3027, '2022-07-16', 'Efectivo'),
+    (1112, '2022-07-16', 'Efectivo'),
+    (1050, '2022-07-16', 'Visa'),
+    (2369, '2022-07-16', 'American Express'),
+    (2570, '2022-07-16', 'American Express'),
+    (712, '2022-07-17', 'Six Flags Membership'),
+    (3576, '2022-07-17', 'Six Flags Gift Card'),
+    (3781, '2022-07-17', 'Six Flags Gift Card'),
+    (4110, '2022-07-17', 'American Express'),
+    (4776, '2022-07-17', 'Visa'),
+    (829, '2022-07-18', 'Six Flags Membership'),
+    (64, '2022-07-18', 'Efectivo'),
+    (4858, '2022-07-18', 'Visa'),
+    (673, '2022-07-18', 'Six Flags Gift Card'),
+    (3265, '2022-07-18', 'Six Flags Membership'),
+    (3742, '2022-07-18', 'Efectivo'),
+    (3569, '2022-07-18', 'Paypal'),
+    (1314, '2022-07-19', 'American Express'),
+    (3366, '2022-07-19', 'Paypal'),
+    (2418, '2022-07-19', 'Six Flags Gift Card'),
+    (507, '2022-07-19', 'Six Flags Gift Card'),
+    (1115, '2022-07-20', 'Six Flags Membership'),
+    (3599, '2022-07-20', 'Efectivo'),
+    (4600, '2022-07-20', 'Six Flags Gift Card'),
+    (1700, '2022-07-20', 'Visa'),
+    (4468, '2022-07-20', 'Mastercard'),
+    (3281, '2022-07-20', 'Six Flags Membership'),
+    (404, '2022-07-20', 'Paypal'),
+    (1280, '2022-07-20', 'Efectivo'),
+    (4317, '2022-07-20', 'Mastercard'),
+    (4359, '2022-07-20', 'Visa'),
+    (968, '2022-07-20', 'Six Flags Membership'),
+    (4694, '2022-07-21', 'American Express'),
+    (2587, '2022-07-21', 'Efectivo'),
+    (1133, '2022-07-21', 'Six Flags Membership'),
+    (4427, '2022-07-21', 'Paypal'),
+    (1802, '2022-07-21', 'Visa'),
+    (3784, '2022-07-22', 'Paypal'),
+    (3462, '2022-07-22', 'Visa'),
+    (3523, '2022-07-22', 'Mastercard'),
+    (3048, '2022-07-22', 'Six Flags Gift Card'),
+    (492, '2022-07-22', 'Six Flags Membership'),
+    (4584, '2022-07-22', 'American Express'),
+    (1353, '2022-07-22', 'Mastercard'),
+    (473, '2022-07-22', 'Mastercard'),
+    (510, '2022-07-22', 'Six Flags Membership'),
+    (1623, '2022-07-22', 'Six Flags Gift Card'),
+    (1104, '2022-07-23', 'Mastercard'),
+    (4213, '2022-07-23', 'Six Flags Gift Card'),
+    (3461, '2022-07-23', 'Six Flags Membership'),
+    (138, '2022-07-23', 'American Express'),
+    (4097, '2022-07-23', 'Visa'),
+    (3253, '2022-07-23', 'Efectivo'),
+    (2273, '2022-07-23', 'Six Flags Membership'),
+    (601, '2022-07-24', 'Efectivo'),
+    (2236, '2022-07-24', 'Efectivo'),
+    (1993, '2022-07-24', 'Six Flags Gift Card'),
+    (97, '2022-07-24', 'Efectivo'),
+    (3324, '2022-07-24', 'Paypal'),
+    (3459, '2022-07-24', 'Visa'),
+    (2030, '2022-07-24', 'Paypal'),
+    (267, '2022-07-25', 'Efectivo'),
+    (4295, '2022-07-25', 'Six Flags Gift Card'),
+    (2240, '2022-07-25', 'Paypal'),
+    (3673, '2022-07-25', 'Six Flags Membership'),
+    (1782, '2022-07-25', 'Six Flags Membership'),
+    (2990, '2022-07-26', 'Efectivo'),
+    (1614, '2022-07-26', 'American Express'),
+    (97, '2022-07-26', 'Paypal'),
+    (4616, '2022-07-26', 'Visa'),
+    (800, '2022-07-26', 'Visa'),
+    (251, '2022-07-26', 'Six Flags Gift Card'),
+    (1375, '2022-07-27', 'Mastercard'),
+    (4695, '2022-07-27', 'Visa'),
+    (1876, '2022-07-27', 'Efectivo'),
+    (514, '2022-07-27', 'Visa'),
+    (2833, '2022-07-28', 'Mastercard'),
+    (2305, '2022-07-28', 'Six Flags Membership'),
+    (137, '2022-07-28', 'Six Flags Gift Card'),
+    (1244, '2022-07-28', 'Visa'),
+    (2667, '2022-07-28', 'Mastercard'),
+    (4705, '2022-07-28', 'Mastercard'),
+    (2777, '2022-07-28', 'Visa'),
+    (4205, '2022-07-28', 'Six Flags Gift Card'),
+    (3916, '2022-07-29', 'Six Flags Membership'),
+    (2765, '2022-07-29', 'American Express'),
+    (326, '2022-07-29', 'Visa'),
+    (2677, '2022-07-29', 'Mastercard'),
+    (1782, '2022-07-29', 'Six Flags Membership'),
+    (4401, '2022-07-30', 'Six Flags Membership'),
+    (4533, '2022-07-30', 'Mastercard'),
+    (4062, '2022-07-30', 'American Express'),
+    (2512, '2022-07-30', 'Paypal'),
+    (381, '2022-07-30', 'American Express'),
+    (3393, '2022-07-30', 'Six Flags Membership'),
+    (1002, '2022-07-30', 'Six Flags Gift Card'),
+    (1704, '2022-07-30', 'Mastercard'),
+    (1105, '2022-07-30', 'Efectivo'),
+    (2589, '2022-07-30', 'Paypal'),
+    (4919, '2022-07-31', 'American Express'),
+    (2446, '2022-07-31', 'Efectivo'),
+    (1839, '2022-07-31', 'Paypal'),
+    (4303, '2022-07-31', 'Mastercard'),
+    (2570, '2022-07-31', 'Paypal'),
+    (471, '2022-07-31', 'Six Flags Gift Card'),
+    (705, '2022-08-01', 'American Express'),
+    (4248, '2022-08-01', 'Efectivo'),
+    (1891, '2022-08-01', 'Six Flags Gift Card'),
+    (1350, '2022-08-01', 'Six Flags Membership'),
+    (1151, '2022-08-01', 'Six Flags Membership'),
+    (893, '2022-08-02', 'Visa'),
+    (263, '2022-08-02', 'Six Flags Membership'),
+    (4595, '2022-08-02', 'Six Flags Membership'),
+    (2605, '2022-08-02', 'Six Flags Gift Card'),
+    (4175, '2022-08-02', 'Visa'),
+    (3425, '2022-08-02', 'Visa'),
+    (635, '2022-08-02', 'Efectivo'),
+    (340, '2022-08-02', 'Mastercard'),
+    (1432, '2022-08-03', 'Efectivo'),
+    (3372, '2022-08-03', 'Six Flags Gift Card'),
+    (3950, '2022-08-03', 'Six Flags Membership'),
+    (4464, '2022-08-03', 'Mastercard'),
+    (1180, '2022-08-03', 'Six Flags Gift Card'),
+    (1316, '2022-08-04', 'Mastercard'),
+    (2261, '2022-08-04', 'Mastercard'),
+    (1893, '2022-08-04', 'Efectivo'),
+    (2960, '2022-08-04', 'American Express'),
+    (3434, '2022-08-04', 'Paypal'),
+    (3594, '2022-08-04', 'Mastercard'),
+    (1059, '2022-08-04', 'Paypal'),
+    (1035, '2022-08-05', 'Paypal'),
+    (3997, '2022-08-05', 'Visa'),
+    (1902, '2022-08-05', 'Efectivo'),
+    (768, '2022-08-05', 'Visa'),
+    (540, '2022-08-05', 'Six Flags Gift Card'),
+    (3930, '2022-08-05', 'Six Flags Gift Card'),
+    (3662, '2022-08-06', 'Paypal'),
+    (1666, '2022-08-06', 'Six Flags Membership'),
+    (3242, '2022-08-06', 'Six Flags Gift Card'),
+    (4343, '2022-08-06', 'Six Flags Gift Card'),
+    (1115, '2022-08-06', 'Six Flags Membership'),
+    (264, '2022-08-07', 'Six Flags Gift Card'),
+    (549, '2022-08-07', 'Visa'),
+    (2550, '2022-08-07', 'American Express'),
+    (848, '2022-08-07', 'Paypal'),
+    (2346, '2022-08-07', 'Six Flags Membership'),
+    (3367, '2022-08-07', 'Six Flags Membership'),
+    (1321, '2022-08-07', 'Mastercard'),
+    (1084, '2022-08-07', 'American Express'),
+    (2382, '2022-08-07', 'Mastercard'),
+    (2242, '2022-08-07', 'Six Flags Membership'),
+    (1959, '2022-08-07', 'Six Flags Membership'),
+    (2153, '2022-08-07', 'Six Flags Gift Card'),
+    (4561, '2022-08-07', 'Paypal'),
+    (4802, '2022-08-08', 'Six Flags Membership'),
+    (1402, '2022-08-08', 'American Express'),
+    (2563, '2022-08-08', 'Six Flags Gift Card'),
+    (511, '2022-08-08', 'Paypal'),
+    (3125, '2022-08-08', 'Visa'),
+    (4571, '2022-08-08', 'Visa'),
+    (1035, '2022-08-09', 'Six Flags Membership'),
+    (1825, '2022-08-09', 'Six Flags Membership'),
+    (2360, '2022-08-09', 'Mastercard'),
+    (1289, '2022-08-09', 'Efectivo'),
+    (4697, '2022-08-09', 'Mastercard'),
+    (4560, '2022-08-09', 'Visa'),
+    (913, '2022-08-09', 'Six Flags Gift Card'),
+    (591, '2022-08-09', 'Paypal'),
+    (107, '2022-08-09', 'Six Flags Membership'),
+    (1520, '2022-08-10', 'American Express'),
+    (4423, '2022-08-10', 'Paypal'),
+    (3804, '2022-08-10', 'Visa'),
+    (3713, '2022-08-10', 'Efectivo'),
+    (1060, '2022-08-10', 'American Express'),
+    (384, '2022-08-10', 'American Express'),
+    (1326, '2022-08-10', 'Six Flags Membership'),
+    (4677, '2022-08-10', 'Paypal'),
+    (768, '2022-08-10', 'American Express'),
+    (884, '2022-08-10', 'Efectivo'),
+    (3017, '2022-08-11', 'Six Flags Membership'),
+    (307, '2022-08-11', 'Six Flags Gift Card'),
+    (343, '2022-08-11', 'Six Flags Gift Card'),
+    (1091, '2022-08-11', 'Mastercard'),
+    (257, '2022-08-11', 'Mastercard'),
+    (2838, '2022-08-11', 'Visa'),
+    (1212, '2022-08-11', 'American Express'),
+    (3128, '2022-08-11', 'American Express'),
+    (4147, '2022-08-11', 'Six Flags Membership'),
+    (53, '2022-08-11', 'Six Flags Membership'),
+    (4454, '2022-08-11', 'Efectivo'),
+    (1253, '2022-08-12', 'Mastercard'),
+    (3225, '2022-08-12', 'Visa'),
+    (3921, '2022-08-12', 'Efectivo'),
+    (4312, '2022-08-12', 'Visa'),
+    (2952, '2022-08-12', 'American Express'),
+    (3191, '2022-08-13', 'Efectivo'),
+    (661, '2022-08-13', 'Mastercard'),
+    (1162, '2022-08-13', 'Visa'),
+    (1535, '2022-08-13', 'Six Flags Membership'),
+    (3962, '2022-08-13', 'American Express'),
+    (4405, '2022-08-13', 'Paypal'),
+    (984, '2022-08-13', 'Mastercard'),
+    (799, '2022-08-13', 'Efectivo'),
+    (3646, '2022-08-14', 'Visa'),
+    (1970, '2022-08-14', 'Paypal'),
+    (1007, '2022-08-14', 'American Express'),
+    (3315, '2022-08-14', 'Six Flags Membership'),
+    (4491, '2022-08-14', 'American Express'),
+    (1143, '2022-08-14', 'Paypal'),
+    (4176, '2022-08-14', 'Mastercard'),
+    (4919, '2022-08-14', 'American Express'),
+    (4314, '2022-08-14', 'Paypal'),
+    (159, '2022-08-14', 'Six Flags Membership'),
+    (4095, '2022-08-15', 'Mastercard'),
+    (2544, '2022-08-15', 'Paypal'),
+    (2701, '2022-08-15', 'Six Flags Membership'),
+    (4146, '2022-08-15', 'Visa'),
+    (1728, '2022-08-15', 'Six Flags Membership'),
+    (1536, '2022-08-15', 'Mastercard'),
+    (2727, '2022-08-15', 'Six Flags Gift Card'),
+    (3660, '2022-08-15', 'Efectivo'),
+    (4186, '2022-08-16', 'American Express'),
+    (2861, '2022-08-16', 'Paypal'),
+    (2409, '2022-08-17', 'Paypal'),
+    (3100, '2022-08-17', 'American Express'),
+    (844, '2022-08-17', 'Six Flags Gift Card'),
+    (527, '2022-08-17', 'Efectivo'),
+    (3881, '2022-08-17', 'American Express'),
+    (4188, '2022-08-18', 'Efectivo'),
+    (70, '2022-08-18', 'Six Flags Membership'),
+    (941, '2022-08-18', 'Six Flags Gift Card'),
+    (4858, '2022-08-18', 'Efectivo'),
+    (3341, '2022-08-19', 'Six Flags Gift Card'),
+    (2916, '2022-08-19', 'Six Flags Membership'),
+    (506, '2022-08-19', 'Paypal'),
+    (2528, '2022-08-19', 'Six Flags Gift Card'),
+    (1696, '2022-08-19', 'Visa'),
+    (768, '2022-08-19', 'Visa'),
+    (2028, '2022-08-20', 'Six Flags Gift Card'),
+    (1054, '2022-08-20', 'Mastercard'),
+    (351, '2022-08-21', 'Six Flags Gift Card'),
+    (43, '2022-08-21', 'Mastercard'),
+    (1778, '2022-08-21', 'Six Flags Gift Card'),
+    (4969, '2022-08-21', 'Paypal'),
+    (276, '2022-08-21', 'Paypal'),
+    (3976, '2022-08-21', 'American Express'),
+    (4897, '2022-08-21', 'Mastercard'),
+    (4899, '2022-08-21', 'Paypal'),
+    (2169, '2022-08-21', 'Efectivo'),
+    (2149, '2022-08-21', 'Mastercard'),
+    (1476, '2022-08-21', 'Efectivo'),
+    (2024, '2022-08-22', 'Efectivo'),
+    (318, '2022-08-22', 'American Express'),
+    (3039, '2022-08-22', 'Efectivo'),
+    (3150, '2022-08-22', 'Visa'),
+    (4427, '2022-08-22', 'Paypal'),
+    (4207, '2022-08-22', 'Six Flags Gift Card'),
+    (767, '2022-08-23', 'Paypal'),
+    (3964, '2022-08-23', 'Efectivo'),
+    (910, '2022-08-23', 'Paypal'),
+    (2232, '2022-08-23', 'Mastercard'),
+    (2389, '2022-08-23', 'Efectivo'),
+    (3231, '2022-08-23', 'Six Flags Gift Card'),
+    (3594, '2022-08-23', 'Paypal'),
+    (4487, '2022-08-23', 'Efectivo'),
+    (4956, '2022-08-24', 'American Express'),
+    (4791, '2022-08-24', 'Six Flags Membership'),
+    (2387, '2022-08-24', 'Visa'),
+    (4837, '2022-08-24', 'Paypal'),
+    (59, '2022-08-24', 'Paypal'),
+    (2151, '2022-08-25', 'Visa'),
+    (2048, '2022-08-25', 'American Express'),
+    (2381, '2022-08-25', 'American Express'),
+    (1368, '2022-08-25', 'Six Flags Gift Card'),
+    (3344, '2022-08-25', 'Efectivo'),
+    (764, '2022-08-25', 'Six Flags Membership'),
+    (2943, '2022-08-25', 'Six Flags Gift Card'),
+    (21, '2022-08-26', 'Six Flags Gift Card'),
+    (2677, '2022-08-26', 'Visa'),
+    (1032, '2022-08-26', 'Six Flags Membership'),
+    (695, '2022-08-26', 'Mastercard'),
+    (2258, '2022-08-26', 'Six Flags Gift Card'),
+    (1155, '2022-08-26', 'American Express'),
+    (4246, '2022-08-26', 'Visa'),
+    (3204, '2022-08-26', 'Visa'),
+    (4383, '2022-08-26', 'American Express'),
+    (4281, '2022-08-26', 'Six Flags Gift Card'),
+    (4392, '2022-08-26', 'Mastercard'),
+    (4577, '2022-08-26', 'Paypal'),
+    (2762, '2022-08-27', 'Paypal'),
+    (136, '2022-08-27', 'Paypal'),
+    (2142, '2022-08-27', 'Paypal'),
+    (3940, '2022-08-27', 'American Express'),
+    (4580, '2022-08-27', 'American Express'),
+    (990, '2022-08-27', 'Efectivo'),
+    (3664, '2022-08-27', 'Paypal'),
+    (4584, '2022-08-27', 'Paypal'),
+    (4966, '2022-08-27', 'Six Flags Gift Card'),
+    (1707, '2022-08-27', 'Efectivo'),
+    (1680, '2022-08-28', 'Visa'),
+    (157, '2022-08-28', 'Efectivo'),
+    (3572, '2022-08-28', 'Visa'),
+    (4283, '2022-08-28', 'Six Flags Membership'),
+    (2732, '2022-08-28', 'Mastercard'),
+    (1343, '2022-08-28', 'Mastercard'),
+    (3401, '2022-08-28', 'Six Flags Membership'),
+    (3697, '2022-08-28', 'Mastercard'),
+    (4539, '2022-08-28', 'Visa'),
+    (4799, '2022-08-29', 'American Express'),
+    (1694, '2022-08-29', 'Visa'),
+    (1123, '2022-08-29', 'Six Flags Membership'),
+    (2037, '2022-08-29', 'Efectivo'),
+    (2074, '2022-08-30', 'Visa'),
+    (4324, '2022-08-30', 'Efectivo'),
+    (4090, '2022-08-30', 'Six Flags Membership'),
+    (582, '2022-08-30', 'Visa'),
+    (1205, '2022-08-30', 'Mastercard'),
+    (4731, '2022-08-30', 'Six Flags Gift Card'),
+    (4252, '2022-08-30', 'Visa'),
+    (495, '2022-08-30', 'Mastercard'),
+    (4682, '2022-08-30', 'American Express'),
+    (3633, '2022-08-30', 'Six Flags Membership'),
+    (3578, '2022-08-30', 'Paypal'),
+    (2550, '2022-08-30', 'Six Flags Gift Card'),
+    (3779, '2022-08-30', 'American Express'),
+    (4655, '2022-08-30', 'Visa'),
+    (598, '2022-08-30', 'Six Flags Gift Card'),
+    (3804, '2022-08-31', 'American Express'),
+    (3426, '2022-08-31', 'Visa'),
+    (4344, '2022-08-31', 'American Express'),
+    (362, '2022-08-31', 'American Express'),
+    (62, '2022-08-31', 'Paypal'),
+    (3398, '2022-08-31', 'Efectivo'),
+    (4675, '2022-08-31', 'Visa'),
+    (1141, '2022-09-01', 'Six Flags Membership'),
+    (2711, '2022-09-01', 'Six Flags Membership'),
+    (4851, '2022-09-01', 'Six Flags Gift Card'),
+    (2500, '2022-09-01', 'Visa'),
+    (1178, '2022-09-01', 'Six Flags Gift Card'),
+    (1172, '2022-09-01', 'Six Flags Gift Card'),
+    (3827, '2022-09-01', 'Paypal'),
+    (4605, '2022-09-02', 'Six Flags Membership'),
+    (2544, '2022-09-02', 'Visa'),
+    (3654, '2022-09-02', 'Efectivo'),
+    (4870, '2022-09-02', 'Efectivo'),
+    (652, '2022-09-02', 'American Express'),
+    (3353, '2022-09-02', 'American Express'),
+    (64, '2022-09-02', 'Efectivo'),
+    (1025, '2022-09-02', 'American Express'),
+    (2955, '2022-09-02', 'Six Flags Membership'),
+    (2313, '2022-09-02', 'Efectivo'),
+    (938, '2022-09-02', 'Paypal'),
+    (1922, '2022-09-02', 'Visa'),
+    (4698, '2022-09-03', 'American Express'),
+    (1781, '2022-09-03', 'American Express'),
+    (4267, '2022-09-03', 'Paypal'),
+    (586, '2022-09-03', 'Six Flags Gift Card'),
+    (946, '2022-09-03', 'American Express'),
+    (3991, '2022-09-03', 'Efectivo'),
+    (1743, '2022-09-03', 'American Express'),
+    (4289, '2022-09-03', 'Mastercard'),
+    (2122, '2022-09-03', 'American Express'),
+    (467, '2022-09-03', 'Mastercard'),
+    (1081, '2022-09-04', 'Six Flags Gift Card'),
+    (3758, '2022-09-04', 'Efectivo'),
+    (3288, '2022-09-04', 'American Express'),
+    (2365, '2022-09-04', 'Visa'),
+    (1295, '2022-09-04', 'American Express'),
+    (2123, '2022-09-04', 'American Express'),
+    (4094, '2022-09-04', 'Paypal'),
+    (936, '2022-09-04', 'American Express'),
+    (1536, '2022-09-04', 'Visa'),
+    (4896, '2022-09-05', 'Efectivo'),
+    (847, '2022-09-05', 'Six Flags Gift Card'),
+    (2250, '2022-09-05', 'Six Flags Membership'),
+    (1441, '2022-09-05', 'Paypal'),
+    (819, '2022-09-05', 'Paypal'),
+    (152, '2022-09-05', 'Visa'),
+    (4173, '2022-09-05', 'Mastercard'),
+    (1927, '2022-09-06', 'Paypal'),
+    (104, '2022-09-06', 'Six Flags Membership'),
+    (3997, '2022-09-06', 'Six Flags Membership'),
+    (3469, '2022-09-06', 'Six Flags Membership'),
+    (4993, '2022-09-06', 'American Express'),
+    (1962, '2022-09-06', 'Six Flags Membership'),
+    (3008, '2022-09-06', 'Paypal'),
+    (2901, '2022-09-06', 'Six Flags Membership'),
+    (2443, '2022-09-07', 'Mastercard'),
+    (1250, '2022-09-07', 'Visa'),
+    (4907, '2022-09-07', 'American Express'),
+    (1394, '2022-09-07', 'Six Flags Gift Card'),
+    (911, '2022-09-07', 'Mastercard'),
+    (4591, '2022-09-07', 'Efectivo'),
+    (2043, '2022-09-07', 'American Express'),
+    (4516, '2022-09-08', 'Visa'),
+    (1770, '2022-09-08', 'Six Flags Membership'),
+    (3082, '2022-09-08', 'Paypal'),
+    (3785, '2022-09-08', 'Visa'),
+    (3884, '2022-09-08', 'Efectivo'),
+    (2077, '2022-09-08', 'American Express'),
+    (4442, '2022-09-08', 'Visa'),
+    (271, '2022-09-08', 'American Express'),
+    (335, '2022-09-08', 'Visa'),
+    (2573, '2022-09-08', 'Six Flags Membership'),
+    (4056, '2022-09-09', 'American Express'),
+    (3926, '2022-09-09', 'Paypal'),
+    (448, '2022-09-09', 'Six Flags Membership'),
+    (1597, '2022-09-09', 'Efectivo'),
+    (2936, '2022-09-09', 'Six Flags Membership'),
+    (826, '2022-09-09', 'Mastercard'),
+    (64, '2022-09-09', 'Paypal'),
+    (1138, '2022-09-10', 'Efectivo'),
+    (3726, '2022-09-10', 'Six Flags Membership'),
+    (2674, '2022-09-10', 'Paypal'),
+    (3635, '2022-09-10', 'Mastercard'),
+    (428, '2022-09-10', 'Six Flags Membership'),
+    (160, '2022-09-10', 'Mastercard'),
+    (572, '2022-09-10', 'Efectivo'),
+    (3417, '2022-09-10', 'American Express'),
+    (3452, '2022-09-11', 'Mastercard'),
+    (3254, '2022-09-11', 'Paypal'),
+    (1788, '2022-09-11', 'Mastercard'),
+    (3484, '2022-09-11', 'Paypal'),
+    (2464, '2022-09-11', 'Efectivo'),
+    (352, '2022-09-11', 'Efectivo'),
+    (2308, '2022-09-12', 'Six Flags Gift Card'),
+    (4245, '2022-09-12', 'American Express'),
+    (302, '2022-09-12', 'Mastercard'),
+    (2949, '2022-09-13', 'Six Flags Gift Card'),
+    (304, '2022-09-13', 'Six Flags Membership'),
+    (4107, '2022-09-13', 'Paypal'),
+    (2271, '2022-09-13', 'Visa'),
+    (1337, '2022-09-13', 'Visa'),
+    (2013, '2022-09-13', 'Paypal'),
+    (3798, '2022-09-14', 'Paypal'),
+    (256, '2022-09-14', 'Six Flags Membership'),
+    (3565, '2022-09-14', 'Six Flags Membership'),
+    (3187, '2022-09-14', 'Paypal'),
+    (899, '2022-09-14', 'Six Flags Gift Card'),
+    (2762, '2022-09-14', 'Six Flags Gift Card'),
+    (430, '2022-09-14', 'Visa'),
+    (1866, '2022-09-15', 'American Express'),
+    (770, '2022-09-15', 'Six Flags Membership'),
+    (3309, '2022-09-15', 'American Express'),
+    (3266, '2022-09-15', 'Mastercard'),
+    (2060, '2022-09-15', 'Six Flags Gift Card'),
+    (3099, '2022-09-15', 'Paypal'),
+    (4091, '2022-09-15', 'Six Flags Gift Card'),
+    (1094, '2022-09-16', 'Six Flags Membership'),
+    (4081, '2022-09-16', 'Efectivo'),
+    (2085, '2022-09-16', 'American Express'),
+    (2381, '2022-09-16', 'Efectivo'),
+    (2070, '2022-09-16', 'Mastercard'),
+    (4703, '2022-09-16', 'Visa'),
+    (4522, '2022-09-16', 'Mastercard'),
+    (2767, '2022-09-16', 'Mastercard'),
+    (2944, '2022-09-16', 'Paypal'),
+    (575, '2022-09-17', 'Six Flags Membership'),
+    (3268, '2022-09-17', 'Six Flags Gift Card'),
+    (4854, '2022-09-17', 'Six Flags Gift Card'),
+    (3148, '2022-09-17', 'American Express'),
+    (3416, '2022-09-17', 'Visa'),
+    (138, '2022-09-17', 'Efectivo'),
+    (1618, '2022-09-17', 'American Express'),
+    (3460, '2022-09-17', 'Mastercard'),
+    (4212, '2022-09-17', 'Six Flags Gift Card'),
+    (4484, '2022-09-18', 'Visa'),
+    (4383, '2022-09-18', 'Six Flags Membership'),
+    (4161, '2022-09-18', 'Six Flags Gift Card'),
+    (4181, '2022-09-18', 'Visa'),
+    (4511, '2022-09-19', 'Visa'),
+    (1970, '2022-09-19', 'Six Flags Membership'),
+    (793, '2022-09-19', 'American Express'),
+    (1403, '2022-09-19', 'Visa'),
+    (3973, '2022-09-19', 'Visa'),
+    (2615, '2022-09-19', 'Visa'),
+    (1095, '2022-09-20', 'Paypal'),
+    (4179, '2022-09-20', 'Mastercard'),
+    (4684, '2022-09-20', 'Mastercard'),
+    (242, '2022-09-21', 'Six Flags Gift Card'),
+    (3660, '2022-09-21', 'Six Flags Gift Card'),
+    (4962, '2022-09-21', 'Visa'),
+    (2487, '2022-09-21', 'American Express'),
+    (4887, '2022-09-22', 'Six Flags Gift Card'),
+    (4735, '2022-09-22', 'American Express'),
+    (1497, '2022-09-22', 'Six Flags Gift Card'),
+    (4915, '2022-09-22', 'Six Flags Gift Card'),
+    (3773, '2022-09-22', 'Six Flags Gift Card'),
+    (2030, '2022-09-22', 'American Express'),
+    (2094, '2022-09-22', 'Mastercard'),
+    (1096, '2022-09-22', 'Efectivo'),
+    (781, '2022-09-22', 'Six Flags Gift Card'),
+    (3300, '2022-09-22', 'Efectivo'),
+    (1754, '2022-09-22', 'Six Flags Membership'),
+    (2522, '2022-09-23', 'Six Flags Gift Card'),
+    (3837, '2022-09-23', 'Six Flags Gift Card'),
+    (261, '2022-09-23', 'Six Flags Gift Card'),
+    (3844, '2022-09-23', 'Six Flags Gift Card'),
+    (4979, '2022-09-23', 'Six Flags Gift Card'),
+    (677, '2022-09-24', 'Six Flags Membership'),
+    (1858, '2022-09-24', 'Six Flags Gift Card'),
+    (2917, '2022-09-24', 'Six Flags Membership'),
+    (3875, '2022-09-24', 'Mastercard'),
+    (2002, '2022-09-24', 'Six Flags Gift Card'),
+    (2930, '2022-09-24', 'Paypal'),
+    (1812, '2022-09-24', 'Six Flags Membership'),
+    (3635, '2022-09-24', 'American Express'),
+    (3681, '2022-09-24', 'Six Flags Gift Card'),
+    (4928, '2022-09-25', 'American Express'),
+    (3334, '2022-09-25', 'Efectivo'),
+    (1328, '2022-09-25', 'Visa'),
+    (2916, '2022-09-25', 'Visa'),
+    (815, '2022-09-26', 'Six Flags Gift Card'),
+    (2479, '2022-09-26', 'Visa'),
+    (2357, '2022-09-26', 'Paypal'),
+    (4797, '2022-09-26', 'Visa'),
+    (3498, '2022-09-26', 'Mastercard'),
+    (497, '2022-09-26', 'Six Flags Membership'),
+    (3455, '2022-09-26', 'Visa'),
+    (2185, '2022-09-26', 'Visa'),
+    (2470, '2022-09-26', 'Visa'),
+    (3398, '2022-09-27', 'Visa'),
+    (4047, '2022-09-27', 'Paypal'),
+    (1897, '2022-09-27', 'Six Flags Membership'),
+    (680, '2022-09-27', 'Six Flags Membership'),
+    (580, '2022-09-27', 'Paypal'),
+    (2380, '2022-09-27', 'Mastercard'),
+    (4705, '2022-09-27', 'Six Flags Gift Card'),
+    (3300, '2022-09-27', 'American Express'),
+    (3035, '2022-09-27', 'Visa'),
+    (2375, '2022-09-27', 'Efectivo'),
+    (3147, '2022-09-28', 'Efectivo'),
+    (759, '2022-09-28', 'Six Flags Membership'),
+    (1818, '2022-09-28', 'Six Flags Membership'),
+    (647, '2022-09-29', 'Visa'),
+    (645, '2022-09-29', 'Six Flags Gift Card'),
+    (677, '2022-09-29', 'Mastercard'),
+    (1693, '2022-09-29', 'American Express'),
+    (2661, '2022-09-29', 'American Express'),
+    (4970, '2022-09-29', 'Mastercard'),
+    (2240, '2022-09-29', 'Visa'),
+    (2659, '2022-09-30', 'Six Flags Membership'),
+    (4988, '2022-09-30', 'Six Flags Gift Card'),
+    (3383, '2022-09-30', 'Mastercard'),
+    (1325, '2022-09-30', 'Mastercard'),
+    (4037, '2022-09-30', 'Mastercard'),
+    (3555, '2022-09-30', 'Visa'),
+    (4877, '2022-09-30', 'Paypal'),
+    (3397, '2022-09-30', 'Visa'),
+    (4460, '2022-09-30', 'Mastercard'),
+    (4364, '2022-09-30', 'Visa'),
+    (45, '2022-09-30', 'Six Flags Membership'),
+    (4364, '2022-09-30', 'Visa'),
+    (3719, '2022-10-01', 'American Express'),
+    (309, '2022-10-01', 'Visa'),
+    (574, '2022-10-01', 'Paypal'),
+    (4937, '2022-10-01', 'Visa'),
+    (2821, '2022-10-01', 'Efectivo'),
+    (315, '2022-10-01', 'Mastercard'),
+    (2624, '2022-10-01', 'American Express'),
+    (1005, '2022-10-01', 'Paypal'),
+    (4035, '2022-10-01', 'Mastercard'),
+    (2058, '2022-10-01', 'Paypal'),
+    (3551, '2022-10-01', 'Six Flags Gift Card'),
+    (3519, '2022-10-02', 'American Express'),
+    (3167, '2022-10-02', 'Visa'),
+    (1215, '2022-10-02', 'Six Flags Membership'),
+    (58, '2022-10-02', 'American Express'),
+    (202, '2022-10-02', 'Six Flags Membership'),
+    (1870, '2022-10-02', 'American Express'),
+    (1792, '2022-10-02', 'Six Flags Membership'),
+    (187, '2022-10-03', 'Mastercard'),
+    (984, '2022-10-03', 'American Express'),
+    (2355, '2022-10-03', 'Six Flags Membership'),
+    (132, '2022-10-03', 'American Express'),
+    (136, '2022-10-03', 'Six Flags Membership'),
+    (1376, '2022-10-03', 'Six Flags Gift Card'),
+    (2883, '2022-10-04', 'Six Flags Membership'),
+    (2756, '2022-10-04', 'Paypal'),
+    (4189, '2022-10-04', 'Efectivo'),
+    (3373, '2022-10-04', 'Visa'),
+    (1243, '2022-10-04', 'Visa'),
+    (2887, '2022-10-04', 'Six Flags Membership'),
+    (375, '2022-10-04', 'Efectivo'),
+    (3965, '2022-10-05', 'Six Flags Membership'),
+    (1825, '2022-10-05', 'Six Flags Gift Card'),
+    (2588, '2022-10-05', 'Efectivo'),
+    (4959, '2022-10-05', 'Paypal'),
+    (3997, '2022-10-05', 'Visa'),
+    (503, '2022-10-05', 'Mastercard'),
+    (331, '2022-10-05', 'Mastercard'),
+    (1580, '2022-10-05', 'American Express'),
+    (559, '2022-10-05', 'Six Flags Membership'),
+    (1048, '2022-10-05', 'Visa'),
+    (4914, '2022-10-05', 'Six Flags Membership'),
+    (1490, '2022-10-06', 'Six Flags Membership'),
+    (3705, '2022-10-06', 'Visa'),
+    (2884, '2022-10-06', 'Visa'),
+    (1379, '2022-10-06', 'Efectivo'),
+    (2080, '2022-10-06', 'Six Flags Gift Card'),
+    (2874, '2022-10-06', 'American Express'),
+    (1954, '2022-10-06', 'Efectivo'),
+    (1898, '2022-10-06', 'Mastercard'),
+    (3103, '2022-10-06', 'Efectivo'),
+    (4345, '2022-10-06', 'Efectivo'),
+    (179, '2022-10-06', 'Mastercard'),
+    (1448, '2022-10-06', 'Six Flags Membership'),
+    (999, '2022-10-06', 'Six Flags Membership'),
+    (1261, '2022-10-07', 'Mastercard'),
+    (2387, '2022-10-07', 'Visa'),
+    (3105, '2022-10-07', 'American Express'),
+    (1686, '2022-10-07', 'Mastercard'),
+    (4192, '2022-10-07', 'Paypal'),
+    (2818, '2022-10-07', 'American Express'),
+    (3830, '2022-10-07', 'Six Flags Membership'),
+    (3958, '2022-10-07', 'Visa'),
+    (178, '2022-10-07', 'Mastercard'),
+    (1968, '2022-10-08', 'Efectivo'),
+    (3205, '2022-10-08', 'Six Flags Membership'),
+    (4443, '2022-10-08', 'Six Flags Membership'),
+    (3901, '2022-10-08', 'Mastercard'),
+    (3430, '2022-10-08', 'Six Flags Membership'),
+    (3024, '2022-10-08', 'Six Flags Gift Card'),
+    (1418, '2022-10-08', 'Visa'),
+    (3222, '2022-10-08', 'American Express'),
+    (3413, '2022-10-08', 'American Express'),
+    (768, '2022-10-09', 'Paypal'),
+    (2222, '2022-10-09', 'American Express'),
+    (491, '2022-10-09', 'Paypal'),
+    (127, '2022-10-09', 'Visa'),
+    (2357, '2022-10-10', 'Paypal'),
+    (3535, '2022-10-10', 'Mastercard'),
+    (2830, '2022-10-10', 'Visa'),
+    (2003, '2022-10-10', 'Efectivo'),
+    (4677, '2022-10-10', 'Paypal'),
+    (4535, '2022-10-10', 'American Express'),
+    (383, '2022-10-10', 'Mastercard'),
+    (204, '2022-10-11', 'Efectivo'),
+    (4596, '2022-10-11', 'Paypal'),
+    (122, '2022-10-12', 'Efectivo'),
+    (3421, '2022-10-12', 'Visa'),
+    (1436, '2022-10-12', 'Visa'),
+    (4416, '2022-10-12', 'Six Flags Gift Card'),
+    (1306, '2022-10-12', 'Six Flags Membership'),
+    (85, '2022-10-12', 'Six Flags Membership'),
+    (1620, '2022-10-13', 'Mastercard'),
+    (784, '2022-10-13', 'Efectivo'),
+    (2855, '2022-10-13', 'Mastercard'),
+    (3009, '2022-10-13', 'Six Flags Membership'),
+    (2442, '2022-10-13', 'Visa'),
+    (1752, '2022-10-13', 'Visa'),
+    (1489, '2022-10-13', 'American Express'),
+    (107, '2022-10-14', 'Six Flags Membership'),
+    (4997, '2022-10-14', 'Paypal'),
+    (2156, '2022-10-14', 'American Express'),
+    (3498, '2022-10-14', 'Paypal'),
+    (2960, '2022-10-14', 'Paypal'),
+    (5000, '2022-10-14', 'Efectivo'),
+    (3652, '2022-10-14', 'American Express'),
+    (809, '2022-10-14', 'American Express'),
+    (3754, '2022-10-14', 'Efectivo'),
+    (4303, '2022-10-15', 'American Express'),
+    (2008, '2022-10-15', 'Efectivo'),
+    (584, '2022-10-15', 'American Express'),
+    (1579, '2022-10-15', 'Six Flags Gift Card'),
+    (2337, '2022-10-15', 'Paypal'),
+    (2655, '2022-10-15', 'American Express'),
+    (3455, '2022-10-15', 'American Express'),
+    (3798, '2022-10-15', 'Paypal'),
+    (1350, '2022-10-16', 'Six Flags Membership'),
+    (1817, '2022-10-16', 'Six Flags Gift Card'),
+    (4149, '2022-10-16', 'Efectivo'),
+    (1432, '2022-10-16', 'Six Flags Gift Card'),
+    (1410, '2022-10-16', 'American Express'),
+    (107, '2022-10-16', 'Efectivo'),
+    (479, '2022-10-16', 'Mastercard'),
+    (2055, '2022-10-17', 'Mastercard'),
+    (4848, '2022-10-17', 'Paypal'),
+    (1634, '2022-10-17', 'American Express'),
+    (1055, '2022-10-17', 'Six Flags Membership'),
+    (3701, '2022-10-18', 'American Express'),
+    (4967, '2022-10-18', 'Visa'),
+    (3482, '2022-10-18', 'American Express'),
+    (4684, '2022-10-18', 'Mastercard'),
+    (3197, '2022-10-18', 'Paypal'),
+    (1541, '2022-10-18', 'Visa'),
+    (4354, '2022-10-19', 'Paypal'),
+    (4233, '2022-10-19', 'Paypal'),
+    (1459, '2022-10-20', 'Visa'),
+    (4556, '2022-10-20', 'Mastercard'),
+    (280, '2022-10-20', 'Six Flags Gift Card'),
+    (3063, '2022-10-20', 'Visa'),
+    (1553, '2022-10-20', 'Visa'),
+    (3228, '2022-10-20', 'Visa'),
+    (3713, '2022-10-20', 'Mastercard'),
+    (3274, '2022-10-20', 'Six Flags Membership'),
+    (4562, '2022-10-20', 'Six Flags Gift Card'),
+    (2278, '2022-10-21', 'Visa'),
+    (333, '2022-10-21', 'Mastercard'),
+    (4329, '2022-10-21', 'Paypal'),
+    (1124, '2022-10-21', 'Visa'),
+    (1980, '2022-10-21', 'Six Flags Membership'),
+    (3231, '2022-10-21', 'Mastercard'),
+    (3317, '2022-10-21', 'Paypal'),
+    (353, '2022-10-22', 'Visa'),
+    (403, '2022-10-22', 'Six Flags Gift Card'),
+    (4223, '2022-10-22', 'American Express'),
+    (384, '2022-10-22', 'Visa'),
+    (3732, '2022-10-23', 'Six Flags Gift Card'),
+    (705, '2022-10-23', 'Paypal'),
+    (2750, '2022-10-23', 'Mastercard'),
+    (2753, '2022-10-23', 'American Express'),
+    (1343, '2022-10-23', 'Paypal'),
+    (2185, '2022-10-23', 'Paypal'),
+    (1042, '2022-10-23', 'Six Flags Gift Card'),
+    (4638, '2022-10-23', 'Paypal'),
+    (3704, '2022-10-23', 'Efectivo'),
+    (2632, '2022-10-23', 'Paypal'),
+    (3256, '2022-10-23', 'Efectivo'),
+    (1063, '2022-10-23', 'Paypal'),
+    (4940, '2022-10-24', 'Paypal'),
+    (909, '2022-10-24', 'American Express'),
+    (889, '2022-10-24', 'Six Flags Gift Card'),
+    (4883, '2022-10-24', 'Efectivo'),
+    (4534, '2022-10-24', 'Paypal'),
+    (1262, '2022-10-24', 'Mastercard'),
+    (4805, '2022-10-24', 'Mastercard'),
+    (4359, '2022-10-25', 'American Express'),
+    (1360, '2022-10-26', 'Visa'),
+    (1814, '2022-10-26', 'Mastercard'),
+    (4165, '2022-10-26', 'Six Flags Gift Card'),
+    (1906, '2022-10-26', 'Efectivo'),
+    (4514, '2022-10-26', 'Six Flags Gift Card'),
+    (773, '2022-10-26', 'Six Flags Membership'),
+    (1250, '2022-10-27', 'Mastercard'),
+    (918, '2022-10-27', 'Visa'),
+    (3894, '2022-10-27', 'American Express'),
+    (851, '2022-10-27', 'Paypal'),
+    (4904, '2022-10-27', 'American Express'),
+    (2409, '2022-10-27', 'Paypal'),
+    (2706, '2022-10-27', 'American Express'),
+    (2376, '2022-10-28', 'Six Flags Gift Card'),
+    (4118, '2022-10-28', 'Six Flags Gift Card'),
+    (3571, '2022-10-28', 'Visa'),
+    (3125, '2022-10-28', 'Six Flags Membership'),
+    (1054, '2022-10-28', 'Paypal'),
+    (1360, '2022-10-28', 'Six Flags Membership'),
+    (691, '2022-10-28', 'Six Flags Membership'),
+    (4388, '2022-10-28', 'Six Flags Membership'),
+    (4407, '2022-10-29', 'Efectivo'),
+    (2811, '2022-10-29', 'Six Flags Gift Card'),
+    (1312, '2022-10-29', 'Six Flags Membership'),
+    (610, '2022-10-29', 'American Express'),
+    (3293, '2022-10-29', 'American Express'),
+    (3674, '2022-10-29', 'Six Flags Gift Card'),
+    (32, '2022-10-29', 'Visa'),
+    (4507, '2022-10-30', 'Six Flags Gift Card'),
+    (4021, '2022-10-30', 'Visa'),
+    (2010, '2022-10-30', 'American Express'),
+    (4228, '2022-10-30', 'American Express'),
+    (3445, '2022-10-30', 'Six Flags Gift Card'),
+    (1940, '2022-10-30', 'Efectivo'),
+    (3908, '2022-10-30', 'Efectivo'),
+    (1615, '2022-10-31', 'Mastercard'),
+    (24, '2022-10-31', 'American Express'),
+    (3768, '2022-10-31', 'Visa'),
+    (4415, '2022-10-31', 'Six Flags Membership'),
+    (846, '2022-10-31', 'Paypal'),
+    (4626, '2022-10-31', 'American Express'),
+    (3613, '2022-11-01', 'Mastercard'),
+    (1966, '2022-11-01', 'Mastercard'),
+    (2168, '2022-11-01', 'Mastercard'),
+    (4734, '2022-11-01', 'Six Flags Membership'),
+    (4496, '2022-11-01', 'Six Flags Membership'),
+    (1707, '2022-11-02', 'Efectivo'),
+    (1519, '2022-11-02', 'Mastercard'),
+    (1832, '2022-11-02', 'American Express'),
+    (2047, '2022-11-02', 'Six Flags Gift Card'),
+    (3740, '2022-11-02', 'Paypal'),
+    (937, '2022-11-02', 'Visa'),
+    (670, '2022-11-02', 'Six Flags Gift Card'),
+    (2777, '2022-11-03', 'Efectivo'),
+    (4279, '2022-11-03', 'Six Flags Gift Card'),
+    (1048, '2022-11-03', 'Mastercard'),
+    (69, '2022-11-03', 'Mastercard'),
+    (2575, '2022-11-03', 'Six Flags Gift Card'),
+    (2870, '2022-11-03', 'Paypal'),
+    (3502, '2022-11-03', 'Six Flags Gift Card'),
+    (1397, '2022-11-04', 'Paypal'),
+    (284, '2022-11-04', 'Six Flags Gift Card'),
+    (3769, '2022-11-04', 'Paypal'),
+    (2584, '2022-11-04', 'Efectivo'),
+    (3323, '2022-11-05', 'Paypal'),
+    (2805, '2022-11-05', 'Paypal'),
+    (1222, '2022-11-05', 'Mastercard'),
+    (3847, '2022-11-05', 'Efectivo'),
+    (3740, '2022-11-05', 'Visa'),
+    (2298, '2022-11-05', 'Six Flags Membership'),
+    (4364, '2022-11-06', 'Six Flags Membership'),
+    (1644, '2022-11-06', 'Visa'),
+    (1812, '2022-11-06', 'Visa'),
+    (3228, '2022-11-06', 'Mastercard'),
+    (4142, '2022-11-06', 'American Express'),
+    (2900, '2022-11-06', 'Six Flags Gift Card'),
+    (2783, '2022-11-06', 'Visa'),
+    (2095, '2022-11-06', 'Visa'),
+    (4242, '2022-11-06', 'Six Flags Membership'),
+    (867, '2022-11-07', 'Paypal'),
+    (1805, '2022-11-07', 'Paypal'),
+    (929, '2022-11-07', 'Paypal'),
+    (1271, '2022-11-07', 'Mastercard'),
+    (358, '2022-11-07', 'American Express'),
+    (3410, '2022-11-08', 'Efectivo'),
+    (1997, '2022-11-08', 'Mastercard'),
+    (1045, '2022-11-08', 'Visa'),
+    (1595, '2022-11-08', 'Six Flags Gift Card'),
+    (3996, '2022-11-08', 'Six Flags Gift Card'),
+    (353, '2022-11-08', 'Six Flags Membership'),
+    (73, '2022-11-08', 'Efectivo'),
+    (3024, '2022-11-09', 'Six Flags Gift Card'),
+    (3045, '2022-11-09', 'Efectivo'),
+    (3252, '2022-11-09', 'Mastercard'),
+    (1263, '2022-11-09', 'American Express'),
+    (4816, '2022-11-09', 'Efectivo'),
+    (4879, '2022-11-09', 'American Express'),
+    (2036, '2022-11-09', 'Six Flags Membership'),
+    (4591, '2022-11-09', 'American Express'),
+    (3623, '2022-11-09', 'American Express'),
+    (4490, '2022-11-09', 'Six Flags Membership'),
+    (3940, '2022-11-10', 'Visa'),
+    (4212, '2022-11-10', 'Visa'),
+    (3188, '2022-11-10', 'Paypal'),
+    (4518, '2022-11-10', 'Mastercard'),
+    (2083, '2022-11-10', 'American Express'),
+    (2219, '2022-11-10', 'Paypal'),
+    (4335, '2022-11-10', 'Mastercard'),
+    (961, '2022-11-10', 'Six Flags Membership'),
+    (513, '2022-11-11', 'American Express'),
+    (389, '2022-11-11', 'Six Flags Membership'),
+    (1297, '2022-11-11', 'Visa'),
+    (2242, '2022-11-11', 'Efectivo'),
+    (1051, '2022-11-12', 'Visa'),
+    (295, '2022-11-12', 'Efectivo'),
+    (783, '2022-11-12', 'Paypal'),
+    (784, '2022-11-12', 'Paypal'),
+    (2577, '2022-11-12', 'Visa'),
+    (2677, '2022-11-12', 'American Express'),
+    (355, '2022-11-13', 'American Express'),
+    (727, '2022-11-13', 'Visa'),
+    (4538, '2022-11-13', 'Paypal'),
+    (4685, '2022-11-13', 'Mastercard'),
+    (4315, '2022-11-14', 'American Express'),
+    (4441, '2022-11-14', 'Paypal'),
+    (2659, '2022-11-14', 'Efectivo'),
+    (188, '2022-11-14', 'Efectivo'),
+    (1062, '2022-11-14', 'Efectivo'),
+    (4448, '2022-11-14', 'American Express'),
+    (3119, '2022-11-14', 'Six Flags Membership'),
+    (1149, '2022-11-14', 'American Express'),
+    (2232, '2022-11-14', 'Paypal'),
+    (4693, '2022-11-14', 'Visa'),
+    (3250, '2022-11-14', 'Six Flags Membership'),
+    (206, '2022-11-14', 'Visa'),
+    (4089, '2022-11-14', 'Mastercard'),
+    (1381, '2022-11-15', 'Paypal'),
+    (2301, '2022-11-15', 'Six Flags Membership'),
+    (2906, '2022-11-15', 'Six Flags Membership'),
+    (918, '2022-11-15', 'Six Flags Membership'),
+    (2038, '2022-11-15', 'Efectivo'),
+    (904, '2022-11-15', 'Paypal'),
+    (2011, '2022-11-15', 'Efectivo'),
+    (801, '2022-11-15', 'Six Flags Gift Card'),
+    (2209, '2022-11-16', 'Six Flags Membership'),
+    (4064, '2022-11-16', 'Paypal'),
+    (1358, '2022-11-16', 'Six Flags Membership'),
+    (2182, '2022-11-16', 'Mastercard'),
+    (1719, '2022-11-16', 'Six Flags Gift Card'),
+    (1473, '2022-11-16', 'American Express'),
+    (4499, '2022-11-16', 'Six Flags Membership'),
+    (2787, '2022-11-16', 'Mastercard'),
+    (1245, '2022-11-16', 'American Express'),
+    (1076, '2022-11-16', 'Six Flags Gift Card'),
+    (991, '2022-11-16', 'Efectivo'),
+    (2320, '2022-11-16', 'Six Flags Membership'),
+    (2275, '2022-11-17', 'Mastercard'),
+    (3951, '2022-11-17', 'Six Flags Gift Card'),
+    (2675, '2022-11-17', 'Paypal'),
+    (1328, '2022-11-17', 'Paypal'),
+    (2814, '2022-11-17', 'Efectivo'),
+    (2397, '2022-11-17', 'Six Flags Gift Card'),
+    (2232, '2022-11-18', 'Six Flags Membership'),
+    (1505, '2022-11-18', 'American Express'),
+    (2087, '2022-11-18', 'Six Flags Membership'),
+    (1589, '2022-11-18', 'Paypal'),
+    (283, '2022-11-18', 'Mastercard'),
+    (1508, '2022-11-18', 'Efectivo'),
+    (1589, '2022-11-19', 'Six Flags Membership'),
+    (3636, '2022-11-19', 'Visa'),
+    (2030, '2022-11-19', 'Six Flags Gift Card'),
+    (164, '2022-11-19', 'Efectivo'),
+    (4962, '2022-11-19', 'Six Flags Membership'),
+    (4969, '2022-11-19', 'Six Flags Membership'),
+    (2042, '2022-11-19', 'American Express'),
+    (1133, '2022-11-20', 'American Express'),
+    (3250, '2022-11-20', 'Six Flags Gift Card'),
+    (2019, '2022-11-20', 'American Express'),
+    (2211, '2022-11-20', 'Mastercard'),
+    (2606, '2022-11-20', 'Efectivo'),
+    (1175, '2022-11-20', 'Six Flags Membership'),
+    (4196, '2022-11-21', 'Six Flags Membership'),
+    (4759, '2022-11-21', 'Paypal'),
+    (2761, '2022-11-21', 'Efectivo'),
+    (583, '2022-11-21', 'Six Flags Membership'),
+    (1391, '2022-11-21', 'American Express'),
+    (1810, '2022-11-22', 'Visa'),
+    (4221, '2022-11-22', 'Mastercard'),
+    (2921, '2022-11-22', 'American Express'),
+    (2788, '2022-11-22', 'Paypal'),
+    (2565, '2022-11-22', 'Six Flags Membership'),
+    (1170, '2022-11-22', 'Paypal'),
+    (1915, '2022-11-22', 'American Express'),
+    (4607, '2022-11-22', 'American Express'),
+    (1629, '2022-11-23', 'Six Flags Gift Card'),
+    (3260, '2022-11-23', 'Mastercard'),
+    (880, '2022-11-23', 'Visa'),
+    (1873, '2022-11-23', 'Visa'),
+    (1033, '2022-11-23', 'Efectivo'),
+    (325, '2022-11-23', 'Visa'),
+    (3107, '2022-11-23', 'Mastercard'),
+    (2662, '2022-11-24', 'Six Flags Gift Card'),
+    (4907, '2022-11-24', 'Six Flags Gift Card'),
+    (3469, '2022-11-24', 'Paypal'),
+    (1225, '2022-11-24', 'Visa'),
+    (504, '2022-11-24', 'Paypal'),
+    (1146, '2022-11-24', 'Visa'),
+    (3639, '2022-11-24', 'Visa'),
+    (3572, '2022-11-25', 'American Express'),
+    (1053, '2022-11-25', 'Visa'),
+    (4469, '2022-11-25', 'Six Flags Membership'),
+    (3821, '2022-11-25', 'Six Flags Membership'),
+    (68, '2022-11-25', 'American Express'),
+    (1679, '2022-11-25', 'Six Flags Gift Card'),
+    (3522, '2022-11-25', 'Efectivo'),
+    (884, '2022-11-25', 'American Express'),
+    (3354, '2022-11-25', 'Efectivo'),
+    (844, '2022-11-26', 'Efectivo'),
+    (1395, '2022-11-26', 'Six Flags Gift Card'),
+    (4586, '2022-11-26', 'Six Flags Gift Card'),
+    (816, '2022-11-26', 'Visa'),
+    (3766, '2022-11-27', 'Visa'),
+    (3293, '2022-11-27', 'Visa'),
+    (4013, '2022-11-27', 'Visa'),
+    (2882, '2022-11-27', 'Efectivo'),
+    (4168, '2022-11-27', 'Efectivo'),
+    (1042, '2022-11-27', 'Six Flags Membership'),
+    (94, '2022-11-27', 'Six Flags Membership'),
+    (3277, '2022-11-27', 'Visa'),
+    (469, '2022-11-28', 'Efectivo'),
+    (4462, '2022-11-28', 'Efectivo'),
+    (2695, '2022-11-28', 'Six Flags Gift Card'),
+    (3235, '2022-11-28', 'Six Flags Membership'),
+    (3839, '2022-11-29', 'Efectivo'),
+    (1737, '2022-11-29', 'American Express'),
+    (4009, '2022-11-29', 'Six Flags Membership'),
+    (35, '2022-11-29', 'American Express'),
+    (1163, '2022-11-29', 'Six Flags Gift Card'),
+    (2673, '2022-11-29', 'Six Flags Membership'),
+    (2235, '2022-11-29', 'Efectivo'),
+    (1180, '2022-11-30', 'Paypal'),
+    (2333, '2022-11-30', 'Six Flags Membership'),
+    (4035, '2022-11-30', 'Paypal'),
+    (911, '2022-11-30', 'Mastercard'),
+    (167, '2022-11-30', 'American Express'),
+    (3241, '2022-11-30', 'Paypal'),
+    (1951, '2022-12-01', 'Visa'),
+    (3216, '2022-12-01', 'Visa'),
+    (3204, '2022-12-01', 'Visa'),
+    (1634, '2022-12-01', 'Mastercard'),
+    (4823, '2022-12-01', 'American Express'),
+    (2963, '2022-12-01', 'Visa'),
+    (1311, '2022-12-01', 'Paypal'),
+    (1264, '2022-12-01', 'Mastercard'),
+    (137, '2022-12-01', 'Six Flags Membership'),
+    (1600, '2022-12-02', 'Visa'),
+    (1203, '2022-12-02', 'Paypal'),
+    (3996, '2022-12-02', 'Paypal'),
+    (1867, '2022-12-02', 'Paypal'),
+    (1867, '2022-12-03', 'Visa'),
+    (2177, '2022-12-03', 'Six Flags Membership'),
+    (4423, '2022-12-03', 'Efectivo'),
+    (4731, '2022-12-03', 'Paypal'),
+    (2136, '2022-12-03', 'American Express'),
+    (1271, '2022-12-03', 'Efectivo'),
+    (3751, '2022-12-03', 'Six Flags Membership'),
+    (2897, '2022-12-04', 'American Express'),
+    (4547, '2022-12-04', 'Mastercard'),
+    (4270, '2022-12-04', 'Six Flags Membership'),
+    (3219, '2022-12-04', 'Mastercard'),
+    (4158, '2022-12-04', 'Six Flags Membership'),
+    (2224, '2022-12-04', 'American Express'),
+    (4337, '2022-12-04', 'Visa'),
+    (135, '2022-12-04', 'Six Flags Gift Card'),
+    (642, '2022-12-04', 'American Express'),
+    (1710, '2022-12-05', 'American Express'),
+    (4651, '2022-12-05', 'Six Flags Membership'),
+    (13, '2022-12-05', 'Efectivo'),
+    (424, '2022-12-05', 'Six Flags Gift Card'),
+    (1578, '2022-12-06', 'Paypal'),
+    (109, '2022-12-06', 'Mastercard'),
+    (80, '2022-12-06', 'Mastercard'),
+    (3916, '2022-12-06', 'Six Flags Membership'),
+    (520, '2022-12-06', 'Mastercard'),
+    (1752, '2022-12-07', 'Mastercard'),
+    (1329, '2022-12-07', 'American Express'),
+    (2674, '2022-12-07', 'Six Flags Membership'),
+    (1506, '2022-12-07', 'Visa'),
+    (3110, '2022-12-07', 'American Express'),
+    (4176, '2022-12-07', 'Paypal'),
+    (2025, '2022-12-07', 'Visa'),
+    (822, '2022-12-08', 'Six Flags Gift Card'),
+    (1024, '2022-12-08', 'Visa'),
+    (460, '2022-12-08', 'American Express'),
+    (2943, '2022-12-08', 'Efectivo'),
+    (2026, '2022-12-08', 'Six Flags Gift Card'),
+    (2815, '2022-12-08', 'Mastercard'),
+    (4072, '2022-12-09', 'Visa'),
+    (3598, '2022-12-09', 'Efectivo'),
+    (3122, '2022-12-09', 'American Express'),
+    (3270, '2022-12-09', 'Six Flags Gift Card'),
+    (3733, '2022-12-09', 'Paypal'),
+    (4469, '2022-12-09', 'Mastercard'),
+    (1688, '2022-12-09', 'Mastercard'),
+    (1469, '2022-12-09', 'Paypal'),
+    (4965, '2022-12-09', 'Paypal'),
+    (2044, '2022-12-09', 'American Express'),
+    (3958, '2022-12-09', 'Paypal'),
+    (711, '2022-12-09', 'American Express'),
+    (2208, '2022-12-10', 'Mastercard'),
+    (443, '2022-12-10', 'Efectivo'),
+    (4570, '2022-12-10', 'American Express'),
+    (26, '2022-12-10', 'Six Flags Gift Card'),
+    (4753, '2022-12-10', 'American Express'),
+    (449, '2022-12-10', 'Visa'),
+    (1142, '2022-12-10', 'Six Flags Membership'),
+    (1660, '2022-12-10', 'Six Flags Membership'),
+    (1798, '2022-12-11', 'Paypal'),
+    (2520, '2022-12-11', 'American Express'),
+    (4768, '2022-12-11', 'Six Flags Gift Card'),
+    (100, '2022-12-11', 'Six Flags Membership'),
+    (3348, '2022-12-11', 'Mastercard'),
+    (1022, '2022-12-11', 'Visa'),
+    (1377, '2022-12-11', 'Efectivo'),
+    (720, '2022-12-11', 'Mastercard'),
+    (4844, '2022-12-11', 'Mastercard'),
+    (2519, '2022-12-12', 'American Express'),
+    (803, '2022-12-12', 'Paypal'),
+    (1056, '2022-12-12', 'Six Flags Membership'),
+    (3075, '2022-12-12', 'Efectivo'),
+    (2570, '2022-12-12', 'Efectivo'),
+    (766, '2022-12-12', 'Efectivo'),
+    (313, '2022-12-12', 'Visa'),
+    (1107, '2022-12-12', 'Paypal'),
+    (1902, '2022-12-12', 'Paypal'),
+    (1766, '2022-12-12', 'Six Flags Gift Card'),
+    (1855, '2022-12-13', 'Six Flags Gift Card'),
+    (1444, '2022-12-13', 'Visa'),
+    (3718, '2022-12-13', 'Six Flags Gift Card'),
+    (3036, '2022-12-13', 'Visa'),
+    (4185, '2022-12-13', 'Efectivo'),
+    (3027, '2022-12-13', 'Six Flags Gift Card'),
+    (455, '2022-12-13', 'Six Flags Membership'),
+    (3846, '2022-12-14', 'Six Flags Membership'),
+    (3576, '2022-12-14', 'Six Flags Gift Card'),
+    (2178, '2022-12-14', 'Six Flags Gift Card'),
+    (1338, '2022-12-14', 'Paypal'),
+    (1602, '2022-12-14', 'Six Flags Membership'),
+    (3969, '2022-12-15', 'Six Flags Membership'),
+    (3310, '2022-12-15', 'Efectivo'),
+    (334, '2022-12-15', 'Six Flags Membership'),
+    (318, '2022-12-15', 'Six Flags Gift Card'),
+    (4813, '2022-12-15', 'Six Flags Membership'),
+    (472, '2022-12-15', 'Six Flags Membership'),
+    (4158, '2022-12-15', 'Paypal'),
+    (1817, '2022-12-15', 'Six Flags Gift Card'),
+    (2314, '2022-12-16', 'Visa'),
+    (160, '2022-12-16', 'Visa'),
+    (2410, '2022-12-16', 'American Express'),
+    (1826, '2022-12-16', 'Efectivo'),
+    (1475, '2022-12-16', 'Mastercard'),
+    (3298, '2022-12-16', 'Mastercard'),
+    (107, '2022-12-16', 'American Express'),
+    (1897, '2022-12-16', 'Mastercard'),
+    (2125, '2022-12-16', 'Mastercard'),
+    (1573, '2022-12-16', 'Six Flags Gift Card'),
+    (3008, '2022-12-16', 'Paypal'),
+    (1989, '2022-12-16', 'Mastercard'),
+    (777, '2022-12-16', 'Paypal'),
+    (708, '2022-12-17', 'Six Flags Gift Card'),
+    (3670, '2022-12-17', 'Visa'),
+    (1231, '2022-12-17', 'Mastercard'),
+    (1431, '2022-12-17', 'American Express'),
+    (4194, '2022-12-17', 'Mastercard'),
+    (4791, '2022-12-17', 'Mastercard'),
+    (1161, '2022-12-17', 'Six Flags Membership'),
+    (797, '2022-12-17', 'American Express'),
+    (4127, '2022-12-17', 'Visa'),
+    (3950, '2022-12-18', 'American Express'),
+    (1674, '2022-12-18', 'Six Flags Membership'),
+    (107, '2022-12-18', 'Efectivo'),
+    (2518, '2022-12-18', 'Six Flags Gift Card'),
+    (1079, '2022-12-18', 'Six Flags Gift Card'),
+    (4528, '2022-12-19', 'Efectivo'),
+    (4818, '2022-12-19', 'Mastercard'),
+    (2447, '2022-12-19', 'Efectivo'),
+    (2339, '2022-12-19', 'Visa'),
+    (1359, '2022-12-19', 'Six Flags Membership'),
+    (4743, '2022-12-19', 'American Express'),
+    (2326, '2022-12-19', 'Efectivo'),
+    (4178, '2022-12-19', 'Six Flags Membership'),
+    (1832, '2022-12-20', 'Visa'),
+    (2762, '2022-12-20', 'Efectivo'),
+    (3169, '2022-12-20', 'Six Flags Membership'),
+    (653, '2022-12-21', 'Paypal'),
+    (1085, '2022-12-21', 'Six Flags Gift Card'),
+    (2586, '2022-12-21', 'American Express'),
+    (766, '2022-12-21', 'Six Flags Gift Card'),
+    (3415, '2022-12-21', 'Six Flags Gift Card'),
+    (3006, '2022-12-22', 'Mastercard'),
+    (2213, '2022-12-22', 'Paypal'),
+    (3888, '2022-12-22', 'American Express'),
+    (1003, '2022-12-22', 'Six Flags Membership'),
+    (3774, '2022-12-23', 'Paypal'),
+    (4873, '2022-12-23', 'Six Flags Gift Card'),
+    (1939, '2022-12-23', 'Visa'),
+    (1055, '2022-12-23', 'Paypal'),
+    (3015, '2022-12-23', 'American Express'),
+    (4831, '2022-12-24', 'Six Flags Membership'),
+    (607, '2022-12-24', 'Paypal'),
+    (3025, '2022-12-24', 'Paypal'),
+    (1209, '2022-12-24', 'American Express'),
+    (2193, '2022-12-24', 'Six Flags Membership'),
+    (4276, '2022-12-24', 'Visa'),
+    (4908, '2022-12-25', 'American Express'),
+    (616, '2022-12-25', 'Visa'),
+    (2656, '2022-12-25', 'Visa'),
+    (4299, '2022-12-25', 'Paypal'),
+    (373, '2022-12-25', 'Six Flags Gift Card'),
+    (3891, '2022-12-25', 'Six Flags Membership'),
+    (1149, '2022-12-26', 'Paypal'),
+    (1659, '2022-12-26', 'Paypal'),
+    (2113, '2022-12-26', 'Mastercard'),
+    (4335, '2022-12-26', 'Mastercard'),
+    (4437, '2022-12-26', 'Paypal'),
+    (3021, '2022-12-26', 'Paypal'),
+    (2636, '2022-12-26', 'Paypal'),
+    (3992, '2022-12-26', 'Visa'),
+    (2562, '2022-12-26', 'Efectivo'),
+    (1256, '2022-12-27', 'American Express'),
+    (192, '2022-12-27', 'Six Flags Membership'),
+    (169, '2022-12-27', 'Mastercard'),
+    (1037, '2022-12-27', 'Paypal'),
+    (2838, '2022-12-27', 'Paypal'),
+    (4049, '2022-12-27', 'Mastercard'),
+    (4424, '2022-12-27', 'Six Flags Membership'),
+    (1508, '2022-12-28', 'Six Flags Gift Card'),
+    (3889, '2022-12-28', 'American Express'),
+    (4592, '2022-12-28', 'Mastercard'),
+    (3130, '2022-12-28', 'Six Flags Gift Card'),
+    (4857, '2022-12-28', 'Six Flags Gift Card'),
+    (1859, '2022-12-28', 'Six Flags Membership'),
+    (3220, '2022-12-28', 'Six Flags Gift Card'),
+    (3563, '2022-12-28', 'Six Flags Gift Card'),
+    (4714, '2022-12-28', 'Visa'),
+    (1189, '2022-12-28', 'American Express'),
+    (4886, '2022-12-29', 'Mastercard'),
+    (1521, '2022-12-29', 'American Express'),
+    (4033, '2022-12-29', 'American Express'),
+    (2841, '2022-12-29', 'Efectivo'),
+    (2770, '2022-12-29', 'Six Flags Membership'),
+    (2609, '2022-12-29', 'Visa'),
+    (1348, '2022-12-29', 'Paypal'),
+    (3139, '2022-12-29', 'Six Flags Membership'),
+    (8, '2022-12-29', 'Paypal'),
+    (2576, '2022-12-29', 'Six Flags Membership'),
+    (1094, '2022-12-30', 'Mastercard'),
+    (1855, '2022-12-30', 'Paypal'),
+    (221, '2022-12-30', 'Efectivo'),
+    (708, '2022-12-30', 'American Express'),
+    (855, '2022-12-30', 'American Express'),
+    (228, '2022-12-30', 'Efectivo'),
+    (792, '2022-12-30', 'Six Flags Membership'),
+    (1037, '2022-12-31', 'American Express'),
+    (351, '2022-12-31', 'American Express'),
+    (2775, '2022-12-31', 'Six Flags Membership'),
+    (2182, '2022-12-31', 'Paypal'),
+    (2719, '2022-12-31', 'Six Flags Membership'),
+    (3043, '2022-12-31', 'Six Flags Membership'),
+    (362, '2023-01-01', 'Mastercard'),
+    (1657, '2023-01-01', 'Six Flags Gift Card'),
+    (4355, '2023-01-01', 'Six Flags Membership'),
+    (2181, '2023-01-01', 'Visa'),
+    (2264, '2023-01-01', 'Paypal'),
+    (4663, '2023-01-01', 'Six Flags Membership'),
+    (71, '2023-01-02', 'Efectivo'),
+    (156, '2023-01-02', 'Mastercard'),
+    (2526, '2023-01-02', 'Mastercard'),
+    (1904, '2023-01-02', 'Six Flags Gift Card'),
+    (1861, '2023-01-02', 'American Express'),
+    (1822, '2023-01-02', 'American Express'),
+    (1569, '2023-01-02', 'Visa'),
+    (4864, '2023-01-02', 'American Express'),
+    (2168, '2023-01-02', 'Efectivo'),
+    (4923, '2023-01-02', 'Six Flags Gift Card'),
+    (1659, '2023-01-02', 'Six Flags Gift Card'),
+    (3684, '2023-01-02', 'Six Flags Gift Card'),
+    (241, '2023-01-02', 'American Express'),
+    (2822, '2023-01-03', 'Paypal'),
+    (1357, '2023-01-03', 'Paypal'),
+    (4792, '2023-01-03', 'Efectivo'),
+    (3684, '2023-01-03', 'Paypal'),
+    (727, '2023-01-03', 'Six Flags Membership'),
+    (3730, '2023-01-03', 'Mastercard'),
+    (4870, '2023-01-03', 'Mastercard'),
+    (1742, '2023-01-04', 'Visa'),
+    (1299, '2023-01-04', 'American Express'),
+    (654, '2023-01-04', 'Six Flags Gift Card'),
+    (3966, '2023-01-04', 'American Express'),
+    (356, '2023-01-04', 'Mastercard'),
+    (1714, '2023-01-04', 'Visa'),
+    (4435, '2023-01-04', 'Efectivo'),
+    (258, '2023-01-04', 'Paypal'),
+    (297, '2023-01-05', 'Six Flags Membership'),
+    (3081, '2023-01-05', 'Efectivo'),
+    (4449, '2023-01-05', 'Six Flags Gift Card'),
+    (3840, '2023-01-05', 'Visa'),
+    (1980, '2023-01-05', 'Mastercard'),
+    (834, '2023-01-05', 'Six Flags Membership'),
+    (2801, '2023-01-05', 'Six Flags Gift Card'),
+    (759, '2023-01-05', 'Paypal'),
+    (4421, '2023-01-06', 'Efectivo'),
+    (652, '2023-01-06', 'Mastercard'),
+    (1142, '2023-01-06', 'Efectivo'),
+    (3846, '2023-01-06', 'Six Flags Membership'),
+    (868, '2023-01-06', 'Efectivo'),
+    (2329, '2023-01-07', 'Paypal'),
+    (2491, '2023-01-07', 'Efectivo'),
+    (672, '2023-01-07', 'American Express'),
+    (1328, '2023-01-07', 'Paypal'),
+    (786, '2023-01-07', 'Six Flags Membership'),
+    (3932, '2023-01-07', 'Visa'),
+    (1573, '2023-01-07', 'Paypal'),
+    (2754, '2023-01-07', 'Visa'),
+    (4873, '2023-01-08', 'Visa'),
+    (567, '2023-01-08', 'Efectivo'),
+    (4458, '2023-01-08', 'American Express'),
+    (1006, '2023-01-08', 'Visa'),
+    (1840, '2023-01-08', 'Six Flags Gift Card'),
+    (3838, '2023-01-09', 'Efectivo'),
+    (1653, '2023-01-09', 'Efectivo'),
+    (1702, '2023-01-09', 'American Express'),
+    (2327, '2023-01-09', 'Visa'),
+    (4781, '2023-01-09', 'Six Flags Membership'),
+    (4450, '2023-01-09', 'Paypal'),
+    (3759, '2023-01-09', 'Six Flags Membership'),
+    (3120, '2023-01-09', 'Mastercard'),
+    (3175, '2023-01-09', 'Mastercard'),
+    (4590, '2023-01-09', 'American Express'),
+    (3323, '2023-01-09', 'Paypal'),
+    (1032, '2023-01-09', 'Visa'),
+    (4317, '2023-01-09', 'Six Flags Membership'),
+    (2087, '2023-01-10', 'American Express'),
+    (3911, '2023-01-10', 'Six Flags Gift Card'),
+    (1100, '2023-01-10', 'Six Flags Membership'),
+    (3932, '2023-01-10', 'Six Flags Gift Card'),
+    (4322, '2023-01-10', 'American Express'),
+    (3587, '2023-01-10', 'Efectivo'),
+    (650, '2023-01-10', 'Paypal'),
+    (2965, '2023-01-10', 'American Express'),
+    (4164, '2023-01-10', 'Efectivo'),
+    (4349, '2023-01-11', 'Mastercard'),
+    (1933, '2023-01-11', 'Paypal'),
+    (936, '2023-01-11', 'Visa'),
+    (2150, '2023-01-11', 'Six Flags Gift Card'),
+    (2446, '2023-01-11', 'Efectivo'),
+    (2525, '2023-01-11', 'Visa'),
+    (3633, '2023-01-11', 'Mastercard'),
+    (890, '2023-01-12', 'Six Flags Membership'),
+    (3785, '2023-01-12', 'Mastercard'),
+    (2014, '2023-01-12', 'Visa'),
+    (4562, '2023-01-12', 'Paypal'),
+    (234, '2023-01-12', 'Efectivo'),
+    (1208, '2023-01-12', 'Mastercard'),
+    (1827, '2023-01-13', 'American Express'),
+    (2855, '2023-01-13', 'Visa'),
+    (1248, '2023-01-13', 'Visa'),
+    (744, '2023-01-13', 'American Express'),
+    (2076, '2023-01-13', 'Efectivo'),
+    (4153, '2023-01-13', 'American Express'),
+    (926, '2023-01-14', 'Six Flags Membership'),
+    (1692, '2023-01-14', 'Six Flags Gift Card'),
+    (2509, '2023-01-14', 'Six Flags Gift Card'),
+    (2669, '2023-01-14', 'Efectivo'),
+    (4245, '2023-01-14', 'Mastercard'),
+    (2090, '2023-01-14', 'American Express'),
+    (3598, '2023-01-15', 'Efectivo'),
+    (2319, '2023-01-15', 'Mastercard'),
+    (1281, '2023-01-15', 'Six Flags Membership'),
+    (2066, '2023-01-15', 'Six Flags Gift Card'),
+    (967, '2023-01-16', 'Paypal'),
+    (2880, '2023-01-16', 'Paypal'),
+    (4769, '2023-01-16', 'Mastercard'),
+    (3773, '2023-01-16', 'American Express'),
+    (3365, '2023-01-17', 'Paypal'),
+    (22, '2023-01-17', 'Six Flags Membership'),
+    (2457, '2023-01-17', 'American Express'),
+    (3747, '2023-01-18', 'Six Flags Membership'),
+    (1906, '2023-01-18', 'Visa'),
+    (1284, '2023-01-18', 'Six Flags Membership'),
+    (2850, '2023-01-18', 'American Express'),
+    (2629, '2023-01-18', 'Mastercard'),
+    (1912, '2023-01-19', 'Efectivo'),
+    (3264, '2023-01-19', 'Efectivo'),
+    (613, '2023-01-19', 'Six Flags Gift Card'),
+    (4711, '2023-01-19', 'American Express'),
+    (4490, '2023-01-19', 'Six Flags Gift Card'),
+    (2415, '2023-01-19', 'Paypal'),
+    (149, '2023-01-19', 'Paypal'),
+    (2344, '2023-01-19', 'Six Flags Gift Card'),
+    (4529, '2023-01-20', 'Mastercard'),
+    (2102, '2023-01-20', 'Visa'),
+    (2452, '2023-01-20', 'American Express'),
+    (3182, '2023-01-20', 'Visa'),
+    (458, '2023-01-20', 'Efectivo'),
+    (2135, '2023-01-20', 'Paypal'),
+    (1793, '2023-01-20', 'Six Flags Gift Card'),
+    (408, '2023-01-20', 'Six Flags Membership'),
+    (4317, '2023-01-20', 'Six Flags Membership'),
+    (2179, '2023-01-20', 'Mastercard'),
+    (3368, '2023-01-21', 'Six Flags Membership'),
+    (1416, '2023-01-21', 'Paypal'),
+    (113, '2023-01-22', 'Six Flags Membership'),
+    (3894, '2023-01-22', 'Six Flags Membership'),
+    (3886, '2023-01-22', 'Efectivo'),
+    (3453, '2023-01-23', 'Six Flags Gift Card'),
+    (2299, '2023-01-23', 'Visa'),
+    (2423, '2023-01-23', 'Mastercard'),
+    (2624, '2023-01-23', 'Paypal'),
+    (94, '2023-01-23', 'Efectivo'),
+    (4227, '2023-01-23', 'Efectivo'),
+    (653, '2023-01-23', 'Six Flags Membership'),
+    (2097, '2023-01-23', 'Mastercard'),
+    (2515, '2023-01-23', 'American Express'),
+    (892, '2023-01-23', 'Visa'),
+    (602, '2023-01-24', 'Six Flags Membership'),
+    (2752, '2023-01-24', 'Efectivo'),
+    (3830, '2023-01-24', 'Mastercard'),
+    (2881, '2023-01-24', 'Mastercard'),
+    (4892, '2023-01-24', 'Paypal'),
+    (4602, '2023-01-24', 'Six Flags Gift Card'),
+    (3936, '2023-01-24', 'Six Flags Membership'),
+    (2564, '2023-01-24', 'Visa'),
+    (2521, '2023-01-24', 'Paypal'),
+    (1211, '2023-01-24', 'Visa'),
+    (217, '2023-01-24', 'Six Flags Gift Card'),
+    (4909, '2023-01-24', 'American Express'),
+    (633, '2023-01-24', 'Visa'),
+    (2638, '2023-01-25', 'Visa'),
+    (35, '2023-01-25', 'Mastercard'),
+    (4479, '2023-01-25', 'Efectivo'),
+    (4160, '2023-01-25', 'Six Flags Membership'),
+    (693, '2023-01-25', 'American Express'),
+    (3488, '2023-01-25', 'American Express'),
+    (1922, '2023-01-25', 'Visa'),
+    (3382, '2023-01-25', 'Paypal'),
+    (3159, '2023-01-26', 'Visa'),
+    (3892, '2023-01-26', 'American Express'),
+    (4196, '2023-01-26', 'Six Flags Membership'),
+    (1427, '2023-01-26', 'Six Flags Membership'),
+    (2303, '2023-01-26', 'Six Flags Gift Card'),
+    (4535, '2023-01-27', 'Six Flags Gift Card'),
+    (2894, '2023-01-27', 'Six Flags Membership'),
+    (3089, '2023-01-27', 'American Express'),
+    (3156, '2023-01-27', 'Six Flags Gift Card'),
+    (3487, '2023-01-27', 'Paypal'),
+    (3442, '2023-01-27', 'Paypal'),
+    (180, '2023-01-27', 'Six Flags Membership'),
+    (1766, '2023-01-28', 'Six Flags Gift Card'),
+    (346, '2023-01-28', 'Mastercard'),
+    (892, '2023-01-28', 'Paypal'),
+    (1341, '2023-01-28', 'Paypal'),
+    (2741, '2023-01-28', 'Paypal'),
+    (2379, '2023-01-28', 'American Express'),
+    (4360, '2023-01-28', 'Visa'),
+    (2156, '2023-01-28', 'Six Flags Membership'),
+    (3587, '2023-01-29', 'Six Flags Gift Card'),
+    (3490, '2023-01-29', 'Efectivo'),
+    (521, '2023-01-29', 'Six Flags Membership'),
+    (86, '2023-01-30', 'Six Flags Membership'),
+    (446, '2023-01-30', 'Six Flags Membership'),
+    (935, '2023-01-30', 'Mastercard'),
+    (2707, '2023-01-30', 'Efectivo'),
+    (3752, '2023-01-30', 'Six Flags Gift Card'),
+    (1875, '2023-01-30', 'Six Flags Membership'),
+    (1411, '2023-01-30', 'Visa'),
+    (320, '2023-01-30', 'Paypal'),
+    (388, '2023-01-31', 'Mastercard'),
+    (4346, '2023-01-31', 'Six Flags Membership'),
+    (3289, '2023-01-31', 'American Express'),
+    (4069, '2023-01-31', 'Visa'),
+    (3492, '2023-01-31', 'Six Flags Gift Card'),
+    (1010, '2023-01-31', 'Six Flags Membership'),
+    (3132, '2023-02-01', 'American Express'),
+    (257, '2023-02-01', 'Six Flags Membership'),
+    (880, '2023-02-01', 'American Express'),
+    (1437, '2023-02-02', 'Visa'),
+    (2133, '2023-02-03', 'American Express'),
+    (1915, '2023-02-03', 'Efectivo'),
+    (4927, '2023-02-03', 'Mastercard'),
+    (1331, '2023-02-03', 'Six Flags Membership'),
+    (542, '2023-02-03', 'Paypal'),
+    (253, '2023-02-03', 'Mastercard'),
+    (3026, '2023-02-04', 'Paypal'),
+    (3574, '2023-02-04', 'Visa'),
+    (4858, '2023-02-04', 'Efectivo'),
+    (1685, '2023-02-04', 'Visa'),
+    (1193, '2023-02-05', 'Visa'),
+    (247, '2023-02-05', 'Mastercard'),
+    (251, '2023-02-05', 'Six Flags Membership'),
+    (1441, '2023-02-05', 'Efectivo'),
+    (4201, '2023-02-06', 'Paypal'),
+    (3163, '2023-02-06', 'Six Flags Membership'),
+    (1233, '2023-02-06', 'Six Flags Membership'),
+    (3757, '2023-02-07', 'Mastercard'),
+    (1121, '2023-02-07', 'Efectivo'),
+    (3497, '2023-02-07', 'Visa'),
+    (3227, '2023-02-07', 'Paypal'),
+    (2906, '2023-02-07', 'Six Flags Gift Card'),
+    (4611, '2023-02-07', 'Paypal'),
+    (4186, '2023-02-07', 'Six Flags Membership'),
+    (4630, '2023-02-07', 'American Express'),
+    (4256, '2023-02-08', 'Paypal'),
+    (3142, '2023-02-08', 'Paypal'),
+    (1939, '2023-02-08', 'Six Flags Gift Card'),
+    (4800, '2023-02-08', 'American Express'),
+    (4421, '2023-02-08', 'Visa'),
+    (1039, '2023-02-08', 'Paypal'),
+    (601, '2023-02-08', 'Visa'),
+    (2761, '2023-02-09', 'Efectivo'),
+    (2795, '2023-02-09', 'Six Flags Gift Card'),
+    (2678, '2023-02-09', 'Efectivo'),
+    (4915, '2023-02-09', 'American Express'),
+    (3589, '2023-02-09', 'Visa'),
+    (4080, '2023-02-09', 'Visa'),
+    (4209, '2023-02-10', 'Six Flags Membership'),
+    (4147, '2023-02-10', 'Six Flags Gift Card'),
+    (2986, '2023-02-10', 'Six Flags Membership'),
+    (3246, '2023-02-10', 'Paypal'),
+    (3045, '2023-02-10', 'American Express'),
+    (2225, '2023-02-11', 'Six Flags Membership'),
+    (2964, '2023-02-11', 'Mastercard'),
+    (3894, '2023-02-11', 'Six Flags Membership'),
+    (3812, '2023-02-11', 'Visa'),
+    (121, '2023-02-11', 'Six Flags Membership'),
+    (4564, '2023-02-11', 'Mastercard'),
+    (1135, '2023-02-11', 'Paypal'),
+    (1466, '2023-02-11', 'Six Flags Gift Card'),
+    (3906, '2023-02-11', 'Six Flags Membership'),
+    (1715, '2023-02-12', 'Efectivo'),
+    (2088, '2023-02-12', 'Six Flags Gift Card'),
+    (623, '2023-02-12', 'Efectivo'),
+    (3113, '2023-02-12', 'American Express'),
+    (622, '2023-02-12', 'Efectivo'),
+    (2805, '2023-02-12', 'American Express'),
+    (791, '2023-02-12', 'Six Flags Gift Card'),
+    (4932, '2023-02-12', 'American Express'),
+    (2931, '2023-02-13', 'Efectivo'),
+    (594, '2023-02-13', 'Visa'),
+    (676, '2023-02-13', 'American Express'),
+    (177, '2023-02-14', 'Six Flags Membership'),
+    (1417, '2023-02-14', 'Six Flags Gift Card'),
+    (4731, '2023-02-14', 'Paypal'),
+    (4383, '2023-02-14', 'Paypal'),
+    (3159, '2023-02-14', 'Six Flags Membership'),
+    (4295, '2023-02-14', 'American Express'),
+    (640, '2023-02-14', 'Visa'),
+    (4525, '2023-02-14', 'American Express'),
+    (291, '2023-02-14', 'Six Flags Gift Card'),
+    (2890, '2023-02-14', 'Six Flags Membership'),
+    (4465, '2023-02-15', 'American Express'),
+    (1025, '2023-02-15', 'Paypal'),
+    (179, '2023-02-15', 'Paypal'),
+    (3715, '2023-02-15', 'Paypal'),
+    (184, '2023-02-15', 'Efectivo'),
+    (1175, '2023-02-15', 'Six Flags Gift Card'),
+    (4834, '2023-02-15', 'Visa'),
+    (4082, '2023-02-15', 'Mastercard'),
+    (389, '2023-02-16', 'American Express'),
+    (569, '2023-02-16', 'Efectivo'),
+    (3347, '2023-02-16', 'Six Flags Gift Card'),
+    (4797, '2023-02-17', 'Mastercard'),
+    (1494, '2023-02-17', 'Mastercard'),
+    (3451, '2023-02-17', 'Mastercard'),
+    (2541, '2023-02-17', 'Six Flags Membership'),
+    (1200, '2023-02-17', 'Mastercard'),
+    (759, '2023-02-17', 'Six Flags Gift Card'),
+    (2557, '2023-02-17', 'Six Flags Gift Card'),
+    (4144, '2023-02-17', 'Paypal'),
+    (4670, '2023-02-17', 'Mastercard'),
+    (2948, '2023-02-17', 'Six Flags Membership'),
+    (2034, '2023-02-17', 'Six Flags Membership'),
+    (3386, '2023-02-17', 'Six Flags Membership'),
+    (3005, '2023-02-17', 'American Express'),
+    (1433, '2023-02-18', 'Efectivo'),
+    (609, '2023-02-18', 'Visa'),
+    (4895, '2023-02-18', 'Mastercard'),
+    (4404, '2023-02-18', 'Six Flags Membership'),
+    (3245, '2023-02-18', 'Efectivo'),
+    (1247, '2023-02-19', 'Six Flags Membership'),
+    (4081, '2023-02-19', 'Visa'),
+    (1753, '2023-02-20', 'Efectivo'),
+    (1874, '2023-02-20', 'Visa'),
+    (1731, '2023-02-20', 'Mastercard'),
+    (1233, '2023-02-20', 'Paypal'),
+    (3670, '2023-02-21', 'Paypal'),
+    (2510, '2023-02-21', 'American Express'),
+    (2763, '2023-02-22', 'American Express'),
+    (1679, '2023-02-22', 'Visa'),
+    (1402, '2023-02-22', 'Visa'),
+    (1718, '2023-02-22', 'Visa'),
+    (4601, '2023-02-22', 'Visa'),
+    (1087, '2023-02-22', 'Mastercard'),
+    (874, '2023-02-22', 'Efectivo'),
+    (4386, '2023-02-22', 'Six Flags Membership'),
+    (2397, '2023-02-22', 'Visa'),
+    (2026, '2023-02-22', 'Six Flags Membership'),
+    (4369, '2023-02-23', 'American Express'),
+    (4427, '2023-02-23', 'Six Flags Gift Card'),
+    (2452, '2023-02-23', 'Efectivo'),
+    (2719, '2023-02-23', 'Mastercard'),
+    (2639, '2023-02-23', 'American Express'),
+    (4983, '2023-02-23', 'Visa'),
+    (2385, '2023-02-23', 'Efectivo'),
+    (844, '2023-02-23', 'Six Flags Gift Card'),
+    (501, '2023-02-24', 'Six Flags Gift Card'),
+    (2377, '2023-02-24', 'Six Flags Gift Card'),
+    (1120, '2023-02-24', 'Six Flags Gift Card'),
+    (3965, '2023-02-24', 'Six Flags Gift Card'),
+    (3255, '2023-02-25', 'Visa'),
+    (1121, '2023-02-25', 'American Express'),
+    (4475, '2023-02-25', 'Mastercard'),
+    (2409, '2023-02-25', 'American Express'),
+    (2962, '2023-02-25', 'Mastercard'),
+    (3605, '2023-02-25', 'Six Flags Gift Card'),
+    (2941, '2023-02-25', 'Six Flags Membership'),
+    (573, '2023-02-25', 'Six Flags Gift Card'),
+    (573, '2023-02-25', 'American Express'),
+    (3599, '2023-02-26', 'Six Flags Gift Card'),
+    (2364, '2023-02-26', 'Paypal'),
+    (351, '2023-02-26', 'Efectivo'),
+    (1009, '2023-02-26', 'Paypal'),
+    (4002, '2023-02-26', 'Six Flags Membership'),
+    (3272, '2023-02-26', 'American Express'),
+    (4188, '2023-02-26', 'Six Flags Membership'),
+    (2706, '2023-02-26', 'Six Flags Gift Card'),
+    (453, '2023-02-26', 'Six Flags Gift Card'),
+    (2404, '2023-02-26', 'Paypal'),
+    (2014, '2023-02-27', 'Paypal'),
+    (3028, '2023-02-27', 'Visa'),
+    (2969, '2023-02-27', 'Efectivo'),
+    (420, '2023-02-27', 'Six Flags Gift Card'),
+    (1613, '2023-02-28', 'Mastercard'),
+    (963, '2023-02-28', 'Paypal'),
+    (2031, '2023-02-28', 'Visa'),
+    (2173, '2023-02-28', 'Six Flags Membership'),
+    (947, '2023-02-28', 'Six Flags Membership'),
+    (942, '2023-03-01', 'Visa'),
+    (3765, '2023-03-01', 'Six Flags Membership'),
+    (3535, '2023-03-01', 'Six Flags Gift Card'),
+    (4198, '2023-03-01', 'Visa'),
+    (1325, '2023-03-01', 'Visa'),
+    (3515, '2023-03-01', 'Six Flags Membership'),
+    (4000, '2023-03-01', 'Paypal'),
+    (2892, '2023-03-01', 'Six Flags Gift Card'),
+    (2780, '2023-03-01', 'American Express'),
+    (1398, '2023-03-01', 'Six Flags Gift Card'),
+    (3990, '2023-03-01', 'Mastercard'),
+    (1986, '2023-03-02', 'Six Flags Membership'),
+    (654, '2023-03-02', 'Efectivo'),
+    (2967, '2023-03-02', 'Six Flags Gift Card'),
+    (589, '2023-03-03', 'Six Flags Gift Card'),
+    (2138, '2023-03-03', 'Efectivo'),
+    (3118, '2023-03-03', 'Visa'),
+    (4981, '2023-03-03', 'Six Flags Gift Card'),
+    (722, '2023-03-03', 'Six Flags Gift Card'),
+    (2944, '2023-03-03', 'Visa'),
+    (576, '2023-03-03', 'Mastercard'),
+    (4017, '2023-03-04', 'Visa'),
+    (178, '2023-03-04', 'Six Flags Membership'),
+    (1751, '2023-03-04', 'American Express'),
+    (1500, '2023-03-04', 'Visa'),
+    (3531, '2023-03-04', 'Mastercard'),
+    (4268, '2023-03-04', 'Visa'),
+    (4624, '2023-03-04', 'American Express'),
+    (399, '2023-03-05', 'Paypal'),
+    (4851, '2023-03-05', 'Paypal'),
+    (472, '2023-03-05', 'Six Flags Membership'),
+    (1828, '2023-03-05', 'Paypal'),
+    (4880, '2023-03-05', 'Six Flags Membership'),
+    (1834, '2023-03-05', 'Efectivo'),
+    (3907, '2023-03-05', 'Six Flags Membership'),
+    (2856, '2023-03-05', 'Mastercard'),
+    (4344, '2023-03-05', 'Mastercard'),
+    (1062, '2023-03-06', 'American Express'),
+    (3166, '2023-03-06', 'Efectivo'),
+    (4112, '2023-03-06', 'Six Flags Membership'),
+    (811, '2023-03-06', 'Mastercard'),
+    (3361, '2023-03-06', 'Mastercard'),
+    (807, '2023-03-06', 'Visa'),
+    (1826, '2023-03-06', 'Paypal'),
+    (2904, '2023-03-06', 'Efectivo'),
+    (2024, '2023-03-07', 'Six Flags Membership'),
+    (274, '2023-03-07', 'Paypal'),
+    (4216, '2023-03-07', 'Six Flags Membership'),
+    (4823, '2023-03-07', 'Paypal'),
+    (2918, '2023-03-07', 'American Express'),
+    (1718, '2023-03-07', 'Six Flags Membership'),
+    (1674, '2023-03-07', 'American Express'),
+    (2401, '2023-03-07', 'American Express'),
+    (1881, '2023-03-07', 'Visa'),
+    (1327, '2023-03-07', 'Visa'),
+    (1726, '2023-03-07', 'Paypal'),
+    (2231, '2023-03-07', 'Visa'),
+    (1930, '2023-03-07', 'American Express'),
+    (2201, '2023-03-07', 'Paypal'),
+    (1905, '2023-03-07', 'Paypal'),
+    (4000, '2023-03-07', 'American Express'),
+    (4298, '2023-03-07', 'American Express'),
+    (1875, '2023-03-08', 'Six Flags Gift Card'),
+    (430, '2023-03-08', 'Six Flags Membership'),
+    (2876, '2023-03-08', 'Visa'),
+    (314, '2023-03-08', 'Six Flags Membership'),
+    (2309, '2023-03-08', 'Efectivo'),
+    (1992, '2023-03-08', 'Mastercard'),
+    (3455, '2023-03-08', 'Paypal'),
+    (3848, '2023-03-09', 'Six Flags Gift Card'),
+    (4324, '2023-03-09', 'Six Flags Gift Card'),
+    (2035, '2023-03-09', 'Visa'),
+    (2022, '2023-03-09', 'Mastercard'),
+    (1901, '2023-03-09', 'Visa'),
+    (1240, '2023-03-09', 'Six Flags Membership'),
+    (2284, '2023-03-09', 'Paypal'),
+    (4996, '2023-03-09', 'Six Flags Gift Card'),
+    (150, '2023-03-09', 'Efectivo'),
+    (4388, '2023-03-09', 'Efectivo'),
+    (2543, '2023-03-09', 'Six Flags Membership'),
+    (3185, '2023-03-10', 'Paypal'),
+    (173, '2023-03-10', 'Mastercard'),
+    (3180, '2023-03-10', 'Mastercard'),
+    (4493, '2023-03-10', 'Efectivo'),
+    (3774, '2023-03-10', 'Efectivo'),
+    (4942, '2023-03-10', 'American Express'),
+    (991, '2023-03-11', 'Six Flags Membership'),
+    (497, '2023-03-11', 'Efectivo'),
+    (4663, '2023-03-11', 'American Express'),
+    (4635, '2023-03-11', 'Six Flags Gift Card'),
+    (8, '2023-03-11', 'Paypal'),
+    (3647, '2023-03-11', 'Six Flags Gift Card'),
+    (2575, '2023-03-11', 'Visa'),
+    (1864, '2023-03-11', 'Paypal'),
+    (4013, '2023-03-11', 'Paypal'),
+    (3524, '2023-03-11', 'Six Flags Gift Card'),
+    (3588, '2023-03-11', 'Efectivo'),
+    (1159, '2023-03-12', 'Efectivo'),
+    (587, '2023-03-12', 'Paypal'),
+    (1391, '2023-03-12', 'Visa'),
+    (4571, '2023-03-12', 'Mastercard'),
+    (835, '2023-03-12', 'Mastercard'),
+    (2328, '2023-03-13', 'Visa'),
+    (1289, '2023-03-13', 'Paypal'),
+    (107, '2023-03-13', 'Six Flags Membership'),
+    (3789, '2023-03-13', 'American Express'),
+    (2712, '2023-03-13', 'Six Flags Membership'),
+    (431, '2023-03-13', 'American Express'),
+    (3033, '2023-03-13', 'Six Flags Gift Card'),
+    (753, '2023-03-13', 'Mastercard'),
+    (151, '2023-03-14', 'Mastercard'),
+    (2360, '2023-03-14', 'Mastercard'),
+    (3911, '2023-03-14', 'Six Flags Membership'),
+    (36, '2023-03-14', 'Mastercard'),
+    (4481, '2023-03-14', 'Six Flags Membership'),
+    (2178, '2023-03-15', 'Mastercard'),
+    (2056, '2023-03-15', 'American Express'),
+    (1545, '2023-03-15', 'Paypal'),
+    (74, '2023-03-15', 'Six Flags Membership'),
+    (1786, '2023-03-15', 'Six Flags Membership'),
+    (2915, '2023-03-15', 'Efectivo'),
+    (3545, '2023-03-16', 'Paypal'),
+    (4204, '2023-03-16', 'Mastercard'),
+    (3219, '2023-03-16', 'Mastercard'),
+    (104, '2023-03-16', 'Six Flags Gift Card'),
+    (1415, '2023-03-16', 'American Express'),
+    (2446, '2023-03-17', 'Mastercard'),
+    (3273, '2023-03-17', 'Visa'),
+    (408, '2023-03-17', 'American Express'),
+    (3012, '2023-03-17', 'Six Flags Membership'),
+    (985, '2023-03-18', 'American Express'),
+    (4003, '2023-03-18', 'Efectivo'),
+    (4290, '2023-03-18', 'Efectivo'),
+    (1344, '2023-03-18', 'Mastercard'),
+    (4813, '2023-03-18', 'Efectivo'),
+    (1434, '2023-03-18', 'Six Flags Membership'),
+    (1627, '2023-03-18', 'Six Flags Membership'),
+    (726, '2023-03-18', 'American Express'),
+    (4075, '2023-03-18', 'Efectivo'),
+    (4185, '2023-03-18', 'Six Flags Gift Card'),
+    (1424, '2023-03-19', 'Efectivo'),
+    (3755, '2023-03-19', 'American Express'),
+    (257, '2023-03-19', 'Mastercard'),
+    (3614, '2023-03-19', 'Six Flags Membership'),
+    (2288, '2023-03-19', 'Mastercard'),
+    (2182, '2023-03-19', 'Mastercard'),
+    (4099, '2023-03-19', 'Mastercard'),
+    (1497, '2023-03-19', 'American Express'),
+    (3814, '2023-03-20', 'Paypal'),
+    (1102, '2023-03-20', 'Mastercard'),
+    (4296, '2023-03-20', 'American Express'),
+    (1805, '2023-03-20', 'Six Flags Gift Card'),
+    (1044, '2023-03-20', 'Visa'),
+    (2191, '2023-03-21', 'Six Flags Gift Card'),
+    (2014, '2023-03-21', 'Visa'),
+    (2171, '2023-03-21', 'American Express'),
+    (4265, '2023-03-22', 'Visa'),
+    (3953, '2023-03-22', 'Visa'),
+    (1398, '2023-03-22', 'Visa'),
+    (3763, '2023-03-22', 'Efectivo'),
+    (1059, '2023-03-23', 'Visa'),
+    (1941, '2023-03-23', 'Paypal'),
+    (3177, '2023-03-23', 'Six Flags Gift Card'),
+    (4509, '2023-03-23', 'Six Flags Membership'),
+    (1412, '2023-03-23', 'Visa'),
+    (2913, '2023-03-23', 'Mastercard'),
+    (2997, '2023-03-23', 'Paypal'),
+    (2502, '2023-03-24', 'Six Flags Gift Card'),
+    (2083, '2023-03-24', 'Six Flags Membership'),
+    (4039, '2023-03-24', 'Six Flags Membership'),
+    (3658, '2023-03-24', 'Six Flags Membership'),
+    (3929, '2023-03-24', 'American Express'),
+    (910, '2023-03-24', 'Paypal'),
+    (4112, '2023-03-24', 'Visa'),
+    (4852, '2023-03-24', 'American Express'),
+    (2409, '2023-03-25', 'Mastercard'),
+    (523, '2023-03-25', 'Paypal'),
+    (2136, '2023-03-25', 'Mastercard'),
+    (815, '2023-03-25', 'Six Flags Gift Card'),
+    (2333, '2023-03-26', 'Six Flags Membership'),
+    (981, '2023-03-26', 'Efectivo'),
+    (1844, '2023-03-26', 'Efectivo'),
+    (3588, '2023-03-26', 'American Express'),
+    (1470, '2023-03-26', 'Efectivo'),
+    (3636, '2023-03-26', 'Six Flags Membership'),
+    (1905, '2023-03-27', 'Paypal'),
+    (609, '2023-03-27', 'Mastercard'),
+    (3423, '2023-03-27', 'American Express'),
+    (4372, '2023-03-27', 'Paypal'),
+    (2779, '2023-03-27', 'Six Flags Gift Card'),
+    (155, '2023-03-27', 'Efectivo'),
+    (3426, '2023-03-27', 'Six Flags Membership'),
+    (4461, '2023-03-27', 'Visa'),
+    (2120, '2023-03-28', 'Paypal'),
+    (4325, '2023-03-28', 'American Express'),
+    (472, '2023-03-28', 'Mastercard'),
+    (2399, '2023-03-28', 'American Express'),
+    (1196, '2023-03-28', 'American Express'),
+    (804, '2023-03-28', 'Efectivo'),
+    (2315, '2023-03-28', 'Mastercard'),
+    (1762, '2023-03-29', 'Efectivo'),
+    (1849, '2023-03-29', 'Efectivo'),
+    (4089, '2023-03-29', 'American Express'),
+    (1714, '2023-03-29', 'Efectivo'),
+    (160, '2023-03-29', 'Paypal'),
+    (827, '2023-03-29', 'Six Flags Gift Card'),
+    (2898, '2023-03-29', 'Six Flags Gift Card'),
+    (3034, '2023-03-30', 'Efectivo'),
+    (3507, '2023-03-30', 'Six Flags Gift Card'),
+    (789, '2023-03-30', 'Mastercard'),
+    (1119, '2023-03-30', 'Efectivo'),
+    (2149, '2023-03-30', 'American Express'),
+    (4750, '2023-03-30', 'Six Flags Membership'),
+    (113, '2023-03-31', 'Six Flags Membership'),
+    (3999, '2023-03-31', 'Visa'),
+    (2687, '2023-03-31', 'Efectivo'),
+    (598, '2023-03-31', 'Visa'),
+    (685, '2023-04-01', 'Mastercard'),
+    (712, '2023-04-01', 'American Express'),
+    (4023, '2023-04-02', 'Six Flags Gift Card'),
+    (1658, '2023-04-02', 'Six Flags Membership'),
+    (1743, '2023-04-02', 'Mastercard'),
+    (572, '2023-04-02', 'Six Flags Gift Card'),
+    (682, '2023-04-02', 'Efectivo'),
+    (4641, '2023-04-02', 'Efectivo'),
+    (3431, '2023-04-02', 'Six Flags Membership'),
+    (20, '2023-04-03', 'Six Flags Gift Card'),
+    (172, '2023-04-03', 'American Express'),
+    (1543, '2023-04-03', 'American Express'),
+    (1785, '2023-04-03', 'Paypal'),
+    (1800, '2023-04-03', 'Mastercard'),
+    (62, '2023-04-03', 'Efectivo'),
+    (3923, '2023-04-04', 'Six Flags Membership'),
+    (1828, '2023-04-04', 'Paypal'),
+    (1965, '2023-04-04', 'Six Flags Gift Card'),
+    (1637, '2023-04-04', 'Six Flags Membership'),
+    (4261, '2023-04-04', 'Visa'),
+    (1783, '2023-04-05', 'Efectivo'),
+    (1147, '2023-04-05', 'Visa'),
+    (4863, '2023-04-05', 'Paypal'),
+    (1074, '2023-04-05', 'American Express'),
+    (4984, '2023-04-05', 'American Express'),
+    (1048, '2023-04-06', 'American Express'),
+    (829, '2023-04-06', 'American Express'),
+    (875, '2023-04-06', 'Six Flags Membership'),
+    (3546, '2023-04-06', 'Efectivo'),
+    (2627, '2023-04-06', 'Efectivo'),
+    (1121, '2023-04-07', 'Six Flags Gift Card'),
+    (1984, '2023-04-07', 'Efectivo'),
+    (3556, '2023-04-07', 'Six Flags Gift Card'),
+    (3012, '2023-04-07', 'American Express'),
+    (4223, '2023-04-07', 'Six Flags Membership'),
+    (4012, '2023-04-07', 'Paypal'),
+    (3541, '2023-04-07', 'Efectivo'),
+    (2989, '2023-04-07', 'Paypal'),
+    (2440, '2023-04-07', 'Mastercard'),
+    (3949, '2023-04-08', 'Visa'),
+    (126, '2023-04-08', 'Six Flags Gift Card'),
+    (1294, '2023-04-08', 'Six Flags Membership'),
+    (2170, '2023-04-08', 'Mastercard'),
+    (2090, '2023-04-08', 'American Express'),
+    (488, '2023-04-08', 'Six Flags Gift Card'),
+    (1988, '2023-04-08', 'American Express'),
+    (354, '2023-04-09', 'Visa'),
+    (621, '2023-04-09', 'Efectivo'),
+    (1039, '2023-04-09', 'American Express'),
+    (3966, '2023-04-09', 'Mastercard'),
+    (4385, '2023-04-10', 'Six Flags Gift Card'),
+    (908, '2023-04-10', 'Efectivo'),
+    (462, '2023-04-10', 'Efectivo'),
+    (4676, '2023-04-10', 'Visa'),
+    (720, '2023-04-10', 'Mastercard'),
+    (2958, '2023-04-10', 'American Express'),
+    (3228, '2023-04-10', 'American Express'),
+    (4786, '2023-04-10', 'Efectivo'),
+    (3121, '2023-04-10', 'Visa'),
+    (1189, '2023-04-10', 'Six Flags Gift Card'),
+    (4, '2023-04-10', 'Efectivo'),
+    (4562, '2023-04-10', 'Paypal'),
+    (1067, '2023-04-11', 'American Express'),
+    (3817, '2023-04-11', 'Six Flags Membership'),
+    (4545, '2023-04-11', 'Six Flags Membership'),
+    (4055, '2023-04-11', 'Paypal'),
+    (1961, '2023-04-11', 'Mastercard'),
+    (1695, '2023-04-11', 'Mastercard'),
+    (1533, '2023-04-12', 'Visa'),
+    (2165, '2023-04-12', 'Mastercard'),
+    (2332, '2023-04-12', 'Efectivo'),
+    (768, '2023-04-12', 'Mastercard'),
+    (4576, '2023-04-12', 'Efectivo'),
+    (1632, '2023-04-12', 'Efectivo'),
+    (1182, '2023-04-12', 'American Express'),
+    (4275, '2023-04-12', 'American Express'),
+    (1080, '2023-04-12', 'Efectivo'),
+    (4994, '2023-04-12', 'Visa'),
+    (3800, '2023-04-12', 'Visa'),
+    (3242, '2023-04-13', 'Paypal'),
+    (1362, '2023-04-13', 'Efectivo'),
+    (3393, '2023-04-13', 'Efectivo'),
+    (230, '2023-04-13', 'Mastercard'),
+    (3674, '2023-04-13', 'Visa'),
+    (3853, '2023-04-14', 'Paypal'),
+    (4508, '2023-04-14', 'Six Flags Membership'),
+    (4963, '2023-04-14', 'Visa'),
+    (1979, '2023-04-14', 'Six Flags Gift Card'),
+    (3772, '2023-04-14', 'Six Flags Gift Card'),
+    (1549, '2023-04-15', 'Visa'),
+    (462, '2023-04-15', 'Six Flags Gift Card'),
+    (1721, '2023-04-15', 'American Express'),
+    (874, '2023-04-15', 'Six Flags Gift Card'),
+    (4812, '2023-04-15', 'Visa'),
+    (3203, '2023-04-15', 'Visa'),
+    (2075, '2023-04-15', 'Mastercard'),
+    (4169, '2023-04-15', 'Visa'),
+    (3725, '2023-04-15', 'Mastercard'),
+    (499, '2023-04-15', 'Paypal'),
+    (4908, '2023-04-15', 'Efectivo'),
+    (4610, '2023-04-16', 'Six Flags Membership'),
+    (1693, '2023-04-16', 'Six Flags Membership'),
+    (4221, '2023-04-16', 'American Express'),
+    (3978, '2023-04-16', 'Paypal'),
+    (705, '2023-04-16', 'Mastercard'),
+    (2433, '2023-04-17', 'Six Flags Gift Card'),
+    (4740, '2023-04-17', 'American Express'),
+    (424, '2023-04-17', 'American Express'),
+    (2956, '2023-04-17', 'Six Flags Gift Card'),
+    (800, '2023-04-17', 'Six Flags Gift Card'),
+    (805, '2023-04-18', 'Mastercard'),
+    (2728, '2023-04-18', 'Paypal'),
+    (790, '2023-04-18', 'Efectivo'),
+    (4538, '2023-04-18', 'Six Flags Gift Card'),
+    (1437, '2023-04-18', 'Paypal'),
+    (1726, '2023-04-18', 'Six Flags Gift Card'),
+    (1125, '2023-04-18', 'Efectivo'),
+    (2391, '2023-04-19', 'Mastercard'),
+    (2709, '2023-04-19', 'Efectivo'),
+    (574, '2023-04-19', 'Visa'),
+    (4992, '2023-04-19', 'Paypal'),
+    (3154, '2023-04-19', 'Visa'),
+    (2734, '2023-04-19', 'Visa'),
+    (1661, '2023-04-20', 'American Express'),
+    (3201, '2023-04-20', 'Mastercard'),
+    (1436, '2023-04-20', 'Paypal'),
+    (4511, '2023-04-20', 'Efectivo'),
+    (3160, '2023-04-20', 'Visa'),
+    (1975, '2023-04-20', 'American Express'),
+    (1207, '2023-04-20', 'Six Flags Membership'),
+    (3157, '2023-04-20', 'Mastercard'),
+    (302, '2023-04-20', 'Visa'),
+    (1367, '2023-04-21', 'Efectivo'),
+    (2999, '2023-04-21', 'Paypal'),
+    (3222, '2023-04-21', 'Six Flags Membership'),
+    (1495, '2023-04-21', 'Efectivo'),
+    (1649, '2023-04-21', 'Visa'),
+    (4576, '2023-04-21', 'American Express'),
+    (3216, '2023-04-21', 'American Express'),
+    (3601, '2023-04-21', 'American Express'),
+    (1595, '2023-04-21', 'Paypal'),
+    (3223, '2023-04-21', 'Visa'),
+    (4820, '2023-04-21', 'American Express'),
+    (2074, '2023-04-21', 'Visa'),
+    (3943, '2023-04-21', 'Six Flags Membership'),
+    (2669, '2023-04-22', 'American Express'),
+    (4610, '2023-04-22', 'Visa'),
+    (133, '2023-04-22', 'Paypal'),
+    (4692, '2023-04-22', 'Mastercard'),
+    (1822, '2023-04-22', 'Visa'),
+    (4643, '2023-04-22', 'Visa'),
+    (755, '2023-04-22', 'Mastercard'),
+    (1640, '2023-04-23', 'Visa'),
+    (1934, '2023-04-23', 'Efectivo'),
+    (4252, '2023-04-23', 'Efectivo'),
+    (3574, '2023-04-23', 'Paypal'),
+    (1225, '2023-04-24', 'Six Flags Membership'),
+    (4731, '2023-04-24', 'Paypal'),
+    (4880, '2023-04-24', 'Mastercard'),
+    (3597, '2023-04-24', 'Six Flags Gift Card'),
+    (150, '2023-04-24', 'Paypal'),
+    (4157, '2023-04-24', 'Paypal'),
+    (3950, '2023-04-24', 'Six Flags Gift Card'),
+    (1641, '2023-04-25', 'Six Flags Gift Card'),
+    (3066, '2023-04-25', 'Visa'),
+    (3865, '2023-04-25', 'Six Flags Membership'),
+    (2779, '2023-04-25', 'Mastercard'),
+    (2645, '2023-04-25', 'Efectivo'),
+    (3514, '2023-04-25', 'Six Flags Gift Card'),
+    (593, '2023-04-25', 'Six Flags Gift Card'),
+    (4508, '2023-04-26', 'Six Flags Gift Card'),
+    (1493, '2023-04-26', 'American Express'),
+    (4917, '2023-04-26', 'Visa'),
+    (2283, '2023-04-26', 'Paypal'),
+    (4590, '2023-04-26', 'Efectivo'),
+    (3416, '2023-04-26', 'Six Flags Gift Card'),
+    (1736, '2023-04-26', 'Efectivo'),
+    (2390, '2023-04-26', 'Efectivo'),
+    (3361, '2023-04-27', 'Six Flags Membership'),
+    (3882, '2023-04-27', 'Efectivo'),
+    (753, '2023-04-27', 'Six Flags Membership'),
+    (3528, '2023-04-27', 'Visa'),
+    (4545, '2023-04-27', 'Six Flags Membership'),
+    (2814, '2023-04-27', 'American Express'),
+    (4508, '2023-04-27', 'Six Flags Gift Card'),
+    (2202, '2023-04-28', 'Six Flags Gift Card'),
+    (349, '2023-04-28', 'Six Flags Membership'),
+    (841, '2023-04-28', 'Six Flags Membership'),
+    (778, '2023-04-29', 'Six Flags Membership'),
+    (4785, '2023-04-29', 'American Express'),
+    (1214, '2023-04-29', 'Six Flags Gift Card'),
+    (243, '2023-04-29', 'Paypal'),
+    (95, '2023-04-29', 'Efectivo'),
+    (316, '2023-04-29', 'Six Flags Membership'),
+    (1743, '2023-04-30', 'Mastercard'),
+    (2410, '2023-04-30', 'Mastercard'),
+    (3070, '2023-04-30', 'Six Flags Gift Card'),
+    (2535, '2023-04-30', 'American Express'),
+    (4818, '2023-05-01', 'Visa'),
+    (3071, '2023-05-01', 'Paypal'),
+    (4292, '2023-05-01', 'Six Flags Membership'),
+    (3021, '2023-05-01', 'Paypal'),
+    (3497, '2023-05-01', 'Mastercard'),
+    (4395, '2023-05-01', 'Efectivo'),
+    (2698, '2023-05-01', 'Paypal'),
+    (1234, '2023-05-01', 'American Express'),
+    (4809, '2023-05-01', 'Mastercard'),
+    (3904, '2023-05-01', 'American Express'),
+    (3375, '2023-05-02', 'Six Flags Gift Card'),
+    (4187, '2023-05-02', 'Visa'),
+    (4983, '2023-05-02', 'Six Flags Gift Card'),
+    (1887, '2023-05-02', 'Six Flags Membership'),
+    (188, '2023-05-02', 'Six Flags Membership'),
+    (1520, '2023-05-02', 'Efectivo'),
+    (2956, '2023-05-02', 'Visa'),
+    (4238, '2023-05-02', 'Mastercard'),
+    (596, '2023-05-02', 'Six Flags Gift Card'),
+    (3962, '2023-05-02', 'Six Flags Gift Card'),
+    (2823, '2023-05-03', 'Six Flags Gift Card'),
+    (4588, '2023-05-03', 'American Express'),
+    (3282, '2023-05-03', 'Mastercard'),
+    (1828, '2023-05-03', 'Six Flags Membership'),
+    (2134, '2023-05-03', 'Mastercard'),
+    (1443, '2023-05-04', 'Paypal'),
+    (3265, '2023-05-04', 'American Express'),
+    (3990, '2023-05-04', 'Six Flags Gift Card'),
+    (1256, '2023-05-04', 'Paypal'),
+    (760, '2023-05-04', 'Six Flags Membership'),
+    (44, '2023-05-04', 'Visa'),
+    (4980, '2023-05-05', 'Efectivo'),
+    (2618, '2023-05-05', 'Visa'),
+    (2941, '2023-05-05', 'Visa'),
+    (1098, '2023-05-05', 'Visa'),
+    (4154, '2023-05-05', 'American Express'),
+    (1283, '2023-05-05', 'Paypal'),
+    (1130, '2023-05-05', 'Visa'),
+    (3006, '2023-05-05', 'Paypal'),
+    (2719, '2023-05-06', 'Efectivo'),
+    (1011, '2023-05-06', 'Mastercard'),
+    (3889, '2023-05-06', 'Efectivo'),
+    (4567, '2023-05-06', 'Paypal'),
+    (477, '2023-05-06', 'Six Flags Gift Card'),
+    (1254, '2023-05-06', 'Six Flags Membership'),
+    (4589, '2023-05-06', 'Visa'),
+    (4288, '2023-05-06', 'Six Flags Membership'),
+    (4398, '2023-05-07', 'Visa'),
+    (4638, '2023-05-07', 'Paypal'),
+    (2591, '2023-05-07', 'Six Flags Gift Card'),
+    (4702, '2023-05-07', 'American Express'),
+    (2522, '2023-05-07', 'Visa'),
+    (2899, '2023-05-07', 'Efectivo'),
+    (1011, '2023-05-07', 'Six Flags Gift Card'),
+    (2552, '2023-05-08', 'Six Flags Gift Card'),
+    (787, '2023-05-08', 'Paypal'),
+    (1179, '2023-05-08', 'Paypal'),
+    (2374, '2023-05-08', 'American Express'),
+    (1286, '2023-05-08', 'Six Flags Gift Card'),
+    (4347, '2023-05-08', 'Six Flags Membership'),
+    (846, '2023-05-08', 'Six Flags Gift Card'),
+    (1046, '2023-05-08', 'Six Flags Membership'),
+    (4723, '2023-05-08', 'Visa'),
+    (3246, '2023-05-09', 'American Express'),
+    (1617, '2023-05-09', 'Visa'),
+    (3299, '2023-05-09', 'American Express'),
+    (4740, '2023-05-09', 'Paypal'),
+    (505, '2023-05-09', 'Efectivo'),
+    (2254, '2023-05-09', 'Efectivo'),
+    (1930, '2023-05-09', 'Visa'),
+    (1527, '2023-05-09', 'Mastercard'),
+    (4717, '2023-05-10', 'Efectivo'),
+    (3390, '2023-05-10', 'Six Flags Membership'),
+    (1238, '2023-05-10', 'Mastercard'),
+    (1572, '2023-05-11', 'Six Flags Gift Card'),
+    (756, '2023-05-11', 'Mastercard'),
+    (4716, '2023-05-11', 'American Express'),
+    (1387, '2023-05-11', 'Six Flags Gift Card'),
+    (901, '2023-05-11', 'Six Flags Gift Card'),
+    (4851, '2023-05-11', 'Efectivo'),
+    (1947, '2023-05-11', 'Efectivo'),
+    (3225, '2023-05-11', 'American Express'),
+    (3611, '2023-05-11', 'Six Flags Membership'),
+    (2925, '2023-05-12', 'Paypal'),
+    (1818, '2023-05-12', 'Mastercard'),
+    (4457, '2023-05-12', 'Efectivo'),
+    (4788, '2023-05-12', 'Paypal'),
+    (2721, '2023-05-12', 'Visa'),
+    (4475, '2023-05-13', 'Paypal'),
+    (2373, '2023-05-13', 'Mastercard'),
+    (4582, '2023-05-13', 'Paypal'),
+    (409, '2023-05-13', 'Paypal'),
+    (3144, '2023-05-14', 'Six Flags Membership'),
+    (737, '2023-05-14', 'Mastercard'),
+    (4587, '2023-05-14', 'American Express'),
+    (1193, '2023-05-14', 'Paypal'),
+    (3915, '2023-05-14', 'Paypal'),
+    (173, '2023-05-14', 'Six Flags Gift Card'),
+    (2543, '2023-05-14', 'Mastercard'),
+    (3538, '2023-05-15', 'Mastercard'),
+    (4033, '2023-05-15', 'Mastercard'),
+    (1081, '2023-05-15', 'Six Flags Gift Card'),
+    (1569, '2023-05-15', 'Paypal'),
+    (145, '2023-05-15', 'Efectivo'),
+    (49, '2023-05-16', 'Six Flags Gift Card'),
+    (3309, '2023-05-16', 'Visa'),
+    (164, '2023-05-16', 'Six Flags Membership'),
+    (3985, '2023-05-16', 'American Express'),
+    (3008, '2023-05-16', 'Visa'),
+    (1334, '2023-05-16', 'Visa'),
+    (3982, '2023-05-16', 'Mastercard'),
+    (824, '2023-05-17', 'Paypal'),
+    (4109, '2023-05-17', 'American Express'),
+    (210, '2023-05-17', 'Efectivo'),
+    (4, '2023-05-17', 'Efectivo'),
+    (2785, '2023-05-17', 'Six Flags Gift Card'),
+    (1444, '2023-05-18', 'Paypal'),
+    (2751, '2023-05-18', 'Mastercard'),
+    (4628, '2023-05-18', 'American Express'),
+    (2088, '2023-05-18', 'Mastercard'),
+    (4125, '2023-05-18', 'Six Flags Gift Card'),
+    (1390, '2023-05-18', 'Visa'),
+    (3523, '2023-05-18', 'Mastercard'),
+    (319, '2023-05-18', 'Paypal'),
+    (4520, '2023-05-19', 'Efectivo'),
+    (1124, '2023-05-19', 'American Express'),
+    (3012, '2023-05-19', 'Mastercard'),
+    (776, '2023-05-20', 'Mastercard'),
+    (2512, '2023-05-20', 'Paypal'),
+    (186, '2023-05-20', 'Paypal'),
+    (3057, '2023-05-20', 'Visa'),
+    (4822, '2023-05-21', 'Six Flags Gift Card'),
+    (4912, '2023-05-21', 'Six Flags Membership'),
+    (3740, '2023-05-21', 'American Express'),
+    (1795, '2023-05-21', 'Efectivo'),
+    (3215, '2023-05-21', 'Visa'),
+    (2616, '2023-05-21', 'Efectivo'),
+    (2829, '2023-05-21', 'Six Flags Membership'),
+    (4326, '2023-05-21', 'Six Flags Gift Card'),
+    (2065, '2023-05-21', 'Six Flags Gift Card'),
+    (1498, '2023-05-21', 'Visa'),
+    (1678, '2023-05-21', 'Six Flags Gift Card'),
+    (615, '2023-05-21', 'Mastercard'),
+    (3041, '2023-05-21', 'Paypal'),
+    (1918, '2023-05-21', 'American Express'),
+    (2374, '2023-05-22', 'Efectivo'),
+    (1534, '2023-05-22', 'Six Flags Gift Card'),
+    (4873, '2023-05-22', 'Visa'),
+    (2902, '2023-05-22', 'Mastercard'),
+    (698, '2023-05-22', 'American Express'),
+    (43, '2023-05-22', 'American Express'),
+    (3616, '2023-05-22', 'Mastercard'),
+    (3214, '2023-05-22', 'Efectivo'),
+    (7, '2023-05-23', 'Paypal'),
+    (2583, '2023-05-23', 'Six Flags Membership'),
+    (4030, '2023-05-23', 'Efectivo'),
+    (3683, '2023-05-23', 'Six Flags Gift Card'),
+    (4211, '2023-05-23', 'Mastercard'),
+    (798, '2023-05-23', 'Paypal'),
+    (468, '2023-05-23', 'Six Flags Membership'),
+    (2214, '2023-05-23', 'Paypal'),
+    (4203, '2023-05-23', 'Six Flags Membership'),
+    (106, '2023-05-23', 'Six Flags Gift Card'),
+    (3996, '2023-05-23', 'Paypal'),
+    (3028, '2023-05-24', 'Six Flags Gift Card'),
+    (3322, '2023-05-24', 'Mastercard'),
+    (4543, '2023-05-24', 'Six Flags Membership'),
+    (1551, '2023-05-24', 'Visa'),
+    (1327, '2023-05-25', 'American Express'),
+    (741, '2023-05-25', 'Six Flags Membership'),
+    (1923, '2023-05-25', 'Paypal'),
+    (669, '2023-05-26', 'Paypal'),
+    (4439, '2023-05-26', 'American Express'),
+    (86, '2023-05-26', 'Paypal'),
+    (1581, '2023-05-26', 'Mastercard'),
+    (2557, '2023-05-26', 'Efectivo'),
+    (99, '2023-05-26', 'Paypal'),
+    (3535, '2023-05-26', 'Six Flags Membership'),
+    (3313, '2023-05-26', 'Mastercard'),
+    (926, '2023-05-27', 'American Express'),
+    (3706, '2023-05-27', 'Paypal'),
+    (2200, '2023-05-27', 'Six Flags Gift Card'),
+    (2946, '2023-05-27', 'Six Flags Membership'),
+    (273, '2023-05-27', 'American Express'),
+    (532, '2023-05-27', 'Six Flags Gift Card'),
+    (4351, '2023-05-28', 'Six Flags Gift Card'),
+    (3638, '2023-05-28', 'Six Flags Gift Card'),
+    (941, '2023-05-28', 'Six Flags Membership'),
+    (4371, '2023-05-28', 'Six Flags Gift Card'),
+    (1993, '2023-05-28', 'Paypal'),
+    (4748, '2023-05-28', 'Mastercard'),
+    (4602, '2023-05-28', 'Six Flags Gift Card'),
+    (3440, '2023-05-28', 'Six Flags Membership'),
+    (4, '2023-05-28', 'Mastercard'),
+    (382, '2023-05-28', 'Efectivo'),
+    (1497, '2023-05-29', 'Mastercard'),
+    (1168, '2023-05-29', 'American Express'),
+    (2797, '2023-05-29', 'Mastercard'),
+    (270, '2023-05-29', 'Efectivo'),
+    (3887, '2023-05-30', 'Paypal'),
+    (3667, '2023-05-30', 'Visa'),
+    (1344, '2023-05-30', 'Efectivo'),
+    (2839, '2023-05-30', 'Visa'),
+    (4645, '2023-05-30', 'Efectivo'),
+    (3784, '2023-05-30', 'Visa'),
+    (3807, '2023-05-30', 'Visa'),
+    (2042, '2023-05-30', 'Six Flags Gift Card'),
+    (4306, '2023-05-30', 'Six Flags Gift Card'),
+    (497, '2023-05-30', 'Six Flags Gift Card'),
+    (1788, '2023-05-30', 'American Express'),
+    (335, '2023-05-30', 'Six Flags Gift Card'),
+    (3534, '2023-05-31', 'Six Flags Membership'),
+    (4460, '2023-05-31', 'Six Flags Gift Card'),
+    (316, '2023-05-31', 'Paypal'),
+    (2637, '2023-05-31', 'Six Flags Membership'),
+    (4019, '2023-05-31', 'Visa'),
+    (246, '2023-06-01', 'Mastercard'),
+    (3981, '2023-06-01', 'American Express'),
+    (1594, '2023-06-01', 'Efectivo'),
+    (1372, '2023-06-01', 'Mastercard'),
+    (3805, '2023-06-02', 'Six Flags Gift Card'),
+    (2578, '2023-06-02', 'American Express'),
+    (1300, '2023-06-02', 'Six Flags Membership'),
+    (1505, '2023-06-03', 'American Express'),
+    (323, '2023-06-03', 'Efectivo'),
+    (3012, '2023-06-03', 'Visa'),
+    (4743, '2023-06-03', 'American Express'),
+    (2662, '2023-06-03', 'Visa'),
+    (3876, '2023-06-04', 'Six Flags Gift Card'),
+    (3483, '2023-06-04', 'Paypal'),
+    (1674, '2023-06-04', 'Six Flags Membership'),
+    (2341, '2023-06-04', 'Six Flags Membership'),
+    (77, '2023-06-04', 'American Express'),
+    (2234, '2023-06-05', 'Paypal'),
+    (1948, '2023-06-05', 'Mastercard'),
+    (3797, '2023-06-05', 'Six Flags Gift Card'),
+    (26, '2023-06-05', 'Six Flags Gift Card'),
+    (882, '2023-06-05', 'Mastercard'),
+    (2138, '2023-06-05', 'Six Flags Membership'),
+    (859, '2023-06-05', 'Six Flags Membership'),
+    (2699, '2023-06-06', 'Six Flags Gift Card'),
+    (3805, '2023-06-06', 'Six Flags Gift Card'),
+    (3731, '2023-06-06', 'Six Flags Membership'),
+    (4462, '2023-06-06', 'Paypal'),
+    (4625, '2023-06-06', 'Efectivo'),
+    (2753, '2023-06-07', 'Visa'),
+    (4322, '2023-06-07', 'Visa'),
+    (2061, '2023-06-07', 'Six Flags Membership'),
+    (4619, '2023-06-08', 'Six Flags Gift Card'),
+    (1803, '2023-06-08', 'Six Flags Membership'),
+    (1722, '2023-06-08', 'Six Flags Membership'),
+    (1361, '2023-06-08', 'Efectivo'),
+    (366, '2023-06-08', 'Mastercard'),
+    (379, '2023-06-08', 'Visa'),
+    (1164, '2023-06-08', 'Efectivo'),
+    (790, '2023-06-08', 'Paypal'),
+    (1901, '2023-06-09', 'Paypal'),
+    (4261, '2023-06-09', 'Six Flags Membership'),
+    (907, '2023-06-09', 'Paypal'),
+    (4233, '2023-06-09', 'Visa'),
+    (3373, '2023-06-09', 'Six Flags Membership'),
+    (82, '2023-06-09', 'Visa'),
+    (4040, '2023-06-10', 'American Express'),
+    (597, '2023-06-10', 'American Express'),
+    (3986, '2023-06-10', 'Paypal'),
+    (3862, '2023-06-10', 'Six Flags Gift Card'),
+    (2274, '2023-06-11', 'Six Flags Membership'),
+    (3359, '2023-06-11', 'Six Flags Gift Card'),
+    (4324, '2023-06-11', 'American Express'),
+    (2076, '2023-06-11', 'Visa'),
+    (1764, '2023-06-11', 'American Express'),
+    (4916, '2023-06-11', 'Six Flags Membership'),
+    (1403, '2023-06-12', 'Mastercard'),
+    (3429, '2023-06-12', 'Visa'),
+    (2807, '2023-06-12', 'Paypal'),
+    (2183, '2023-06-12', 'Visa'),
+    (2305, '2023-06-12', 'American Express'),
+    (3576, '2023-06-12', 'Six Flags Membership'),
+    (675, '2023-06-12', 'Six Flags Gift Card'),
+    (4285, '2023-06-12', 'Efectivo'),
+    (2355, '2023-06-12', 'Visa'),
+    (470, '2023-06-12', 'Mastercard'),
+    (1130, '2023-06-12', 'American Express'),
+    (3265, '2023-06-12', 'Visa'),
+    (2667, '2023-06-12', 'Efectivo'),
+    (2989, '2023-06-12', 'Visa'),
+    (2134, '2023-06-13', 'Six Flags Gift Card'),
+    (3620, '2023-06-13', 'Visa'),
+    (4846, '2023-06-13', 'Visa'),
+    (370, '2023-06-13', 'Efectivo'),
+    (249, '2023-06-13', 'Six Flags Gift Card'),
+    (2949, '2023-06-13', 'Visa'),
+    (892, '2023-06-13', 'Six Flags Gift Card'),
+    (522, '2023-06-13', 'American Express'),
+    (4065, '2023-06-13', 'Visa'),
+    (3060, '2023-06-13', 'Paypal'),
+    (3871, '2023-06-14', 'Efectivo'),
+    (283, '2023-06-14', 'Efectivo'),
+    (3722, '2023-06-14', 'American Express'),
+    (605, '2023-06-14', 'American Express'),
+    (72, '2023-06-14', 'Six Flags Membership'),
+    (597, '2023-06-14', 'Six Flags Gift Card'),
+    (3703, '2023-06-14', 'Six Flags Membership'),
+    (832, '2023-06-15', 'Paypal'),
+    (3173, '2023-06-15', 'Paypal'),
+    (3502, '2023-06-15', 'Six Flags Membership'),
+    (4510, '2023-06-15', 'Mastercard'),
+    (1418, '2023-06-15', 'Mastercard'),
+    (4059, '2023-06-15', 'Six Flags Gift Card'),
+    (1387, '2023-06-15', 'Six Flags Membership'),
+    (4275, '2023-06-15', 'Six Flags Gift Card'),
+    (573, '2023-06-16', 'Visa'),
+    (1708, '2023-06-16', 'Mastercard'),
+    (1435, '2023-06-16', 'Visa'),
+    (4255, '2023-06-16', 'Paypal'),
+    (4080, '2023-06-16', 'Efectivo'),
+    (4846, '2023-06-16', 'Efectivo'),
+    (4873, '2023-06-17', 'American Express'),
+    (2860, '2023-06-17', 'Six Flags Gift Card'),
+    (1255, '2023-06-17', 'Visa'),
+    (3327, '2023-06-17', 'Mastercard'),
+    (1505, '2023-06-17', 'Visa'),
+    (808, '2023-06-17', 'American Express'),
+    (822, '2023-06-17', 'Paypal'),
+    (4050, '2023-06-17', 'Visa'),
+    (2983, '2023-06-18', 'Six Flags Gift Card'),
+    (2176, '2023-06-18', 'American Express'),
+    (594, '2023-06-18', 'American Express'),
+    (1400, '2023-06-18', 'Mastercard'),
+    (1463, '2023-06-18', 'Mastercard'),
+    (1280, '2023-06-18', 'Efectivo'),
+    (3174, '2023-06-18', 'Efectivo'),
+    (562, '2023-06-19', 'Efectivo'),
+    (598, '2023-06-19', 'Six Flags Gift Card'),
+    (1763, '2023-06-19', 'Six Flags Gift Card'),
+    (2468, '2023-06-19', 'Mastercard'),
+    (2724, '2023-06-19', 'Efectivo'),
+    (2565, '2023-06-20', 'Visa'),
+    (1512, '2023-06-20', 'Visa'),
+    (2812, '2023-06-20', 'Six Flags Membership'),
+    (1680, '2023-06-20', 'Efectivo'),
+    (4197, '2023-06-20', 'American Express'),
+    (4929, '2023-06-20', 'Paypal'),
+    (3567, '2023-06-21', 'Six Flags Gift Card'),
+    (241, '2023-06-21', 'Mastercard'),
+    (247, '2023-06-21', 'Visa'),
+    (2885, '2023-06-21', 'American Express'),
+    (2381, '2023-06-21', 'Mastercard'),
+    (1107, '2023-06-21', 'Visa'),
+    (4947, '2023-06-21', 'Paypal'),
+    (928, '2023-06-22', 'Visa'),
+    (3944, '2023-06-22', 'Visa'),
+    (4031, '2023-06-22', 'American Express'),
+    (4005, '2023-06-22', 'Mastercard'),
+    (1636, '2023-06-22', 'Six Flags Membership'),
+    (1590, '2023-06-22', 'American Express'),
+    (3372, '2023-06-22', 'Paypal'),
+    (2619, '2023-06-22', 'Mastercard'),
+    (2499, '2023-06-22', 'Paypal'),
+    (3498, '2023-06-23', 'American Express'),
+    (4609, '2023-06-23', 'Mastercard'),
+    (2467, '2023-06-23', 'Visa'),
+    (3719, '2023-06-23', 'Visa'),
+    (536, '2023-06-23', 'Paypal'),
+    (238, '2023-06-23', 'Six Flags Gift Card'),
+    (1899, '2023-06-24', 'Efectivo'),
+    (1829, '2023-06-24', 'Efectivo'),
+    (4700, '2023-06-24', 'Six Flags Gift Card'),
+    (1266, '2023-06-24', 'American Express'),
+    (3283, '2023-06-24', 'Mastercard'),
+    (1805, '2023-06-24', 'American Express'),
+    (4889, '2023-06-24', 'Six Flags Membership'),
+    (4475, '2023-06-24', 'Six Flags Membership'),
+    (3137, '2023-06-24', 'Six Flags Gift Card'),
+    (760, '2023-06-25', 'American Express'),
+    (919, '2023-06-25', 'Mastercard'),
+    (56, '2023-06-25', 'Paypal'),
+    (2108, '2023-06-25', 'Efectivo'),
+    (4545, '2023-06-25', 'Six Flags Gift Card'),
+    (3054, '2023-06-25', 'Visa'),
+    (1365, '2023-06-25', 'American Express'),
+    (3073, '2023-06-25', 'Six Flags Membership'),
+    (4844, '2023-06-25', 'Six Flags Gift Card'),
+    (3435, '2023-06-25', 'Six Flags Membership'),
+    (1047, '2023-06-25', 'Efectivo'),
+    (334, '2023-06-26', 'Paypal'),
+    (1130, '2023-06-26', 'Six Flags Gift Card'),
+    (475, '2023-06-26', 'American Express'),
+    (1318, '2023-06-26', 'Six Flags Gift Card'),
+    (483, '2023-06-26', 'Paypal'),
+    (2057, '2023-06-26', 'Six Flags Membership'),
+    (4575, '2023-06-26', 'Six Flags Gift Card'),
+    (2551, '2023-06-26', 'Visa'),
+    (2743, '2023-06-26', 'Visa'),
+    (3724, '2023-06-26', 'Mastercard'),
+    (1716, '2023-06-27', 'Six Flags Gift Card'),
+    (3910, '2023-06-27', 'Mastercard'),
+    (3170, '2023-06-27', 'Six Flags Gift Card'),
+    (3277, '2023-06-27', 'Mastercard'),
+    (2533, '2023-06-27', 'Six Flags Membership'),
+    (875, '2023-06-27', 'Six Flags Membership'),
+    (3102, '2023-06-28', 'Six Flags Membership'),
+    (4610, '2023-06-28', 'Mastercard'),
+    (1142, '2023-06-28', 'Six Flags Gift Card'),
+    (3175, '2023-06-28', 'Mastercard'),
+    (2388, '2023-06-28', 'Six Flags Membership'),
+    (787, '2023-06-28', 'Six Flags Membership'),
+    (4872, '2023-06-29', 'Visa'),
+    (4200, '2023-06-29', 'Mastercard'),
+    (4952, '2023-06-29', 'Visa'),
+    (3988, '2023-06-30', 'Paypal'),
+    (823, '2023-06-30', 'Efectivo'),
+    (2957, '2023-07-01', 'Efectivo'),
+    (1987, '2023-07-01', 'Six Flags Membership'),
+    (3329, '2023-07-01', 'Mastercard'),
+    (4670, '2023-07-01', 'American Express'),
+    (3125, '2023-07-01', 'Six Flags Membership'),
+    (3029, '2023-07-01', 'Six Flags Membership'),
+    (2570, '2023-07-01', 'Paypal'),
+    (2232, '2023-07-02', 'Mastercard'),
+    (4265, '2023-07-02', 'Mastercard'),
+    (3058, '2023-07-02', 'American Express'),
+    (4048, '2023-07-02', 'Six Flags Gift Card'),
+    (2793, '2023-07-03', 'American Express'),
+    (4782, '2023-07-03', 'Six Flags Membership'),
+    (1240, '2023-07-03', 'Paypal'),
+    (255, '2023-07-04', 'Six Flags Membership'),
+    (3082, '2023-07-04', 'American Express'),
+    (4409, '2023-07-04', 'Mastercard'),
+    (3134, '2023-07-04', 'American Express'),
+    (1919, '2023-07-04', 'Efectivo'),
+    (442, '2023-07-04', 'American Express'),
+    (3630, '2023-07-04', 'American Express'),
+    (4820, '2023-07-05', 'American Express'),
+    (3003, '2023-07-05', 'Mastercard'),
+    (185, '2023-07-05', 'Mastercard'),
+    (899, '2023-07-05', 'Six Flags Gift Card'),
+    (2085, '2023-07-06', 'Efectivo'),
+    (206, '2023-07-06', 'Efectivo'),
+    (285, '2023-07-06', 'Mastercard'),
+    (4708, '2023-07-06', 'Mastercard'),
+    (3334, '2023-07-06', 'American Express'),
+    (2018, '2023-07-07', 'Paypal'),
+    (4404, '2023-07-07', 'Efectivo'),
+    (4364, '2023-07-07', 'Paypal'),
+    (3922, '2023-07-07', 'Six Flags Membership'),
+    (4875, '2023-07-07', 'Efectivo'),
+    (2168, '2023-07-07', 'Six Flags Gift Card'),
+    (1899, '2023-07-08', 'Paypal'),
+    (4087, '2023-07-08', 'Six Flags Membership'),
+    (178, '2023-07-08', 'Six Flags Gift Card'),
+    (2610, '2023-07-08', 'Six Flags Gift Card'),
+    (3173, '2023-07-08', 'Paypal'),
+    (1194, '2023-07-08', 'Visa'),
+    (992, '2023-07-08', 'Efectivo'),
+    (2135, '2023-07-09', 'Efectivo'),
+    (3400, '2023-07-09', 'Paypal'),
+    (214, '2023-07-09', 'Paypal'),
+    (2770, '2023-07-09', 'Six Flags Gift Card'),
+    (7, '2023-07-09', 'Visa'),
+    (3191, '2023-07-09', 'Six Flags Membership'),
+    (228, '2023-07-09', 'Paypal'),
+    (2478, '2023-07-09', 'Paypal'),
+    (3033, '2023-07-10', 'Visa'),
+    (1968, '2023-07-10', 'Paypal'),
+    (1549, '2023-07-10', 'Paypal'),
+    (4437, '2023-07-10', 'Six Flags Gift Card'),
+    (1868, '2023-07-10', 'Efectivo'),
+    (2021, '2023-07-10', 'Efectivo'),
+    (4882, '2023-07-10', 'American Express'),
+    (3158, '2023-07-10', 'Efectivo'),
+    (367, '2023-07-10', 'Six Flags Membership'),
+    (1343, '2023-07-10', 'Efectivo'),
+    (4240, '2023-07-11', 'Six Flags Gift Card'),
+    (3889, '2023-07-11', 'American Express'),
+    (2531, '2023-07-11', 'Paypal'),
+    (2350, '2023-07-11', 'Mastercard'),
+    (3947, '2023-07-11', 'American Express'),
+    (4007, '2023-07-11', 'Paypal'),
+    (2307, '2023-07-11', 'Six Flags Membership'),
+    (325, '2023-07-12', 'Efectivo'),
+    (4938, '2023-07-12', 'Six Flags Membership'),
+    (1695, '2023-07-12', 'Visa'),
+    (4679, '2023-07-12', 'Visa'),
+    (3055, '2023-07-12', 'Visa'),
+    (1102, '2023-07-13', 'American Express'),
+    (4431, '2023-07-13', 'American Express'),
+    (304, '2023-07-13', 'Six Flags Membership'),
+    (1788, '2023-07-14', 'Paypal'),
+    (3825, '2023-07-14', 'Six Flags Gift Card'),
+    (2465, '2023-07-14', 'Mastercard'),
+    (2816, '2023-07-15', 'Visa'),
+    (1808, '2023-07-15', 'Six Flags Membership'),
+    (4441, '2023-07-15', 'Six Flags Gift Card'),
+    (3906, '2023-07-15', 'Six Flags Membership'),
+    (3965, '2023-07-15', 'Mastercard'),
+    (2433, '2023-07-15', 'Six Flags Gift Card'),
+    (1599, '2023-07-16', 'Efectivo'),
+    (602, '2023-07-16', 'Mastercard'),
+    (2123, '2023-07-16', 'Visa'),
+    (1983, '2023-07-16', 'Efectivo'),
+    (1425, '2023-07-16', 'Six Flags Membership'),
+    (4859, '2023-07-17', 'Mastercard'),
+    (2449, '2023-07-17', 'Six Flags Membership'),
+    (2208, '2023-07-17', 'Six Flags Gift Card'),
+    (3312, '2023-07-17', 'Paypal'),
+    (4713, '2023-07-17', 'Paypal'),
+    (1713, '2023-07-17', 'Visa'),
+    (2949, '2023-07-18', 'Efectivo'),
+    (96, '2023-07-18', 'Mastercard'),
+    (2710, '2023-07-18', 'Paypal'),
+    (1318, '2023-07-18', 'Paypal'),
+    (4080, '2023-07-19', 'Six Flags Membership'),
+    (226, '2023-07-19', 'Paypal'),
+    (1035, '2023-07-19', 'Paypal'),
+    (708, '2023-07-19', 'Mastercard'),
+    (4140, '2023-07-19', 'American Express'),
+    (3488, '2023-07-19', 'Visa'),
+    (3009, '2023-07-20', 'Paypal'),
+    (4875, '2023-07-20', 'Six Flags Gift Card'),
+    (815, '2023-07-20', 'Mastercard'),
+    (3926, '2023-07-20', 'Visa'),
+    (1458, '2023-07-20', 'Mastercard'),
+    (1437, '2023-07-20', 'Six Flags Membership'),
+    (145, '2023-07-20', 'Paypal'),
+    (608, '2023-07-20', 'Six Flags Membership'),
+    (1489, '2023-07-21', 'American Express'),
+    (4815, '2023-07-21', 'Six Flags Gift Card'),
+    (3558, '2023-07-22', 'Efectivo'),
+    (532, '2023-07-22', 'Six Flags Gift Card'),
+    (3736, '2023-07-22', 'Six Flags Gift Card'),
+    (3615, '2023-07-22', 'Efectivo'),
+    (1434, '2023-07-22', 'Paypal'),
+    (903, '2023-07-22', 'Paypal'),
+    (3747, '2023-07-22', 'Efectivo'),
+    (4889, '2023-07-22', 'Efectivo'),
+    (4935, '2023-07-22', 'Six Flags Gift Card'),
+    (4490, '2023-07-22', 'American Express'),
+    (1496, '2023-07-22', 'Six Flags Membership'),
+    (364, '2023-07-23', 'Six Flags Membership'),
+    (3984, '2023-07-23', 'Efectivo'),
+    (381, '2023-07-23', 'Mastercard'),
+    (1830, '2023-07-23', 'Six Flags Gift Card'),
+    (615, '2023-07-23', 'Visa'),
+    (4331, '2023-07-23', 'Six Flags Gift Card'),
+    (1525, '2023-07-23', 'Mastercard'),
+    (1262, '2023-07-23', 'American Express'),
+    (2264, '2023-07-23', 'Paypal'),
+    (3270, '2023-07-24', 'Six Flags Membership'),
+    (332, '2023-07-24', 'Mastercard'),
+    (2356, '2023-07-24', 'Six Flags Gift Card'),
+    (2278, '2023-07-24', 'Six Flags Gift Card'),
+    (4144, '2023-07-24', 'American Express'),
+    (3260, '2023-07-25', 'Six Flags Gift Card'),
+    (3251, '2023-07-25', 'Six Flags Membership'),
+    (2689, '2023-07-25', 'Six Flags Gift Card'),
+    (1249, '2023-07-25', 'Paypal'),
+    (1715, '2023-07-25', 'American Express'),
+    (487, '2023-07-25', 'Efectivo'),
+    (2887, '2023-07-25', 'Six Flags Membership'),
+    (2255, '2023-07-26', 'Six Flags Membership'),
+    (3744, '2023-07-26', 'Six Flags Membership'),
+    (2538, '2023-07-26', 'Paypal'),
+    (4293, '2023-07-26', 'Mastercard'),
+    (3474, '2023-07-26', 'Paypal'),
+    (3379, '2023-07-26', 'Visa'),
+    (2454, '2023-07-26', 'Six Flags Gift Card'),
+    (2373, '2023-07-26', 'Six Flags Membership'),
+    (4688, '2023-07-26', 'Paypal'),
+    (2831, '2023-07-26', 'Visa'),
+    (3027, '2023-07-27', 'Mastercard'),
+    (1809, '2023-07-27', 'Paypal'),
+    (310, '2023-07-27', 'Six Flags Membership'),
+    (3866, '2023-07-27', 'Six Flags Gift Card'),
+    (3046, '2023-07-27', 'Six Flags Membership'),
+    (4362, '2023-07-27', 'American Express'),
+    (3694, '2023-07-28', 'Visa'),
+    (1917, '2023-07-28', 'Mastercard'),
+    (2187, '2023-07-28', 'Six Flags Gift Card'),
+    (4844, '2023-07-28', 'Visa'),
+    (2464, '2023-07-28', 'Visa'),
+    (764, '2023-07-28', 'Six Flags Membership'),
+    (2519, '2023-07-28', 'American Express'),
+    (2159, '2023-07-28', 'Visa'),
+    (3601, '2023-07-28', 'Visa'),
+    (2668, '2023-07-29', 'American Express'),
+    (3216, '2023-07-29', 'Six Flags Gift Card'),
+    (40, '2023-07-29', 'Visa'),
+    (3065, '2023-07-29', 'Paypal'),
+    (4610, '2023-07-29', 'Paypal'),
+    (3276, '2023-07-29', 'Paypal'),
+    (2556, '2023-07-29', 'Mastercard'),
+    (3151, '2023-07-29', 'Six Flags Membership'),
+    (1123, '2023-07-29', 'Mastercard'),
+    (4773, '2023-07-29', 'Efectivo'),
+    (2300, '2023-07-29', 'Six Flags Membership'),
+    (424, '2023-07-29', 'Six Flags Gift Card'),
+    (388, '2023-07-30', 'Efectivo'),
+    (2385, '2023-07-30', 'Mastercard'),
+    (2558, '2023-07-30', 'American Express'),
+    (3046, '2023-07-30', 'Efectivo'),
+    (2455, '2023-07-30', 'Six Flags Membership'),
+    (878, '2023-07-30', 'Paypal'),
+    (1752, '2023-07-30', 'Efectivo'),
+    (1471, '2023-07-30', 'Six Flags Gift Card'),
+    (4137, '2023-07-31', 'Efectivo'),
+    (4751, '2023-07-31', 'Six Flags Membership'),
+    (831, '2023-07-31', 'Visa'),
+    (4358, '2023-07-31', 'Visa'),
+    (3017, '2023-07-31', 'Six Flags Gift Card'),
+    (3610, '2023-07-31', 'Six Flags Membership'),
+    (1182, '2023-07-31', 'Mastercard'),
+    (3017, '2023-07-31', 'Paypal'),
+    (4989, '2023-08-01', 'Six Flags Gift Card'),
+    (774, '2023-08-01', 'American Express'),
+    (1369, '2023-08-01', 'Efectivo'),
+    (3827, '2023-08-01', 'Six Flags Membership'),
+    (3584, '2023-08-02', 'American Express'),
+    (575, '2023-08-02', 'American Express'),
+    (1821, '2023-08-02', 'Visa'),
+    (2482, '2023-08-02', 'Six Flags Gift Card'),
+    (1303, '2023-08-02', 'Mastercard'),
+    (4353, '2023-08-02', 'Six Flags Gift Card'),
+    (4786, '2023-08-02', 'American Express'),
+    (4720, '2023-08-02', 'Six Flags Membership'),
+    (1250, '2023-08-02', 'American Express'),
+    (4749, '2023-08-03', 'Six Flags Gift Card'),
+    (1599, '2023-08-03', 'American Express'),
+    (4784, '2023-08-03', 'Six Flags Gift Card'),
+    (3391, '2023-08-03', 'American Express'),
+    (3823, '2023-08-03', 'Efectivo'),
+    (9, '2023-08-03', 'American Express'),
+    (3302, '2023-08-03', 'Six Flags Gift Card'),
+    (840, '2023-08-04', 'Visa'),
+    (1868, '2023-08-04', 'Six Flags Membership'),
+    (3393, '2023-08-04', 'Six Flags Gift Card'),
+    (4034, '2023-08-04', 'Six Flags Gift Card'),
+    (4671, '2023-08-04', 'Six Flags Gift Card'),
+    (4745, '2023-08-05', 'Six Flags Membership'),
+    (708, '2023-08-05', 'Mastercard'),
+    (134, '2023-08-05', 'Paypal'),
+    (3119, '2023-08-05', 'Mastercard'),
+    (4064, '2023-08-05', 'Six Flags Membership'),
+    (4224, '2023-08-05', 'Mastercard'),
+    (4370, '2023-08-05', 'Six Flags Membership'),
+    (301, '2023-08-05', 'Efectivo'),
+    (1029, '2023-08-05', 'Visa'),
+    (3383, '2023-08-05', 'Six Flags Gift Card'),
+    (3605, '2023-08-06', 'Six Flags Gift Card'),
+    (4790, '2023-08-06', 'Paypal'),
+    (3694, '2023-08-06', 'Mastercard'),
+    (2320, '2023-08-06', 'Paypal'),
+    (2258, '2023-08-06', 'Six Flags Membership'),
+    (549, '2023-08-06', 'American Express'),
+    (1731, '2023-08-07', 'American Express'),
+    (4961, '2023-08-07', 'Visa'),
+    (4052, '2023-08-07', 'Six Flags Membership'),
+    (3939, '2023-08-07', 'Visa'),
+    (73, '2023-08-08', 'Visa'),
+    (1806, '2023-08-08', 'Efectivo'),
+    (3345, '2023-08-08', 'Six Flags Gift Card'),
+    (1879, '2023-08-08', 'Six Flags Gift Card'),
+    (1656, '2023-08-08', 'Six Flags Gift Card'),
+    (1152, '2023-08-08', 'Visa'),
+    (959, '2023-08-08', 'Paypal'),
+    (1088, '2023-08-08', 'Visa'),
+    (3446, '2023-08-08', 'Paypal'),
+    (4303, '2023-08-09', 'Efectivo'),
+    (3388, '2023-08-09', 'Visa'),
+    (2028, '2023-08-09', 'Paypal'),
+    (2784, '2023-08-09', 'American Express'),
+    (4418, '2023-08-09', 'American Express'),
+    (4565, '2023-08-09', 'Efectivo'),
+    (2986, '2023-08-09', 'Mastercard'),
+    (1757, '2023-08-09', 'Paypal'),
+    (3798, '2023-08-09', 'Mastercard'),
+    (4103, '2023-08-09', 'Six Flags Membership'),
+    (1080, '2023-08-10', 'American Express'),
+    (3483, '2023-08-10', 'Six Flags Membership'),
+    (3539, '2023-08-10', 'American Express'),
+    (2982, '2023-08-10', 'American Express'),
+    (1431, '2023-08-10', 'Mastercard'),
+    (3634, '2023-08-10', 'Mastercard'),
+    (4395, '2023-08-10', 'American Express'),
+    (1842, '2023-08-11', 'Paypal'),
+    (2980, '2023-08-11', 'Mastercard'),
+    (3862, '2023-08-11', 'Six Flags Gift Card'),
+    (1023, '2023-08-11', 'Six Flags Gift Card'),
+    (1208, '2023-08-11', 'Efectivo'),
+    (4217, '2023-08-11', 'Efectivo'),
+    (4621, '2023-08-11', 'Visa'),
+    (4039, '2023-08-12', 'Mastercard'),
+    (2224, '2023-08-12', 'Efectivo'),
+    (4100, '2023-08-12', 'Visa'),
+    (308, '2023-08-12', 'Six Flags Membership'),
+    (1099, '2023-08-12', 'Six Flags Gift Card'),
+    (4647, '2023-08-12', 'Efectivo'),
+    (2433, '2023-08-13', 'Visa'),
+    (1392, '2023-08-13', 'Six Flags Membership'),
+    (568, '2023-08-13', 'Visa'),
+    (4387, '2023-08-13', 'Six Flags Membership'),
+    (85, '2023-08-13', 'American Express'),
+    (1771, '2023-08-13', 'Six Flags Membership'),
+    (261, '2023-08-14', 'Mastercard'),
+    (3194, '2023-08-14', 'Six Flags Gift Card'),
+    (1701, '2023-08-14', 'Six Flags Gift Card'),
+    (3743, '2023-08-14', 'Mastercard'),
+    (2557, '2023-08-14', 'Mastercard'),
+    (4437, '2023-08-14', 'Six Flags Gift Card'),
+    (4308, '2023-08-14', 'Mastercard'),
+    (682, '2023-08-15', 'Six Flags Membership'),
+    (1847, '2023-08-15', 'Efectivo'),
+    (990, '2023-08-15', 'American Express'),
+    (3808, '2023-08-15', 'Efectivo'),
+    (3633, '2023-08-15', 'Visa'),
+    (3263, '2023-08-16', 'Six Flags Gift Card'),
+    (2299, '2023-08-16', 'American Express'),
+    (2987, '2023-08-16', 'Six Flags Membership'),
+    (4478, '2023-08-16', 'Efectivo'),
+    (4761, '2023-08-16', 'Mastercard'),
+    (1553, '2023-08-16', 'American Express'),
+    (3033, '2023-08-16', 'Efectivo'),
+    (1910, '2023-08-16', 'Six Flags Membership'),
+    (1466, '2023-08-16', 'Mastercard'),
+    (4110, '2023-08-16', 'Paypal'),
+    (647, '2023-08-16', 'Paypal'),
+    (24, '2023-08-17', 'American Express'),
+    (3132, '2023-08-17', 'Six Flags Membership'),
+    (2762, '2023-08-17', 'Paypal'),
+    (2339, '2023-08-17', 'Six Flags Gift Card'),
+    (1756, '2023-08-17', 'American Express'),
+    (2073, '2023-08-17', 'Mastercard'),
+    (4491, '2023-08-17', 'Visa'),
+    (2751, '2023-08-18', 'Mastercard'),
+    (3862, '2023-08-18', 'Six Flags Gift Card'),
+    (309, '2023-08-18', 'Mastercard'),
+    (3275, '2023-08-19', 'Efectivo'),
+    (4845, '2023-08-19', 'Efectivo'),
+    (863, '2023-08-19', 'American Express'),
+    (3988, '2023-08-19', 'Mastercard'),
+    (4422, '2023-08-19', 'Six Flags Membership'),
+    (3910, '2023-08-19', 'Visa'),
+    (4607, '2023-08-20', 'American Express'),
+    (1093, '2023-08-20', 'Paypal'),
+    (4400, '2023-08-20', 'Paypal'),
+    (537, '2023-08-20', 'Six Flags Membership'),
+    (2207, '2023-08-20', 'Paypal'),
+    (1730, '2023-08-20', 'Paypal'),
+    (4949, '2023-08-20', 'Visa'),
+    (4063, '2023-08-20', 'Visa'),
+    (3410, '2023-08-21', 'American Express'),
+    (1470, '2023-08-21', 'Six Flags Membership'),
+    (3909, '2023-08-21', 'Paypal'),
+    (1051, '2023-08-21', 'Visa'),
+    (4196, '2023-08-22', 'American Express'),
+    (4533, '2023-08-22', 'Mastercard'),
+    (407, '2023-08-23', 'Visa'),
+    (1016, '2023-08-23', 'American Express'),
+    (2453, '2023-08-23', 'Paypal'),
+    (3696, '2023-08-24', 'Efectivo'),
+    (3171, '2023-08-24', 'Efectivo'),
+    (721, '2023-08-24', 'Six Flags Membership'),
+    (4659, '2023-08-24', 'Six Flags Membership'),
+    (3772, '2023-08-24', 'Efectivo'),
+    (3568, '2023-08-24', 'Mastercard'),
+    (1717, '2023-08-25', 'Mastercard'),
+    (1969, '2023-08-25', 'Six Flags Membership'),
+    (2510, '2023-08-25', 'Six Flags Gift Card'),
+    (2780, '2023-08-25', 'Six Flags Membership'),
+    (4041, '2023-08-25', 'Visa'),
+    (1520, '2023-08-25', 'Visa'),
+    (2453, '2023-08-25', 'Mastercard'),
+    (286, '2023-08-25', 'American Express'),
+    (3894, '2023-08-25', 'American Express'),
+    (3109, '2023-08-26', 'Six Flags Membership'),
+    (1469, '2023-08-26', 'Six Flags Gift Card'),
+    (990, '2023-08-26', 'Visa'),
+    (4993, '2023-08-26', 'Visa'),
+    (2470, '2023-08-26', 'Visa'),
+    (3474, '2023-08-26', 'Mastercard'),
+    (4261, '2023-08-27', 'Paypal'),
+    (4640, '2023-08-27', 'American Express'),
+    (343, '2023-08-27', 'Paypal'),
+    (2615, '2023-08-27', 'Six Flags Membership'),
+    (4855, '2023-08-27', 'Paypal'),
+    (4972, '2023-08-28', 'Visa'),
+    (4544, '2023-08-28', 'Mastercard'),
+    (533, '2023-08-28', 'American Express'),
+    (3174, '2023-08-28', 'American Express'),
+    (2127, '2023-08-28', 'Efectivo'),
+    (768, '2023-08-28', 'Visa'),
+    (2323, '2023-08-28', 'Efectivo'),
+    (263, '2023-08-28', 'Six Flags Gift Card'),
+    (1713, '2023-08-28', 'Efectivo'),
+    (1023, '2023-08-28', 'Mastercard'),
+    (755, '2023-08-28', 'Efectivo'),
+    (1606, '2023-08-29', 'Six Flags Gift Card'),
+    (130, '2023-08-29', 'Six Flags Gift Card'),
+    (2634, '2023-08-29', 'Visa'),
+    (2935, '2023-08-29', 'American Express'),
+    (4705, '2023-08-29', 'Visa'),
+    (1884, '2023-08-30', 'Visa'),
+    (2627, '2023-08-30', 'Efectivo'),
+    (3927, '2023-08-30', 'Visa'),
+    (4276, '2023-08-30', 'Efectivo'),
+    (4615, '2023-08-30', 'American Express'),
+    (1802, '2023-08-30', 'American Express'),
+    (1038, '2023-08-31', 'Efectivo'),
+    (244, '2023-08-31', 'Visa'),
+    (1877, '2023-08-31', 'Visa'),
+    (59, '2023-08-31', 'Six Flags Membership'),
+    (1943, '2023-08-31', 'Mastercard'),
+    (292, '2023-08-31', 'Visa'),
+    (3432, '2023-08-31', 'Paypal'),
+    (1352, '2023-08-31', 'Six Flags Membership'),
+    (2785, '2023-08-31', 'American Express'),
+    (3883, '2023-08-31', 'Paypal'),
+    (95, '2023-09-01', 'Paypal'),
+    (3244, '2023-09-01', 'American Express'),
+    (4680, '2023-09-01', 'Mastercard'),
+    (3912, '2023-09-01', 'Mastercard'),
+    (1942, '2023-09-02', 'Visa'),
+    (2739, '2023-09-02', 'Paypal'),
+    (2860, '2023-09-02', 'Six Flags Gift Card'),
+    (1883, '2023-09-03', 'Mastercard'),
+    (1252, '2023-09-03', 'Visa'),
+    (3357, '2023-09-03', 'Visa'),
+    (1372, '2023-09-03', 'Visa'),
+    (4277, '2023-09-03', 'Efectivo'),
+    (1007, '2023-09-03', 'Paypal'),
+    (1090, '2023-09-03', 'American Express'),
+    (2311, '2023-09-03', 'Paypal'),
+    (2250, '2023-09-04', 'Six Flags Gift Card'),
+    (1955, '2023-09-04', 'American Express'),
+    (3701, '2023-09-04', 'Visa'),
+    (2200, '2023-09-04', 'Mastercard'),
+    (272, '2023-09-05', 'American Express'),
+    (4100, '2023-09-05', 'Paypal'),
+    (3940, '2023-09-05', 'Mastercard'),
+    (1382, '2023-09-05', 'Mastercard'),
+    (3493, '2023-09-05', 'Mastercard'),
+    (3741, '2023-09-05', 'Six Flags Membership'),
+    (3450, '2023-09-06', 'Six Flags Membership'),
+    (683, '2023-09-06', 'Mastercard'),
+    (516, '2023-09-06', 'Visa'),
+    (3817, '2023-09-06', 'American Express'),
+    (3156, '2023-09-07', 'Six Flags Gift Card'),
+    (2574, '2023-09-07', 'Paypal'),
+    (1551, '2023-09-07', 'Visa'),
+    (2181, '2023-09-07', 'Six Flags Gift Card'),
+    (4451, '2023-09-08', 'Six Flags Gift Card'),
+    (251, '2023-09-08', 'American Express'),
+    (426, '2023-09-08', 'Six Flags Gift Card'),
+    (3954, '2023-09-08', 'Visa'),
+    (389, '2023-09-09', 'Visa'),
+    (4723, '2023-09-09', 'Paypal'),
+    (197, '2023-09-09', 'Six Flags Gift Card'),
+    (717, '2023-09-09', 'American Express'),
+    (2633, '2023-09-09', 'Mastercard'),
+    (3699, '2023-09-09', 'Efectivo'),
+    (2906, '2023-09-09', 'Six Flags Membership'),
+    (689, '2023-09-09', 'Paypal'),
+    (2251, '2023-09-10', 'Efectivo'),
+    (285, '2023-09-10', 'Visa'),
+    (186, '2023-09-10', 'Six Flags Gift Card'),
+    (2747, '2023-09-10', 'Visa'),
+    (3464, '2023-09-10', 'Six Flags Gift Card'),
+    (2003, '2023-09-10', 'Six Flags Membership'),
+    (2307, '2023-09-10', 'Mastercard'),
+    (1104, '2023-09-11', 'Paypal'),
+    (3792, '2023-09-11', 'Six Flags Gift Card'),
+    (4916, '2023-09-11', 'Efectivo'),
+    (2392, '2023-09-11', 'Visa'),
+    (3817, '2023-09-11', 'American Express'),
+    (872, '2023-09-11', 'Visa'),
+    (2200, '2023-09-11', 'Six Flags Gift Card'),
+    (2754, '2023-09-12', 'Efectivo'),
+    (2489, '2023-09-12', 'American Express'),
+    (3242, '2023-09-12', 'Visa'),
+    (620, '2023-09-12', 'Efectivo'),
+    (2573, '2023-09-12', 'Efectivo'),
+    (3170, '2023-09-12', 'Six Flags Membership'),
+    (3662, '2023-09-12', 'American Express'),
+    (3510, '2023-09-13', 'Mastercard'),
+    (717, '2023-09-13', 'Paypal'),
+    (3578, '2023-09-13', 'American Express'),
+    (3046, '2023-09-13', 'Six Flags Membership'),
+    (3589, '2023-09-13', 'Paypal'),
+    (1570, '2023-09-13', 'Visa'),
+    (3508, '2023-09-14', 'Efectivo'),
+    (4096, '2023-09-14', 'Efectivo'),
+    (1563, '2023-09-14', 'Six Flags Membership'),
+    (1314, '2023-09-14', 'Visa'),
+    (4824, '2023-09-14', 'Efectivo'),
+    (2555, '2023-09-14', 'Efectivo'),
+    (571, '2023-09-14', 'Mastercard'),
+    (1282, '2023-09-14', 'Visa'),
+    (553, '2023-09-14', 'Paypal'),
+    (4489, '2023-09-14', 'American Express'),
+    (2876, '2023-09-15', 'Visa'),
+    (2266, '2023-09-15', 'Six Flags Membership'),
+    (4355, '2023-09-15', 'Paypal'),
+    (2719, '2023-09-15', 'Six Flags Gift Card'),
+    (4061, '2023-09-15', 'Efectivo'),
+    (3488, '2023-09-15', 'Six Flags Gift Card'),
+    (1900, '2023-09-15', 'Efectivo'),
+    (3630, '2023-09-16', 'Efectivo'),
+    (4366, '2023-09-16', 'Six Flags Membership'),
+    (2851, '2023-09-16', 'Visa'),
+    (678, '2023-09-16', 'Mastercard'),
+    (2875, '2023-09-16', 'Six Flags Membership'),
+    (426, '2023-09-16', 'Six Flags Membership'),
+    (2735, '2023-09-17', 'Mastercard'),
+    (767, '2023-09-17', 'Six Flags Gift Card'),
+    (4963, '2023-09-17', 'Paypal'),
+    (4294, '2023-09-17', 'Six Flags Gift Card'),
+    (1872, '2023-09-17', 'Paypal'),
+    (1349, '2023-09-17', 'Mastercard'),
+    (991, '2023-09-18', 'Six Flags Gift Card'),
+    (961, '2023-09-18', 'Efectivo'),
+    (4841, '2023-09-18', 'Visa'),
+    (2116, '2023-09-18', 'Visa'),
+    (3967, '2023-09-18', 'Six Flags Gift Card'),
+    (2613, '2023-09-18', 'Six Flags Membership'),
+    (1972, '2023-09-18', 'American Express'),
+    (2518, '2023-09-19', 'American Express'),
+    (2812, '2023-09-19', 'Mastercard'),
+    (2136, '2023-09-19', 'Six Flags Gift Card'),
+    (43, '2023-09-20', 'Mastercard'),
+    (1913, '2023-09-20', 'Efectivo'),
+    (2217, '2023-09-20', 'Visa'),
+    (1895, '2023-09-20', 'Six Flags Membership'),
+    (1966, '2023-09-20', 'Six Flags Membership'),
+    (4569, '2023-09-20', 'Six Flags Membership'),
+    (3999, '2023-09-20', 'Paypal'),
+    (3452, '2023-09-20', 'Visa'),
+    (3388, '2023-09-20', 'Visa'),
+    (4890, '2023-09-21', 'Six Flags Gift Card'),
+    (509, '2023-09-21', 'Mastercard'),
+    (873, '2023-09-21', 'Six Flags Membership'),
+    (245, '2023-09-21', 'Six Flags Gift Card'),
+    (3410, '2023-09-21', 'Paypal'),
+    (2783, '2023-09-21', 'Mastercard'),
+    (2586, '2023-09-22', 'Visa'),
+    (1598, '2023-09-22', 'Six Flags Gift Card'),
+    (3331, '2023-09-22', 'Six Flags Membership'),
+    (2963, '2023-09-22', 'Six Flags Membership'),
+    (949, '2023-09-22', 'Visa'),
+    (3929, '2023-09-22', 'Visa'),
+    (4665, '2023-09-22', 'Paypal'),
+    (4905, '2023-09-22', 'Mastercard'),
+    (1809, '2023-09-23', 'Six Flags Gift Card'),
+    (1908, '2023-09-23', 'American Express'),
+    (4207, '2023-09-23', 'Paypal'),
+    (4597, '2023-09-23', 'Six Flags Membership'),
+    (2490, '2023-09-24', 'American Express'),
+    (2407, '2023-09-24', 'Six Flags Membership'),
+    (420, '2023-09-24', 'Visa'),
+    (3367, '2023-09-25', 'Six Flags Membership'),
+    (4638, '2023-09-25', 'Efectivo'),
+    (2923, '2023-09-25', 'Six Flags Membership'),
+    (4690, '2023-09-25', 'Visa'),
+    (2444, '2023-09-25', 'American Express'),
+    (699, '2023-09-25', 'Six Flags Membership'),
+    (3470, '2023-09-25', 'Visa'),
+    (1139, '2023-09-25', 'Paypal'),
+    (1761, '2023-09-25', 'Six Flags Gift Card'),
+    (978, '2023-09-26', 'Six Flags Gift Card'),
+    (4671, '2023-09-26', 'Visa'),
+    (4470, '2023-09-26', 'Mastercard'),
+    (3603, '2023-09-26', 'Six Flags Gift Card'),
+    (4244, '2023-09-26', 'American Express'),
+    (2868, '2023-09-26', 'Efectivo'),
+    (875, '2023-09-26', 'Six Flags Gift Card'),
+    (3393, '2023-09-26', 'Six Flags Gift Card'),
+    (130, '2023-09-26', 'Mastercard'),
+    (2862, '2023-09-26', 'American Express'),
+    (2743, '2023-09-27', 'Six Flags Membership'),
+    (2565, '2023-09-27', 'Six Flags Membership'),
+    (4203, '2023-09-27', 'American Express'),
+    (273, '2023-09-27', 'American Express'),
+    (4519, '2023-09-27', 'Efectivo'),
+    (2, '2023-09-27', 'Paypal'),
+    (2074, '2023-09-27', 'American Express'),
+    (4647, '2023-09-27', 'Efectivo'),
+    (4657, '2023-09-27', 'Six Flags Membership'),
+    (3495, '2023-09-28', 'Visa'),
+    (1620, '2023-09-28', 'Mastercard'),
+    (1894, '2023-09-28', 'Paypal'),
+    (196, '2023-09-28', 'Six Flags Gift Card'),
+    (17, '2023-09-28', 'Paypal'),
+    (2374, '2023-09-28', 'Efectivo'),
+    (2799, '2023-09-28', 'American Express'),
+    (3772, '2023-09-28', 'Paypal'),
+    (1628, '2023-09-29', 'Six Flags Gift Card'),
+    (2450, '2023-09-29', 'Efectivo'),
+    (1765, '2023-09-29', 'Efectivo'),
+    (815, '2023-09-29', 'Six Flags Membership'),
+    (356, '2023-09-29', 'Six Flags Membership'),
+    (1280, '2023-09-29', 'Paypal'),
+    (1860, '2023-09-30', 'Mastercard'),
+    (4537, '2023-09-30', 'Efectivo'),
+    (1933, '2023-09-30', 'Six Flags Gift Card'),
+    (1015, '2023-09-30', 'Six Flags Membership'),
+    (4169, '2023-09-30', 'Mastercard'),
+    (1337, '2023-09-30', 'American Express'),
+    (3926, '2023-10-01', 'Paypal'),
+    (1646, '2023-10-01', 'Paypal'),
+    (3298, '2023-10-01', 'Visa'),
+    (815, '2023-10-01', 'American Express'),
+    (262, '2023-10-01', 'Visa'),
+    (2181, '2023-10-01', 'American Express'),
+    (2361, '2023-10-01', 'Efectivo'),
+    (727, '2023-10-01', 'Six Flags Gift Card'),
+    (2392, '2023-10-02', 'Mastercard'),
+    (4350, '2023-10-02', 'Visa'),
+    (1856, '2023-10-02', 'Visa'),
+    (438, '2023-10-02', 'Mastercard'),
+    (1215, '2023-10-02', 'Paypal'),
+    (2089, '2023-10-02', 'American Express'),
+    (3868, '2023-10-02', 'Mastercard'),
+    (2245, '2023-10-02', 'Six Flags Membership'),
+    (3244, '2023-10-02', 'Efectivo'),
+    (1494, '2023-10-03', 'Paypal'),
+    (3023, '2023-10-03', 'Six Flags Membership'),
+    (2032, '2023-10-03', 'Visa'),
+    (306, '2023-10-03', 'Six Flags Membership'),
+    (2999, '2023-10-03', 'Mastercard'),
+    (4400, '2023-10-04', 'Efectivo'),
+    (4561, '2023-10-04', 'Efectivo'),
+    (3845, '2023-10-04', 'Mastercard'),
+    (1889, '2023-10-04', 'Six Flags Gift Card'),
+    (1042, '2023-10-04', 'Paypal'),
+    (3033, '2023-10-04', 'American Express'),
+    (363, '2023-10-04', 'Paypal'),
+    (1760, '2023-10-04', 'Visa'),
+    (4734, '2023-10-04', 'Efectivo'),
+    (2055, '2023-10-04', 'Six Flags Membership'),
+    (3814, '2023-10-05', 'Visa'),
+    (61, '2023-10-05', 'Mastercard'),
+    (1024, '2023-10-05', 'American Express'),
+    (2106, '2023-10-05', 'Visa'),
+    (855, '2023-10-05', 'Efectivo'),
+    (2315, '2023-10-06', 'Six Flags Membership'),
+    (1137, '2023-10-06', 'Efectivo'),
+    (3041, '2023-10-06', 'Six Flags Membership'),
+    (3287, '2023-10-06', 'Six Flags Membership'),
+    (4688, '2023-10-07', 'Paypal'),
+    (2843, '2023-10-07', 'American Express'),
+    (4450, '2023-10-07', 'Efectivo'),
+    (976, '2023-10-07', 'Six Flags Gift Card'),
+    (1633, '2023-10-07', 'Six Flags Membership'),
+    (4021, '2023-10-07', 'Mastercard'),
+    (3202, '2023-10-07', 'Six Flags Gift Card'),
+    (1670, '2023-10-08', 'Efectivo'),
+    (1882, '2023-10-08', 'Efectivo'),
+    (3158, '2023-10-08', 'Six Flags Gift Card'),
+    (2603, '2023-10-08', 'Six Flags Gift Card'),
+    (129, '2023-10-08', 'Visa'),
+    (1229, '2023-10-08', 'Six Flags Gift Card'),
+    (3562, '2023-10-08', 'Paypal'),
+    (3154, '2023-10-09', 'Paypal'),
+    (3407, '2023-10-09', 'Efectivo'),
+    (4113, '2023-10-09', 'Visa'),
+    (2891, '2023-10-09', 'American Express'),
+    (3148, '2023-10-09', 'Six Flags Membership'),
+    (71, '2023-10-09', 'Efectivo'),
+    (3638, '2023-10-10', 'Efectivo'),
+    (2964, '2023-10-10', 'Six Flags Gift Card'),
+    (1326, '2023-10-10', 'Efectivo'),
+    (950, '2023-10-10', 'Mastercard'),
+    (4742, '2023-10-11', 'Visa'),
+    (1015, '2023-10-11', 'Paypal'),
+    (489, '2023-10-11', 'Six Flags Membership'),
+    (464, '2023-10-11', 'Mastercard'),
+    (983, '2023-10-11', 'Mastercard'),
+    (596, '2023-10-11', 'Six Flags Gift Card'),
+    (1170, '2023-10-11', 'Six Flags Membership'),
+    (2940, '2023-10-12', 'Mastercard'),
+    (1502, '2023-10-12', 'American Express'),
+    (3798, '2023-10-12', 'Six Flags Membership'),
+    (349, '2023-10-12', 'Six Flags Membership'),
+    (306, '2023-10-12', 'American Express'),
+    (3576, '2023-10-12', 'Visa'),
+    (3900, '2023-10-12', 'Visa'),
+    (2304, '2023-10-13', 'Mastercard'),
+    (4442, '2023-10-13', 'American Express'),
+    (2896, '2023-10-13', 'Visa'),
+    (1657, '2023-10-13', 'Six Flags Membership'),
+    (2060, '2023-10-13', 'Efectivo'),
+    (196, '2023-10-14', 'Six Flags Membership'),
+    (4204, '2023-10-14', 'Visa'),
+    (1059, '2023-10-14', 'Paypal'),
+    (780, '2023-10-14', 'Six Flags Membership'),
+    (546, '2023-10-14', 'Efectivo'),
+    (453, '2023-10-14', 'Efectivo'),
+    (1188, '2023-10-14', 'Paypal'),
+    (684, '2023-10-14', 'Paypal'),
+    (4937, '2023-10-15', 'Six Flags Membership'),
+    (706, '2023-10-15', 'Visa'),
+    (4922, '2023-10-15', 'Paypal'),
+    (4039, '2023-10-15', 'Mastercard'),
+    (4729, '2023-10-15', 'Mastercard'),
+    (885, '2023-10-15', 'Six Flags Gift Card'),
+    (871, '2023-10-15', 'Visa'),
+    (199, '2023-10-15', 'Paypal'),
+    (890, '2023-10-15', 'Visa'),
+    (1275, '2023-10-15', 'Visa'),
+    (2768, '2023-10-16', 'Efectivo'),
+    (4816, '2023-10-16', 'Visa'),
+    (1702, '2023-10-16', 'Six Flags Membership'),
+    (1692, '2023-10-16', 'American Express'),
+    (1634, '2023-10-16', 'Six Flags Gift Card'),
+    (4327, '2023-10-17', 'Efectivo'),
+    (864, '2023-10-17', 'Efectivo'),
+    (2482, '2023-10-17', 'Six Flags Gift Card'),
+    (1449, '2023-10-17', 'Six Flags Membership'),
+    (1658, '2023-10-18', 'Paypal'),
+    (4242, '2023-10-18', 'Visa'),
+    (2927, '2023-10-18', 'Efectivo'),
+    (2961, '2023-10-18', 'Paypal'),
+    (3070, '2023-10-18', 'Mastercard'),
+    (8, '2023-10-19', 'Six Flags Gift Card'),
+    (3744, '2023-10-19', 'Six Flags Gift Card'),
+    (1538, '2023-10-19', 'Visa'),
+    (916, '2023-10-19', 'Paypal'),
+    (417, '2023-10-19', 'Six Flags Gift Card'),
+    (3604, '2023-10-19', 'Paypal'),
+    (1948, '2023-10-19', 'Visa'),
+    (1475, '2023-10-19', 'Paypal'),
+    (3092, '2023-10-19', 'Six Flags Gift Card'),
+    (2557, '2023-10-19', 'Six Flags Membership'),
+    (400, '2023-10-20', 'Paypal'),
+    (952, '2023-10-20', 'Six Flags Gift Card'),
+    (4375, '2023-10-20', 'Efectivo'),
+    (4746, '2023-10-20', 'American Express'),
+    (1433, '2023-10-21', 'Paypal'),
+    (3549, '2023-10-21', 'Paypal'),
+    (3119, '2023-10-21', 'Six Flags Membership'),
+    (564, '2023-10-21', 'American Express'),
+    (1428, '2023-10-21', 'Six Flags Gift Card'),
+    (3747, '2023-10-22', 'Mastercard'),
+    (3539, '2023-10-22', 'Visa'),
+    (59, '2023-10-22', 'American Express'),
+    (4712, '2023-10-22', 'American Express'),
+    (265, '2023-10-22', 'Six Flags Gift Card'),
+    (4279, '2023-10-22', 'American Express'),
+    (4959, '2023-10-22', 'Mastercard'),
+    (241, '2023-10-22', 'Efectivo'),
+    (349, '2023-10-22', 'Paypal'),
+    (4908, '2023-10-23', 'Efectivo'),
+    (4691, '2023-10-23', 'Six Flags Membership'),
+    (4319, '2023-10-23', 'Visa'),
+    (1634, '2023-10-23', 'Paypal'),
+    (59, '2023-10-23', 'Six Flags Membership'),
+    (1474, '2023-10-23', 'Visa'),
+    (2265, '2023-10-23', 'Paypal'),
+    (4858, '2023-10-24', 'American Express'),
+    (1900, '2023-10-24', 'Six Flags Gift Card'),
+    (24, '2023-10-24', 'Six Flags Gift Card'),
+    (4752, '2023-10-24', 'Mastercard'),
+    (707, '2023-10-24', 'Paypal'),
+    (2544, '2023-10-24', 'Paypal'),
+    (104, '2023-10-25', 'Six Flags Membership'),
+    (25, '2023-10-25', 'Six Flags Membership'),
+    (2571, '2023-10-25', 'Visa'),
+    (2614, '2023-10-25', 'Efectivo'),
+    (429, '2023-10-25', 'Visa'),
+    (4551, '2023-10-25', 'Six Flags Gift Card'),
+    (1518, '2023-10-26', 'Paypal'),
+    (51, '2023-10-26', 'Mastercard'),
+    (2180, '2023-10-26', 'Visa'),
+    (2856, '2023-10-26', 'Mastercard'),
+    (4634, '2023-10-26', 'Six Flags Gift Card'),
+    (2154, '2023-10-26', 'Six Flags Gift Card'),
+    (1046, '2023-10-26', 'Paypal'),
+    (3473, '2023-10-26', 'Paypal'),
+    (4027, '2023-10-26', 'Six Flags Membership'),
+    (3602, '2023-10-26', 'Efectivo'),
+    (4868, '2023-10-26', 'Six Flags Gift Card'),
+    (3926, '2023-10-26', 'Efectivo'),
+    (3804, '2023-10-26', 'Paypal'),
+    (540, '2023-10-27', 'Six Flags Membership'),
+    (2702, '2023-10-27', 'American Express'),
+    (3547, '2023-10-27', 'Paypal'),
+    (3234, '2023-10-27', 'American Express'),
+    (3989, '2023-10-27', 'Mastercard'),
+    (4609, '2023-10-28', 'Six Flags Gift Card'),
+    (1290, '2023-10-28', 'Six Flags Gift Card'),
+    (1907, '2023-10-28', 'Visa'),
+    (445, '2023-10-28', 'Efectivo'),
+    (3499, '2023-10-28', 'Efectivo'),
+    (4697, '2023-10-28', 'Mastercard'),
+    (3727, '2023-10-28', 'Paypal'),
+    (3276, '2023-10-28', 'Six Flags Gift Card'),
+    (4857, '2023-10-28', 'American Express'),
+    (1930, '2023-10-28', 'Six Flags Membership'),
+    (3168, '2023-10-28', 'Visa'),
+    (4070, '2023-10-28', 'American Express'),
+    (4221, '2023-10-29', 'Six Flags Gift Card'),
+    (324, '2023-10-29', 'Six Flags Gift Card'),
+    (2976, '2023-10-29', 'Mastercard'),
+    (384, '2023-10-29', 'Visa'),
+    (1921, '2023-10-29', 'Six Flags Membership'),
+    (241, '2023-10-29', 'American Express'),
+    (3599, '2023-10-30', 'Mastercard'),
+    (1934, '2023-10-30', 'Six Flags Gift Card'),
+    (4246, '2023-10-30', 'Six Flags Membership'),
+    (4531, '2023-10-30', 'Mastercard'),
+    (4528, '2023-10-30', 'Efectivo'),
+    (4490, '2023-10-30', 'Mastercard'),
+    (4327, '2023-10-30', 'Mastercard'),
+    (1270, '2023-10-30', 'Mastercard'),
+    (4165, '2023-10-30', 'American Express'),
+    (1839, '2023-10-30', 'Six Flags Membership'),
+    (418, '2023-10-31', 'Paypal'),
+    (3019, '2023-10-31', 'Efectivo'),
+    (1383, '2023-10-31', 'Visa'),
+    (3018, '2023-10-31', 'Paypal'),
+    (656, '2023-10-31', 'Paypal'),
+    (4492, '2023-10-31', 'Six Flags Membership'),
+    (4612, '2023-10-31', 'Efectivo'),
+    (4963, '2023-10-31', 'Visa'),
+    (1634, '2023-10-31', 'Visa'),
+    (3348, '2023-10-31', 'Paypal'),
+    (2544, '2023-11-01', 'Six Flags Gift Card'),
+    (2047, '2023-11-01', 'Visa'),
+    (2472, '2023-11-01', 'Paypal'),
+    (2421, '2023-11-01', 'Paypal'),
+    (1879, '2023-11-01', 'Paypal'),
+    (4417, '2023-11-01', 'Mastercard'),
+    (1321, '2023-11-01', 'Efectivo'),
+    (1866, '2023-11-01', 'Efectivo'),
+    (3692, '2023-11-01', 'Six Flags Gift Card'),
+    (4159, '2023-11-01', 'Paypal'),
+    (96, '2023-11-02', 'Six Flags Gift Card'),
+    (1399, '2023-11-02', 'Six Flags Gift Card'),
+    (1106, '2023-11-02', 'Efectivo'),
+    (2303, '2023-11-02', 'Visa'),
+    (4643, '2023-11-02', 'Visa'),
+    (1171, '2023-11-02', 'Mastercard'),
+    (3901, '2023-11-02', 'Six Flags Gift Card'),
+    (3559, '2023-11-03', 'Six Flags Gift Card'),
+    (2884, '2023-11-03', 'American Express'),
+    (4405, '2023-11-03', 'American Express'),
+    (2083, '2023-11-03', 'Efectivo'),
+    (1997, '2023-11-03', 'American Express'),
+    (437, '2023-11-03', 'Visa'),
+    (1186, '2023-11-03', 'Six Flags Gift Card'),
+    (4696, '2023-11-03', 'American Express'),
+    (1371, '2023-11-04', 'Six Flags Membership'),
+    (4454, '2023-11-04', 'Visa'),
+    (4019, '2023-11-04', 'Six Flags Membership'),
+    (2053, '2023-11-04', 'Six Flags Membership'),
+    (4487, '2023-11-04', 'Paypal'),
+    (67, '2023-11-04', 'Mastercard'),
+    (4147, '2023-11-05', 'Efectivo'),
+    (3844, '2023-11-05', 'Paypal'),
+    (2395, '2023-11-05', 'Six Flags Membership'),
+    (1932, '2023-11-05', 'Six Flags Gift Card'),
+    (4165, '2023-11-05', 'Visa'),
+    (3167, '2023-11-05', 'Six Flags Membership'),
+    (3069, '2023-11-06', 'Efectivo'),
+    (2029, '2023-11-06', 'American Express'),
+    (2066, '2023-11-06', 'Six Flags Membership'),
+    (1111, '2023-11-06', 'Six Flags Membership'),
+    (4240, '2023-11-07', 'Mastercard'),
+    (148, '2023-11-07', 'Six Flags Gift Card'),
+    (4893, '2023-11-07', 'Visa'),
+    (3548, '2023-11-07', 'Paypal'),
+    (1797, '2023-11-07', 'Mastercard'),
+    (1927, '2023-11-07', 'American Express'),
+    (4049, '2023-11-07', 'Efectivo'),
+    (2731, '2023-11-07', 'Efectivo'),
+    (1187, '2023-11-07', 'Six Flags Membership'),
+    (3546, '2023-11-08', 'Six Flags Membership'),
+    (592, '2023-11-08', 'Mastercard'),
+    (3392, '2023-11-08', 'Efectivo'),
+    (3261, '2023-11-08', 'Efectivo'),
+    (4140, '2023-11-09', 'Six Flags Membership'),
+    (852, '2023-11-09', 'American Express'),
+    (2920, '2023-11-09', 'Efectivo'),
+    (2759, '2023-11-09', 'Six Flags Membership'),
+    (4815, '2023-11-09', 'Paypal'),
+    (13, '2023-11-09', 'Visa'),
+    (1762, '2023-11-09', 'Paypal'),
+    (704, '2023-11-09', 'American Express'),
+    (513, '2023-11-09', 'Six Flags Gift Card'),
+    (3528, '2023-11-09', 'Six Flags Gift Card'),
+    (394, '2023-11-09', 'Six Flags Gift Card'),
+    (3029, '2023-11-10', 'Six Flags Membership'),
+    (3862, '2023-11-10', 'Six Flags Membership'),
+    (4417, '2023-11-10', 'Six Flags Membership'),
+    (2867, '2023-11-10', 'Visa'),
+    (1089, '2023-11-10', 'Efectivo'),
+    (4542, '2023-11-10', 'American Express'),
+    (1126, '2023-11-10', 'Six Flags Membership'),
+    (3777, '2023-11-11', 'American Express'),
+    (4451, '2023-11-11', 'Visa'),
+    (15, '2023-11-11', 'American Express'),
+    (3683, '2023-11-11', 'Paypal'),
+    (3570, '2023-11-11', 'Six Flags Membership'),
+    (830, '2023-11-11', 'American Express'),
+    (4515, '2023-11-12', 'Visa'),
+    (4577, '2023-11-12', 'Six Flags Gift Card'),
+    (1264, '2023-11-12', 'Six Flags Gift Card'),
+    (4957, '2023-11-12', 'Efectivo'),
+    (4655, '2023-11-12', 'American Express'),
+    (3627, '2023-11-12', 'Efectivo'),
+    (2241, '2023-11-12', 'Visa'),
+    (1323, '2023-11-13', 'Mastercard'),
+    (2750, '2023-11-13', 'Paypal'),
+    (2323, '2023-11-13', 'Mastercard'),
+    (2283, '2023-11-13', 'Six Flags Gift Card'),
+    (1669, '2023-11-13', 'Six Flags Gift Card'),
+    (4158, '2023-11-13', 'Visa'),
+    (4474, '2023-11-13', 'American Express'),
+    (2046, '2023-11-13', 'American Express'),
+    (2568, '2023-11-14', 'Paypal'),
+    (3571, '2023-11-14', 'Visa'),
+    (105, '2023-11-14', 'Mastercard'),
+    (839, '2023-11-14', 'Six Flags Gift Card'),
+    (3671, '2023-11-14', 'Six Flags Gift Card'),
+    (802, '2023-11-14', 'Mastercard'),
+    (3147, '2023-11-14', 'American Express'),
+    (2011, '2023-11-14', 'Visa'),
+    (4949, '2023-11-14', 'Six Flags Membership'),
+    (1856, '2023-11-14', 'Efectivo'),
+    (433, '2023-11-15', 'Six Flags Gift Card'),
+    (2614, '2023-11-15', 'Six Flags Membership'),
+    (1002, '2023-11-15', 'Paypal'),
+    (2979, '2023-11-15', 'Mastercard'),
+    (4518, '2023-11-15', 'Six Flags Gift Card'),
+    (3676, '2023-11-15', 'Six Flags Gift Card'),
+    (3514, '2023-11-15', 'Visa'),
+    (4162, '2023-11-15', 'Mastercard'),
+    (1201, '2023-11-15', 'American Express'),
+    (1040, '2023-11-16', 'Six Flags Gift Card'),
+    (4951, '2023-11-16', 'Visa'),
+    (798, '2023-11-16', 'Paypal'),
+    (2774, '2023-11-16', 'Six Flags Gift Card'),
+    (4109, '2023-11-17', 'Six Flags Membership'),
+    (4808, '2023-11-17', 'Mastercard'),
+    (4566, '2023-11-17', 'Six Flags Membership'),
+    (443, '2023-11-17', 'Paypal'),
+    (965, '2023-11-17', 'Visa'),
+    (4928, '2023-11-17', 'Six Flags Membership'),
+    (3322, '2023-11-17', 'Mastercard'),
+    (4620, '2023-11-18', 'American Express'),
+    (1593, '2023-11-18', 'Paypal'),
+    (2300, '2023-11-18', 'Visa'),
+    (1639, '2023-11-18', 'Efectivo'),
+    (1691, '2023-11-19', 'American Express'),
+    (897, '2023-11-19', 'Mastercard'),
+    (3712, '2023-11-19', 'Six Flags Membership'),
+    (3116, '2023-11-20', 'Mastercard'),
+    (477, '2023-11-20', 'Mastercard'),
+    (577, '2023-11-20', 'Six Flags Gift Card'),
+    (4051, '2023-11-20', 'Paypal'),
+    (1490, '2023-11-21', 'Efectivo'),
+    (3342, '2023-11-21', 'Visa'),
+    (4889, '2023-11-21', 'American Express'),
+    (4688, '2023-11-21', 'Paypal'),
+    (3530, '2023-11-21', 'Six Flags Gift Card'),
+    (306, '2023-11-22', 'Visa'),
+    (3561, '2023-11-22', 'American Express'),
+    (282, '2023-11-22', 'Visa'),
+    (4537, '2023-11-22', 'Visa'),
+    (2083, '2023-11-22', 'Paypal'),
+    (2353, '2023-11-23', 'Visa'),
+    (3585, '2023-11-23', 'Visa'),
+    (4473, '2023-11-23', 'Six Flags Gift Card'),
+    (1314, '2023-11-23', 'Visa'),
+    (2826, '2023-11-23', 'American Express'),
+    (4127, '2023-11-23', 'Visa'),
+    (580, '2023-11-23', 'Mastercard'),
+    (3605, '2023-11-23', 'Visa'),
+    (2896, '2023-11-23', 'Efectivo'),
+    (4822, '2023-11-24', 'American Express'),
+    (1361, '2023-11-24', 'Six Flags Gift Card'),
+    (2417, '2023-11-24', 'American Express'),
+    (1599, '2023-11-24', 'Efectivo'),
+    (1125, '2023-11-24', 'Six Flags Gift Card'),
+    (4671, '2023-11-24', 'Mastercard'),
+    (1818, '2023-11-24', 'Paypal'),
+    (2796, '2023-11-24', 'American Express'),
+    (294, '2023-11-24', 'American Express'),
+    (440, '2023-11-24', 'Six Flags Gift Card'),
+    (1451, '2023-11-25', 'Visa'),
+    (4728, '2023-11-25', 'Visa'),
+    (32, '2023-11-25', 'Efectivo'),
+    (1874, '2023-11-25', 'Six Flags Gift Card'),
+    (4005, '2023-11-25', 'Mastercard'),
+    (4928, '2023-11-26', 'American Express'),
+    (3970, '2023-11-26', 'Mastercard'),
+    (527, '2023-11-26', 'Paypal'),
+    (4616, '2023-11-26', 'Six Flags Gift Card'),
+    (58, '2023-11-26', 'Paypal'),
+    (4509, '2023-11-26', 'Six Flags Membership'),
+    (1586, '2023-11-26', 'Paypal'),
+    (174, '2023-11-26', 'Six Flags Membership'),
+    (1772, '2023-11-26', 'Efectivo'),
+    (4505, '2023-11-27', 'American Express'),
+    (1481, '2023-11-27', 'Visa'),
+    (2752, '2023-11-27', 'Six Flags Membership'),
+    (1487, '2023-11-27', 'Efectivo'),
+    (3549, '2023-11-27', 'American Express'),
+    (4219, '2023-11-27', 'Six Flags Gift Card'),
+    (2300, '2023-11-27', 'Efectivo'),
+    (3412, '2023-11-28', 'Visa'),
+    (1427, '2023-11-28', 'Mastercard'),
+    (3866, '2023-11-28', 'American Express'),
+    (2000, '2023-11-28', 'American Express'),
+    (4302, '2023-11-28', 'Six Flags Membership'),
+    (2344, '2023-11-28', 'Paypal'),
+    (2646, '2023-11-28', 'Visa'),
+    (2167, '2023-11-28', 'Six Flags Gift Card'),
+    (1821, '2023-11-28', 'Six Flags Gift Card'),
+    (674, '2023-11-29', 'Visa'),
+    (2132, '2023-11-29', 'Paypal'),
+    (1934, '2023-11-30', 'Mastercard'),
+    (166, '2023-11-30', 'Six Flags Gift Card'),
+    (3806, '2023-11-30', 'Visa'),
+    (3477, '2023-12-01', 'American Express'),
+    (270, '2023-12-01', 'Paypal'),
+    (1242, '2023-12-01', 'Efectivo'),
+    (2932, '2023-12-01', 'Visa'),
+    (4542, '2023-12-01', 'American Express'),
+    (1669, '2023-12-01', 'Mastercard'),
+    (4928, '2023-12-01', 'Six Flags Membership'),
+    (3211, '2023-12-01', 'Mastercard'),
+    (2464, '2023-12-01', 'Visa'),
+    (3569, '2023-12-02', 'American Express'),
+    (1197, '2023-12-02', 'Six Flags Membership'),
+    (2548, '2023-12-02', 'Paypal'),
+    (1339, '2023-12-02', 'Mastercard'),
+    (4288, '2023-12-03', 'Six Flags Gift Card'),
+    (1923, '2023-12-03', 'Efectivo'),
+    (3604, '2023-12-03', 'Mastercard'),
+    (4431, '2023-12-03', 'Six Flags Gift Card'),
+    (682, '2023-12-03', 'Paypal'),
+    (1887, '2023-12-03', 'Six Flags Gift Card'),
+    (1870, '2023-12-03', 'American Express'),
+    (204, '2023-12-03', 'Paypal'),
+    (3887, '2023-12-04', 'Six Flags Gift Card'),
+    (4958, '2023-12-04', 'Efectivo'),
+    (4718, '2023-12-04', 'Six Flags Gift Card'),
+    (1953, '2023-12-05', 'Six Flags Gift Card'),
+    (1973, '2023-12-05', 'Efectivo'),
+    (2283, '2023-12-05', 'American Express'),
+    (2014, '2023-12-05', 'American Express'),
+    (4376, '2023-12-05', 'Visa'),
+    (343, '2023-12-05', 'American Express'),
+    (3932, '2023-12-05', 'Mastercard'),
+    (4628, '2023-12-05', 'Paypal'),
+    (3601, '2023-12-05', 'Visa'),
+    (1196, '2023-12-05', 'Six Flags Gift Card'),
+    (1452, '2023-12-06', 'Visa'),
+    (4469, '2023-12-06', 'Six Flags Membership'),
+    (1203, '2023-12-06', 'Visa'),
+    (3692, '2023-12-06', 'Mastercard'),
+    (1595, '2023-12-06', 'Visa'),
+    (2398, '2023-12-06', 'Mastercard'),
+    (2455, '2023-12-06', 'Mastercard'),
+    (4091, '2023-12-06', 'Mastercard'),
+    (114, '2023-12-06', 'Efectivo'),
+    (4610, '2023-12-06', 'Visa'),
+    (3957, '2023-12-07', 'Paypal'),
+    (639, '2023-12-07', 'Paypal'),
+    (2223, '2023-12-07', 'Six Flags Membership'),
+    (1515, '2023-12-07', 'Mastercard'),
+    (174, '2023-12-07', 'Visa'),
+    (3521, '2023-12-07', 'Six Flags Gift Card'),
+    (2961, '2023-12-07', 'Six Flags Membership'),
+    (2834, '2023-12-07', 'Six Flags Membership'),
+    (3026, '2023-12-07', 'American Express'),
+    (2206, '2023-12-07', 'Six Flags Membership'),
+    (2006, '2023-12-07', 'Mastercard'),
+    (2799, '2023-12-07', 'American Express'),
+    (940, '2023-12-07', 'Mastercard'),
+    (4215, '2023-12-07', 'Six Flags Gift Card'),
+    (2232, '2023-12-08', 'Six Flags Gift Card'),
+    (1622, '2023-12-08', 'Six Flags Gift Card'),
+    (1510, '2023-12-08', 'Paypal'),
+    (1102, '2023-12-08', 'Six Flags Gift Card'),
+    (4814, '2023-12-09', 'Paypal'),
+    (2937, '2023-12-09', 'American Express'),
+    (520, '2023-12-09', 'Six Flags Membership'),
+    (487, '2023-12-09', 'Visa'),
+    (1226, '2023-12-09', 'American Express'),
+    (2504, '2023-12-09', 'Six Flags Gift Card'),
+    (725, '2023-12-09', 'Efectivo'),
+    (2410, '2023-12-09', 'Mastercard'),
+    (4633, '2023-12-09', 'Visa'),
+    (3918, '2023-12-09', 'Paypal'),
+    (3625, '2023-12-09', 'Visa'),
+    (1576, '2023-12-09', 'Paypal'),
+    (1068, '2023-12-09', 'Visa'),
+    (2855, '2023-12-09', 'American Express'),
+    (441, '2023-12-10', 'Paypal'),
+    (1930, '2023-12-10', 'American Express'),
+    (94, '2023-12-10', 'Efectivo'),
+    (2053, '2023-12-10', 'Six Flags Membership'),
+    (698, '2023-12-10', 'Mastercard'),
+    (1674, '2023-12-10', 'American Express'),
+    (2775, '2023-12-10', 'Six Flags Gift Card'),
+    (4020, '2023-12-10', 'American Express'),
+    (1558, '2023-12-11', 'Mastercard'),
+    (4719, '2023-12-11', 'Visa'),
+    (1711, '2023-12-11', 'Efectivo'),
+    (2783, '2023-12-11', 'Efectivo'),
+    (3293, '2023-12-11', 'Paypal'),
+    (3666, '2023-12-11', 'Six Flags Membership'),
+    (115, '2023-12-11', 'Six Flags Gift Card'),
+    (2650, '2023-12-12', 'Visa'),
+    (693, '2023-12-12', 'Six Flags Membership'),
+    (2923, '2023-12-12', 'Paypal'),
+    (3780, '2023-12-12', 'Mastercard'),
+    (2699, '2023-12-12', 'American Express'),
+    (2443, '2023-12-12', 'Visa'),
+    (4757, '2023-12-12', 'Paypal'),
+    (2960, '2023-12-13', 'Visa'),
+    (3095, '2023-12-13', 'American Express'),
+    (3523, '2023-12-13', 'Paypal'),
+    (869, '2023-12-13', 'Efectivo'),
+    (4371, '2023-12-14', 'American Express'),
+    (2946, '2023-12-14', 'Six Flags Membership'),
+    (2789, '2023-12-14', 'Visa'),
+    (565, '2023-12-14', 'Efectivo'),
+    (3694, '2023-12-14', 'Paypal'),
+    (541, '2023-12-14', 'Paypal'),
+    (87, '2023-12-14', 'Six Flags Membership'),
+    (4513, '2023-12-15', 'Paypal'),
+    (4906, '2023-12-15', 'Paypal'),
+    (2975, '2023-12-15', 'Visa'),
+    (1332, '2023-12-15', 'Mastercard'),
+    (1510, '2023-12-15', 'Six Flags Gift Card'),
+    (41, '2023-12-15', 'Six Flags Membership'),
+    (2673, '2023-12-15', 'American Express'),
+    (914, '2023-12-15', 'Visa'),
+    (3470, '2023-12-15', 'Six Flags Gift Card'),
+    (3272, '2023-12-15', 'Mastercard'),
+    (1114, '2023-12-16', 'Six Flags Membership'),
+    (4855, '2023-12-16', 'Six Flags Gift Card'),
+    (3674, '2023-12-16', 'Paypal'),
+    (379, '2023-12-16', 'Paypal'),
+    (4832, '2023-12-16', 'Six Flags Gift Card'),
+    (3983, '2023-12-16', 'Mastercard'),
+    (2153, '2023-12-16', 'Paypal'),
+    (349, '2023-12-16', 'Six Flags Gift Card'),
+    (644, '2023-12-16', 'Efectivo'),
+    (975, '2023-12-16', 'Paypal'),
+    (292, '2023-12-17', 'Paypal'),
+    (659, '2023-12-17', 'Mastercard'),
+    (2521, '2023-12-17', 'Six Flags Membership'),
+    (1128, '2023-12-17', 'American Express'),
+    (2685, '2023-12-17', 'Mastercard'),
+    (47, '2023-12-18', 'Mastercard'),
+    (3814, '2023-12-18', 'Six Flags Gift Card'),
+    (4501, '2023-12-18', 'Visa'),
+    (3297, '2023-12-18', 'Visa'),
+    (2555, '2023-12-18', 'Mastercard'),
+    (3728, '2023-12-18', 'Six Flags Membership'),
+    (1294, '2023-12-18', 'American Express'),
+    (2999, '2023-12-19', 'Six Flags Gift Card'),
+    (624, '2023-12-19', 'Six Flags Gift Card'),
+    (4256, '2023-12-19', 'Paypal'),
+    (250, '2023-12-19', 'Mastercard'),
+    (161, '2023-12-19', 'Mastercard'),
+    (1695, '2023-12-20', 'Paypal'),
+    (2186, '2023-12-20', 'American Express'),
+    (2048, '2023-12-20', 'Six Flags Gift Card'),
+    (4397, '2023-12-20', 'Efectivo'),
+    (3518, '2023-12-20', 'Visa'),
+    (1850, '2023-12-20', 'Paypal'),
+    (1837, '2023-12-20', 'Paypal'),
+    (2385, '2023-12-20', 'Efectivo'),
+    (1466, '2023-12-20', 'Visa'),
+    (1222, '2023-12-20', 'Visa'),
+    (4010, '2023-12-20', 'Six Flags Gift Card'),
+    (3158, '2023-12-20', 'Six Flags Gift Card'),
+    (4388, '2023-12-20', 'Mastercard'),
+    (1450, '2023-12-21', 'American Express'),
+    (3211, '2023-12-21', 'American Express'),
+    (2889, '2023-12-21', 'Visa'),
+    (4376, '2023-12-21', 'Paypal'),
+    (1185, '2023-12-21', 'Visa'),
+    (932, '2023-12-21', 'Mastercard'),
+    (861, '2023-12-21', 'Mastercard'),
+    (4608, '2023-12-21', 'Six Flags Membership'),
+    (2568, '2023-12-21', 'Six Flags Membership'),
+    (3156, '2023-12-22', 'Visa'),
+    (1421, '2023-12-22', 'Six Flags Gift Card'),
+    (2050, '2023-12-22', 'American Express'),
+    (4988, '2023-12-22', 'Visa'),
+    (3897, '2023-12-22', 'Mastercard'),
+    (2886, '2023-12-22', 'Six Flags Membership'),
+    (3907, '2023-12-23', 'American Express'),
+    (553, '2023-12-23', 'Six Flags Membership'),
+    (2748, '2023-12-23', 'Paypal'),
+    (4750, '2023-12-23', 'Mastercard'),
+    (2842, '2023-12-23', 'Mastercard'),
+    (3596, '2023-12-23', 'Paypal'),
+    (721, '2023-12-23', 'Paypal'),
+    (3822, '2023-12-23', 'Efectivo'),
+    (4280, '2023-12-23', 'Visa'),
+    (2971, '2023-12-23', 'Six Flags Membership'),
+    (2873, '2023-12-23', 'American Express'),
+    (2762, '2023-12-24', 'Visa'),
+    (3173, '2023-12-24', 'Mastercard'),
+    (3884, '2023-12-24', 'Mastercard'),
+    (2113, '2023-12-24', 'Paypal'),
+    (3684, '2023-12-24', 'Six Flags Gift Card'),
+    (4352, '2023-12-24', 'American Express'),
+    (106, '2023-12-25', 'Six Flags Membership'),
+    (3665, '2023-12-25', 'Efectivo'),
+    (3545, '2023-12-25', 'Paypal'),
+    (4226, '2023-12-25', 'American Express'),
+    (4522, '2023-12-25', 'Six Flags Gift Card'),
+    (41, '2023-12-25', 'Efectivo'),
+    (2789, '2023-12-25', 'Six Flags Gift Card'),
+    (2832, '2023-12-25', 'Paypal'),
+    (2100, '2023-12-25', 'Mastercard'),
+    (200, '2023-12-26', 'Efectivo'),
+    (2168, '2023-12-26', 'Paypal'),
+    (4907, '2023-12-26', 'Efectivo'),
+    (1224, '2023-12-26', 'Visa'),
+    (1739, '2023-12-26', 'Mastercard'),
+    (3779, '2023-12-26', 'Mastercard'),
+    (4629, '2023-12-26', 'Mastercard'),
+    (3556, '2023-12-27', 'Six Flags Gift Card'),
+    (2625, '2023-12-27', 'Visa'),
+    (86, '2023-12-27', 'American Express'),
+    (4122, '2023-12-27', 'Efectivo'),
+    (4878, '2023-12-27', 'Six Flags Gift Card'),
+    (936, '2023-12-28', 'Six Flags Membership'),
+    (2523, '2023-12-28', 'Mastercard'),
+    (2197, '2023-12-28', 'Visa'),
+    (338, '2023-12-28', 'Six Flags Membership'),
+    (2139, '2023-12-28', 'Six Flags Gift Card'),
+    (1295, '2023-12-28', 'Six Flags Membership'),
+    (3019, '2023-12-28', 'Mastercard'),
+    (4972, '2023-12-28', 'Six Flags Gift Card'),
+    (1913, '2023-12-29', 'Six Flags Membership'),
+    (2179, '2023-12-29', 'Mastercard'),
+    (3400, '2023-12-29', 'Six Flags Gift Card'),
+    (2572, '2023-12-29', 'Paypal'),
+    (3020, '2023-12-29', 'Efectivo'),
+    (287, '2023-12-29', 'American Express'),
+    (3798, '2023-12-29', 'American Express'),
+    (3083, '2023-12-29', 'Six Flags Membership'),
+    (3500, '2023-12-29', 'Paypal'),
+    (1154, '2023-12-30', 'Paypal'),
+    (1614, '2023-12-30', 'Paypal'),
+    (4465, '2023-12-30', 'Six Flags Gift Card'),
+    (3464, '2023-12-30', 'Six Flags Gift Card'),
+    (3068, '2023-12-30', 'Mastercard'),
+    (669, '2023-12-31', 'Six Flags Membership'),
+    (4856, '2023-12-31', 'Mastercard'),
+    (2150, '2023-12-31', 'Mastercard'),
+    (2287, '2023-12-31', 'Six Flags Gift Card'),
+    (3183, '2023-12-31', 'Paypal'),
+    (388, '2023-12-31', 'Visa')
 ;
 
--- Categoria restaurante
-INSERT INTO categoria_restaurante(
-    categoria_restaurante_id
-    , nombre
-)
-VALUES 
-    ('01', 'Antojos y Bebidas')
-    , ('02', 'Café y Demás')
-    , ('03', 'Comida Americana')
-    , ('04', 'Comida Baja en Grasa')
-    , ('05', 'Comida Italiana')
-    , ('06', 'Comida Mexicana')
-    , ('07', 'Helados y postres')
-;
-
--- Restaurante
-INSERT INTO restaurante(restaurante_id, nombre, descripcion, categoria_restaurante_id, villa_id)
-VALUES ('001', 'Antigua Hacienda', 'Platillos tradicionales de la comida mexicana, tortillas hechas a mano, deliciosas bebidas, postres y un exquisito sazón.','06','2')
-	   , ('002', 'Café D´ París', 'Bebidas calientes o frías, crepas dulces o saladas, pastelería y delicioso pan','02','4')
-       , ('003', 'Capone\s  ', '¡Deliciosa pizza y pasta!','05','7')
-       , ('004', 'Centro de relleno boulevard Justice League', 'No hagas filas! Rellena tu vaso souvenir o cubeta palomera.','05','1')
-       , ('005', 'DC VIllains Grill', 'Deliciosas hamburguesas, crujientes tiras de pollo y refrescantes malteadas.','03','1')
-       , ('006', 'Estación Coca Cola Francés ', 'Bebidas de la familia Coca Cola, Agua Ciel, Palomitas, Nachos, Icee y mucho más.','01','4')
-       , ('007', 'Estación Coca Cola Hollywood', 'Bebidas de la familia Coca Cola, Agua Ciel, Palomitas, Nachos, Icee y mucho más.','01','1')
-       , ('008', 'Estación Fanta', 'Bebidas de la familia Coca Cola, Agua Ciel, Palomitas, Nachos, Icee y mucho más.','01','2')
-       , ('009', 'Funnel Cake  ', 'Funnel Cake, bebidas, churros rellenos y más','07','2')
-       , ('010', 'Go Fresh Mexicano', 'Variedad de frutas de temporada, agua de sabor y más.','04','2')
-       , ('011', 'Go Fresh Suizo', 'Variedad de frutas de temporada, agua de sabor y más.','04','2')
-       , ('012', 'Grill Hollywood', '¡Deliciosos Hot Dogs a la parrilla!','03','1')
-       , ('013', 'Hot Dog Grill Boulevard Justice League', 'Los mejores hot dogs de Metropolis: texas chilli dog, pulled pork y tocino.','03','1')
-       , ('014', 'Johnny Rockets Hollywood', 'Hamburguesas, papas fritas, aros de cebolla y malteadas.','03','1')
-       , ('015', 'Johnny Rockets Mexicano', 'Hamburguesas, papas fritas, aros de cebolla y malteadas.','03','2')
-       , ('016', 'La Barrica Hollywood', 'Refrescante cerveza Corona.','01','1')
-       , ('017', 'La Crepería', 'Bebidas calientes o frías, crepas dulces o saladas.','02','10')
-       , ('018', 'Papa Kahuna', 'Papas al horno rellenas de jamón, tocino, o champicrema, nachos, icee y más.','03','2')
-       , ('019', 'Parrilla Vaquera', 'Hamburguesas, papas fritas, y ensalada de vegetales.','03','6')
-       , ('020', 'Saloon Corona', 'Pueblo Vaquero', 'Comida del viejo Oeste: Cortes de carne, alitas, ensaladas, postres y más.','03','6')
-       , ('021', 'Six Pizza Hollywood', 'Variedad de pizzas, elige tu favorita.','05','1')
-       , ('022', 'Six Pizza Vaquero', 'Variedad de pizzas, elige tu favorita.','05','6')
-       , ('023', 'Super Snacks', 'Bebidas de la familia Coca Cola, Agua Ciel, Palomitas, Nachos, Icee y mucho más.','01','5')
-       , ('024', 'Super Villanos Grill', 'Hamburguesas, papas fritas, y ensalada de vegetales.','03','2')
-       , ('025', 'Taquería Jacaranda', 'Tacos al pastor, de suadero, bistec, gringas y más.','06','2')
-       , ('026', 'Volcano Wings', 'Deliciosas alitas, boneless y refrescante cerveza de barril.','03','9')
-       , ('027', 'Beachside Grill', 'Disfruta con el calor de una cerveza sola o preparada tu elijes! También prueba nuestros nuevos calimochos o si quieres algo más tropical te va a encantar nuestra piña colada! También para los peques se refresquen pídeles una canica seguro les encantará!','01','11')
-       , ('028', 'Fábrica de Pollo', 'Prueba nuestros tradicionales pollos rostizados acompañados de una ensalada','06','11')
-       , ('029', 'H2O Snacks', 'Rellena tu cubeta palomera o vaso souvenir','01','11')
-       , ('030', 'Johnny Rockets', 'Hamburguesas, papas fritas, aros de cebolla y malteadas.','03','11')
-       , ('031', 'La Antigua Hacienda', 'Aquí encontrarás una gran variedad de gastronomía mexicana','06','11')
-       , ('032', 'La Hamaca Snacks', 'Rellena tu cubeta palomera o tu vaso souvenir', '01','11')
-       , ('033', 'Sharks Snacks', 'Refréscate con una botella de agua o un refresco o alguno de los sabores de nuestras bebidas congeladas carbonatadas, ¿antojo de una papas? Aquí podrás encontrarlas para compartirlas', '01','11')
-       , ('034', 'Six Pizza', 'Aquí podrás encontrar tu pizza favorita seguramente pepperoni, hawaiana disfrútalas al máximo. Complementa tu experiencia con una pasta a la boloñesa. No, olvides que también contamos con ensaladas para acompañar tus alimentos.', '05','11');
-
--- Categoria tienda
-INSERT INTO categoria_tienda(
-    categoria_tienda_id
-    , nombre
-)
-VALUES 
-    ('01', 'Dulceria')
-    , ('02', 'Juguetes')
-    , ('03', 'Moda')
-    , ('04', 'Recuerdos');
-
--- Tienda
-INSERT INTO tienda(
-    tienda_id
+INSERT INTO tipo_atraccion(
+    tipo_atraccion_id
     , nombre
     , descripcion
-    , villa_id
-    , categoria_tienda_id
 )
 VALUES 
-       ('001', 'Bazar de las Banderas', 'Ubicada en la entrada principal del parque, en esta tienda encontrarás la mejor selección de artículos de Six Flags y tus Superhéroes favoritos de DC para todas las edades.','2','03')
-       , ('002', 'Capas y Personajes', 'Haz tu propio slime, explota tu creatividad armando figuras de bloques y conviértete en un superhéroe o superheroína con la variedad de disfraces y souvenirs disponibles.','5','03')
-       , ('003', 'Coaster Candy', 'Ubicada a la entrada de la Villa Hollywood, en esta tienda encontrarás una gran variedad de dulces, gomitas, paletas, algodón de azúcar, manzanas cubiertas y más.','1','03')
-       , ('004', 'DC Superhero Store', 'Ubicada a un costado de Supergirl Sky Flight, esta tienda será tu mejor opción para encontrar prendas y artículos de tus personajes favoritos de DC Comics.','1','02')
-       , ('005', 'El Castillo de los Sueños', 'Disfruta con tus hijos de una sesión súper divertida de fantasía con fotos, maquillaje, peinado, manicure y otras sorpresas, creando momentos de complicidad entrañables.','5','02')
-       , ('006', 'Medusa Steel Coaster Shop', 'Una vez que desafiaste a nuestra increíble montaña rusa híbrida, no olvides llevarte un recuerdo de tu hazaña en esta tienda.','6','04')
-       , ('007', 'Mercado de los Looney Tunes', '¿Eres fan de los Looney Tunes?, aquí podrás encontrar la más grande variedad de artículos de tus personajes favoritos.','2','02')
-       , ('008', 'Pacific Coast Surf Shop', 'Ubicada frente a CraZanity, esta tienda es tu mejor opción para adquirir sudaderas, capas, gorras, sombrillas, impermeables y mucho más.','1','03')
-       , ('009', 'Pirulí', 'Desde dulces, gomitas a granel, botanas y chocolates, hasta dulces típicos y souvenirs de tus personajes favoritos.','2','01')
-       , ('010', 'Superhéroes y Villanos', 'Después de la gran experiencia de The Dark Knight Coaster, no puedes perder la oportunidad de llevarte un recuerdo de tu villano o superhéroe favorito.','6','03')
-       , ('011', 'Superman: La Tienda de Metrópolis', 'En esta tienda encontrarás miles de artículos de Superman y más personajes del Universo DC, desde un bolígrafo hasta chamarras de colección.','2','03')
-       , ('012', 'The Fun House Shop', 'Un rincón especialmente dedicado al enemigo No. 1 de Batman, The Joker y su acompañante inseparable Harley Quinn.','4','03')
-       , ('013', 'Big Surf Shop', '¡Recuerda tu visita! Si pasaste un día lleno de inolvidables aventuras, estamos seguros que en Big Surf Shop encontrarás algún detalle para recordar tu visita o para esa persona especial.','11','04')
-       , ('014', 'Cyclone Supply', 'Renta tu llanta, compra lo que necesites para complementar tu visita o lleva un souvenir para regalar a esa persona especial.','11','04')
-       , ('015', 'Island Traders', 'Si se te olvidó algo que necesitas durante el día o simplemente quieres un increíble souvenir para hacer de tu visita algo inolvidable, ¡no te preocupes!','11','04');
-
--- Mercancia
-
--- Horarios 
-INSERT INTO horario(
-    parque_id
-    , fecha
-    , hora_apertura
-    , hora_cierre
-)
-VALUES
-     (1, '2020-01-01', '00:00:00', '00:00:00')
-    , (2, '2020-01-01', '00:00:00', '00:00:00')
-    , (1, '2020-01-02', '00:00:00', '00:00:00')
-    , (2, '2020-01-02', '00:00:00', '00:00:00')
-    , (1, '2020-01-03', '10:00:00', '18:00:00')
-    , (2, '2020-01-03', '10:00:00', '18:00:00')
-    , (1, '2020-01-04', '10:00:00', '22:00:00')
-    , (2, '2020-01-04', '10:00:00', '22:00:00')
-    , (1, '2020-01-05', '10:00:00', '22:00:00')
-    , (2, '2020-01-05', '10:00:00', '22:00:00')
-    , (1, '2020-01-06', '00:00:00', '00:00:00')
-    , (2, '2020-01-06', '00:00:00', '00:00:00')
-    , (1, '2020-01-07', '00:00:00', '00:00:00')
-    , (2, '2020-01-07', '00:00:00', '00:00:00')
-    , (1, '2020-01-08', '10:00:00', '18:00:00')
-    , (2, '2020-01-08', '10:00:00', '18:00:00')
-    , (1, '2020-01-09', '10:00:00', '22:00:00')
-    , (2, '2020-01-09', '10:00:00', '22:00:00')
-    , (1, '2020-01-10', '00:00:00', '00:00:00')
-    , (2, '2020-01-10', '00:00:00', '00:00:00')
-    , (1, '2020-01-11', '10:00:00', '22:00:00')
-    , (2, '2020-01-11', '10:00:00', '22:00:00')
-    , (1, '2020-01-12', '00:00:00', '00:00:00')
-    , (2, '2020-01-12', '00:00:00', '00:00:00')
-    , (1, '2020-01-13', '00:00:00', '00:00:00')
-    , (2, '2020-01-13', '00:00:00', '00:00:00')
-    , (1, '2020-01-14', '10:00:00', '18:00:00')
-    , (2, '2020-01-14', '10:00:00', '18:00:00')
-    , (1, '2020-01-15', '00:00:00', '00:00:00')
-    , (2, '2020-01-15', '00:00:00', '00:00:00')
-    , (1, '2020-01-16', '00:00:00', '00:00:00')
-    , (2, '2020-01-16', '00:00:00', '00:00:00')
-    , (1, '2020-01-17', '00:00:00', '00:00:00')
-    , (2, '2020-01-17', '00:00:00', '00:00:00')
-    , (1, '2020-01-18', '10:00:00', '18:00:00')
-    , (2, '2020-01-18', '10:00:00', '18:00:00')
-    , (1, '2020-01-19', '10:00:00', '18:00:00')
-    , (2, '2020-01-19', '10:00:00', '18:00:00')
-    , (1, '2020-01-20', '00:00:00', '00:00:00')
-    , (2, '2020-01-20', '00:00:00', '00:00:00')
-    , (1, '2020-01-21', '10:00:00', '22:00:00')
-    , (2, '2020-01-21', '10:00:00', '22:00:00')
-    , (1, '2020-01-22', '00:00:00', '00:00:00')
-    , (2, '2020-01-22', '00:00:00', '00:00:00')
-    , (1, '2020-01-23', '10:00:00', '18:00:00')
-    , (2, '2020-01-23', '10:00:00', '18:00:00')
-    , (1, '2020-01-24', '00:00:00', '00:00:00')
-    , (2, '2020-01-24', '00:00:00', '00:00:00')
-    , (1, '2020-01-25', '10:00:00', '22:00:00')
-    , (2, '2020-01-25', '10:00:00', '22:00:00')
-    , (1, '2020-01-26', '00:00:00', '00:00:00')
-    , (2, '2020-01-26', '00:00:00', '00:00:00')
-    , (1, '2020-01-27', '10:00:00', '18:00:00')
-    , (2, '2020-01-27', '10:00:00', '18:00:00')
-    , (1, '2020-01-28', '00:00:00', '00:00:00')
-    , (2, '2020-01-28', '00:00:00', '00:00:00')
-    , (1, '2020-01-29', '10:00:00', '18:00:00')
-    , (2, '2020-01-29', '10:00:00', '18:00:00')
-    , (1, '2020-01-30', '10:00:00', '22:00:00')
-    , (2, '2020-01-30', '10:00:00', '22:00:00')
-    , (1, '2020-01-31', '00:00:00', '00:00:00')
-    , (2, '2020-01-31', '00:00:00', '00:00:00')
-    , (1, '2020-02-01', '10:00:00', '22:00:00')
-    , (2, '2020-02-01', '10:00:00', '22:00:00')
-    , (1, '2020-02-02', '10:00:00', '22:00:00')
-    , (2, '2020-02-02', '10:00:00', '22:00:00')
-    , (1, '2020-02-03', '00:00:00', '00:00:00')
-    , (2, '2020-02-03', '00:00:00', '00:00:00')
-    , (1, '2020-02-04', '10:00:00', '18:00:00')
-    , (2, '2020-02-04', '10:00:00', '18:00:00')
-    , (1, '2020-02-05', '10:00:00', '22:00:00')
-    , (2, '2020-02-05', '10:00:00', '22:00:00')
-    , (1, '2020-02-06', '00:00:00', '00:00:00')
-    , (2, '2020-02-06', '00:00:00', '00:00:00')
-    , (1, '2020-02-07', '10:00:00', '22:00:00')
-    , (2, '2020-02-07', '10:00:00', '22:00:00')
-    , (1, '2020-02-08', '00:00:00', '00:00:00')
-    , (2, '2020-02-08', '00:00:00', '00:00:00')
-    , (1, '2020-02-09', '10:00:00', '18:00:00')
-    , (2, '2020-02-09', '10:00:00', '18:00:00')
-    , (1, '2020-02-10', '00:00:00', '00:00:00')
-    , (2, '2020-02-10', '00:00:00', '00:00:00')
-    , (1, '2020-02-11', '10:00:00', '22:00:00')
-    , (2, '2020-02-11', '10:00:00', '22:00:00')
-    , (1, '2020-02-12', '10:00:00', '18:00:00')
-    , (2, '2020-02-12', '10:00:00', '18:00:00')
-    , (1, '2020-02-13', '10:00:00', '18:00:00')
-    , (2, '2020-02-13', '10:00:00', '18:00:00')
-    , (1, '2020-02-14', '10:00:00', '22:00:00')
-    , (2, '2020-02-14', '10:00:00', '22:00:00')
-    , (1, '2020-02-15', '00:00:00', '00:00:00')
-    , (2, '2020-02-15', '00:00:00', '00:00:00')
-    , (1, '2020-02-16', '00:00:00', '00:00:00')
-    , (2, '2020-02-16', '00:00:00', '00:00:00')
-    , (1, '2020-02-17', '00:00:00', '00:00:00')
-    , (2, '2020-02-17', '00:00:00', '00:00:00')
-    , (1, '2020-02-18', '00:00:00', '00:00:00')
-    , (2, '2020-02-18', '00:00:00', '00:00:00')
-    , (1, '2020-02-19', '00:00:00', '00:00:00')
-    , (2, '2020-02-19', '00:00:00', '00:00:00')
-    , (1, '2020-02-20', '00:00:00', '00:00:00')
-    , (2, '2020-02-20', '00:00:00', '00:00:00')
-    , (1, '2020-02-21', '10:00:00', '22:00:00')
-    , (2, '2020-02-21', '10:00:00', '22:00:00')
-    , (1, '2020-02-22', '10:00:00', '22:00:00')
-    , (2, '2020-02-22', '10:00:00', '22:00:00')
-    , (1, '2020-02-23', '10:00:00', '18:00:00')
-    , (2, '2020-02-23', '10:00:00', '18:00:00')
-    , (1, '2020-02-24', '10:00:00', '18:00:00')
-    , (2, '2020-02-24', '10:00:00', '18:00:00')
-    , (1, '2020-02-25', '00:00:00', '00:00:00')
-    , (2, '2020-02-25', '00:00:00', '00:00:00')
-    , (1, '2020-02-26', '10:00:00', '18:00:00')
-    , (2, '2020-02-26', '10:00:00', '18:00:00')
-    , (1, '2020-02-27', '10:00:00', '22:00:00')
-    , (2, '2020-02-27', '10:00:00', '22:00:00')
-    , (1, '2020-02-28', '00:00:00', '00:00:00')
-    , (2, '2020-02-28', '00:00:00', '00:00:00')
-    , (1, '2020-02-29', '10:00:00', '22:00:00')
-    , (2, '2020-02-29', '10:00:00', '22:00:00')
-    , (1, '2020-03-01', '10:00:00', '22:00:00')
-    , (2, '2020-03-01', '10:00:00', '22:00:00')
-    , (1, '2020-03-02', '10:00:00', '18:00:00')
-    , (2, '2020-03-02', '10:00:00', '18:00:00')
-    , (1, '2020-03-03', '10:00:00', '22:00:00')
-    , (2, '2020-03-03', '10:00:00', '22:00:00')
-    , (1, '2020-03-04', '00:00:00', '00:00:00')
-    , (2, '2020-03-04', '00:00:00', '00:00:00')
-    , (1, '2020-03-05', '00:00:00', '00:00:00')
-    , (2, '2020-03-05', '00:00:00', '00:00:00')
-    , (1, '2020-03-06', '00:00:00', '00:00:00')
-    , (2, '2020-03-06', '00:00:00', '00:00:00')
-    , (1, '2020-03-07', '00:00:00', '00:00:00')
-    , (2, '2020-03-07', '00:00:00', '00:00:00')
-    , (1, '2020-03-08', '00:00:00', '00:00:00')
-    , (2, '2020-03-08', '00:00:00', '00:00:00')
-    , (1, '2020-03-09', '10:00:00', '18:00:00')
-    , (2, '2020-03-09', '10:00:00', '18:00:00')
-    , (1, '2020-03-10', '00:00:00', '00:00:00')
-    , (2, '2020-03-10', '00:00:00', '00:00:00')
-    , (1, '2020-03-11', '00:00:00', '00:00:00')
-    , (2, '2020-03-11', '00:00:00', '00:00:00')
-    , (1, '2020-03-12', '00:00:00', '00:00:00')
-    , (2, '2020-03-12', '00:00:00', '00:00:00')
-    , (1, '2020-03-13', '10:00:00', '18:00:00')
-    , (2, '2020-03-13', '10:00:00', '18:00:00')
-    , (1, '2020-03-14', '10:00:00', '18:00:00')
-    , (2, '2020-03-14', '10:00:00', '18:00:00')
-    , (1, '2020-03-15', '10:00:00', '18:00:00')
-    , (2, '2020-03-15', '10:00:00', '18:00:00')
-    , (1, '2020-03-16', '00:00:00', '00:00:00')
-    , (2, '2020-03-16', '00:00:00', '00:00:00')
-    , (1, '2020-03-17', '10:00:00', '22:00:00')
-    , (2, '2020-03-17', '10:00:00', '22:00:00')
-    , (1, '2020-03-18', '00:00:00', '00:00:00')
-    , (2, '2020-03-18', '00:00:00', '00:00:00')
-    , (1, '2020-03-19', '00:00:00', '00:00:00')
-    , (2, '2020-03-19', '00:00:00', '00:00:00')
-    , (1, '2020-03-20', '00:00:00', '00:00:00')
-    , (2, '2020-03-20', '00:00:00', '00:00:00')
-    , (1, '2020-03-21', '10:00:00', '18:00:00')
-    , (2, '2020-03-21', '10:00:00', '18:00:00')
-    , (1, '2020-03-22', '10:00:00', '22:00:00')
-    , (2, '2020-03-22', '10:00:00', '22:00:00')
-    , (1, '2020-03-23', '10:00:00', '22:00:00')
-    , (2, '2020-03-23', '10:00:00', '22:00:00')
-    , (1, '2020-03-24', '10:00:00', '22:00:00')
-    , (2, '2020-03-24', '10:00:00', '22:00:00')
-    , (1, '2020-03-25', '00:00:00', '00:00:00')
-    , (2, '2020-03-25', '00:00:00', '00:00:00')
-    , (1, '2020-03-26', '00:00:00', '00:00:00')
-    , (2, '2020-03-26', '00:00:00', '00:00:00')
-    , (1, '2020-03-27', '10:00:00', '22:00:00')
-    , (2, '2020-03-27', '10:00:00', '22:00:00')
-    , (1, '2020-03-28', '10:00:00', '22:00:00')
-    , (2, '2020-03-28', '10:00:00', '22:00:00')
-    , (1, '2020-03-29', '00:00:00', '00:00:00')
-    , (2, '2020-03-29', '00:00:00', '00:00:00')
-    , (1, '2020-03-30', '10:00:00', '18:00:00')
-    , (2, '2020-03-30', '10:00:00', '18:00:00')
-    , (1, '2020-03-31', '10:00:00', '18:00:00')
-    , (2, '2020-03-31', '10:00:00', '18:00:00')
-    , (1, '2020-04-01', '10:00:00', '18:00:00')
-    , (2, '2020-04-01', '10:00:00', '18:00:00')
-    , (1, '2020-04-02', '00:00:00', '00:00:00')
-    , (2, '2020-04-02', '00:00:00', '00:00:00')
-    , (1, '2020-04-03', '00:00:00', '00:00:00')
-    , (2, '2020-04-03', '00:00:00', '00:00:00')
-    , (1, '2020-04-04', '10:00:00', '18:00:00')
-    , (2, '2020-04-04', '10:00:00', '18:00:00')
-    , (1, '2020-04-05', '00:00:00', '00:00:00')
-    , (2, '2020-04-05', '00:00:00', '00:00:00')
-    , (1, '2020-04-06', '00:00:00', '00:00:00')
-    , (2, '2020-04-06', '00:00:00', '00:00:00')
-    , (1, '2020-04-07', '10:00:00', '22:00:00')
-    , (2, '2020-04-07', '10:00:00', '22:00:00')
-    , (1, '2020-04-08', '00:00:00', '00:00:00')
-    , (2, '2020-04-08', '00:00:00', '00:00:00')
-    , (1, '2020-04-09', '10:00:00', '18:00:00')
-    , (2, '2020-04-09', '10:00:00', '18:00:00')
-    , (1, '2020-04-10', '00:00:00', '00:00:00')
-    , (2, '2020-04-10', '00:00:00', '00:00:00')
-    , (1, '2020-04-11', '10:00:00', '22:00:00')
-    , (2, '2020-04-11', '10:00:00', '22:00:00')
-    , (1, '2020-04-12', '10:00:00', '18:00:00')
-    , (2, '2020-04-12', '10:00:00', '18:00:00')
-    , (1, '2020-04-13', '10:00:00', '18:00:00')
-    , (2, '2020-04-13', '10:00:00', '18:00:00')
-    , (1, '2020-04-14', '00:00:00', '00:00:00')
-    , (2, '2020-04-14', '00:00:00', '00:00:00')
-    , (1, '2020-04-15', '00:00:00', '00:00:00')
-    , (2, '2020-04-15', '00:00:00', '00:00:00')
-    , (1, '2020-04-16', '10:00:00', '18:00:00')
-    , (2, '2020-04-16', '10:00:00', '18:00:00')
-    , (1, '2020-04-17', '00:00:00', '00:00:00')
-    , (2, '2020-04-17', '00:00:00', '00:00:00')
-    , (1, '2020-04-18', '10:00:00', '22:00:00')
-    , (2, '2020-04-18', '10:00:00', '22:00:00')
-    , (1, '2020-04-19', '00:00:00', '00:00:00')
-    , (2, '2020-04-19', '00:00:00', '00:00:00')
-    , (1, '2020-04-20', '10:00:00', '22:00:00')
-    , (2, '2020-04-20', '10:00:00', '22:00:00')
-    , (1, '2020-04-21', '00:00:00', '00:00:00')
-    , (2, '2020-04-21', '00:00:00', '00:00:00')
-    , (1, '2020-04-22', '00:00:00', '00:00:00')
-    , (2, '2020-04-22', '00:00:00', '00:00:00')
-    , (1, '2020-04-23', '00:00:00', '00:00:00')
-    , (2, '2020-04-23', '00:00:00', '00:00:00')
-    , (1, '2020-04-24', '00:00:00', '00:00:00')
-    , (2, '2020-04-24', '00:00:00', '00:00:00')
-    , (1, '2020-04-25', '10:00:00', '18:00:00')
-    , (2, '2020-04-25', '10:00:00', '18:00:00')
-    , (1, '2020-04-26', '00:00:00', '00:00:00')
-    , (2, '2020-04-26', '00:00:00', '00:00:00')
-    , (1, '2020-04-27', '10:00:00', '18:00:00')
-    , (2, '2020-04-27', '10:00:00', '18:00:00')
-    , (1, '2020-04-28', '10:00:00', '18:00:00')
-    , (2, '2020-04-28', '10:00:00', '18:00:00')
-    , (1, '2020-04-29', '00:00:00', '00:00:00')
-    , (2, '2020-04-29', '00:00:00', '00:00:00')
-    , (1, '2020-04-30', '10:00:00', '18:00:00')
-    , (2, '2020-04-30', '10:00:00', '18:00:00')
-    , (1, '2020-05-01', '10:00:00', '18:00:00')
-    , (2, '2020-05-01', '10:00:00', '18:00:00')
-    , (1, '2020-05-02', '10:00:00', '22:00:00')
-    , (2, '2020-05-02', '10:00:00', '22:00:00')
-    , (1, '2020-05-03', '10:00:00', '18:00:00')
-    , (2, '2020-05-03', '10:00:00', '18:00:00')
-    , (1, '2020-05-04', '10:00:00', '22:00:00')
-    , (2, '2020-05-04', '10:00:00', '22:00:00')
-    , (1, '2020-05-05', '10:00:00', '18:00:00')
-    , (2, '2020-05-05', '10:00:00', '18:00:00')
-    , (1, '2020-05-06', '00:00:00', '00:00:00')
-    , (2, '2020-05-06', '00:00:00', '00:00:00')
-    , (1, '2020-05-07', '00:00:00', '00:00:00')
-    , (2, '2020-05-07', '00:00:00', '00:00:00')
-    , (1, '2020-05-08', '10:00:00', '18:00:00')
-    , (2, '2020-05-08', '10:00:00', '18:00:00')
-    , (1, '2020-05-09', '10:00:00', '22:00:00')
-    , (2, '2020-05-09', '10:00:00', '22:00:00')
-    , (1, '2020-05-10', '00:00:00', '00:00:00')
-    , (2, '2020-05-10', '00:00:00', '00:00:00')
-    , (1, '2020-05-11', '10:00:00', '18:00:00')
-    , (2, '2020-05-11', '10:00:00', '18:00:00')
-    , (1, '2020-05-12', '10:00:00', '22:00:00')
-    , (2, '2020-05-12', '10:00:00', '22:00:00')
-    , (1, '2020-05-13', '10:00:00', '18:00:00')
-    , (2, '2020-05-13', '10:00:00', '18:00:00')
-    , (1, '2020-05-14', '00:00:00', '00:00:00')
-    , (2, '2020-05-14', '00:00:00', '00:00:00')
-    , (1, '2020-05-15', '00:00:00', '00:00:00')
-    , (2, '2020-05-15', '00:00:00', '00:00:00')
-    , (1, '2020-05-16', '00:00:00', '00:00:00')
-    , (2, '2020-05-16', '00:00:00', '00:00:00')
-    , (1, '2020-05-17', '00:00:00', '00:00:00')
-    , (2, '2020-05-17', '00:00:00', '00:00:00')
-    , (1, '2020-05-18', '00:00:00', '00:00:00')
-    , (2, '2020-05-18', '00:00:00', '00:00:00')
-    , (1, '2020-05-19', '00:00:00', '00:00:00')
-    , (2, '2020-05-19', '00:00:00', '00:00:00')
-    , (1, '2020-05-20', '00:00:00', '00:00:00')
-    , (2, '2020-05-20', '00:00:00', '00:00:00')
-    , (1, '2020-05-21', '10:00:00', '22:00:00')
-    , (2, '2020-05-21', '10:00:00', '22:00:00')
-    , (1, '2020-05-22', '10:00:00', '22:00:00')
-    , (2, '2020-05-22', '10:00:00', '22:00:00')
-    , (1, '2020-05-23', '10:00:00', '22:00:00')
-    , (2, '2020-05-23', '10:00:00', '22:00:00')
-    , (1, '2020-05-24', '00:00:00', '00:00:00')
-    , (2, '2020-05-24', '00:00:00', '00:00:00')
-    , (1, '2020-05-25', '10:00:00', '18:00:00')
-    , (2, '2020-05-25', '10:00:00', '18:00:00')
-    , (1, '2020-05-26', '10:00:00', '18:00:00')
-    , (2, '2020-05-26', '10:00:00', '18:00:00')
-    , (1, '2020-05-27', '00:00:00', '00:00:00')
-    , (2, '2020-05-27', '00:00:00', '00:00:00')
-    , (1, '2020-05-28', '10:00:00', '18:00:00')
-    , (2, '2020-05-28', '10:00:00', '18:00:00')
-    , (1, '2020-05-29', '10:00:00', '18:00:00')
-    , (2, '2020-05-29', '10:00:00', '18:00:00')
-    , (1, '2020-05-30', '10:00:00', '18:00:00')
-    , (2, '2020-05-30', '10:00:00', '18:00:00')
-    , (1, '2020-05-31', '00:00:00', '00:00:00')
-    , (2, '2020-05-31', '00:00:00', '00:00:00')
-    , (1, '2020-06-01', '10:00:00', '18:00:00')
-    , (2, '2020-06-01', '10:00:00', '18:00:00')
-    , (1, '2020-06-02', '10:00:00', '18:00:00')
-    , (2, '2020-06-02', '10:00:00', '18:00:00')
-    , (1, '2020-06-03', '00:00:00', '00:00:00')
-    , (2, '2020-06-03', '00:00:00', '00:00:00')
-    , (1, '2020-06-04', '00:00:00', '00:00:00')
-    , (2, '2020-06-04', '00:00:00', '00:00:00')
-    , (1, '2020-06-05', '10:00:00', '22:00:00')
-    , (2, '2020-06-05', '10:00:00', '22:00:00')
-    , (1, '2020-06-06', '10:00:00', '18:00:00')
-    , (2, '2020-06-06', '10:00:00', '18:00:00')
-    , (1, '2020-06-07', '10:00:00', '22:00:00')
-    , (2, '2020-06-07', '10:00:00', '22:00:00')
-    , (1, '2020-06-08', '00:00:00', '00:00:00')
-    , (2, '2020-06-08', '00:00:00', '00:00:00')
-    , (1, '2020-06-09', '00:00:00', '00:00:00')
-    , (2, '2020-06-09', '00:00:00', '00:00:00')
-    , (1, '2020-06-10', '10:00:00', '18:00:00')
-    , (2, '2020-06-10', '10:00:00', '18:00:00')
-    , (1, '2020-06-11', '00:00:00', '00:00:00')
-    , (2, '2020-06-11', '00:00:00', '00:00:00')
-    , (1, '2020-06-12', '00:00:00', '00:00:00')
-    , (2, '2020-06-12', '00:00:00', '00:00:00')
-    , (1, '2020-06-13', '10:00:00', '18:00:00')
-    , (2, '2020-06-13', '10:00:00', '18:00:00')
-    , (1, '2020-06-14', '00:00:00', '00:00:00')
-    , (2, '2020-06-14', '00:00:00', '00:00:00')
-    , (1, '2020-06-15', '00:00:00', '00:00:00')
-    , (2, '2020-06-15', '00:00:00', '00:00:00')
-    , (1, '2020-06-16', '00:00:00', '00:00:00')
-    , (2, '2020-06-16', '00:00:00', '00:00:00')
-    , (1, '2020-06-17', '10:00:00', '18:00:00')
-    , (2, '2020-06-17', '10:00:00', '18:00:00')
-    , (1, '2020-06-18', '00:00:00', '00:00:00')
-    , (2, '2020-06-18', '00:00:00', '00:00:00')
-    , (1, '2020-06-19', '10:00:00', '18:00:00')
-    , (2, '2020-06-19', '10:00:00', '18:00:00')
-    , (1, '2020-06-20', '00:00:00', '00:00:00')
-    , (2, '2020-06-20', '00:00:00', '00:00:00')
-    , (1, '2020-06-21', '00:00:00', '00:00:00')
-    , (2, '2020-06-21', '00:00:00', '00:00:00')
-    , (1, '2020-06-22', '00:00:00', '00:00:00')
-    , (2, '2020-06-22', '00:00:00', '00:00:00')
-    , (1, '2020-06-23', '10:00:00', '22:00:00')
-    , (2, '2020-06-23', '10:00:00', '22:00:00')
-    , (1, '2020-06-24', '10:00:00', '22:00:00')
-    , (2, '2020-06-24', '10:00:00', '22:00:00')
-    , (1, '2020-06-25', '10:00:00', '22:00:00')
-    , (2, '2020-06-25', '10:00:00', '22:00:00')
-    , (1, '2020-06-26', '00:00:00', '00:00:00')
-    , (2, '2020-06-26', '00:00:00', '00:00:00')
-    , (1, '2020-06-27', '00:00:00', '00:00:00')
-    , (2, '2020-06-27', '00:00:00', '00:00:00')
-    , (1, '2020-06-28', '10:00:00', '18:00:00')
-    , (2, '2020-06-28', '10:00:00', '18:00:00')
-    , (1, '2020-06-29', '00:00:00', '00:00:00')
-    , (2, '2020-06-29', '00:00:00', '00:00:00')
-    , (1, '2020-06-30', '00:00:00', '00:00:00')
-    , (2, '2020-06-30', '00:00:00', '00:00:00')
-    , (1, '2020-07-01', '10:00:00', '22:00:00')
-    , (2, '2020-07-01', '10:00:00', '22:00:00')
-    , (1, '2020-07-02', '10:00:00', '22:00:00')
-    , (2, '2020-07-02', '10:00:00', '22:00:00')
-    , (1, '2020-07-03', '10:00:00', '22:00:00')
-    , (2, '2020-07-03', '10:00:00', '22:00:00')
-    , (1, '2020-07-04', '00:00:00', '00:00:00')
-    , (2, '2020-07-04', '00:00:00', '00:00:00')
-    , (1, '2020-07-05', '00:00:00', '00:00:00')
-    , (2, '2020-07-05', '00:00:00', '00:00:00')
-    , (1, '2020-07-06', '10:00:00', '22:00:00')
-    , (2, '2020-07-06', '10:00:00', '22:00:00')
-    , (1, '2020-07-07', '00:00:00', '00:00:00')
-    , (2, '2020-07-07', '00:00:00', '00:00:00')
-    , (1, '2020-07-08', '10:00:00', '18:00:00')
-    , (2, '2020-07-08', '10:00:00', '18:00:00')
-    , (1, '2020-07-09', '10:00:00', '22:00:00')
-    , (2, '2020-07-09', '10:00:00', '22:00:00')
-    , (1, '2020-07-10', '10:00:00', '18:00:00')
-    , (2, '2020-07-10', '10:00:00', '18:00:00')
-    , (1, '2020-07-11', '00:00:00', '00:00:00')
-    , (2, '2020-07-11', '00:00:00', '00:00:00')
-    , (1, '2020-07-12', '10:00:00', '18:00:00')
-    , (2, '2020-07-12', '10:00:00', '18:00:00')
-    , (1, '2020-07-13', '00:00:00', '00:00:00')
-    , (2, '2020-07-13', '00:00:00', '00:00:00')
-    , (1, '2020-07-14', '10:00:00', '18:00:00')
-    , (2, '2020-07-14', '10:00:00', '18:00:00')
-    , (1, '2020-07-15', '10:00:00', '18:00:00')
-    , (2, '2020-07-15', '10:00:00', '18:00:00')
-    , (1, '2020-07-16', '10:00:00', '18:00:00')
-    , (2, '2020-07-16', '10:00:00', '18:00:00')
-    , (1, '2020-07-17', '10:00:00', '18:00:00')
-    , (2, '2020-07-17', '10:00:00', '18:00:00')
-    , (1, '2020-07-18', '10:00:00', '22:00:00')
-    , (2, '2020-07-18', '10:00:00', '22:00:00')
-    , (1, '2020-07-19', '00:00:00', '00:00:00')
-    , (2, '2020-07-19', '00:00:00', '00:00:00')
-    , (1, '2020-07-20', '10:00:00', '18:00:00')
-    , (2, '2020-07-20', '10:00:00', '18:00:00')
-    , (1, '2020-07-21', '10:00:00', '22:00:00')
-    , (2, '2020-07-21', '10:00:00', '22:00:00')
-    , (1, '2020-07-22', '00:00:00', '00:00:00')
-    , (2, '2020-07-22', '00:00:00', '00:00:00')
-    , (1, '2020-07-23', '10:00:00', '18:00:00')
-    , (2, '2020-07-23', '10:00:00', '18:00:00')
-    , (1, '2020-07-24', '00:00:00', '00:00:00')
-    , (2, '2020-07-24', '00:00:00', '00:00:00')
-    , (1, '2020-07-25', '00:00:00', '00:00:00')
-    , (2, '2020-07-25', '00:00:00', '00:00:00')
-    , (1, '2020-07-26', '00:00:00', '00:00:00')
-    , (2, '2020-07-26', '00:00:00', '00:00:00')
-    , (1, '2020-07-27', '00:00:00', '00:00:00')
-    , (2, '2020-07-27', '00:00:00', '00:00:00')
-    , (1, '2020-07-28', '00:00:00', '00:00:00')
-    , (2, '2020-07-28', '00:00:00', '00:00:00')
-    , (1, '2020-07-29', '10:00:00', '18:00:00')
-    , (2, '2020-07-29', '10:00:00', '18:00:00')
-    , (1, '2020-07-30', '10:00:00', '18:00:00')
-    , (2, '2020-07-30', '10:00:00', '18:00:00')
-    , (1, '2020-07-31', '00:00:00', '00:00:00')
-    , (2, '2020-07-31', '00:00:00', '00:00:00')
-    , (1, '2020-08-01', '00:00:00', '00:00:00')
-    , (2, '2020-08-01', '00:00:00', '00:00:00')
-    , (1, '2020-08-02', '00:00:00', '00:00:00')
-    , (2, '2020-08-02', '00:00:00', '00:00:00')
-    , (1, '2020-08-03', '10:00:00', '22:00:00')
-    , (2, '2020-08-03', '10:00:00', '22:00:00')
-    , (1, '2020-08-04', '10:00:00', '22:00:00')
-    , (2, '2020-08-04', '10:00:00', '22:00:00')
-    , (1, '2020-08-05', '00:00:00', '00:00:00')
-    , (2, '2020-08-05', '00:00:00', '00:00:00')
-    , (1, '2020-08-06', '00:00:00', '00:00:00')
-    , (2, '2020-08-06', '00:00:00', '00:00:00')
-    , (1, '2020-08-07', '10:00:00', '18:00:00')
-    , (2, '2020-08-07', '10:00:00', '18:00:00')
-    , (1, '2020-08-08', '00:00:00', '00:00:00')
-    , (2, '2020-08-08', '00:00:00', '00:00:00')
-    , (1, '2020-08-09', '00:00:00', '00:00:00')
-    , (2, '2020-08-09', '00:00:00', '00:00:00')
-    , (1, '2020-08-10', '00:00:00', '00:00:00')
-    , (2, '2020-08-10', '00:00:00', '00:00:00')
-    , (1, '2020-08-11', '00:00:00', '00:00:00')
-    , (2, '2020-08-11', '00:00:00', '00:00:00')
-    , (1, '2020-08-12', '10:00:00', '22:00:00')
-    , (2, '2020-08-12', '10:00:00', '22:00:00')
-    , (1, '2020-08-13', '00:00:00', '00:00:00')
-    , (2, '2020-08-13', '00:00:00', '00:00:00')
-    , (1, '2020-08-14', '10:00:00', '18:00:00')
-    , (2, '2020-08-14', '10:00:00', '18:00:00')
-    , (1, '2020-08-15', '00:00:00', '00:00:00')
-    , (2, '2020-08-15', '00:00:00', '00:00:00')
-    , (1, '2020-08-16', '00:00:00', '00:00:00')
-    , (2, '2020-08-16', '00:00:00', '00:00:00')
-    , (1, '2020-08-17', '00:00:00', '00:00:00')
-    , (2, '2020-08-17', '00:00:00', '00:00:00')
-    , (1, '2020-08-18', '10:00:00', '18:00:00')
-    , (2, '2020-08-18', '10:00:00', '18:00:00')
-    , (1, '2020-08-19', '00:00:00', '00:00:00')
-    , (2, '2020-08-19', '00:00:00', '00:00:00')
-    , (1, '2020-08-20', '10:00:00', '22:00:00')
-    , (2, '2020-08-20', '10:00:00', '22:00:00')
-    , (1, '2020-08-21', '00:00:00', '00:00:00')
-    , (2, '2020-08-21', '00:00:00', '00:00:00')
-    , (1, '2020-08-22', '00:00:00', '00:00:00')
-    , (2, '2020-08-22', '00:00:00', '00:00:00')
-    , (1, '2020-08-23', '00:00:00', '00:00:00')
-    , (2, '2020-08-23', '00:00:00', '00:00:00')
-    , (1, '2020-08-24', '10:00:00', '18:00:00')
-    , (2, '2020-08-24', '10:00:00', '18:00:00')
-    , (1, '2020-08-25', '10:00:00', '22:00:00')
-    , (2, '2020-08-25', '10:00:00', '22:00:00')
-    , (1, '2020-08-26', '10:00:00', '22:00:00')
-    , (2, '2020-08-26', '10:00:00', '22:00:00')
-    , (1, '2020-08-27', '10:00:00', '18:00:00')
-    , (2, '2020-08-27', '10:00:00', '18:00:00')
-    , (1, '2020-08-28', '10:00:00', '22:00:00')
-    , (2, '2020-08-28', '10:00:00', '22:00:00')
-    , (1, '2020-08-29', '00:00:00', '00:00:00')
-    , (2, '2020-08-29', '00:00:00', '00:00:00')
-    , (1, '2020-08-30', '10:00:00', '22:00:00')
-    , (2, '2020-08-30', '10:00:00', '22:00:00')
-    , (1, '2020-08-31', '00:00:00', '00:00:00')
-    , (2, '2020-08-31', '00:00:00', '00:00:00')
-    , (1, '2020-09-01', '10:00:00', '18:00:00')
-    , (2, '2020-09-01', '10:00:00', '18:00:00')
-    , (1, '2020-09-02', '00:00:00', '00:00:00')
-    , (2, '2020-09-02', '00:00:00', '00:00:00')
-    , (1, '2020-09-03', '10:00:00', '18:00:00')
-    , (2, '2020-09-03', '10:00:00', '18:00:00')
-    , (1, '2020-09-04', '00:00:00', '00:00:00')
-    , (2, '2020-09-04', '00:00:00', '00:00:00')
-    , (1, '2020-09-05', '00:00:00', '00:00:00')
-    , (2, '2020-09-05', '00:00:00', '00:00:00')
-    , (1, '2020-09-06', '10:00:00', '22:00:00')
-    , (2, '2020-09-06', '10:00:00', '22:00:00')
-    , (1, '2020-09-07', '10:00:00', '22:00:00')
-    , (2, '2020-09-07', '10:00:00', '22:00:00')
-    , (1, '2020-09-08', '00:00:00', '00:00:00')
-    , (2, '2020-09-08', '00:00:00', '00:00:00')
-    , (1, '2020-09-09', '00:00:00', '00:00:00')
-    , (2, '2020-09-09', '00:00:00', '00:00:00')
-    , (1, '2020-09-10', '00:00:00', '00:00:00')
-    , (2, '2020-09-10', '00:00:00', '00:00:00')
-    , (1, '2020-09-11', '10:00:00', '18:00:00')
-    , (2, '2020-09-11', '10:00:00', '18:00:00')
-    , (1, '2020-09-12', '00:00:00', '00:00:00')
-    , (2, '2020-09-12', '00:00:00', '00:00:00')
-    , (1, '2020-09-13', '10:00:00', '22:00:00')
-    , (2, '2020-09-13', '10:00:00', '22:00:00')
-    , (1, '2020-09-14', '00:00:00', '00:00:00')
-    , (2, '2020-09-14', '00:00:00', '00:00:00')
-    , (1, '2020-09-15', '00:00:00', '00:00:00')
-    , (2, '2020-09-15', '00:00:00', '00:00:00')
-    , (1, '2020-09-16', '10:00:00', '22:00:00')
-    , (2, '2020-09-16', '10:00:00', '22:00:00')
-    , (1, '2020-09-17', '10:00:00', '18:00:00')
-    , (2, '2020-09-17', '10:00:00', '18:00:00')
-    , (1, '2020-09-18', '10:00:00', '22:00:00')
-    , (2, '2020-09-18', '10:00:00', '22:00:00')
-    , (1, '2020-09-19', '10:00:00', '18:00:00')
-    , (2, '2020-09-19', '10:00:00', '18:00:00')
-    , (1, '2020-09-20', '00:00:00', '00:00:00')
-    , (2, '2020-09-20', '00:00:00', '00:00:00')
-    , (1, '2020-09-21', '00:00:00', '00:00:00')
-    , (2, '2020-09-21', '00:00:00', '00:00:00')
-    , (1, '2020-09-22', '10:00:00', '18:00:00')
-    , (2, '2020-09-22', '10:00:00', '18:00:00')
-    , (1, '2020-09-23', '00:00:00', '00:00:00')
-    , (2, '2020-09-23', '00:00:00', '00:00:00')
-    , (1, '2020-09-24', '10:00:00', '22:00:00')
-    , (2, '2020-09-24', '10:00:00', '22:00:00')
-    , (1, '2020-09-25', '10:00:00', '22:00:00')
-    , (2, '2020-09-25', '10:00:00', '22:00:00')
-    , (1, '2020-09-26', '00:00:00', '00:00:00')
-    , (2, '2020-09-26', '00:00:00', '00:00:00')
-    , (1, '2020-09-27', '10:00:00', '18:00:00')
-    , (2, '2020-09-27', '10:00:00', '18:00:00')
-    , (1, '2020-09-28', '00:00:00', '00:00:00')
-    , (2, '2020-09-28', '00:00:00', '00:00:00')
-    , (1, '2020-09-29', '10:00:00', '18:00:00')
-    , (2, '2020-09-29', '10:00:00', '18:00:00')
-    , (1, '2020-09-30', '00:00:00', '00:00:00')
-    , (2, '2020-09-30', '00:00:00', '00:00:00')
-    , (1, '2020-10-01', '10:00:00', '22:00:00')
-    , (2, '2020-10-01', '10:00:00', '22:00:00')
-    , (1, '2020-10-02', '00:00:00', '00:00:00')
-    , (2, '2020-10-02', '00:00:00', '00:00:00')
-    , (1, '2020-10-03', '00:00:00', '00:00:00')
-    , (2, '2020-10-03', '00:00:00', '00:00:00')
-    , (1, '2020-10-04', '10:00:00', '22:00:00')
-    , (2, '2020-10-04', '10:00:00', '22:00:00')
-    , (1, '2020-10-05', '10:00:00', '22:00:00')
-    , (2, '2020-10-05', '10:00:00', '22:00:00')
-    , (1, '2020-10-06', '00:00:00', '00:00:00')
-    , (2, '2020-10-06', '00:00:00', '00:00:00')
-    , (1, '2020-10-07', '00:00:00', '00:00:00')
-    , (2, '2020-10-07', '00:00:00', '00:00:00')
-    , (1, '2020-10-08', '00:00:00', '00:00:00')
-    , (2, '2020-10-08', '00:00:00', '00:00:00')
-    , (1, '2020-10-09', '10:00:00', '18:00:00')
-    , (2, '2020-10-09', '10:00:00', '18:00:00')
-    , (1, '2020-10-10', '10:00:00', '18:00:00')
-    , (2, '2020-10-10', '10:00:00', '18:00:00')
-    , (1, '2020-10-11', '00:00:00', '00:00:00')
-    , (2, '2020-10-11', '00:00:00', '00:00:00')
-    , (1, '2020-10-12', '00:00:00', '00:00:00')
-    , (2, '2020-10-12', '00:00:00', '00:00:00')
-    , (1, '2020-10-13', '10:00:00', '18:00:00')
-    , (2, '2020-10-13', '10:00:00', '18:00:00')
-    , (1, '2020-10-14', '10:00:00', '22:00:00')
-    , (2, '2020-10-14', '10:00:00', '22:00:00')
-    , (1, '2020-10-15', '10:00:00', '18:00:00')
-    , (2, '2020-10-15', '10:00:00', '18:00:00')
-    , (1, '2020-10-16', '10:00:00', '22:00:00')
-    , (2, '2020-10-16', '10:00:00', '22:00:00')
-    , (1, '2020-10-17', '00:00:00', '00:00:00')
-    , (2, '2020-10-17', '00:00:00', '00:00:00')
-    , (1, '2020-10-18', '10:00:00', '18:00:00')
-    , (2, '2020-10-18', '10:00:00', '18:00:00')
-    , (1, '2020-10-19', '00:00:00', '00:00:00')
-    , (2, '2020-10-19', '00:00:00', '00:00:00')
-    , (1, '2020-10-20', '10:00:00', '22:00:00')
-    , (2, '2020-10-20', '10:00:00', '22:00:00')
-    , (1, '2020-10-21', '00:00:00', '00:00:00')
-    , (2, '2020-10-21', '00:00:00', '00:00:00')
-    , (1, '2020-10-22', '10:00:00', '22:00:00')
-    , (2, '2020-10-22', '10:00:00', '22:00:00')
-    , (1, '2020-10-23', '00:00:00', '00:00:00')
-    , (2, '2020-10-23', '00:00:00', '00:00:00')
-    , (1, '2020-10-24', '10:00:00', '18:00:00')
-    , (2, '2020-10-24', '10:00:00', '18:00:00')
-    , (1, '2020-10-25', '00:00:00', '00:00:00')
-    , (2, '2020-10-25', '00:00:00', '00:00:00')
-    , (1, '2020-10-26', '10:00:00', '18:00:00')
-    , (2, '2020-10-26', '10:00:00', '18:00:00')
-    , (1, '2020-10-27', '00:00:00', '00:00:00')
-    , (2, '2020-10-27', '00:00:00', '00:00:00')
-    , (1, '2020-10-28', '00:00:00', '00:00:00')
-    , (2, '2020-10-28', '00:00:00', '00:00:00')
-    , (1, '2020-10-29', '10:00:00', '18:00:00')
-    , (2, '2020-10-29', '10:00:00', '18:00:00')
-    , (1, '2020-10-30', '00:00:00', '00:00:00')
-    , (2, '2020-10-30', '00:00:00', '00:00:00')
-    , (1, '2020-10-31', '10:00:00', '18:00:00')
-    , (2, '2020-10-31', '10:00:00', '18:00:00')
-    , (1, '2020-11-01', '00:00:00', '00:00:00')
-    , (2, '2020-11-01', '00:00:00', '00:00:00')
-    , (1, '2020-11-02', '10:00:00', '22:00:00')
-    , (2, '2020-11-02', '10:00:00', '22:00:00')
-    , (1, '2020-11-03', '10:00:00', '22:00:00')
-    , (2, '2020-11-03', '10:00:00', '22:00:00')
-    , (1, '2020-11-04', '00:00:00', '00:00:00')
-    , (2, '2020-11-04', '00:00:00', '00:00:00')
-    , (1, '2020-11-05', '10:00:00', '22:00:00')
-    , (2, '2020-11-05', '10:00:00', '22:00:00')
-    , (1, '2020-11-06', '10:00:00', '18:00:00')
-    , (2, '2020-11-06', '10:00:00', '18:00:00')
-    , (1, '2020-11-07', '00:00:00', '00:00:00')
-    , (2, '2020-11-07', '00:00:00', '00:00:00')
-    , (1, '2020-11-08', '10:00:00', '18:00:00')
-    , (2, '2020-11-08', '10:00:00', '18:00:00')
-    , (1, '2020-11-09', '10:00:00', '18:00:00')
-    , (2, '2020-11-09', '10:00:00', '18:00:00')
-    , (1, '2020-11-10', '00:00:00', '00:00:00')
-    , (2, '2020-11-10', '00:00:00', '00:00:00')
-    , (1, '2020-11-11', '00:00:00', '00:00:00')
-    , (2, '2020-11-11', '00:00:00', '00:00:00')
-    , (1, '2020-11-12', '00:00:00', '00:00:00')
-    , (2, '2020-11-12', '00:00:00', '00:00:00')
-    , (1, '2020-11-13', '10:00:00', '18:00:00')
-    , (2, '2020-11-13', '10:00:00', '18:00:00')
-    , (1, '2020-11-14', '00:00:00', '00:00:00')
-    , (2, '2020-11-14', '00:00:00', '00:00:00')
-    , (1, '2020-11-15', '10:00:00', '22:00:00')
-    , (2, '2020-11-15', '10:00:00', '22:00:00')
-    , (1, '2020-11-16', '10:00:00', '22:00:00')
-    , (2, '2020-11-16', '10:00:00', '22:00:00')
-    , (1, '2020-11-17', '10:00:00', '18:00:00')
-    , (2, '2020-11-17', '10:00:00', '18:00:00')
-    , (1, '2020-11-18', '00:00:00', '00:00:00')
-    , (2, '2020-11-18', '00:00:00', '00:00:00')
-    , (1, '2020-11-19', '10:00:00', '22:00:00')
-    , (2, '2020-11-19', '10:00:00', '22:00:00')
-    , (1, '2020-11-20', '10:00:00', '22:00:00')
-    , (2, '2020-11-20', '10:00:00', '22:00:00')
-    , (1, '2020-11-21', '10:00:00', '22:00:00')
-    , (2, '2020-11-21', '10:00:00', '22:00:00')
-    , (1, '2020-11-22', '10:00:00', '18:00:00')
-    , (2, '2020-11-22', '10:00:00', '18:00:00')
-    , (1, '2020-11-23', '10:00:00', '22:00:00')
-    , (2, '2020-11-23', '10:00:00', '22:00:00')
-    , (1, '2020-11-24', '00:00:00', '00:00:00')
-    , (2, '2020-11-24', '00:00:00', '00:00:00')
-    , (1, '2020-11-25', '00:00:00', '00:00:00')
-    , (2, '2020-11-25', '00:00:00', '00:00:00')
-    , (1, '2020-11-26', '10:00:00', '18:00:00')
-    , (2, '2020-11-26', '10:00:00', '18:00:00')
-    , (1, '2020-11-27', '10:00:00', '22:00:00')
-    , (2, '2020-11-27', '10:00:00', '22:00:00')
-    , (1, '2020-11-28', '10:00:00', '18:00:00')
-    , (2, '2020-11-28', '10:00:00', '18:00:00')
-    , (1, '2020-11-29', '10:00:00', '18:00:00')
-    , (2, '2020-11-29', '10:00:00', '18:00:00')
-    , (1, '2020-11-30', '10:00:00', '18:00:00')
-    , (2, '2020-11-30', '10:00:00', '18:00:00')
-    , (1, '2020-12-01', '10:00:00', '22:00:00')
-    , (2, '2020-12-01', '10:00:00', '22:00:00')
-    , (1, '2020-12-02', '10:00:00', '22:00:00')
-    , (2, '2020-12-02', '10:00:00', '22:00:00')
-    , (1, '2020-12-03', '00:00:00', '00:00:00')
-    , (2, '2020-12-03', '00:00:00', '00:00:00')
-    , (1, '2020-12-04', '10:00:00', '18:00:00')
-    , (2, '2020-12-04', '10:00:00', '18:00:00')
-    , (1, '2020-12-05', '10:00:00', '18:00:00')
-    , (2, '2020-12-05', '10:00:00', '18:00:00')
-    , (1, '2020-12-06', '10:00:00', '18:00:00')
-    , (2, '2020-12-06', '10:00:00', '18:00:00')
-    , (1, '2020-12-07', '10:00:00', '22:00:00')
-    , (2, '2020-12-07', '10:00:00', '22:00:00')
-    , (1, '2020-12-08', '00:00:00', '00:00:00')
-    , (2, '2020-12-08', '00:00:00', '00:00:00')
-    , (1, '2020-12-09', '00:00:00', '00:00:00')
-    , (2, '2020-12-09', '00:00:00', '00:00:00')
-    , (1, '2020-12-10', '00:00:00', '00:00:00')
-    , (2, '2020-12-10', '00:00:00', '00:00:00')
-    , (1, '2020-12-11', '10:00:00', '22:00:00')
-    , (2, '2020-12-11', '10:00:00', '22:00:00')
-    , (1, '2020-12-12', '10:00:00', '22:00:00')
-    , (2, '2020-12-12', '10:00:00', '22:00:00')
-    , (1, '2020-12-13', '00:00:00', '00:00:00')
-    , (2, '2020-12-13', '00:00:00', '00:00:00')
-    , (1, '2020-12-14', '10:00:00', '22:00:00')
-    , (2, '2020-12-14', '10:00:00', '22:00:00')
-    , (1, '2020-12-15', '10:00:00', '18:00:00')
-    , (2, '2020-12-15', '10:00:00', '18:00:00')
-    , (1, '2020-12-16', '10:00:00', '18:00:00')
-    , (2, '2020-12-16', '10:00:00', '18:00:00')
-    , (1, '2020-12-17', '10:00:00', '18:00:00')
-    , (2, '2020-12-17', '10:00:00', '18:00:00')
-    , (1, '2020-12-18', '10:00:00', '18:00:00')
-    , (2, '2020-12-18', '10:00:00', '18:00:00')
-    , (1, '2020-12-19', '10:00:00', '18:00:00')
-    , (2, '2020-12-19', '10:00:00', '18:00:00')
-    , (1, '2020-12-20', '10:00:00', '18:00:00')
-    , (2, '2020-12-20', '10:00:00', '18:00:00')
-    , (1, '2020-12-21', '00:00:00', '00:00:00')
-    , (2, '2020-12-21', '00:00:00', '00:00:00')
-    , (1, '2020-12-22', '00:00:00', '00:00:00')
-    , (2, '2020-12-22', '00:00:00', '00:00:00')
-    , (1, '2020-12-23', '00:00:00', '00:00:00')
-    , (2, '2020-12-23', '00:00:00', '00:00:00')
-    , (1, '2020-12-24', '10:00:00', '22:00:00')
-    , (2, '2020-12-24', '10:00:00', '22:00:00')
-    , (1, '2020-12-25', '10:00:00', '18:00:00')
-    , (2, '2020-12-25', '10:00:00', '18:00:00')
-    , (1, '2020-12-26', '00:00:00', '00:00:00')
-    , (2, '2020-12-26', '00:00:00', '00:00:00')
-    , (1, '2020-12-27', '00:00:00', '00:00:00')
-    , (2, '2020-12-27', '00:00:00', '00:00:00')
-    , (1, '2020-12-28', '10:00:00', '22:00:00')
-    , (2, '2020-12-28', '10:00:00', '22:00:00')
-    , (1, '2020-12-29', '00:00:00', '00:00:00')
-    , (2, '2020-12-29', '00:00:00', '00:00:00')
-    , (1, '2020-12-30', '00:00:00', '00:00:00')
-    , (2, '2020-12-30', '00:00:00', '00:00:00')
-    , (1, '2020-12-31', '10:00:00', '22:00:00')
-    , (2, '2020-12-31', '10:00:00', '22:00:00')
-    , (1, '2021-01-01', '00:00:00', '00:00:00')
-    , (2, '2021-01-01', '00:00:00', '00:00:00')
-    , (1, '2021-01-02', '00:00:00', '00:00:00')
-    , (2, '2021-01-02', '00:00:00', '00:00:00')
-    , (1, '2021-01-03', '10:00:00', '22:00:00')
-    , (2, '2021-01-03', '10:00:00', '22:00:00')
-    , (1, '2021-01-04', '10:00:00', '18:00:00')
-    , (2, '2021-01-04', '10:00:00', '18:00:00')
-    , (1, '2021-01-05', '10:00:00', '22:00:00')
-    , (2, '2021-01-05', '10:00:00', '22:00:00')
-    , (1, '2021-01-06', '00:00:00', '00:00:00')
-    , (2, '2021-01-06', '00:00:00', '00:00:00')
-    , (1, '2021-01-07', '10:00:00', '22:00:00')
-    , (2, '2021-01-07', '10:00:00', '22:00:00')
-    , (1, '2021-01-08', '10:00:00', '18:00:00')
-    , (2, '2021-01-08', '10:00:00', '18:00:00')
-    , (1, '2021-01-09', '10:00:00', '18:00:00')
-    , (2, '2021-01-09', '10:00:00', '18:00:00')
-    , (1, '2021-01-10', '00:00:00', '00:00:00')
-    , (2, '2021-01-10', '00:00:00', '00:00:00')
-    , (1, '2021-01-11', '10:00:00', '22:00:00')
-    , (2, '2021-01-11', '10:00:00', '22:00:00')
-    , (1, '2021-01-12', '10:00:00', '18:00:00')
-    , (2, '2021-01-12', '10:00:00', '18:00:00')
-    , (1, '2021-01-13', '10:00:00', '18:00:00')
-    , (2, '2021-01-13', '10:00:00', '18:00:00')
-    , (1, '2021-01-14', '00:00:00', '00:00:00')
-    , (2, '2021-01-14', '00:00:00', '00:00:00')
-    , (1, '2021-01-15', '00:00:00', '00:00:00')
-    , (2, '2021-01-15', '00:00:00', '00:00:00')
-    , (1, '2021-01-16', '10:00:00', '18:00:00')
-    , (2, '2021-01-16', '10:00:00', '18:00:00')
-    , (1, '2021-01-17', '10:00:00', '22:00:00')
-    , (2, '2021-01-17', '10:00:00', '22:00:00')
-    , (1, '2021-01-18', '00:00:00', '00:00:00')
-    , (2, '2021-01-18', '00:00:00', '00:00:00')
-    , (1, '2021-01-19', '00:00:00', '00:00:00')
-    , (2, '2021-01-19', '00:00:00', '00:00:00')
-    , (1, '2021-01-20', '00:00:00', '00:00:00')
-    , (2, '2021-01-20', '00:00:00', '00:00:00')
-    , (1, '2021-01-21', '10:00:00', '22:00:00')
-    , (2, '2021-01-21', '10:00:00', '22:00:00')
-    , (1, '2021-01-22', '10:00:00', '22:00:00')
-    , (2, '2021-01-22', '10:00:00', '22:00:00')
-    , (1, '2021-01-23', '00:00:00', '00:00:00')
-    , (2, '2021-01-23', '00:00:00', '00:00:00')
-    , (1, '2021-01-24', '00:00:00', '00:00:00')
-    , (2, '2021-01-24', '00:00:00', '00:00:00')
-    , (1, '2021-01-25', '00:00:00', '00:00:00')
-    , (2, '2021-01-25', '00:00:00', '00:00:00')
-    , (1, '2021-01-26', '10:00:00', '18:00:00')
-    , (2, '2021-01-26', '10:00:00', '18:00:00')
-    , (1, '2021-01-27', '00:00:00', '00:00:00')
-    , (2, '2021-01-27', '00:00:00', '00:00:00')
-    , (1, '2021-01-28', '00:00:00', '00:00:00')
-    , (2, '2021-01-28', '00:00:00', '00:00:00')
-    , (1, '2021-01-29', '10:00:00', '22:00:00')
-    , (2, '2021-01-29', '10:00:00', '22:00:00')
-    , (1, '2021-01-30', '10:00:00', '18:00:00')
-    , (2, '2021-01-30', '10:00:00', '18:00:00')
-    , (1, '2021-01-31', '00:00:00', '00:00:00')
-    , (2, '2021-01-31', '00:00:00', '00:00:00')
-    , (1, '2021-02-01', '00:00:00', '00:00:00')
-    , (2, '2021-02-01', '00:00:00', '00:00:00')
-    , (1, '2021-02-02', '00:00:00', '00:00:00')
-    , (2, '2021-02-02', '00:00:00', '00:00:00')
-    , (1, '2021-02-03', '00:00:00', '00:00:00')
-    , (2, '2021-02-03', '00:00:00', '00:00:00')
-    , (1, '2021-02-04', '00:00:00', '00:00:00')
-    , (2, '2021-02-04', '00:00:00', '00:00:00')
-    , (1, '2021-02-05', '00:00:00', '00:00:00')
-    , (2, '2021-02-05', '00:00:00', '00:00:00')
-    , (1, '2021-02-06', '10:00:00', '22:00:00')
-    , (2, '2021-02-06', '10:00:00', '22:00:00')
-    , (1, '2021-02-07', '10:00:00', '22:00:00')
-    , (2, '2021-02-07', '10:00:00', '22:00:00')
-    , (1, '2021-02-08', '00:00:00', '00:00:00')
-    , (2, '2021-02-08', '00:00:00', '00:00:00')
-    , (1, '2021-02-09', '00:00:00', '00:00:00')
-    , (2, '2021-02-09', '00:00:00', '00:00:00')
-    , (1, '2021-02-10', '00:00:00', '00:00:00')
-    , (2, '2021-02-10', '00:00:00', '00:00:00')
-    , (1, '2021-02-11', '00:00:00', '00:00:00')
-    , (2, '2021-02-11', '00:00:00', '00:00:00')
-    , (1, '2021-02-12', '10:00:00', '18:00:00')
-    , (2, '2021-02-12', '10:00:00', '18:00:00')
-    , (1, '2021-02-13', '10:00:00', '22:00:00')
-    , (2, '2021-02-13', '10:00:00', '22:00:00')
-    , (1, '2021-02-14', '10:00:00', '18:00:00')
-    , (2, '2021-02-14', '10:00:00', '18:00:00')
-    , (1, '2021-02-15', '00:00:00', '00:00:00')
-    , (2, '2021-02-15', '00:00:00', '00:00:00')
-    , (1, '2021-02-16', '00:00:00', '00:00:00')
-    , (2, '2021-02-16', '00:00:00', '00:00:00')
-    , (1, '2021-02-17', '10:00:00', '22:00:00')
-    , (2, '2021-02-17', '10:00:00', '22:00:00')
-    , (1, '2021-02-18', '10:00:00', '18:00:00')
-    , (2, '2021-02-18', '10:00:00', '18:00:00')
-    , (1, '2021-02-19', '10:00:00', '22:00:00')
-    , (2, '2021-02-19', '10:00:00', '22:00:00')
-    , (1, '2021-02-20', '10:00:00', '22:00:00')
-    , (2, '2021-02-20', '10:00:00', '22:00:00')
-    , (1, '2021-02-21', '00:00:00', '00:00:00')
-    , (2, '2021-02-21', '00:00:00', '00:00:00')
-    , (1, '2021-02-22', '00:00:00', '00:00:00')
-    , (2, '2021-02-22', '00:00:00', '00:00:00')
-    , (1, '2021-02-23', '00:00:00', '00:00:00')
-    , (2, '2021-02-23', '00:00:00', '00:00:00')
-    , (1, '2021-02-24', '00:00:00', '00:00:00')
-    , (2, '2021-02-24', '00:00:00', '00:00:00')
-    , (1, '2021-02-25', '00:00:00', '00:00:00')
-    , (2, '2021-02-25', '00:00:00', '00:00:00')
-    , (1, '2021-02-26', '00:00:00', '00:00:00')
-    , (2, '2021-02-26', '00:00:00', '00:00:00')
-    , (1, '2021-02-27', '10:00:00', '22:00:00')
-    , (2, '2021-02-27', '10:00:00', '22:00:00')
-    , (1, '2021-02-28', '10:00:00', '22:00:00')
-    , (2, '2021-02-28', '10:00:00', '22:00:00')
-    , (1, '2021-03-01', '00:00:00', '00:00:00')
-    , (2, '2021-03-01', '00:00:00', '00:00:00')
-    , (1, '2021-03-02', '10:00:00', '18:00:00')
-    , (2, '2021-03-02', '10:00:00', '18:00:00')
-    , (1, '2021-03-03', '00:00:00', '00:00:00')
-    , (2, '2021-03-03', '00:00:00', '00:00:00')
-    , (1, '2021-03-04', '00:00:00', '00:00:00')
-    , (2, '2021-03-04', '00:00:00', '00:00:00')
-    , (1, '2021-03-05', '00:00:00', '00:00:00')
-    , (2, '2021-03-05', '00:00:00', '00:00:00')
-    , (1, '2021-03-06', '10:00:00', '18:00:00')
-    , (2, '2021-03-06', '10:00:00', '18:00:00')
-    , (1, '2021-03-07', '00:00:00', '00:00:00')
-    , (2, '2021-03-07', '00:00:00', '00:00:00')
-    , (1, '2021-03-08', '10:00:00', '22:00:00')
-    , (2, '2021-03-08', '10:00:00', '22:00:00')
-    , (1, '2021-03-09', '00:00:00', '00:00:00')
-    , (2, '2021-03-09', '00:00:00', '00:00:00')
-    , (1, '2021-03-10', '00:00:00', '00:00:00')
-    , (2, '2021-03-10', '00:00:00', '00:00:00')
-    , (1, '2021-03-11', '10:00:00', '22:00:00')
-    , (2, '2021-03-11', '10:00:00', '22:00:00')
-    , (1, '2021-03-12', '00:00:00', '00:00:00')
-    , (2, '2021-03-12', '00:00:00', '00:00:00')
-    , (1, '2021-03-13', '00:00:00', '00:00:00')
-    , (2, '2021-03-13', '00:00:00', '00:00:00')
-    , (1, '2021-03-14', '00:00:00', '00:00:00')
-    , (2, '2021-03-14', '00:00:00', '00:00:00')
-    , (1, '2021-03-15', '00:00:00', '00:00:00')
-    , (2, '2021-03-15', '00:00:00', '00:00:00')
-    , (1, '2021-03-16', '00:00:00', '00:00:00')
-    , (2, '2021-03-16', '00:00:00', '00:00:00')
-    , (1, '2021-03-17', '10:00:00', '18:00:00')
-    , (2, '2021-03-17', '10:00:00', '18:00:00')
-    , (1, '2021-03-18', '10:00:00', '18:00:00')
-    , (2, '2021-03-18', '10:00:00', '18:00:00')
-    , (1, '2021-03-19', '00:00:00', '00:00:00')
-    , (2, '2021-03-19', '00:00:00', '00:00:00')
-    , (1, '2021-03-20', '00:00:00', '00:00:00')
-    , (2, '2021-03-20', '00:00:00', '00:00:00')
-    , (1, '2021-03-21', '10:00:00', '18:00:00')
-    , (2, '2021-03-21', '10:00:00', '18:00:00')
-    , (1, '2021-03-22', '10:00:00', '18:00:00')
-    , (2, '2021-03-22', '10:00:00', '18:00:00')
-    , (1, '2021-03-23', '10:00:00', '22:00:00')
-    , (2, '2021-03-23', '10:00:00', '22:00:00')
-    , (1, '2021-03-24', '10:00:00', '22:00:00')
-    , (2, '2021-03-24', '10:00:00', '22:00:00')
-    , (1, '2021-03-25', '10:00:00', '18:00:00')
-    , (2, '2021-03-25', '10:00:00', '18:00:00')
-    , (1, '2021-03-26', '00:00:00', '00:00:00')
-    , (2, '2021-03-26', '00:00:00', '00:00:00')
-    , (1, '2021-03-27', '00:00:00', '00:00:00')
-    , (2, '2021-03-27', '00:00:00', '00:00:00')
-    , (1, '2021-03-28', '00:00:00', '00:00:00')
-    , (2, '2021-03-28', '00:00:00', '00:00:00')
-    , (1, '2021-03-29', '10:00:00', '22:00:00')
-    , (2, '2021-03-29', '10:00:00', '22:00:00')
-    , (1, '2021-03-30', '00:00:00', '00:00:00')
-    , (2, '2021-03-30', '00:00:00', '00:00:00')
-    , (1, '2021-03-31', '10:00:00', '22:00:00')
-    , (2, '2021-03-31', '10:00:00', '22:00:00')
-    , (1, '2021-04-01', '00:00:00', '00:00:00')
-    , (2, '2021-04-01', '00:00:00', '00:00:00')
-    , (1, '2021-04-02', '10:00:00', '18:00:00')
-    , (2, '2021-04-02', '10:00:00', '18:00:00')
-    , (1, '2021-04-03', '10:00:00', '18:00:00')
-    , (2, '2021-04-03', '10:00:00', '18:00:00')
-    , (1, '2021-04-04', '10:00:00', '18:00:00')
-    , (2, '2021-04-04', '10:00:00', '18:00:00')
-    , (1, '2021-04-05', '00:00:00', '00:00:00')
-    , (2, '2021-04-05', '00:00:00', '00:00:00')
-    , (1, '2021-04-06', '00:00:00', '00:00:00')
-    , (2, '2021-04-06', '00:00:00', '00:00:00')
-    , (1, '2021-04-07', '00:00:00', '00:00:00')
-    , (2, '2021-04-07', '00:00:00', '00:00:00')
-    , (1, '2021-04-08', '00:00:00', '00:00:00')
-    , (2, '2021-04-08', '00:00:00', '00:00:00')
-    , (1, '2021-04-09', '10:00:00', '18:00:00')
-    , (2, '2021-04-09', '10:00:00', '18:00:00')
-    , (1, '2021-04-10', '00:00:00', '00:00:00')
-    , (2, '2021-04-10', '00:00:00', '00:00:00')
-    , (1, '2021-04-11', '00:00:00', '00:00:00')
-    , (2, '2021-04-11', '00:00:00', '00:00:00')
-    , (1, '2021-04-12', '10:00:00', '22:00:00')
-    , (2, '2021-04-12', '10:00:00', '22:00:00')
-    , (1, '2021-04-13', '00:00:00', '00:00:00')
-    , (2, '2021-04-13', '00:00:00', '00:00:00')
-    , (1, '2021-04-14', '10:00:00', '18:00:00')
-    , (2, '2021-04-14', '10:00:00', '18:00:00')
-    , (1, '2021-04-15', '00:00:00', '00:00:00')
-    , (2, '2021-04-15', '00:00:00', '00:00:00')
-    , (1, '2021-04-16', '00:00:00', '00:00:00')
-    , (2, '2021-04-16', '00:00:00', '00:00:00')
-    , (1, '2021-04-17', '10:00:00', '18:00:00')
-    , (2, '2021-04-17', '10:00:00', '18:00:00')
-    , (1, '2021-04-18', '10:00:00', '22:00:00')
-    , (2, '2021-04-18', '10:00:00', '22:00:00')
-    , (1, '2021-04-19', '00:00:00', '00:00:00')
-    , (2, '2021-04-19', '00:00:00', '00:00:00')
-    , (1, '2021-04-20', '10:00:00', '18:00:00')
-    , (2, '2021-04-20', '10:00:00', '18:00:00')
-    , (1, '2021-04-21', '10:00:00', '22:00:00')
-    , (2, '2021-04-21', '10:00:00', '22:00:00')
-    , (1, '2021-04-22', '00:00:00', '00:00:00')
-    , (2, '2021-04-22', '00:00:00', '00:00:00')
-    , (1, '2021-04-23', '10:00:00', '18:00:00')
-    , (2, '2021-04-23', '10:00:00', '18:00:00')
-    , (1, '2021-04-24', '10:00:00', '18:00:00')
-    , (2, '2021-04-24', '10:00:00', '18:00:00')
-    , (1, '2021-04-25', '10:00:00', '22:00:00')
-    , (2, '2021-04-25', '10:00:00', '22:00:00')
-    , (1, '2021-04-26', '00:00:00', '00:00:00')
-    , (2, '2021-04-26', '00:00:00', '00:00:00')
-    , (1, '2021-04-27', '10:00:00', '22:00:00')
-    , (2, '2021-04-27', '10:00:00', '22:00:00')
-    , (1, '2021-04-28', '00:00:00', '00:00:00')
-    , (2, '2021-04-28', '00:00:00', '00:00:00')
-    , (1, '2021-04-29', '10:00:00', '18:00:00')
-    , (2, '2021-04-29', '10:00:00', '18:00:00')
-    , (1, '2021-04-30', '10:00:00', '18:00:00')
-    , (2, '2021-04-30', '10:00:00', '18:00:00')
-    , (1, '2021-05-01', '00:00:00', '00:00:00')
-    , (2, '2021-05-01', '00:00:00', '00:00:00')
-    , (1, '2021-05-02', '10:00:00', '22:00:00')
-    , (2, '2021-05-02', '10:00:00', '22:00:00')
-    , (1, '2021-05-03', '10:00:00', '22:00:00')
-    , (2, '2021-05-03', '10:00:00', '22:00:00')
-    , (1, '2021-05-04', '00:00:00', '00:00:00')
-    , (2, '2021-05-04', '00:00:00', '00:00:00')
-    , (1, '2021-05-05', '00:00:00', '00:00:00')
-    , (2, '2021-05-05', '00:00:00', '00:00:00')
-    , (1, '2021-05-06', '10:00:00', '18:00:00')
-    , (2, '2021-05-06', '10:00:00', '18:00:00')
-    , (1, '2021-05-07', '10:00:00', '18:00:00')
-    , (2, '2021-05-07', '10:00:00', '18:00:00')
-    , (1, '2021-05-08', '00:00:00', '00:00:00')
-    , (2, '2021-05-08', '00:00:00', '00:00:00')
-    , (1, '2021-05-09', '10:00:00', '22:00:00')
-    , (2, '2021-05-09', '10:00:00', '22:00:00')
-    , (1, '2021-05-10', '10:00:00', '18:00:00')
-    , (2, '2021-05-10', '10:00:00', '18:00:00')
-    , (1, '2021-05-11', '10:00:00', '22:00:00')
-    , (2, '2021-05-11', '10:00:00', '22:00:00')
-    , (1, '2021-05-12', '00:00:00', '00:00:00')
-    , (2, '2021-05-12', '00:00:00', '00:00:00')
-    , (1, '2021-05-13', '00:00:00', '00:00:00')
-    , (2, '2021-05-13', '00:00:00', '00:00:00')
-    , (1, '2021-05-14', '00:00:00', '00:00:00')
-    , (2, '2021-05-14', '00:00:00', '00:00:00')
-    , (1, '2021-05-15', '10:00:00', '22:00:00')
-    , (2, '2021-05-15', '10:00:00', '22:00:00')
-    , (1, '2021-05-16', '10:00:00', '22:00:00')
-    , (2, '2021-05-16', '10:00:00', '22:00:00')
-    , (1, '2021-05-17', '10:00:00', '22:00:00')
-    , (2, '2021-05-17', '10:00:00', '22:00:00')
-    , (1, '2021-05-18', '10:00:00', '22:00:00')
-    , (2, '2021-05-18', '10:00:00', '22:00:00')
-    , (1, '2021-05-19', '00:00:00', '00:00:00')
-    , (2, '2021-05-19', '00:00:00', '00:00:00')
-    , (1, '2021-05-20', '00:00:00', '00:00:00')
-    , (2, '2021-05-20', '00:00:00', '00:00:00')
-    , (1, '2021-05-21', '00:00:00', '00:00:00')
-    , (2, '2021-05-21', '00:00:00', '00:00:00')
-    , (1, '2021-05-22', '10:00:00', '22:00:00')
-    , (2, '2021-05-22', '10:00:00', '22:00:00')
-    , (1, '2021-05-23', '10:00:00', '18:00:00')
-    , (2, '2021-05-23', '10:00:00', '18:00:00')
-    , (1, '2021-05-24', '10:00:00', '22:00:00')
-    , (2, '2021-05-24', '10:00:00', '22:00:00')
-    , (1, '2021-05-25', '10:00:00', '22:00:00')
-    , (2, '2021-05-25', '10:00:00', '22:00:00')
-    , (1, '2021-05-26', '10:00:00', '22:00:00')
-    , (2, '2021-05-26', '10:00:00', '22:00:00')
-    , (1, '2021-05-27', '00:00:00', '00:00:00')
-    , (2, '2021-05-27', '00:00:00', '00:00:00')
-    , (1, '2021-05-28', '00:00:00', '00:00:00')
-    , (2, '2021-05-28', '00:00:00', '00:00:00')
-    , (1, '2021-05-29', '00:00:00', '00:00:00')
-    , (2, '2021-05-29', '00:00:00', '00:00:00')
-    , (1, '2021-05-30', '00:00:00', '00:00:00')
-    , (2, '2021-05-30', '00:00:00', '00:00:00')
-    , (1, '2021-05-31', '10:00:00', '22:00:00')
-    , (2, '2021-05-31', '10:00:00', '22:00:00')
-    , (1, '2021-06-01', '00:00:00', '00:00:00')
-    , (2, '2021-06-01', '00:00:00', '00:00:00')
-    , (1, '2021-06-02', '10:00:00', '22:00:00')
-    , (2, '2021-06-02', '10:00:00', '22:00:00')
-    , (1, '2021-06-03', '10:00:00', '22:00:00')
-    , (2, '2021-06-03', '10:00:00', '22:00:00')
-    , (1, '2021-06-04', '10:00:00', '22:00:00')
-    , (2, '2021-06-04', '10:00:00', '22:00:00')
-    , (1, '2021-06-05', '10:00:00', '18:00:00')
-    , (2, '2021-06-05', '10:00:00', '18:00:00')
-    , (1, '2021-06-06', '00:00:00', '00:00:00')
-    , (2, '2021-06-06', '00:00:00', '00:00:00')
-    , (1, '2021-06-07', '00:00:00', '00:00:00')
-    , (2, '2021-06-07', '00:00:00', '00:00:00')
-    , (1, '2021-06-08', '10:00:00', '18:00:00')
-    , (2, '2021-06-08', '10:00:00', '18:00:00')
-    , (1, '2021-06-09', '00:00:00', '00:00:00')
-    , (2, '2021-06-09', '00:00:00', '00:00:00')
-    , (1, '2021-06-10', '00:00:00', '00:00:00')
-    , (2, '2021-06-10', '00:00:00', '00:00:00')
-    , (1, '2021-06-11', '00:00:00', '00:00:00')
-    , (2, '2021-06-11', '00:00:00', '00:00:00')
-    , (1, '2021-06-12', '10:00:00', '18:00:00')
-    , (2, '2021-06-12', '10:00:00', '18:00:00')
-    , (1, '2021-06-13', '00:00:00', '00:00:00')
-    , (2, '2021-06-13', '00:00:00', '00:00:00')
-    , (1, '2021-06-14', '10:00:00', '18:00:00')
-    , (2, '2021-06-14', '10:00:00', '18:00:00')
-    , (1, '2021-06-15', '00:00:00', '00:00:00')
-    , (2, '2021-06-15', '00:00:00', '00:00:00')
-    , (1, '2021-06-16', '10:00:00', '18:00:00')
-    , (2, '2021-06-16', '10:00:00', '18:00:00')
-    , (1, '2021-06-17', '00:00:00', '00:00:00')
-    , (2, '2021-06-17', '00:00:00', '00:00:00')
-    , (1, '2021-06-18', '00:00:00', '00:00:00')
-    , (2, '2021-06-18', '00:00:00', '00:00:00')
-    , (1, '2021-06-19', '00:00:00', '00:00:00')
-    , (2, '2021-06-19', '00:00:00', '00:00:00')
-    , (1, '2021-06-20', '00:00:00', '00:00:00')
-    , (2, '2021-06-20', '00:00:00', '00:00:00')
-    , (1, '2021-06-21', '10:00:00', '18:00:00')
-    , (2, '2021-06-21', '10:00:00', '18:00:00')
-    , (1, '2021-06-22', '10:00:00', '22:00:00')
-    , (2, '2021-06-22', '10:00:00', '22:00:00')
-    , (1, '2021-06-23', '10:00:00', '18:00:00')
-    , (2, '2021-06-23', '10:00:00', '18:00:00')
-    , (1, '2021-06-24', '00:00:00', '00:00:00')
-    , (2, '2021-06-24', '00:00:00', '00:00:00')
-    , (1, '2021-06-25', '10:00:00', '18:00:00')
-    , (2, '2021-06-25', '10:00:00', '18:00:00')
-    , (1, '2021-06-26', '10:00:00', '22:00:00')
-    , (2, '2021-06-26', '10:00:00', '22:00:00')
-    , (1, '2021-06-27', '10:00:00', '18:00:00')
-    , (2, '2021-06-27', '10:00:00', '18:00:00')
-    , (1, '2021-06-28', '10:00:00', '18:00:00')
-    , (2, '2021-06-28', '10:00:00', '18:00:00')
-    , (1, '2021-06-29', '10:00:00', '22:00:00')
-    , (2, '2021-06-29', '10:00:00', '22:00:00')
-    , (1, '2021-06-30', '00:00:00', '00:00:00')
-    , (2, '2021-06-30', '00:00:00', '00:00:00')
-    , (1, '2021-07-01', '00:00:00', '00:00:00')
-    , (2, '2021-07-01', '00:00:00', '00:00:00')
-    , (1, '2021-07-02', '10:00:00', '22:00:00')
-    , (2, '2021-07-02', '10:00:00', '22:00:00')
-    , (1, '2021-07-03', '00:00:00', '00:00:00')
-    , (2, '2021-07-03', '00:00:00', '00:00:00')
-    , (1, '2021-07-04', '10:00:00', '22:00:00')
-    , (2, '2021-07-04', '10:00:00', '22:00:00')
-    , (1, '2021-07-05', '00:00:00', '00:00:00')
-    , (2, '2021-07-05', '00:00:00', '00:00:00')
-    , (1, '2021-07-06', '10:00:00', '22:00:00')
-    , (2, '2021-07-06', '10:00:00', '22:00:00')
-    , (1, '2021-07-07', '00:00:00', '00:00:00')
-    , (2, '2021-07-07', '00:00:00', '00:00:00')
-    , (1, '2021-07-08', '00:00:00', '00:00:00')
-    , (2, '2021-07-08', '00:00:00', '00:00:00')
-    , (1, '2021-07-09', '10:00:00', '18:00:00')
-    , (2, '2021-07-09', '10:00:00', '18:00:00')
-    , (1, '2021-07-10', '00:00:00', '00:00:00')
-    , (2, '2021-07-10', '00:00:00', '00:00:00')
-    , (1, '2021-07-11', '10:00:00', '22:00:00')
-    , (2, '2021-07-11', '10:00:00', '22:00:00')
-    , (1, '2021-07-12', '10:00:00', '22:00:00')
-    , (2, '2021-07-12', '10:00:00', '22:00:00')
-    , (1, '2021-07-13', '10:00:00', '22:00:00')
-    , (2, '2021-07-13', '10:00:00', '22:00:00')
-    , (1, '2021-07-14', '10:00:00', '22:00:00')
-    , (2, '2021-07-14', '10:00:00', '22:00:00')
-    , (1, '2021-07-15', '00:00:00', '00:00:00')
-    , (2, '2021-07-15', '00:00:00', '00:00:00')
-    , (1, '2021-07-16', '10:00:00', '18:00:00')
-    , (2, '2021-07-16', '10:00:00', '18:00:00')
-    , (1, '2021-07-17', '00:00:00', '00:00:00')
-    , (2, '2021-07-17', '00:00:00', '00:00:00')
-    , (1, '2021-07-18', '10:00:00', '18:00:00')
-    , (2, '2021-07-18', '10:00:00', '18:00:00')
-    , (1, '2021-07-19', '10:00:00', '18:00:00')
-    , (2, '2021-07-19', '10:00:00', '18:00:00')
-    , (1, '2021-07-20', '10:00:00', '22:00:00')
-    , (2, '2021-07-20', '10:00:00', '22:00:00')
-    , (1, '2021-07-21', '10:00:00', '22:00:00')
-    , (2, '2021-07-21', '10:00:00', '22:00:00')
-    , (1, '2021-07-22', '00:00:00', '00:00:00')
-    , (2, '2021-07-22', '00:00:00', '00:00:00')
-    , (1, '2021-07-23', '00:00:00', '00:00:00')
-    , (2, '2021-07-23', '00:00:00', '00:00:00')
-    , (1, '2021-07-24', '00:00:00', '00:00:00')
-    , (2, '2021-07-24', '00:00:00', '00:00:00')
-    , (1, '2021-07-25', '00:00:00', '00:00:00')
-    , (2, '2021-07-25', '00:00:00', '00:00:00')
-    , (1, '2021-07-26', '10:00:00', '22:00:00')
-    , (2, '2021-07-26', '10:00:00', '22:00:00')
-    , (1, '2021-07-27', '10:00:00', '22:00:00')
-    , (2, '2021-07-27', '10:00:00', '22:00:00')
-    , (1, '2021-07-28', '10:00:00', '22:00:00')
-    , (2, '2021-07-28', '10:00:00', '22:00:00')
-    , (1, '2021-07-29', '10:00:00', '22:00:00')
-    , (2, '2021-07-29', '10:00:00', '22:00:00')
-    , (1, '2021-07-30', '10:00:00', '18:00:00')
-    , (2, '2021-07-30', '10:00:00', '18:00:00')
-    , (1, '2021-07-31', '10:00:00', '22:00:00')
-    , (2, '2021-07-31', '10:00:00', '22:00:00')
-    , (1, '2021-08-01', '00:00:00', '00:00:00')
-    , (2, '2021-08-01', '00:00:00', '00:00:00')
-    , (1, '2021-08-02', '10:00:00', '18:00:00')
-    , (2, '2021-08-02', '10:00:00', '18:00:00')
-    , (1, '2021-08-03', '00:00:00', '00:00:00')
-    , (2, '2021-08-03', '00:00:00', '00:00:00')
-    , (1, '2021-08-04', '00:00:00', '00:00:00')
-    , (2, '2021-08-04', '00:00:00', '00:00:00')
-    , (1, '2021-08-05', '10:00:00', '22:00:00')
-    , (2, '2021-08-05', '10:00:00', '22:00:00')
-    , (1, '2021-08-06', '00:00:00', '00:00:00')
-    , (2, '2021-08-06', '00:00:00', '00:00:00')
-    , (1, '2021-08-07', '10:00:00', '22:00:00')
-    , (2, '2021-08-07', '10:00:00', '22:00:00')
-    , (1, '2021-08-08', '10:00:00', '22:00:00')
-    , (2, '2021-08-08', '10:00:00', '22:00:00')
-    , (1, '2021-08-09', '10:00:00', '22:00:00')
-    , (2, '2021-08-09', '10:00:00', '22:00:00')
-    , (1, '2021-08-10', '10:00:00', '22:00:00')
-    , (2, '2021-08-10', '10:00:00', '22:00:00')
-    , (1, '2021-08-11', '10:00:00', '18:00:00')
-    , (2, '2021-08-11', '10:00:00', '18:00:00')
-    , (1, '2021-08-12', '10:00:00', '22:00:00')
-    , (2, '2021-08-12', '10:00:00', '22:00:00')
-    , (1, '2021-08-13', '10:00:00', '18:00:00')
-    , (2, '2021-08-13', '10:00:00', '18:00:00')
-    , (1, '2021-08-14', '00:00:00', '00:00:00')
-    , (2, '2021-08-14', '00:00:00', '00:00:00')
-    , (1, '2021-08-15', '00:00:00', '00:00:00')
-    , (2, '2021-08-15', '00:00:00', '00:00:00')
-    , (1, '2021-08-16', '00:00:00', '00:00:00')
-    , (2, '2021-08-16', '00:00:00', '00:00:00')
-    , (1, '2021-08-17', '00:00:00', '00:00:00')
-    , (2, '2021-08-17', '00:00:00', '00:00:00')
-    , (1, '2021-08-18', '00:00:00', '00:00:00')
-    , (2, '2021-08-18', '00:00:00', '00:00:00')
-    , (1, '2021-08-19', '00:00:00', '00:00:00')
-    , (2, '2021-08-19', '00:00:00', '00:00:00')
-    , (1, '2021-08-20', '00:00:00', '00:00:00')
-    , (2, '2021-08-20', '00:00:00', '00:00:00')
-    , (1, '2021-08-21', '10:00:00', '18:00:00')
-    , (2, '2021-08-21', '10:00:00', '18:00:00')
-    , (1, '2021-08-22', '10:00:00', '18:00:00')
-    , (2, '2021-08-22', '10:00:00', '18:00:00')
-    , (1, '2021-08-23', '10:00:00', '18:00:00')
-    , (2, '2021-08-23', '10:00:00', '18:00:00')
-    , (1, '2021-08-24', '00:00:00', '00:00:00')
-    , (2, '2021-08-24', '00:00:00', '00:00:00')
-    , (1, '2021-08-25', '00:00:00', '00:00:00')
-    , (2, '2021-08-25', '00:00:00', '00:00:00')
-    , (1, '2021-08-26', '10:00:00', '18:00:00')
-    , (2, '2021-08-26', '10:00:00', '18:00:00')
-    , (1, '2021-08-27', '00:00:00', '00:00:00')
-    , (2, '2021-08-27', '00:00:00', '00:00:00')
-    , (1, '2021-08-28', '10:00:00', '22:00:00')
-    , (2, '2021-08-28', '10:00:00', '22:00:00')
-    , (1, '2021-08-29', '00:00:00', '00:00:00')
-    , (2, '2021-08-29', '00:00:00', '00:00:00')
-    , (1, '2021-08-30', '00:00:00', '00:00:00')
-    , (2, '2021-08-30', '00:00:00', '00:00:00')
-    , (1, '2021-08-31', '10:00:00', '18:00:00')
-    , (2, '2021-08-31', '10:00:00', '18:00:00')
-    , (1, '2021-09-01', '10:00:00', '22:00:00')
-    , (2, '2021-09-01', '10:00:00', '22:00:00')
-    , (1, '2021-09-02', '00:00:00', '00:00:00')
-    , (2, '2021-09-02', '00:00:00', '00:00:00')
-    , (1, '2021-09-03', '10:00:00', '18:00:00')
-    , (2, '2021-09-03', '10:00:00', '18:00:00')
-    , (1, '2021-09-04', '00:00:00', '00:00:00')
-    , (2, '2021-09-04', '00:00:00', '00:00:00')
-    , (1, '2021-09-05', '00:00:00', '00:00:00')
-    , (2, '2021-09-05', '00:00:00', '00:00:00')
-    , (1, '2021-09-06', '10:00:00', '18:00:00')
-    , (2, '2021-09-06', '10:00:00', '18:00:00')
-    , (1, '2021-09-07', '10:00:00', '22:00:00')
-    , (2, '2021-09-07', '10:00:00', '22:00:00')
-    , (1, '2021-09-08', '10:00:00', '22:00:00')
-    , (2, '2021-09-08', '10:00:00', '22:00:00')
-    , (1, '2021-09-09', '00:00:00', '00:00:00')
-    , (2, '2021-09-09', '00:00:00', '00:00:00')
-    , (1, '2021-09-10', '10:00:00', '18:00:00')
-    , (2, '2021-09-10', '10:00:00', '18:00:00')
-    , (1, '2021-09-11', '00:00:00', '00:00:00')
-    , (2, '2021-09-11', '00:00:00', '00:00:00')
-    , (1, '2021-09-12', '10:00:00', '18:00:00')
-    , (2, '2021-09-12', '10:00:00', '18:00:00')
-    , (1, '2021-09-13', '00:00:00', '00:00:00')
-    , (2, '2021-09-13', '00:00:00', '00:00:00')
-    , (1, '2021-09-14', '10:00:00', '22:00:00')
-    , (2, '2021-09-14', '10:00:00', '22:00:00')
-    , (1, '2021-09-15', '10:00:00', '22:00:00')
-    , (2, '2021-09-15', '10:00:00', '22:00:00')
-    , (1, '2021-09-16', '00:00:00', '00:00:00')
-    , (2, '2021-09-16', '00:00:00', '00:00:00')
-    , (1, '2021-09-17', '10:00:00', '22:00:00')
-    , (2, '2021-09-17', '10:00:00', '22:00:00')
-    , (1, '2021-09-18', '00:00:00', '00:00:00')
-    , (2, '2021-09-18', '00:00:00', '00:00:00')
-    , (1, '2021-09-19', '00:00:00', '00:00:00')
-    , (2, '2021-09-19', '00:00:00', '00:00:00')
-    , (1, '2021-09-20', '10:00:00', '22:00:00')
-    , (2, '2021-09-20', '10:00:00', '22:00:00')
-    , (1, '2021-09-21', '00:00:00', '00:00:00')
-    , (2, '2021-09-21', '00:00:00', '00:00:00')
-    , (1, '2021-09-22', '10:00:00', '22:00:00')
-    , (2, '2021-09-22', '10:00:00', '22:00:00')
-    , (1, '2021-09-23', '00:00:00', '00:00:00')
-    , (2, '2021-09-23', '00:00:00', '00:00:00')
-    , (1, '2021-09-24', '00:00:00', '00:00:00')
-    , (2, '2021-09-24', '00:00:00', '00:00:00')
-    , (1, '2021-09-25', '10:00:00', '22:00:00')
-    , (2, '2021-09-25', '10:00:00', '22:00:00')
-    , (1, '2021-09-26', '00:00:00', '00:00:00')
-    , (2, '2021-09-26', '00:00:00', '00:00:00')
-    , (1, '2021-09-27', '10:00:00', '18:00:00')
-    , (2, '2021-09-27', '10:00:00', '18:00:00')
-    , (1, '2021-09-28', '00:00:00', '00:00:00')
-    , (2, '2021-09-28', '00:00:00', '00:00:00')
-    , (1, '2021-09-29', '10:00:00', '18:00:00')
-    , (2, '2021-09-29', '10:00:00', '18:00:00')
-    , (1, '2021-09-30', '10:00:00', '18:00:00')
-    , (2, '2021-09-30', '10:00:00', '18:00:00')
-    , (1, '2021-10-01', '00:00:00', '00:00:00')
-    , (2, '2021-10-01', '00:00:00', '00:00:00')
-    , (1, '2021-10-02', '10:00:00', '22:00:00')
-    , (2, '2021-10-02', '10:00:00', '22:00:00')
-    , (1, '2021-10-03', '10:00:00', '22:00:00')
-    , (2, '2021-10-03', '10:00:00', '22:00:00')
-    , (1, '2021-10-04', '10:00:00', '22:00:00')
-    , (2, '2021-10-04', '10:00:00', '22:00:00')
-    , (1, '2021-10-05', '10:00:00', '18:00:00')
-    , (2, '2021-10-05', '10:00:00', '18:00:00')
-    , (1, '2021-10-06', '10:00:00', '22:00:00')
-    , (2, '2021-10-06', '10:00:00', '22:00:00')
-    , (1, '2021-10-07', '10:00:00', '18:00:00')
-    , (2, '2021-10-07', '10:00:00', '18:00:00')
-    , (1, '2021-10-08', '10:00:00', '18:00:00')
-    , (2, '2021-10-08', '10:00:00', '18:00:00')
-    , (1, '2021-10-09', '00:00:00', '00:00:00')
-    , (2, '2021-10-09', '00:00:00', '00:00:00')
-    , (1, '2021-10-10', '10:00:00', '18:00:00')
-    , (2, '2021-10-10', '10:00:00', '18:00:00')
-    , (1, '2021-10-11', '00:00:00', '00:00:00')
-    , (2, '2021-10-11', '00:00:00', '00:00:00')
-    , (1, '2021-10-12', '10:00:00', '18:00:00')
-    , (2, '2021-10-12', '10:00:00', '18:00:00')
-    , (1, '2021-10-13', '00:00:00', '00:00:00')
-    , (2, '2021-10-13', '00:00:00', '00:00:00')
-    , (1, '2021-10-14', '10:00:00', '22:00:00')
-    , (2, '2021-10-14', '10:00:00', '22:00:00')
-    , (1, '2021-10-15', '10:00:00', '22:00:00')
-    , (2, '2021-10-15', '10:00:00', '22:00:00')
-    , (1, '2021-10-16', '00:00:00', '00:00:00')
-    , (2, '2021-10-16', '00:00:00', '00:00:00')
-    , (1, '2021-10-17', '00:00:00', '00:00:00')
-    , (2, '2021-10-17', '00:00:00', '00:00:00')
-    , (1, '2021-10-18', '00:00:00', '00:00:00')
-    , (2, '2021-10-18', '00:00:00', '00:00:00')
-    , (1, '2021-10-19', '10:00:00', '18:00:00')
-    , (2, '2021-10-19', '10:00:00', '18:00:00')
-    , (1, '2021-10-20', '00:00:00', '00:00:00')
-    , (2, '2021-10-20', '00:00:00', '00:00:00')
-    , (1, '2021-10-21', '00:00:00', '00:00:00')
-    , (2, '2021-10-21', '00:00:00', '00:00:00')
-    , (1, '2021-10-22', '00:00:00', '00:00:00')
-    , (2, '2021-10-22', '00:00:00', '00:00:00')
-    , (1, '2021-10-23', '00:00:00', '00:00:00')
-    , (2, '2021-10-23', '00:00:00', '00:00:00')
-    , (1, '2021-10-24', '00:00:00', '00:00:00')
-    , (2, '2021-10-24', '00:00:00', '00:00:00')
-    , (1, '2021-10-25', '00:00:00', '00:00:00')
-    , (2, '2021-10-25', '00:00:00', '00:00:00')
-    , (1, '2021-10-26', '10:00:00', '22:00:00')
-    , (2, '2021-10-26', '10:00:00', '22:00:00')
-    , (1, '2021-10-27', '10:00:00', '18:00:00')
-    , (2, '2021-10-27', '10:00:00', '18:00:00')
-    , (1, '2021-10-28', '00:00:00', '00:00:00')
-    , (2, '2021-10-28', '00:00:00', '00:00:00')
-    , (1, '2021-10-29', '10:00:00', '18:00:00')
-    , (2, '2021-10-29', '10:00:00', '18:00:00')
-    , (1, '2021-10-30', '00:00:00', '00:00:00')
-    , (2, '2021-10-30', '00:00:00', '00:00:00')
-    , (1, '2021-10-31', '00:00:00', '00:00:00')
-    , (2, '2021-10-31', '00:00:00', '00:00:00')
-    , (1, '2021-11-01', '10:00:00', '22:00:00')
-    , (2, '2021-11-01', '10:00:00', '22:00:00')
-    , (1, '2021-11-02', '10:00:00', '22:00:00')
-    , (2, '2021-11-02', '10:00:00', '22:00:00')
-    , (1, '2021-11-03', '00:00:00', '00:00:00')
-    , (2, '2021-11-03', '00:00:00', '00:00:00')
-    , (1, '2021-11-04', '00:00:00', '00:00:00')
-    , (2, '2021-11-04', '00:00:00', '00:00:00')
-    , (1, '2021-11-05', '10:00:00', '22:00:00')
-    , (2, '2021-11-05', '10:00:00', '22:00:00')
-    , (1, '2021-11-06', '00:00:00', '00:00:00')
-    , (2, '2021-11-06', '00:00:00', '00:00:00')
-    , (1, '2021-11-07', '00:00:00', '00:00:00')
-    , (2, '2021-11-07', '00:00:00', '00:00:00')
-    , (1, '2021-11-08', '10:00:00', '18:00:00')
-    , (2, '2021-11-08', '10:00:00', '18:00:00')
-    , (1, '2021-11-09', '00:00:00', '00:00:00')
-    , (2, '2021-11-09', '00:00:00', '00:00:00')
-    , (1, '2021-11-10', '10:00:00', '18:00:00')
-    , (2, '2021-11-10', '10:00:00', '18:00:00')
-    , (1, '2021-11-11', '00:00:00', '00:00:00')
-    , (2, '2021-11-11', '00:00:00', '00:00:00')
-    , (1, '2021-11-12', '00:00:00', '00:00:00')
-    , (2, '2021-11-12', '00:00:00', '00:00:00')
-    , (1, '2021-11-13', '10:00:00', '22:00:00')
-    , (2, '2021-11-13', '10:00:00', '22:00:00')
-    , (1, '2021-11-14', '00:00:00', '00:00:00')
-    , (2, '2021-11-14', '00:00:00', '00:00:00')
-    , (1, '2021-11-15', '10:00:00', '18:00:00')
-    , (2, '2021-11-15', '10:00:00', '18:00:00')
-    , (1, '2021-11-16', '10:00:00', '18:00:00')
-    , (2, '2021-11-16', '10:00:00', '18:00:00')
-    , (1, '2021-11-17', '00:00:00', '00:00:00')
-    , (2, '2021-11-17', '00:00:00', '00:00:00')
-    , (1, '2021-11-18', '00:00:00', '00:00:00')
-    , (2, '2021-11-18', '00:00:00', '00:00:00')
-    , (1, '2021-11-19', '10:00:00', '22:00:00')
-    , (2, '2021-11-19', '10:00:00', '22:00:00')
-    , (1, '2021-11-20', '00:00:00', '00:00:00')
-    , (2, '2021-11-20', '00:00:00', '00:00:00')
-    , (1, '2021-11-21', '00:00:00', '00:00:00')
-    , (2, '2021-11-21', '00:00:00', '00:00:00')
-    , (1, '2021-11-22', '10:00:00', '22:00:00')
-    , (2, '2021-11-22', '10:00:00', '22:00:00')
-    , (1, '2021-11-23', '00:00:00', '00:00:00')
-    , (2, '2021-11-23', '00:00:00', '00:00:00')
-    , (1, '2021-11-24', '10:00:00', '18:00:00')
-    , (2, '2021-11-24', '10:00:00', '18:00:00')
-    , (1, '2021-11-25', '10:00:00', '18:00:00')
-    , (2, '2021-11-25', '10:00:00', '18:00:00')
-    , (1, '2021-11-26', '10:00:00', '22:00:00')
-    , (2, '2021-11-26', '10:00:00', '22:00:00')
-    , (1, '2021-11-27', '00:00:00', '00:00:00')
-    , (2, '2021-11-27', '00:00:00', '00:00:00')
-    , (1, '2021-11-28', '10:00:00', '22:00:00')
-    , (2, '2021-11-28', '10:00:00', '22:00:00')
-    , (1, '2021-11-29', '10:00:00', '22:00:00')
-    , (2, '2021-11-29', '10:00:00', '22:00:00')
-    , (1, '2021-11-30', '00:00:00', '00:00:00')
-    , (2, '2021-11-30', '00:00:00', '00:00:00')
-    , (1, '2021-12-01', '10:00:00', '18:00:00')
-    , (2, '2021-12-01', '10:00:00', '18:00:00')
-    , (1, '2021-12-02', '00:00:00', '00:00:00')
-    , (2, '2021-12-02', '00:00:00', '00:00:00')
-    , (1, '2021-12-03', '00:00:00', '00:00:00')
-    , (2, '2021-12-03', '00:00:00', '00:00:00')
-    , (1, '2021-12-04', '00:00:00', '00:00:00')
-    , (2, '2021-12-04', '00:00:00', '00:00:00')
-    , (1, '2021-12-05', '00:00:00', '00:00:00')
-    , (2, '2021-12-05', '00:00:00', '00:00:00')
-    , (1, '2021-12-06', '00:00:00', '00:00:00')
-    , (2, '2021-12-06', '00:00:00', '00:00:00')
-    , (1, '2021-12-07', '10:00:00', '22:00:00')
-    , (2, '2021-12-07', '10:00:00', '22:00:00')
-    , (1, '2021-12-08', '00:00:00', '00:00:00')
-    , (2, '2021-12-08', '00:00:00', '00:00:00')
-    , (1, '2021-12-09', '10:00:00', '22:00:00')
-    , (2, '2021-12-09', '10:00:00', '22:00:00')
-    , (1, '2021-12-10', '10:00:00', '22:00:00')
-    , (2, '2021-12-10', '10:00:00', '22:00:00')
-    , (1, '2021-12-11', '00:00:00', '00:00:00')
-    , (2, '2021-12-11', '00:00:00', '00:00:00')
-    , (1, '2021-12-12', '10:00:00', '18:00:00')
-    , (2, '2021-12-12', '10:00:00', '18:00:00')
-    , (1, '2021-12-13', '10:00:00', '18:00:00')
-    , (2, '2021-12-13', '10:00:00', '18:00:00')
-    , (1, '2021-12-14', '10:00:00', '18:00:00')
-    , (2, '2021-12-14', '10:00:00', '18:00:00')
-    , (1, '2021-12-15', '10:00:00', '22:00:00')
-    , (2, '2021-12-15', '10:00:00', '22:00:00')
-    , (1, '2021-12-16', '00:00:00', '00:00:00')
-    , (2, '2021-12-16', '00:00:00', '00:00:00')
-    , (1, '2021-12-17', '00:00:00', '00:00:00')
-    , (2, '2021-12-17', '00:00:00', '00:00:00')
-    , (1, '2021-12-18', '00:00:00', '00:00:00')
-    , (2, '2021-12-18', '00:00:00', '00:00:00')
-    , (1, '2021-12-19', '00:00:00', '00:00:00')
-    , (2, '2021-12-19', '00:00:00', '00:00:00')
-    , (1, '2021-12-20', '00:00:00', '00:00:00')
-    , (2, '2021-12-20', '00:00:00', '00:00:00')
-    , (1, '2021-12-21', '10:00:00', '22:00:00')
-    , (2, '2021-12-21', '10:00:00', '22:00:00')
-    , (1, '2021-12-22', '10:00:00', '22:00:00')
-    , (2, '2021-12-22', '10:00:00', '22:00:00')
-    , (1, '2021-12-23', '00:00:00', '00:00:00')
-    , (2, '2021-12-23', '00:00:00', '00:00:00')
-    , (1, '2021-12-24', '00:00:00', '00:00:00')
-    , (2, '2021-12-24', '00:00:00', '00:00:00')
-    , (1, '2021-12-25', '10:00:00', '22:00:00')
-    , (2, '2021-12-25', '10:00:00', '22:00:00')
-    , (1, '2021-12-26', '10:00:00', '18:00:00')
-    , (2, '2021-12-26', '10:00:00', '18:00:00')
-    , (1, '2021-12-27', '00:00:00', '00:00:00')
-    , (2, '2021-12-27', '00:00:00', '00:00:00')
-    , (1, '2021-12-28', '10:00:00', '22:00:00')
-    , (2, '2021-12-28', '10:00:00', '22:00:00')
-    , (1, '2021-12-29', '00:00:00', '00:00:00')
-    , (2, '2021-12-29', '00:00:00', '00:00:00')
-    , (1, '2021-12-30', '00:00:00', '00:00:00')
-    , (2, '2021-12-30', '00:00:00', '00:00:00')
-    , (1, '2021-12-31', '00:00:00', '00:00:00')
-    , (2, '2021-12-31', '00:00:00', '00:00:00')
-    , (1, '2022-01-01', '10:00:00', '18:00:00')
-    , (2, '2022-01-01', '10:00:00', '18:00:00')
-    , (1, '2022-01-02', '10:00:00', '18:00:00')
-    , (2, '2022-01-02', '10:00:00', '18:00:00')
-    , (1, '2022-01-03', '10:00:00', '22:00:00')
-    , (2, '2022-01-03', '10:00:00', '22:00:00')
-    , (1, '2022-01-04', '10:00:00', '22:00:00')
-    , (2, '2022-01-04', '10:00:00', '22:00:00')
-    , (1, '2022-01-05', '10:00:00', '22:00:00')
-    , (2, '2022-01-05', '10:00:00', '22:00:00')
-    , (1, '2022-01-06', '10:00:00', '18:00:00')
-    , (2, '2022-01-06', '10:00:00', '18:00:00')
-    , (1, '2022-01-07', '00:00:00', '00:00:00')
-    , (2, '2022-01-07', '00:00:00', '00:00:00')
-    , (1, '2022-01-08', '10:00:00', '18:00:00')
-    , (2, '2022-01-08', '10:00:00', '18:00:00')
-    , (1, '2022-01-09', '00:00:00', '00:00:00')
-    , (2, '2022-01-09', '00:00:00', '00:00:00')
-    , (1, '2022-01-10', '00:00:00', '00:00:00')
-    , (2, '2022-01-10', '00:00:00', '00:00:00')
-    , (1, '2022-01-11', '00:00:00', '00:00:00')
-    , (2, '2022-01-11', '00:00:00', '00:00:00')
-    , (1, '2022-01-12', '00:00:00', '00:00:00')
-    , (2, '2022-01-12', '00:00:00', '00:00:00')
-    , (1, '2022-01-13', '10:00:00', '22:00:00')
-    , (2, '2022-01-13', '10:00:00', '22:00:00')
-    , (1, '2022-01-14', '10:00:00', '22:00:00')
-    , (2, '2022-01-14', '10:00:00', '22:00:00')
-    , (1, '2022-01-15', '00:00:00', '00:00:00')
-    , (2, '2022-01-15', '00:00:00', '00:00:00')
-    , (1, '2022-01-16', '00:00:00', '00:00:00')
-    , (2, '2022-01-16', '00:00:00', '00:00:00')
-    , (1, '2022-01-17', '00:00:00', '00:00:00')
-    , (2, '2022-01-17', '00:00:00', '00:00:00')
-    , (1, '2022-01-18', '10:00:00', '18:00:00')
-    , (2, '2022-01-18', '10:00:00', '18:00:00')
-    , (1, '2022-01-19', '00:00:00', '00:00:00')
-    , (2, '2022-01-19', '00:00:00', '00:00:00')
-    , (1, '2022-01-20', '00:00:00', '00:00:00')
-    , (2, '2022-01-20', '00:00:00', '00:00:00')
-    , (1, '2022-01-21', '10:00:00', '22:00:00')
-    , (2, '2022-01-21', '10:00:00', '22:00:00')
-    , (1, '2022-01-22', '10:00:00', '22:00:00')
-    , (2, '2022-01-22', '10:00:00', '22:00:00')
-    , (1, '2022-01-23', '00:00:00', '00:00:00')
-    , (2, '2022-01-23', '00:00:00', '00:00:00')
-    , (1, '2022-01-24', '10:00:00', '22:00:00')
-    , (2, '2022-01-24', '10:00:00', '22:00:00')
-    , (1, '2022-01-25', '10:00:00', '22:00:00')
-    , (2, '2022-01-25', '10:00:00', '22:00:00')
-    , (1, '2022-01-26', '10:00:00', '22:00:00')
-    , (2, '2022-01-26', '10:00:00', '22:00:00')
-    , (1, '2022-01-27', '10:00:00', '18:00:00')
-    , (2, '2022-01-27', '10:00:00', '18:00:00')
-    , (1, '2022-01-28', '00:00:00', '00:00:00')
-    , (2, '2022-01-28', '00:00:00', '00:00:00')
-    , (1, '2022-01-29', '00:00:00', '00:00:00')
-    , (2, '2022-01-29', '00:00:00', '00:00:00')
-    , (1, '2022-01-30', '10:00:00', '18:00:00')
-    , (2, '2022-01-30', '10:00:00', '18:00:00')
-    , (1, '2022-01-31', '00:00:00', '00:00:00')
-    , (2, '2022-01-31', '00:00:00', '00:00:00')
-    , (1, '2022-02-01', '10:00:00', '22:00:00')
-    , (2, '2022-02-01', '10:00:00', '22:00:00')
-    , (1, '2022-02-02', '00:00:00', '00:00:00')
-    , (2, '2022-02-02', '00:00:00', '00:00:00')
-    , (1, '2022-02-03', '00:00:00', '00:00:00')
-    , (2, '2022-02-03', '00:00:00', '00:00:00')
-    , (1, '2022-02-04', '10:00:00', '18:00:00')
-    , (2, '2022-02-04', '10:00:00', '18:00:00')
-    , (1, '2022-02-05', '10:00:00', '18:00:00')
-    , (2, '2022-02-05', '10:00:00', '18:00:00')
-    , (1, '2022-02-06', '10:00:00', '18:00:00')
-    , (2, '2022-02-06', '10:00:00', '18:00:00')
-    , (1, '2022-02-07', '00:00:00', '00:00:00')
-    , (2, '2022-02-07', '00:00:00', '00:00:00')
-    , (1, '2022-02-08', '00:00:00', '00:00:00')
-    , (2, '2022-02-08', '00:00:00', '00:00:00')
-    , (1, '2022-02-09', '10:00:00', '22:00:00')
-    , (2, '2022-02-09', '10:00:00', '22:00:00')
-    , (1, '2022-02-10', '00:00:00', '00:00:00')
-    , (2, '2022-02-10', '00:00:00', '00:00:00')
-    , (1, '2022-02-11', '10:00:00', '22:00:00')
-    , (2, '2022-02-11', '10:00:00', '22:00:00')
-    , (1, '2022-02-12', '10:00:00', '22:00:00')
-    , (2, '2022-02-12', '10:00:00', '22:00:00')
-    , (1, '2022-02-13', '00:00:00', '00:00:00')
-    , (2, '2022-02-13', '00:00:00', '00:00:00')
-    , (1, '2022-02-14', '10:00:00', '22:00:00')
-    , (2, '2022-02-14', '10:00:00', '22:00:00')
-    , (1, '2022-02-15', '10:00:00', '18:00:00')
-    , (2, '2022-02-15', '10:00:00', '18:00:00')
-    , (1, '2022-02-16', '10:00:00', '22:00:00')
-    , (2, '2022-02-16', '10:00:00', '22:00:00')
-    , (1, '2022-02-17', '00:00:00', '00:00:00')
-    , (2, '2022-02-17', '00:00:00', '00:00:00')
-    , (1, '2022-02-18', '00:00:00', '00:00:00')
-    , (2, '2022-02-18', '00:00:00', '00:00:00')
-    , (1, '2022-02-19', '00:00:00', '00:00:00')
-    , (2, '2022-02-19', '00:00:00', '00:00:00')
-    , (1, '2022-02-20', '10:00:00', '22:00:00')
-    , (2, '2022-02-20', '10:00:00', '22:00:00')
-    , (1, '2022-02-21', '00:00:00', '00:00:00')
-    , (2, '2022-02-21', '00:00:00', '00:00:00')
-    , (1, '2022-02-22', '00:00:00', '00:00:00')
-    , (2, '2022-02-22', '00:00:00', '00:00:00')
-    , (1, '2022-02-23', '00:00:00', '00:00:00')
-    , (2, '2022-02-23', '00:00:00', '00:00:00')
-    , (1, '2022-02-24', '00:00:00', '00:00:00')
-    , (2, '2022-02-24', '00:00:00', '00:00:00')
-    , (1, '2022-02-25', '10:00:00', '22:00:00')
-    , (2, '2022-02-25', '10:00:00', '22:00:00')
-    , (1, '2022-02-26', '10:00:00', '18:00:00')
-    , (2, '2022-02-26', '10:00:00', '18:00:00')
-    , (1, '2022-02-27', '00:00:00', '00:00:00')
-    , (2, '2022-02-27', '00:00:00', '00:00:00')
-    , (1, '2022-02-28', '00:00:00', '00:00:00')
-    , (2, '2022-02-28', '00:00:00', '00:00:00')
-    , (1, '2022-03-01', '10:00:00', '18:00:00')
-    , (2, '2022-03-01', '10:00:00', '18:00:00')
-    , (1, '2022-03-02', '10:00:00', '22:00:00')
-    , (2, '2022-03-02', '10:00:00', '22:00:00')
-    , (1, '2022-03-03', '00:00:00', '00:00:00')
-    , (2, '2022-03-03', '00:00:00', '00:00:00')
-    , (1, '2022-03-04', '10:00:00', '18:00:00')
-    , (2, '2022-03-04', '10:00:00', '18:00:00')
-    , (1, '2022-03-05', '00:00:00', '00:00:00')
-    , (2, '2022-03-05', '00:00:00', '00:00:00')
-    , (1, '2022-03-06', '10:00:00', '18:00:00')
-    , (2, '2022-03-06', '10:00:00', '18:00:00')
-    , (1, '2022-03-07', '00:00:00', '00:00:00')
-    , (2, '2022-03-07', '00:00:00', '00:00:00')
-    , (1, '2022-03-08', '10:00:00', '18:00:00')
-    , (2, '2022-03-08', '10:00:00', '18:00:00')
-    , (1, '2022-03-09', '00:00:00', '00:00:00')
-    , (2, '2022-03-09', '00:00:00', '00:00:00')
-    , (1, '2022-03-10', '00:00:00', '00:00:00')
-    , (2, '2022-03-10', '00:00:00', '00:00:00')
-    , (1, '2022-03-11', '00:00:00', '00:00:00')
-    , (2, '2022-03-11', '00:00:00', '00:00:00')
-    , (1, '2022-03-12', '10:00:00', '18:00:00')
-    , (2, '2022-03-12', '10:00:00', '18:00:00')
-    , (1, '2022-03-13', '00:00:00', '00:00:00')
-    , (2, '2022-03-13', '00:00:00', '00:00:00')
-    , (1, '2022-03-14', '10:00:00', '18:00:00')
-    , (2, '2022-03-14', '10:00:00', '18:00:00')
-    , (1, '2022-03-15', '00:00:00', '00:00:00')
-    , (2, '2022-03-15', '00:00:00', '00:00:00')
-    , (1, '2022-03-16', '00:00:00', '00:00:00')
-    , (2, '2022-03-16', '00:00:00', '00:00:00')
-    , (1, '2022-03-17', '00:00:00', '00:00:00')
-    , (2, '2022-03-17', '00:00:00', '00:00:00')
-    , (1, '2022-03-18', '00:00:00', '00:00:00')
-    , (2, '2022-03-18', '00:00:00', '00:00:00')
-    , (1, '2022-03-19', '10:00:00', '22:00:00')
-    , (2, '2022-03-19', '10:00:00', '22:00:00')
-    , (1, '2022-03-20', '00:00:00', '00:00:00')
-    , (2, '2022-03-20', '00:00:00', '00:00:00')
-    , (1, '2022-03-21', '00:00:00', '00:00:00')
-    , (2, '2022-03-21', '00:00:00', '00:00:00')
-    , (1, '2022-03-22', '10:00:00', '18:00:00')
-    , (2, '2022-03-22', '10:00:00', '18:00:00')
-    , (1, '2022-03-23', '00:00:00', '00:00:00')
-    , (2, '2022-03-23', '00:00:00', '00:00:00')
-    , (1, '2022-03-24', '10:00:00', '18:00:00')
-    , (2, '2022-03-24', '10:00:00', '18:00:00')
-    , (1, '2022-03-25', '00:00:00', '00:00:00')
-    , (2, '2022-03-25', '00:00:00', '00:00:00')
-    , (1, '2022-03-26', '00:00:00', '00:00:00')
-    , (2, '2022-03-26', '00:00:00', '00:00:00')
-    , (1, '2022-03-27', '00:00:00', '00:00:00')
-    , (2, '2022-03-27', '00:00:00', '00:00:00')
-    , (1, '2022-03-28', '10:00:00', '22:00:00')
-    , (2, '2022-03-28', '10:00:00', '22:00:00')
-    , (1, '2022-03-29', '10:00:00', '22:00:00')
-    , (2, '2022-03-29', '10:00:00', '22:00:00')
-    , (1, '2022-03-30', '00:00:00', '00:00:00')
-    , (2, '2022-03-30', '00:00:00', '00:00:00')
-    , (1, '2022-03-31', '00:00:00', '00:00:00')
-    , (2, '2022-03-31', '00:00:00', '00:00:00')
-    , (1, '2022-04-01', '10:00:00', '22:00:00')
-    , (2, '2022-04-01', '10:00:00', '22:00:00')
-    , (1, '2022-04-02', '10:00:00', '18:00:00')
-    , (2, '2022-04-02', '10:00:00', '18:00:00')
-    , (1, '2022-04-03', '10:00:00', '22:00:00')
-    , (2, '2022-04-03', '10:00:00', '22:00:00')
-    , (1, '2022-04-04', '00:00:00', '00:00:00')
-    , (2, '2022-04-04', '00:00:00', '00:00:00')
-    , (1, '2022-04-05', '10:00:00', '22:00:00')
-    , (2, '2022-04-05', '10:00:00', '22:00:00')
-    , (1, '2022-04-06', '10:00:00', '18:00:00')
-    , (2, '2022-04-06', '10:00:00', '18:00:00')
-    , (1, '2022-04-07', '10:00:00', '22:00:00')
-    , (2, '2022-04-07', '10:00:00', '22:00:00')
-    , (1, '2022-04-08', '00:00:00', '00:00:00')
-    , (2, '2022-04-08', '00:00:00', '00:00:00')
-    , (1, '2022-04-09', '00:00:00', '00:00:00')
-    , (2, '2022-04-09', '00:00:00', '00:00:00')
-    , (1, '2022-04-10', '10:00:00', '22:00:00')
-    , (2, '2022-04-10', '10:00:00', '22:00:00')
-    , (1, '2022-04-11', '00:00:00', '00:00:00')
-    , (2, '2022-04-11', '00:00:00', '00:00:00')
-    , (1, '2022-04-12', '10:00:00', '22:00:00')
-    , (2, '2022-04-12', '10:00:00', '22:00:00')
-    , (1, '2022-04-13', '10:00:00', '22:00:00')
-    , (2, '2022-04-13', '10:00:00', '22:00:00')
-    , (1, '2022-04-14', '10:00:00', '22:00:00')
-    , (2, '2022-04-14', '10:00:00', '22:00:00')
-    , (1, '2022-04-15', '10:00:00', '18:00:00')
-    , (2, '2022-04-15', '10:00:00', '18:00:00')
-    , (1, '2022-04-16', '00:00:00', '00:00:00')
-    , (2, '2022-04-16', '00:00:00', '00:00:00')
-    , (1, '2022-04-17', '00:00:00', '00:00:00')
-    , (2, '2022-04-17', '00:00:00', '00:00:00')
-    , (1, '2022-04-18', '10:00:00', '18:00:00')
-    , (2, '2022-04-18', '10:00:00', '18:00:00')
-    , (1, '2022-04-19', '00:00:00', '00:00:00')
-    , (2, '2022-04-19', '00:00:00', '00:00:00')
-    , (1, '2022-04-20', '00:00:00', '00:00:00')
-    , (2, '2022-04-20', '00:00:00', '00:00:00')
-    , (1, '2022-04-21', '00:00:00', '00:00:00')
-    , (2, '2022-04-21', '00:00:00', '00:00:00')
-    , (1, '2022-04-22', '10:00:00', '18:00:00')
-    , (2, '2022-04-22', '10:00:00', '18:00:00')
-    , (1, '2022-04-23', '00:00:00', '00:00:00')
-    , (2, '2022-04-23', '00:00:00', '00:00:00')
-    , (1, '2022-04-24', '10:00:00', '22:00:00')
-    , (2, '2022-04-24', '10:00:00', '22:00:00')
-    , (1, '2022-04-25', '00:00:00', '00:00:00')
-    , (2, '2022-04-25', '00:00:00', '00:00:00')
-    , (1, '2022-04-26', '00:00:00', '00:00:00')
-    , (2, '2022-04-26', '00:00:00', '00:00:00')
-    , (1, '2022-04-27', '00:00:00', '00:00:00')
-    , (2, '2022-04-27', '00:00:00', '00:00:00')
-    , (1, '2022-04-28', '00:00:00', '00:00:00')
-    , (2, '2022-04-28', '00:00:00', '00:00:00')
-    , (1, '2022-04-29', '00:00:00', '00:00:00')
-    , (2, '2022-04-29', '00:00:00', '00:00:00')
-    , (1, '2022-04-30', '00:00:00', '00:00:00')
-    , (2, '2022-04-30', '00:00:00', '00:00:00')
-    , (1, '2022-05-01', '10:00:00', '22:00:00')
-    , (2, '2022-05-01', '10:00:00', '22:00:00')
-    , (1, '2022-05-02', '10:00:00', '18:00:00')
-    , (2, '2022-05-02', '10:00:00', '18:00:00')
-    , (1, '2022-05-03', '00:00:00', '00:00:00')
-    , (2, '2022-05-03', '00:00:00', '00:00:00')
-    , (1, '2022-05-04', '00:00:00', '00:00:00')
-    , (2, '2022-05-04', '00:00:00', '00:00:00')
-    , (1, '2022-05-05', '00:00:00', '00:00:00')
-    , (2, '2022-05-05', '00:00:00', '00:00:00')
-    , (1, '2022-05-06', '10:00:00', '18:00:00')
-    , (2, '2022-05-06', '10:00:00', '18:00:00')
-    , (1, '2022-05-07', '10:00:00', '18:00:00')
-    , (2, '2022-05-07', '10:00:00', '18:00:00')
-    , (1, '2022-05-08', '10:00:00', '22:00:00')
-    , (2, '2022-05-08', '10:00:00', '22:00:00')
-    , (1, '2022-05-09', '00:00:00', '00:00:00')
-    , (2, '2022-05-09', '00:00:00', '00:00:00')
-    , (1, '2022-05-10', '00:00:00', '00:00:00')
-    , (2, '2022-05-10', '00:00:00', '00:00:00')
-    , (1, '2022-05-11', '10:00:00', '18:00:00')
-    , (2, '2022-05-11', '10:00:00', '18:00:00')
-    , (1, '2022-05-12', '10:00:00', '22:00:00')
-    , (2, '2022-05-12', '10:00:00', '22:00:00')
-    , (1, '2022-05-13', '10:00:00', '18:00:00')
-    , (2, '2022-05-13', '10:00:00', '18:00:00')
-    , (1, '2022-05-14', '10:00:00', '18:00:00')
-    , (2, '2022-05-14', '10:00:00', '18:00:00')
-    , (1, '2022-05-15', '10:00:00', '18:00:00')
-    , (2, '2022-05-15', '10:00:00', '18:00:00')
-    , (1, '2022-05-16', '10:00:00', '18:00:00')
-    , (2, '2022-05-16', '10:00:00', '18:00:00')
-    , (1, '2022-05-17', '10:00:00', '22:00:00')
-    , (2, '2022-05-17', '10:00:00', '22:00:00')
-    , (1, '2022-05-18', '10:00:00', '18:00:00')
-    , (2, '2022-05-18', '10:00:00', '18:00:00')
-    , (1, '2022-05-19', '00:00:00', '00:00:00')
-    , (2, '2022-05-19', '00:00:00', '00:00:00')
-    , (1, '2022-05-20', '10:00:00', '18:00:00')
-    , (2, '2022-05-20', '10:00:00', '18:00:00')
-    , (1, '2022-05-21', '00:00:00', '00:00:00')
-    , (2, '2022-05-21', '00:00:00', '00:00:00')
-    , (1, '2022-05-22', '00:00:00', '00:00:00')
-    , (2, '2022-05-22', '00:00:00', '00:00:00')
-    , (1, '2022-05-23', '00:00:00', '00:00:00')
-    , (2, '2022-05-23', '00:00:00', '00:00:00')
-    , (1, '2022-05-24', '10:00:00', '18:00:00')
-    , (2, '2022-05-24', '10:00:00', '18:00:00')
-    , (1, '2022-05-25', '00:00:00', '00:00:00')
-    , (2, '2022-05-25', '00:00:00', '00:00:00')
-    , (1, '2022-05-26', '10:00:00', '18:00:00')
-    , (2, '2022-05-26', '10:00:00', '18:00:00')
-    , (1, '2022-05-27', '00:00:00', '00:00:00')
-    , (2, '2022-05-27', '00:00:00', '00:00:00')
-    , (1, '2022-05-28', '10:00:00', '18:00:00')
-    , (2, '2022-05-28', '10:00:00', '18:00:00')
-    , (1, '2022-05-29', '10:00:00', '18:00:00')
-    , (2, '2022-05-29', '10:00:00', '18:00:00')
-    , (1, '2022-05-30', '00:00:00', '00:00:00')
-    , (2, '2022-05-30', '00:00:00', '00:00:00')
-    , (1, '2022-05-31', '00:00:00', '00:00:00')
-    , (2, '2022-05-31', '00:00:00', '00:00:00')
-    , (1, '2022-06-01', '10:00:00', '22:00:00')
-    , (2, '2022-06-01', '10:00:00', '22:00:00')
-    , (1, '2022-06-02', '00:00:00', '00:00:00')
-    , (2, '2022-06-02', '00:00:00', '00:00:00')
-    , (1, '2022-06-03', '10:00:00', '18:00:00')
-    , (2, '2022-06-03', '10:00:00', '18:00:00')
-    , (1, '2022-06-04', '00:00:00', '00:00:00')
-    , (2, '2022-06-04', '00:00:00', '00:00:00')
-    , (1, '2022-06-05', '00:00:00', '00:00:00')
-    , (2, '2022-06-05', '00:00:00', '00:00:00')
-    , (1, '2022-06-06', '10:00:00', '22:00:00')
-    , (2, '2022-06-06', '10:00:00', '22:00:00')
-    , (1, '2022-06-07', '10:00:00', '22:00:00')
-    , (2, '2022-06-07', '10:00:00', '22:00:00')
-    , (1, '2022-06-08', '10:00:00', '22:00:00')
-    , (2, '2022-06-08', '10:00:00', '22:00:00')
-    , (1, '2022-06-09', '00:00:00', '00:00:00')
-    , (2, '2022-06-09', '00:00:00', '00:00:00')
-    , (1, '2022-06-10', '00:00:00', '00:00:00')
-    , (2, '2022-06-10', '00:00:00', '00:00:00')
-    , (1, '2022-06-11', '00:00:00', '00:00:00')
-    , (2, '2022-06-11', '00:00:00', '00:00:00')
-    , (1, '2022-06-12', '00:00:00', '00:00:00')
-    , (2, '2022-06-12', '00:00:00', '00:00:00')
-    , (1, '2022-06-13', '10:00:00', '18:00:00')
-    , (2, '2022-06-13', '10:00:00', '18:00:00')
-    , (1, '2022-06-14', '10:00:00', '18:00:00')
-    , (2, '2022-06-14', '10:00:00', '18:00:00')
-    , (1, '2022-06-15', '10:00:00', '22:00:00')
-    , (2, '2022-06-15', '10:00:00', '22:00:00')
-    , (1, '2022-06-16', '00:00:00', '00:00:00')
-    , (2, '2022-06-16', '00:00:00', '00:00:00')
-    , (1, '2022-06-17', '00:00:00', '00:00:00')
-    , (2, '2022-06-17', '00:00:00', '00:00:00')
-    , (1, '2022-06-18', '00:00:00', '00:00:00')
-    , (2, '2022-06-18', '00:00:00', '00:00:00')
-    , (1, '2022-06-19', '00:00:00', '00:00:00')
-    , (2, '2022-06-19', '00:00:00', '00:00:00')
-    , (1, '2022-06-20', '10:00:00', '22:00:00')
-    , (2, '2022-06-20', '10:00:00', '22:00:00')
-    , (1, '2022-06-21', '00:00:00', '00:00:00')
-    , (2, '2022-06-21', '00:00:00', '00:00:00')
-    , (1, '2022-06-22', '00:00:00', '00:00:00')
-    , (2, '2022-06-22', '00:00:00', '00:00:00')
-    , (1, '2022-06-23', '00:00:00', '00:00:00')
-    , (2, '2022-06-23', '00:00:00', '00:00:00')
-    , (1, '2022-06-24', '10:00:00', '22:00:00')
-    , (2, '2022-06-24', '10:00:00', '22:00:00')
-    , (1, '2022-06-25', '00:00:00', '00:00:00')
-    , (2, '2022-06-25', '00:00:00', '00:00:00')
-    , (1, '2022-06-26', '00:00:00', '00:00:00')
-    , (2, '2022-06-26', '00:00:00', '00:00:00')
-    , (1, '2022-06-27', '10:00:00', '18:00:00')
-    , (2, '2022-06-27', '10:00:00', '18:00:00')
-    , (1, '2022-06-28', '10:00:00', '18:00:00')
-    , (2, '2022-06-28', '10:00:00', '18:00:00')
-    , (1, '2022-06-29', '10:00:00', '18:00:00')
-    , (2, '2022-06-29', '10:00:00', '18:00:00')
-    , (1, '2022-06-30', '00:00:00', '00:00:00')
-    , (2, '2022-06-30', '00:00:00', '00:00:00')
-    , (1, '2022-07-01', '00:00:00', '00:00:00')
-    , (2, '2022-07-01', '00:00:00', '00:00:00')
-    , (1, '2022-07-02', '10:00:00', '22:00:00')
-    , (2, '2022-07-02', '10:00:00', '22:00:00')
-    , (1, '2022-07-03', '00:00:00', '00:00:00')
-    , (2, '2022-07-03', '00:00:00', '00:00:00')
-    , (1, '2022-07-04', '00:00:00', '00:00:00')
-    , (2, '2022-07-04', '00:00:00', '00:00:00')
-    , (1, '2022-07-05', '10:00:00', '18:00:00')
-    , (2, '2022-07-05', '10:00:00', '18:00:00')
-    , (1, '2022-07-06', '10:00:00', '22:00:00')
-    , (2, '2022-07-06', '10:00:00', '22:00:00')
-    , (1, '2022-07-07', '10:00:00', '22:00:00')
-    , (2, '2022-07-07', '10:00:00', '22:00:00')
-    , (1, '2022-07-08', '10:00:00', '22:00:00')
-    , (2, '2022-07-08', '10:00:00', '22:00:00')
-    , (1, '2022-07-09', '00:00:00', '00:00:00')
-    , (2, '2022-07-09', '00:00:00', '00:00:00')
-    , (1, '2022-07-10', '10:00:00', '18:00:00')
-    , (2, '2022-07-10', '10:00:00', '18:00:00')
-    , (1, '2022-07-11', '10:00:00', '22:00:00')
-    , (2, '2022-07-11', '10:00:00', '22:00:00')
-    , (1, '2022-07-12', '10:00:00', '18:00:00')
-    , (2, '2022-07-12', '10:00:00', '18:00:00')
-    , (1, '2022-07-13', '10:00:00', '18:00:00')
-    , (2, '2022-07-13', '10:00:00', '18:00:00')
-    , (1, '2022-07-14', '10:00:00', '22:00:00')
-    , (2, '2022-07-14', '10:00:00', '22:00:00')
-    , (1, '2022-07-15', '10:00:00', '18:00:00')
-    , (2, '2022-07-15', '10:00:00', '18:00:00')
-    , (1, '2022-07-16', '00:00:00', '00:00:00')
-    , (2, '2022-07-16', '00:00:00', '00:00:00')
-    , (1, '2022-07-17', '00:00:00', '00:00:00')
-    , (2, '2022-07-17', '00:00:00', '00:00:00')
-    , (1, '2022-07-18', '00:00:00', '00:00:00')
-    , (2, '2022-07-18', '00:00:00', '00:00:00')
-    , (1, '2022-07-19', '00:00:00', '00:00:00')
-    , (2, '2022-07-19', '00:00:00', '00:00:00')
-    , (1, '2022-07-20', '10:00:00', '22:00:00')
-    , (2, '2022-07-20', '10:00:00', '22:00:00')
-    , (1, '2022-07-21', '10:00:00', '18:00:00')
-    , (2, '2022-07-21', '10:00:00', '18:00:00')
-    , (1, '2022-07-22', '10:00:00', '18:00:00')
-    , (2, '2022-07-22', '10:00:00', '18:00:00')
-    , (1, '2022-07-23', '10:00:00', '18:00:00')
-    , (2, '2022-07-23', '10:00:00', '18:00:00')
-    , (1, '2022-07-24', '10:00:00', '22:00:00')
-    , (2, '2022-07-24', '10:00:00', '22:00:00')
-    , (1, '2022-07-25', '00:00:00', '00:00:00')
-    , (2, '2022-07-25', '00:00:00', '00:00:00')
-    , (1, '2022-07-26', '00:00:00', '00:00:00')
-    , (2, '2022-07-26', '00:00:00', '00:00:00')
-    , (1, '2022-07-27', '10:00:00', '22:00:00')
-    , (2, '2022-07-27', '10:00:00', '22:00:00')
-    , (1, '2022-07-28', '00:00:00', '00:00:00')
-    , (2, '2022-07-28', '00:00:00', '00:00:00')
-    , (1, '2022-07-29', '00:00:00', '00:00:00')
-    , (2, '2022-07-29', '00:00:00', '00:00:00')
-    , (1, '2022-07-30', '00:00:00', '00:00:00')
-    , (2, '2022-07-30', '00:00:00', '00:00:00')
-    , (1, '2022-07-31', '00:00:00', '00:00:00')
-    , (2, '2022-07-31', '00:00:00', '00:00:00')
-    , (1, '2022-08-01', '10:00:00', '22:00:00')
-    , (2, '2022-08-01', '10:00:00', '22:00:00')
-    , (1, '2022-08-02', '10:00:00', '22:00:00')
-    , (2, '2022-08-02', '10:00:00', '22:00:00')
-    , (1, '2022-08-03', '10:00:00', '22:00:00')
-    , (2, '2022-08-03', '10:00:00', '22:00:00')
-    , (1, '2022-08-04', '10:00:00', '18:00:00')
-    , (2, '2022-08-04', '10:00:00', '18:00:00')
-    , (1, '2022-08-05', '00:00:00', '00:00:00')
-    , (2, '2022-08-05', '00:00:00', '00:00:00')
-    , (1, '2022-08-06', '00:00:00', '00:00:00')
-    , (2, '2022-08-06', '00:00:00', '00:00:00')
-    , (1, '2022-08-07', '10:00:00', '22:00:00')
-    , (2, '2022-08-07', '10:00:00', '22:00:00')
-    , (1, '2022-08-08', '10:00:00', '18:00:00')
-    , (2, '2022-08-08', '10:00:00', '18:00:00')
-    , (1, '2022-08-09', '00:00:00', '00:00:00')
-    , (2, '2022-08-09', '00:00:00', '00:00:00')
-    , (1, '2022-08-10', '00:00:00', '00:00:00')
-    , (2, '2022-08-10', '00:00:00', '00:00:00')
-    , (1, '2022-08-11', '10:00:00', '22:00:00')
-    , (2, '2022-08-11', '10:00:00', '22:00:00')
-    , (1, '2022-08-12', '00:00:00', '00:00:00')
-    , (2, '2022-08-12', '00:00:00', '00:00:00')
-    , (1, '2022-08-13', '00:00:00', '00:00:00')
-    , (2, '2022-08-13', '00:00:00', '00:00:00')
-    , (1, '2022-08-14', '10:00:00', '22:00:00')
-    , (2, '2022-08-14', '10:00:00', '22:00:00')
-    , (1, '2022-08-15', '00:00:00', '00:00:00')
-    , (2, '2022-08-15', '00:00:00', '00:00:00')
-    , (1, '2022-08-16', '00:00:00', '00:00:00')
-    , (2, '2022-08-16', '00:00:00', '00:00:00')
-    , (1, '2022-08-17', '00:00:00', '00:00:00')
-    , (2, '2022-08-17', '00:00:00', '00:00:00')
-    , (1, '2022-08-18', '10:00:00', '22:00:00')
-    , (2, '2022-08-18', '10:00:00', '22:00:00')
-    , (1, '2022-08-19', '00:00:00', '00:00:00')
-    , (2, '2022-08-19', '00:00:00', '00:00:00')
-    , (1, '2022-08-20', '10:00:00', '18:00:00')
-    , (2, '2022-08-20', '10:00:00', '18:00:00')
-    , (1, '2022-08-21', '00:00:00', '00:00:00')
-    , (2, '2022-08-21', '00:00:00', '00:00:00')
-    , (1, '2022-08-22', '10:00:00', '22:00:00')
-    , (2, '2022-08-22', '10:00:00', '22:00:00')
-    , (1, '2022-08-23', '10:00:00', '18:00:00')
-    , (2, '2022-08-23', '10:00:00', '18:00:00')
-    , (1, '2022-08-24', '00:00:00', '00:00:00')
-    , (2, '2022-08-24', '00:00:00', '00:00:00')
-    , (1, '2022-08-25', '10:00:00', '22:00:00')
-    , (2, '2022-08-25', '10:00:00', '22:00:00')
-    , (1, '2022-08-26', '00:00:00', '00:00:00')
-    , (2, '2022-08-26', '00:00:00', '00:00:00')
-    , (1, '2022-08-27', '00:00:00', '00:00:00')
-    , (2, '2022-08-27', '00:00:00', '00:00:00')
-    , (1, '2022-08-28', '10:00:00', '22:00:00')
-    , (2, '2022-08-28', '10:00:00', '22:00:00')
-    , (1, '2022-08-29', '00:00:00', '00:00:00')
-    , (2, '2022-08-29', '00:00:00', '00:00:00')
-    , (1, '2022-08-30', '00:00:00', '00:00:00')
-    , (2, '2022-08-30', '00:00:00', '00:00:00')
-    , (1, '2022-08-31', '10:00:00', '18:00:00')
-    , (2, '2022-08-31', '10:00:00', '18:00:00')
-    , (1, '2022-09-01', '00:00:00', '00:00:00')
-    , (2, '2022-09-01', '00:00:00', '00:00:00')
-    , (1, '2022-09-02', '00:00:00', '00:00:00')
-    , (2, '2022-09-02', '00:00:00', '00:00:00')
-    , (1, '2022-09-03', '00:00:00', '00:00:00')
-    , (2, '2022-09-03', '00:00:00', '00:00:00')
-    , (1, '2022-09-04', '00:00:00', '00:00:00')
-    , (2, '2022-09-04', '00:00:00', '00:00:00')
-    , (1, '2022-09-05', '00:00:00', '00:00:00')
-    , (2, '2022-09-05', '00:00:00', '00:00:00')
-    , (1, '2022-09-06', '10:00:00', '22:00:00')
-    , (2, '2022-09-06', '10:00:00', '22:00:00')
-    , (1, '2022-09-07', '00:00:00', '00:00:00')
-    , (2, '2022-09-07', '00:00:00', '00:00:00')
-    , (1, '2022-09-08', '00:00:00', '00:00:00')
-    , (2, '2022-09-08', '00:00:00', '00:00:00')
-    , (1, '2022-09-09', '10:00:00', '22:00:00')
-    , (2, '2022-09-09', '10:00:00', '22:00:00')
-    , (1, '2022-09-10', '10:00:00', '22:00:00')
-    , (2, '2022-09-10', '10:00:00', '22:00:00')
-    , (1, '2022-09-11', '00:00:00', '00:00:00')
-    , (2, '2022-09-11', '00:00:00', '00:00:00')
-    , (1, '2022-09-12', '00:00:00', '00:00:00')
-    , (2, '2022-09-12', '00:00:00', '00:00:00')
-    , (1, '2022-09-13', '00:00:00', '00:00:00')
-    , (2, '2022-09-13', '00:00:00', '00:00:00')
-    , (1, '2022-09-14', '10:00:00', '18:00:00')
-    , (2, '2022-09-14', '10:00:00', '18:00:00')
-    , (1, '2022-09-15', '00:00:00', '00:00:00')
-    , (2, '2022-09-15', '00:00:00', '00:00:00')
-    , (1, '2022-09-16', '10:00:00', '18:00:00')
-    , (2, '2022-09-16', '10:00:00', '18:00:00')
-    , (1, '2022-09-17', '00:00:00', '00:00:00')
-    , (2, '2022-09-17', '00:00:00', '00:00:00')
-    , (1, '2022-09-18', '00:00:00', '00:00:00')
-    , (2, '2022-09-18', '00:00:00', '00:00:00')
-    , (1, '2022-09-19', '00:00:00', '00:00:00')
-    , (2, '2022-09-19', '00:00:00', '00:00:00')
-    , (1, '2022-09-20', '00:00:00', '00:00:00')
-    , (2, '2022-09-20', '00:00:00', '00:00:00')
-    , (1, '2022-09-21', '00:00:00', '00:00:00')
-    , (2, '2022-09-21', '00:00:00', '00:00:00')
-    , (1, '2022-09-22', '00:00:00', '00:00:00')
-    , (2, '2022-09-22', '00:00:00', '00:00:00')
-    , (1, '2022-09-23', '00:00:00', '00:00:00')
-    , (2, '2022-09-23', '00:00:00', '00:00:00')
-    , (1, '2022-09-24', '10:00:00', '22:00:00')
-    , (2, '2022-09-24', '10:00:00', '22:00:00')
-    , (1, '2022-09-25', '00:00:00', '00:00:00')
-    , (2, '2022-09-25', '00:00:00', '00:00:00')
-    , (1, '2022-09-26', '10:00:00', '22:00:00')
-    , (2, '2022-09-26', '10:00:00', '22:00:00')
-    , (1, '2022-09-27', '10:00:00', '22:00:00')
-    , (2, '2022-09-27', '10:00:00', '22:00:00')
-    , (1, '2022-09-28', '00:00:00', '00:00:00')
-    , (2, '2022-09-28', '00:00:00', '00:00:00')
-    , (1, '2022-09-29', '00:00:00', '00:00:00')
-    , (2, '2022-09-29', '00:00:00', '00:00:00')
-    , (1, '2022-09-30', '00:00:00', '00:00:00')
-    , (2, '2022-09-30', '00:00:00', '00:00:00')
-    , (1, '2022-10-01', '00:00:00', '00:00:00')
-    , (2, '2022-10-01', '00:00:00', '00:00:00')
-    , (1, '2022-10-02', '10:00:00', '22:00:00')
-    , (2, '2022-10-02', '10:00:00', '22:00:00')
-    , (1, '2022-10-03', '10:00:00', '22:00:00')
-    , (2, '2022-10-03', '10:00:00', '22:00:00')
-    , (1, '2022-10-04', '00:00:00', '00:00:00')
-    , (2, '2022-10-04', '00:00:00', '00:00:00')
-    , (1, '2022-10-05', '10:00:00', '18:00:00')
-    , (2, '2022-10-05', '10:00:00', '18:00:00')
-    , (1, '2022-10-06', '00:00:00', '00:00:00')
-    , (2, '2022-10-06', '00:00:00', '00:00:00')
-    , (1, '2022-10-07', '10:00:00', '22:00:00')
-    , (2, '2022-10-07', '10:00:00', '22:00:00')
-    , (1, '2022-10-08', '10:00:00', '18:00:00')
-    , (2, '2022-10-08', '10:00:00', '18:00:00')
-    , (1, '2022-10-09', '10:00:00', '18:00:00')
-    , (2, '2022-10-09', '10:00:00', '18:00:00')
-    , (1, '2022-10-10', '10:00:00', '22:00:00')
-    , (2, '2022-10-10', '10:00:00', '22:00:00')
-    , (1, '2022-10-11', '10:00:00', '22:00:00')
-    , (2, '2022-10-11', '10:00:00', '22:00:00')
-    , (1, '2022-10-12', '00:00:00', '00:00:00')
-    , (2, '2022-10-12', '00:00:00', '00:00:00')
-    , (1, '2022-10-13', '10:00:00', '22:00:00')
-    , (2, '2022-10-13', '10:00:00', '22:00:00')
-    , (1, '2022-10-14', '10:00:00', '22:00:00')
-    , (2, '2022-10-14', '10:00:00', '22:00:00')
-    , (1, '2022-10-15', '10:00:00', '22:00:00')
-    , (2, '2022-10-15', '10:00:00', '22:00:00')
-    , (1, '2022-10-16', '00:00:00', '00:00:00')
-    , (2, '2022-10-16', '00:00:00', '00:00:00')
-    , (1, '2022-10-17', '00:00:00', '00:00:00')
-    , (2, '2022-10-17', '00:00:00', '00:00:00')
-    , (1, '2022-10-18', '10:00:00', '22:00:00')
-    , (2, '2022-10-18', '10:00:00', '22:00:00')
-    , (1, '2022-10-19', '10:00:00', '18:00:00')
-    , (2, '2022-10-19', '10:00:00', '18:00:00')
-    , (1, '2022-10-20', '10:00:00', '18:00:00')
-    , (2, '2022-10-20', '10:00:00', '18:00:00')
-    , (1, '2022-10-21', '10:00:00', '22:00:00')
-    , (2, '2022-10-21', '10:00:00', '22:00:00')
-    , (1, '2022-10-22', '00:00:00', '00:00:00')
-    , (2, '2022-10-22', '00:00:00', '00:00:00')
-    , (1, '2022-10-23', '10:00:00', '22:00:00')
-    , (2, '2022-10-23', '10:00:00', '22:00:00')
-    , (1, '2022-10-24', '00:00:00', '00:00:00')
-    , (2, '2022-10-24', '00:00:00', '00:00:00')
-    , (1, '2022-10-25', '00:00:00', '00:00:00')
-    , (2, '2022-10-25', '00:00:00', '00:00:00')
-    , (1, '2022-10-26', '10:00:00', '18:00:00')
-    , (2, '2022-10-26', '10:00:00', '18:00:00')
-    , (1, '2022-10-27', '10:00:00', '18:00:00')
-    , (2, '2022-10-27', '10:00:00', '18:00:00')
-    , (1, '2022-10-28', '10:00:00', '22:00:00')
-    , (2, '2022-10-28', '10:00:00', '22:00:00')
-    , (1, '2022-10-29', '00:00:00', '00:00:00')
-    , (2, '2022-10-29', '00:00:00', '00:00:00')
-    , (1, '2022-10-30', '10:00:00', '22:00:00')
-    , (2, '2022-10-30', '10:00:00', '22:00:00')
-    , (1, '2022-10-31', '10:00:00', '18:00:00')
-    , (2, '2022-10-31', '10:00:00', '18:00:00')
-    , (1, '2022-11-01', '00:00:00', '00:00:00')
-    , (2, '2022-11-01', '00:00:00', '00:00:00')
-    , (1, '2022-11-02', '00:00:00', '00:00:00')
-    , (2, '2022-11-02', '00:00:00', '00:00:00')
-    , (1, '2022-11-03', '10:00:00', '18:00:00')
-    , (2, '2022-11-03', '10:00:00', '18:00:00')
-    , (1, '2022-11-04', '00:00:00', '00:00:00')
-    , (2, '2022-11-04', '00:00:00', '00:00:00')
-    , (1, '2022-11-05', '00:00:00', '00:00:00')
-    , (2, '2022-11-05', '00:00:00', '00:00:00')
-    , (1, '2022-11-06', '10:00:00', '22:00:00')
-    , (2, '2022-11-06', '10:00:00', '22:00:00')
-    , (1, '2022-11-07', '10:00:00', '18:00:00')
-    , (2, '2022-11-07', '10:00:00', '18:00:00')
-    , (1, '2022-11-08', '00:00:00', '00:00:00')
-    , (2, '2022-11-08', '00:00:00', '00:00:00')
-    , (1, '2022-11-09', '00:00:00', '00:00:00')
-    , (2, '2022-11-09', '00:00:00', '00:00:00')
-    , (1, '2022-11-10', '10:00:00', '22:00:00')
-    , (2, '2022-11-10', '10:00:00', '22:00:00')
-    , (1, '2022-11-11', '10:00:00', '22:00:00')
-    , (2, '2022-11-11', '10:00:00', '22:00:00')
-    , (1, '2022-11-12', '10:00:00', '22:00:00')
-    , (2, '2022-11-12', '10:00:00', '22:00:00')
-    , (1, '2022-11-13', '00:00:00', '00:00:00')
-    , (2, '2022-11-13', '00:00:00', '00:00:00')
-    , (1, '2022-11-14', '00:00:00', '00:00:00')
-    , (2, '2022-11-14', '00:00:00', '00:00:00')
-    , (1, '2022-11-15', '10:00:00', '18:00:00')
-    , (2, '2022-11-15', '10:00:00', '18:00:00')
-    , (1, '2022-11-16', '00:00:00', '00:00:00')
-    , (2, '2022-11-16', '00:00:00', '00:00:00')
-    , (1, '2022-11-17', '00:00:00', '00:00:00')
-    , (2, '2022-11-17', '00:00:00', '00:00:00')
-    , (1, '2022-11-18', '00:00:00', '00:00:00')
-    , (2, '2022-11-18', '00:00:00', '00:00:00')
-    , (1, '2022-11-19', '00:00:00', '00:00:00')
-    , (2, '2022-11-19', '00:00:00', '00:00:00')
-    , (1, '2022-11-20', '10:00:00', '22:00:00')
-    , (2, '2022-11-20', '10:00:00', '22:00:00')
-    , (1, '2022-11-21', '00:00:00', '00:00:00')
-    , (2, '2022-11-21', '00:00:00', '00:00:00')
-    , (1, '2022-11-22', '00:00:00', '00:00:00')
-    , (2, '2022-11-22', '00:00:00', '00:00:00')
-    , (1, '2022-11-23', '10:00:00', '22:00:00')
-    , (2, '2022-11-23', '10:00:00', '22:00:00')
-    , (1, '2022-11-24', '00:00:00', '00:00:00')
-    , (2, '2022-11-24', '00:00:00', '00:00:00')
-    , (1, '2022-11-25', '10:00:00', '22:00:00')
-    , (2, '2022-11-25', '10:00:00', '22:00:00')
-    , (1, '2022-11-26', '10:00:00', '18:00:00')
-    , (2, '2022-11-26', '10:00:00', '18:00:00')
-    , (1, '2022-11-27', '00:00:00', '00:00:00')
-    , (2, '2022-11-27', '00:00:00', '00:00:00')
-    , (1, '2022-11-28', '00:00:00', '00:00:00')
-    , (2, '2022-11-28', '00:00:00', '00:00:00')
-    , (1, '2022-11-29', '10:00:00', '22:00:00')
-    , (2, '2022-11-29', '10:00:00', '22:00:00')
-    , (1, '2022-11-30', '10:00:00', '22:00:00')
-    , (2, '2022-11-30', '10:00:00', '22:00:00')
-    , (1, '2022-12-01', '10:00:00', '18:00:00')
-    , (2, '2022-12-01', '10:00:00', '18:00:00')
-    , (1, '2022-12-02', '10:00:00', '22:00:00')
-    , (2, '2022-12-02', '10:00:00', '22:00:00')
-    , (1, '2022-12-03', '10:00:00', '18:00:00')
-    , (2, '2022-12-03', '10:00:00', '18:00:00')
-    , (1, '2022-12-04', '10:00:00', '18:00:00')
-    , (2, '2022-12-04', '10:00:00', '18:00:00')
-    , (1, '2022-12-05', '10:00:00', '18:00:00')
-    , (2, '2022-12-05', '10:00:00', '18:00:00')
-    , (1, '2022-12-06', '00:00:00', '00:00:00')
-    , (2, '2022-12-06', '00:00:00', '00:00:00')
-    , (1, '2022-12-07', '10:00:00', '22:00:00')
-    , (2, '2022-12-07', '10:00:00', '22:00:00')
-    , (1, '2022-12-08', '10:00:00', '18:00:00')
-    , (2, '2022-12-08', '10:00:00', '18:00:00')
-    , (1, '2022-12-09', '00:00:00', '00:00:00')
-    , (2, '2022-12-09', '00:00:00', '00:00:00')
-    , (1, '2022-12-10', '00:00:00', '00:00:00')
-    , (2, '2022-12-10', '00:00:00', '00:00:00')
-    , (1, '2022-12-11', '00:00:00', '00:00:00')
-    , (2, '2022-12-11', '00:00:00', '00:00:00')
-    , (1, '2022-12-12', '00:00:00', '00:00:00')
-    , (2, '2022-12-12', '00:00:00', '00:00:00')
-    , (1, '2022-12-13', '10:00:00', '18:00:00')
-    , (2, '2022-12-13', '10:00:00', '18:00:00')
-    , (1, '2022-12-14', '00:00:00', '00:00:00')
-    , (2, '2022-12-14', '00:00:00', '00:00:00')
-    , (1, '2022-12-15', '00:00:00', '00:00:00')
-    , (2, '2022-12-15', '00:00:00', '00:00:00')
-    , (1, '2022-12-16', '00:00:00', '00:00:00')
-    , (2, '2022-12-16', '00:00:00', '00:00:00')
-    , (1, '2022-12-17', '00:00:00', '00:00:00')
-    , (2, '2022-12-17', '00:00:00', '00:00:00')
-    , (1, '2022-12-18', '10:00:00', '18:00:00')
-    , (2, '2022-12-18', '10:00:00', '18:00:00')
-    , (1, '2022-12-19', '00:00:00', '00:00:00')
-    , (2, '2022-12-19', '00:00:00', '00:00:00')
-    , (1, '2022-12-20', '00:00:00', '00:00:00')
-    , (2, '2022-12-20', '00:00:00', '00:00:00')
-    , (1, '2022-12-21', '00:00:00', '00:00:00')
-    , (2, '2022-12-21', '00:00:00', '00:00:00')
-    , (1, '2022-12-22', '00:00:00', '00:00:00')
-    , (2, '2022-12-22', '00:00:00', '00:00:00')
-    , (1, '2022-12-23', '10:00:00', '22:00:00')
-    , (2, '2022-12-23', '10:00:00', '22:00:00')
-    , (1, '2022-12-24', '00:00:00', '00:00:00')
-    , (2, '2022-12-24', '00:00:00', '00:00:00')
-    , (1, '2022-12-25', '00:00:00', '00:00:00')
-    , (2, '2022-12-25', '00:00:00', '00:00:00')
-    , (1, '2022-12-26', '00:00:00', '00:00:00')
-    , (2, '2022-12-26', '00:00:00', '00:00:00')
-    , (1, '2022-12-27', '10:00:00', '18:00:00')
-    , (2, '2022-12-27', '10:00:00', '18:00:00')
-    , (1, '2022-12-28', '10:00:00', '22:00:00')
-    , (2, '2022-12-28', '10:00:00', '22:00:00')
-    , (1, '2022-12-29', '10:00:00', '18:00:00')
-    , (2, '2022-12-29', '10:00:00', '18:00:00')
-    , (1, '2022-12-30', '00:00:00', '00:00:00')
-    , (2, '2022-12-30', '00:00:00', '00:00:00')
-    , (1, '2022-12-31', '00:00:00', '00:00:00')
-    , (2, '2022-12-31', '00:00:00', '00:00:00')
-    , (1, '2023-01-01', '10:00:00', '18:00:00')
-    , (2, '2023-01-01', '10:00:00', '18:00:00')
-    , (1, '2023-01-02', '00:00:00', '00:00:00')
-    , (2, '2023-01-02', '00:00:00', '00:00:00')
-    , (1, '2023-01-03', '10:00:00', '18:00:00')
-    , (2, '2023-01-03', '10:00:00', '18:00:00')
-    , (1, '2023-01-04', '10:00:00', '22:00:00')
-    , (2, '2023-01-04', '10:00:00', '22:00:00')
-    , (1, '2023-01-05', '10:00:00', '18:00:00')
-    , (2, '2023-01-05', '10:00:00', '18:00:00')
-    , (1, '2023-01-06', '00:00:00', '00:00:00')
-    , (2, '2023-01-06', '00:00:00', '00:00:00')
-    , (1, '2023-01-07', '00:00:00', '00:00:00')
-    , (2, '2023-01-07', '00:00:00', '00:00:00')
-    , (1, '2023-01-08', '00:00:00', '00:00:00')
-    , (2, '2023-01-08', '00:00:00', '00:00:00')
-    , (1, '2023-01-09', '00:00:00', '00:00:00')
-    , (2, '2023-01-09', '00:00:00', '00:00:00')
-    , (1, '2023-01-10', '00:00:00', '00:00:00')
-    , (2, '2023-01-10', '00:00:00', '00:00:00')
-    , (1, '2023-01-11', '00:00:00', '00:00:00')
-    , (2, '2023-01-11', '00:00:00', '00:00:00')
-    , (1, '2023-01-12', '00:00:00', '00:00:00')
-    , (2, '2023-01-12', '00:00:00', '00:00:00')
-    , (1, '2023-01-13', '10:00:00', '18:00:00')
-    , (2, '2023-01-13', '10:00:00', '18:00:00')
-    , (1, '2023-01-14', '00:00:00', '00:00:00')
-    , (2, '2023-01-14', '00:00:00', '00:00:00')
-    , (1, '2023-01-15', '10:00:00', '18:00:00')
-    , (2, '2023-01-15', '10:00:00', '18:00:00')
-    , (1, '2023-01-16', '00:00:00', '00:00:00')
-    , (2, '2023-01-16', '00:00:00', '00:00:00')
-    , (1, '2023-01-17', '10:00:00', '18:00:00')
-    , (2, '2023-01-17', '10:00:00', '18:00:00')
-    , (1, '2023-01-18', '00:00:00', '00:00:00')
-    , (2, '2023-01-18', '00:00:00', '00:00:00')
-    , (1, '2023-01-19', '00:00:00', '00:00:00')
-    , (2, '2023-01-19', '00:00:00', '00:00:00')
-    , (1, '2023-01-20', '10:00:00', '22:00:00')
-    , (2, '2023-01-20', '10:00:00', '22:00:00')
-    , (1, '2023-01-21', '00:00:00', '00:00:00')
-    , (2, '2023-01-21', '00:00:00', '00:00:00')
-    , (1, '2023-01-22', '00:00:00', '00:00:00')
-    , (2, '2023-01-22', '00:00:00', '00:00:00')
-    , (1, '2023-01-23', '10:00:00', '18:00:00')
-    , (2, '2023-01-23', '10:00:00', '18:00:00')
-    , (1, '2023-01-24', '00:00:00', '00:00:00')
-    , (2, '2023-01-24', '00:00:00', '00:00:00')
-    , (1, '2023-01-25', '00:00:00', '00:00:00')
-    , (2, '2023-01-25', '00:00:00', '00:00:00')
-    , (1, '2023-01-26', '00:00:00', '00:00:00')
-    , (2, '2023-01-26', '00:00:00', '00:00:00')
-    , (1, '2023-01-27', '00:00:00', '00:00:00')
-    , (2, '2023-01-27', '00:00:00', '00:00:00')
-    , (1, '2023-01-28', '00:00:00', '00:00:00')
-    , (2, '2023-01-28', '00:00:00', '00:00:00')
-    , (1, '2023-01-29', '00:00:00', '00:00:00')
-    , (2, '2023-01-29', '00:00:00', '00:00:00')
-    , (1, '2023-01-30', '00:00:00', '00:00:00')
-    , (2, '2023-01-30', '00:00:00', '00:00:00')
-    , (1, '2023-01-31', '00:00:00', '00:00:00')
-    , (2, '2023-01-31', '00:00:00', '00:00:00')
-    , (1, '2023-02-01', '00:00:00', '00:00:00')
-    , (2, '2023-02-01', '00:00:00', '00:00:00')
-    , (1, '2023-02-02', '10:00:00', '22:00:00')
-    , (2, '2023-02-02', '10:00:00', '22:00:00')
-    , (1, '2023-02-03', '10:00:00', '18:00:00')
-    , (2, '2023-02-03', '10:00:00', '18:00:00')
-    , (1, '2023-02-04', '00:00:00', '00:00:00')
-    , (2, '2023-02-04', '00:00:00', '00:00:00')
-    , (1, '2023-02-05', '10:00:00', '18:00:00')
-    , (2, '2023-02-05', '10:00:00', '18:00:00')
-    , (1, '2023-02-06', '10:00:00', '22:00:00')
-    , (2, '2023-02-06', '10:00:00', '22:00:00')
-    , (1, '2023-02-07', '10:00:00', '22:00:00')
-    , (2, '2023-02-07', '10:00:00', '22:00:00')
-    , (1, '2023-02-08', '10:00:00', '22:00:00')
-    , (2, '2023-02-08', '10:00:00', '22:00:00')
-    , (1, '2023-02-09', '00:00:00', '00:00:00')
-    , (2, '2023-02-09', '00:00:00', '00:00:00')
-    , (1, '2023-02-10', '10:00:00', '18:00:00')
-    , (2, '2023-02-10', '10:00:00', '18:00:00')
-    , (1, '2023-02-11', '10:00:00', '22:00:00')
-    , (2, '2023-02-11', '10:00:00', '22:00:00')
-    , (1, '2023-02-12', '00:00:00', '00:00:00')
-    , (2, '2023-02-12', '00:00:00', '00:00:00')
-    , (1, '2023-02-13', '00:00:00', '00:00:00')
-    , (2, '2023-02-13', '00:00:00', '00:00:00')
-    , (1, '2023-02-14', '00:00:00', '00:00:00')
-    , (2, '2023-02-14', '00:00:00', '00:00:00')
-    , (1, '2023-02-15', '00:00:00', '00:00:00')
-    , (2, '2023-02-15', '00:00:00', '00:00:00')
-    , (1, '2023-02-16', '10:00:00', '22:00:00')
-    , (2, '2023-02-16', '10:00:00', '22:00:00')
-    , (1, '2023-02-17', '10:00:00', '22:00:00')
-    , (2, '2023-02-17', '10:00:00', '22:00:00')
-    , (1, '2023-02-18', '10:00:00', '22:00:00')
-    , (2, '2023-02-18', '10:00:00', '22:00:00')
-    , (1, '2023-02-19', '10:00:00', '22:00:00')
-    , (2, '2023-02-19', '10:00:00', '22:00:00')
-    , (1, '2023-02-20', '10:00:00', '22:00:00')
-    , (2, '2023-02-20', '10:00:00', '22:00:00')
-    , (1, '2023-02-21', '10:00:00', '22:00:00')
-    , (2, '2023-02-21', '10:00:00', '22:00:00')
-    , (1, '2023-02-22', '00:00:00', '00:00:00')
-    , (2, '2023-02-22', '00:00:00', '00:00:00')
-    , (1, '2023-02-23', '10:00:00', '18:00:00')
-    , (2, '2023-02-23', '10:00:00', '18:00:00')
-    , (1, '2023-02-24', '10:00:00', '18:00:00')
-    , (2, '2023-02-24', '10:00:00', '18:00:00')
-    , (1, '2023-02-25', '10:00:00', '18:00:00')
-    , (2, '2023-02-25', '10:00:00', '18:00:00')
-    , (1, '2023-02-26', '00:00:00', '00:00:00')
-    , (2, '2023-02-26', '00:00:00', '00:00:00')
-    , (1, '2023-02-27', '00:00:00', '00:00:00')
-    , (2, '2023-02-27', '00:00:00', '00:00:00')
-    , (1, '2023-02-28', '10:00:00', '18:00:00')
-    , (2, '2023-02-28', '10:00:00', '18:00:00')
-    , (1, '2023-03-01', '00:00:00', '00:00:00')
-    , (2, '2023-03-01', '00:00:00', '00:00:00')
-    , (1, '2023-03-02', '00:00:00', '00:00:00')
-    , (2, '2023-03-02', '00:00:00', '00:00:00')
-    , (1, '2023-03-03', '00:00:00', '00:00:00')
-    , (2, '2023-03-03', '00:00:00', '00:00:00')
-    , (1, '2023-03-04', '10:00:00', '18:00:00')
-    , (2, '2023-03-04', '10:00:00', '18:00:00')
-    , (1, '2023-03-05', '10:00:00', '22:00:00')
-    , (2, '2023-03-05', '10:00:00', '22:00:00')
-    , (1, '2023-03-06', '00:00:00', '00:00:00')
-    , (2, '2023-03-06', '00:00:00', '00:00:00')
-    , (1, '2023-03-07', '10:00:00', '22:00:00')
-    , (2, '2023-03-07', '10:00:00', '22:00:00')
-    , (1, '2023-03-08', '10:00:00', '18:00:00')
-    , (2, '2023-03-08', '10:00:00', '18:00:00')
-    , (1, '2023-03-09', '10:00:00', '18:00:00')
-    , (2, '2023-03-09', '10:00:00', '18:00:00')
-    , (1, '2023-03-10', '10:00:00', '22:00:00')
-    , (2, '2023-03-10', '10:00:00', '22:00:00')
-    , (1, '2023-03-11', '00:00:00', '00:00:00')
-    , (2, '2023-03-11', '00:00:00', '00:00:00')
-    , (1, '2023-03-12', '00:00:00', '00:00:00')
-    , (2, '2023-03-12', '00:00:00', '00:00:00')
-    , (1, '2023-03-13', '10:00:00', '18:00:00')
-    , (2, '2023-03-13', '10:00:00', '18:00:00')
-    , (1, '2023-03-14', '00:00:00', '00:00:00')
-    , (2, '2023-03-14', '00:00:00', '00:00:00')
-    , (1, '2023-03-15', '10:00:00', '18:00:00')
-    , (2, '2023-03-15', '10:00:00', '18:00:00')
-    , (1, '2023-03-16', '00:00:00', '00:00:00')
-    , (2, '2023-03-16', '00:00:00', '00:00:00')
-    , (1, '2023-03-17', '00:00:00', '00:00:00')
-    , (2, '2023-03-17', '00:00:00', '00:00:00')
-    , (1, '2023-03-18', '10:00:00', '22:00:00')
-    , (2, '2023-03-18', '10:00:00', '22:00:00')
-    , (1, '2023-03-19', '10:00:00', '22:00:00')
-    , (2, '2023-03-19', '10:00:00', '22:00:00')
-    , (1, '2023-03-20', '10:00:00', '18:00:00')
-    , (2, '2023-03-20', '10:00:00', '18:00:00')
-    , (1, '2023-03-21', '00:00:00', '00:00:00')
-    , (2, '2023-03-21', '00:00:00', '00:00:00')
-    , (1, '2023-03-22', '10:00:00', '18:00:00')
-    , (2, '2023-03-22', '10:00:00', '18:00:00')
-    , (1, '2023-03-23', '10:00:00', '18:00:00')
-    , (2, '2023-03-23', '10:00:00', '18:00:00')
-    , (1, '2023-03-24', '00:00:00', '00:00:00')
-    , (2, '2023-03-24', '00:00:00', '00:00:00')
-    , (1, '2023-03-25', '00:00:00', '00:00:00')
-    , (2, '2023-03-25', '00:00:00', '00:00:00')
-    , (1, '2023-03-26', '10:00:00', '22:00:00')
-    , (2, '2023-03-26', '10:00:00', '22:00:00')
-    , (1, '2023-03-27', '10:00:00', '18:00:00')
-    , (2, '2023-03-27', '10:00:00', '18:00:00')
-    , (1, '2023-03-28', '10:00:00', '18:00:00')
-    , (2, '2023-03-28', '10:00:00', '18:00:00')
-    , (1, '2023-03-29', '00:00:00', '00:00:00')
-    , (2, '2023-03-29', '00:00:00', '00:00:00')
-    , (1, '2023-03-30', '10:00:00', '18:00:00')
-    , (2, '2023-03-30', '10:00:00', '18:00:00')
-    , (1, '2023-03-31', '00:00:00', '00:00:00')
-    , (2, '2023-03-31', '00:00:00', '00:00:00')
-    , (1, '2023-04-01', '00:00:00', '00:00:00')
-    , (2, '2023-04-01', '00:00:00', '00:00:00')
-    , (1, '2023-04-02', '00:00:00', '00:00:00')
-    , (2, '2023-04-02', '00:00:00', '00:00:00')
-    , (1, '2023-04-03', '00:00:00', '00:00:00')
-    , (2, '2023-04-03', '00:00:00', '00:00:00')
-    , (1, '2023-04-04', '10:00:00', '22:00:00')
-    , (2, '2023-04-04', '10:00:00', '22:00:00')
-    , (1, '2023-04-05', '00:00:00', '00:00:00')
-    , (2, '2023-04-05', '00:00:00', '00:00:00')
-    , (1, '2023-04-06', '00:00:00', '00:00:00')
-    , (2, '2023-04-06', '00:00:00', '00:00:00')
-    , (1, '2023-04-07', '00:00:00', '00:00:00')
-    , (2, '2023-04-07', '00:00:00', '00:00:00')
-    , (1, '2023-04-08', '00:00:00', '00:00:00')
-    , (2, '2023-04-08', '00:00:00', '00:00:00')
-    , (1, '2023-04-09', '10:00:00', '22:00:00')
-    , (2, '2023-04-09', '10:00:00', '22:00:00')
-    , (1, '2023-04-10', '10:00:00', '22:00:00')
-    , (2, '2023-04-10', '10:00:00', '22:00:00')
-    , (1, '2023-04-11', '00:00:00', '00:00:00')
-    , (2, '2023-04-11', '00:00:00', '00:00:00')
-    , (1, '2023-04-12', '10:00:00', '18:00:00')
-    , (2, '2023-04-12', '10:00:00', '18:00:00')
-    , (1, '2023-04-13', '10:00:00', '18:00:00')
-    , (2, '2023-04-13', '10:00:00', '18:00:00')
-    , (1, '2023-04-14', '10:00:00', '18:00:00')
-    , (2, '2023-04-14', '10:00:00', '18:00:00')
-    , (1, '2023-04-15', '00:00:00', '00:00:00')
-    , (2, '2023-04-15', '00:00:00', '00:00:00')
-    , (1, '2023-04-16', '00:00:00', '00:00:00')
-    , (2, '2023-04-16', '00:00:00', '00:00:00')
-    , (1, '2023-04-17', '00:00:00', '00:00:00')
-    , (2, '2023-04-17', '00:00:00', '00:00:00')
-    , (1, '2023-04-18', '00:00:00', '00:00:00')
-    , (2, '2023-04-18', '00:00:00', '00:00:00')
-    , (1, '2023-04-19', '00:00:00', '00:00:00')
-    , (2, '2023-04-19', '00:00:00', '00:00:00')
-    , (1, '2023-04-20', '00:00:00', '00:00:00')
-    , (2, '2023-04-20', '00:00:00', '00:00:00')
-    , (1, '2023-04-21', '10:00:00', '22:00:00')
-    , (2, '2023-04-21', '10:00:00', '22:00:00')
-    , (1, '2023-04-22', '00:00:00', '00:00:00')
-    , (2, '2023-04-22', '00:00:00', '00:00:00')
-    , (1, '2023-04-23', '00:00:00', '00:00:00')
-    , (2, '2023-04-23', '00:00:00', '00:00:00')
-    , (1, '2023-04-24', '10:00:00', '18:00:00')
-    , (2, '2023-04-24', '10:00:00', '18:00:00')
-    , (1, '2023-04-25', '00:00:00', '00:00:00')
-    , (2, '2023-04-25', '00:00:00', '00:00:00')
-    , (1, '2023-04-26', '00:00:00', '00:00:00')
-    , (2, '2023-04-26', '00:00:00', '00:00:00')
-    , (1, '2023-04-27', '00:00:00', '00:00:00')
-    , (2, '2023-04-27', '00:00:00', '00:00:00')
-    , (1, '2023-04-28', '10:00:00', '18:00:00')
-    , (2, '2023-04-28', '10:00:00', '18:00:00')
-    , (1, '2023-04-29', '10:00:00', '18:00:00')
-    , (2, '2023-04-29', '10:00:00', '18:00:00')
-    , (1, '2023-04-30', '00:00:00', '00:00:00')
-    , (2, '2023-04-30', '00:00:00', '00:00:00')
-    , (1, '2023-05-01', '00:00:00', '00:00:00')
-    , (2, '2023-05-01', '00:00:00', '00:00:00')
-    , (1, '2023-05-02', '10:00:00', '22:00:00')
-    , (2, '2023-05-02', '10:00:00', '22:00:00')
-    , (1, '2023-05-03', '00:00:00', '00:00:00')
-    , (2, '2023-05-03', '00:00:00', '00:00:00')
-    , (1, '2023-05-04', '00:00:00', '00:00:00')
-    , (2, '2023-05-04', '00:00:00', '00:00:00')
-    , (1, '2023-05-05', '10:00:00', '22:00:00')
-    , (2, '2023-05-05', '10:00:00', '22:00:00')
-    , (1, '2023-05-06', '10:00:00', '18:00:00')
-    , (2, '2023-05-06', '10:00:00', '18:00:00')
-    , (1, '2023-05-07', '10:00:00', '18:00:00')
-    , (2, '2023-05-07', '10:00:00', '18:00:00')
-    , (1, '2023-05-08', '10:00:00', '22:00:00')
-    , (2, '2023-05-08', '10:00:00', '22:00:00')
-    , (1, '2023-05-09', '10:00:00', '18:00:00')
-    , (2, '2023-05-09', '10:00:00', '18:00:00')
-    , (1, '2023-05-10', '10:00:00', '22:00:00')
-    , (2, '2023-05-10', '10:00:00', '22:00:00')
-    , (1, '2023-05-11', '10:00:00', '18:00:00')
-    , (2, '2023-05-11', '10:00:00', '18:00:00')
-    , (1, '2023-05-12', '10:00:00', '18:00:00')
-    , (2, '2023-05-12', '10:00:00', '18:00:00')
-    , (1, '2023-05-13', '10:00:00', '18:00:00')
-    , (2, '2023-05-13', '10:00:00', '18:00:00')
-    , (1, '2023-05-14', '00:00:00', '00:00:00')
-    , (2, '2023-05-14', '00:00:00', '00:00:00')
-    , (1, '2023-05-15', '10:00:00', '18:00:00')
-    , (2, '2023-05-15', '10:00:00', '18:00:00')
-    , (1, '2023-05-16', '10:00:00', '22:00:00')
-    , (2, '2023-05-16', '10:00:00', '22:00:00')
-    , (1, '2023-05-17', '10:00:00', '22:00:00')
-    , (2, '2023-05-17', '10:00:00', '22:00:00')
-    , (1, '2023-05-18', '10:00:00', '22:00:00')
-    , (2, '2023-05-18', '10:00:00', '22:00:00')
-    , (1, '2023-05-19', '00:00:00', '00:00:00')
-    , (2, '2023-05-19', '00:00:00', '00:00:00')
-    , (1, '2023-05-20', '10:00:00', '18:00:00')
-    , (2, '2023-05-20', '10:00:00', '18:00:00')
-    , (1, '2023-05-21', '10:00:00', '18:00:00')
-    , (2, '2023-05-21', '10:00:00', '18:00:00')
-    , (1, '2023-05-22', '00:00:00', '00:00:00')
-    , (2, '2023-05-22', '00:00:00', '00:00:00')
-    , (1, '2023-05-23', '10:00:00', '22:00:00')
-    , (2, '2023-05-23', '10:00:00', '22:00:00')
-    , (1, '2023-05-24', '00:00:00', '00:00:00')
-    , (2, '2023-05-24', '00:00:00', '00:00:00')
-    , (1, '2023-05-25', '10:00:00', '22:00:00')
-    , (2, '2023-05-25', '10:00:00', '22:00:00')
-    , (1, '2023-05-26', '10:00:00', '22:00:00')
-    , (2, '2023-05-26', '10:00:00', '22:00:00')
-    , (1, '2023-05-27', '10:00:00', '18:00:00')
-    , (2, '2023-05-27', '10:00:00', '18:00:00')
-    , (1, '2023-05-28', '10:00:00', '18:00:00')
-    , (2, '2023-05-28', '10:00:00', '18:00:00')
-    , (1, '2023-05-29', '10:00:00', '18:00:00')
-    , (2, '2023-05-29', '10:00:00', '18:00:00')
-    , (1, '2023-05-30', '10:00:00', '22:00:00')
-    , (2, '2023-05-30', '10:00:00', '22:00:00')
-    , (1, '2023-05-31', '00:00:00', '00:00:00')
-    , (2, '2023-05-31', '00:00:00', '00:00:00')
-    , (1, '2023-06-01', '10:00:00', '22:00:00')
-    , (2, '2023-06-01', '10:00:00', '22:00:00')
-    , (1, '2023-06-02', '00:00:00', '00:00:00')
-    , (2, '2023-06-02', '00:00:00', '00:00:00')
-    , (1, '2023-06-03', '10:00:00', '18:00:00')
-    , (2, '2023-06-03', '10:00:00', '18:00:00')
-    , (1, '2023-06-04', '00:00:00', '00:00:00')
-    , (2, '2023-06-04', '00:00:00', '00:00:00')
-    , (1, '2023-06-05', '00:00:00', '00:00:00')
-    , (2, '2023-06-05', '00:00:00', '00:00:00')
-    , (1, '2023-06-06', '00:00:00', '00:00:00')
-    , (2, '2023-06-06', '00:00:00', '00:00:00')
-    , (1, '2023-06-07', '00:00:00', '00:00:00')
-    , (2, '2023-06-07', '00:00:00', '00:00:00')
-    , (1, '2023-06-08', '00:00:00', '00:00:00')
-    , (2, '2023-06-08', '00:00:00', '00:00:00')
-    , (1, '2023-06-09', '10:00:00', '22:00:00')
-    , (2, '2023-06-09', '10:00:00', '22:00:00')
-    , (1, '2023-06-10', '10:00:00', '18:00:00')
-    , (2, '2023-06-10', '10:00:00', '18:00:00')
-    , (1, '2023-06-11', '10:00:00', '22:00:00')
-    , (2, '2023-06-11', '10:00:00', '22:00:00')
-    , (1, '2023-06-12', '00:00:00', '00:00:00')
-    , (2, '2023-06-12', '00:00:00', '00:00:00')
-    , (1, '2023-06-13', '10:00:00', '22:00:00')
-    , (2, '2023-06-13', '10:00:00', '22:00:00')
-    , (1, '2023-06-14', '00:00:00', '00:00:00')
-    , (2, '2023-06-14', '00:00:00', '00:00:00')
-    , (1, '2023-06-15', '10:00:00', '18:00:00')
-    , (2, '2023-06-15', '10:00:00', '18:00:00')
-    , (1, '2023-06-16', '10:00:00', '22:00:00')
-    , (2, '2023-06-16', '10:00:00', '22:00:00')
-    , (1, '2023-06-17', '10:00:00', '18:00:00')
-    , (2, '2023-06-17', '10:00:00', '18:00:00')
-    , (1, '2023-06-18', '10:00:00', '18:00:00')
-    , (2, '2023-06-18', '10:00:00', '18:00:00')
-    , (1, '2023-06-19', '10:00:00', '22:00:00')
-    , (2, '2023-06-19', '10:00:00', '22:00:00')
-    , (1, '2023-06-20', '00:00:00', '00:00:00')
-    , (2, '2023-06-20', '00:00:00', '00:00:00')
-    , (1, '2023-06-21', '00:00:00', '00:00:00')
-    , (2, '2023-06-21', '00:00:00', '00:00:00')
-    , (1, '2023-06-22', '00:00:00', '00:00:00')
-    , (2, '2023-06-22', '00:00:00', '00:00:00')
-    , (1, '2023-06-23', '10:00:00', '18:00:00')
-    , (2, '2023-06-23', '10:00:00', '18:00:00')
-    , (1, '2023-06-24', '10:00:00', '22:00:00')
-    , (2, '2023-06-24', '10:00:00', '22:00:00')
-    , (1, '2023-06-25', '00:00:00', '00:00:00')
-    , (2, '2023-06-25', '00:00:00', '00:00:00')
-    , (1, '2023-06-26', '10:00:00', '22:00:00')
-    , (2, '2023-06-26', '10:00:00', '22:00:00')
-    , (1, '2023-06-27', '00:00:00', '00:00:00')
-    , (2, '2023-06-27', '00:00:00', '00:00:00')
-    , (1, '2023-06-28', '00:00:00', '00:00:00')
-    , (2, '2023-06-28', '00:00:00', '00:00:00')
-    , (1, '2023-06-29', '00:00:00', '00:00:00')
-    , (2, '2023-06-29', '00:00:00', '00:00:00')
-    , (1, '2023-06-30', '10:00:00', '18:00:00')
-    , (2, '2023-06-30', '10:00:00', '18:00:00')
-    , (1, '2023-07-01', '00:00:00', '00:00:00')
-    , (2, '2023-07-01', '00:00:00', '00:00:00')
-    , (1, '2023-07-02', '10:00:00', '22:00:00')
-    , (2, '2023-07-02', '10:00:00', '22:00:00')
-    , (1, '2023-07-03', '00:00:00', '00:00:00')
-    , (2, '2023-07-03', '00:00:00', '00:00:00')
-    , (1, '2023-07-04', '10:00:00', '22:00:00')
-    , (2, '2023-07-04', '10:00:00', '22:00:00')
-    , (1, '2023-07-05', '00:00:00', '00:00:00')
-    , (2, '2023-07-05', '00:00:00', '00:00:00')
-    , (1, '2023-07-06', '00:00:00', '00:00:00')
-    , (2, '2023-07-06', '00:00:00', '00:00:00')
-    , (1, '2023-07-07', '10:00:00', '18:00:00')
-    , (2, '2023-07-07', '10:00:00', '18:00:00')
-    , (1, '2023-07-08', '00:00:00', '00:00:00')
-    , (2, '2023-07-08', '00:00:00', '00:00:00')
-    , (1, '2023-07-09', '10:00:00', '18:00:00')
-    , (2, '2023-07-09', '10:00:00', '18:00:00')
-    , (1, '2023-07-10', '10:00:00', '22:00:00')
-    , (2, '2023-07-10', '10:00:00', '22:00:00')
-    , (1, '2023-07-11', '10:00:00', '22:00:00')
-    , (2, '2023-07-11', '10:00:00', '22:00:00')
-    , (1, '2023-07-12', '00:00:00', '00:00:00')
-    , (2, '2023-07-12', '00:00:00', '00:00:00')
-    , (1, '2023-07-13', '10:00:00', '18:00:00')
-    , (2, '2023-07-13', '10:00:00', '18:00:00')
-    , (1, '2023-07-14', '10:00:00', '18:00:00')
-    , (2, '2023-07-14', '10:00:00', '18:00:00')
-    , (1, '2023-07-15', '00:00:00', '00:00:00')
-    , (2, '2023-07-15', '00:00:00', '00:00:00')
-    , (1, '2023-07-16', '10:00:00', '18:00:00')
-    , (2, '2023-07-16', '10:00:00', '18:00:00')
-    , (1, '2023-07-17', '10:00:00', '22:00:00')
-    , (2, '2023-07-17', '10:00:00', '22:00:00')
-    , (1, '2023-07-18', '00:00:00', '00:00:00')
-    , (2, '2023-07-18', '00:00:00', '00:00:00')
-    , (1, '2023-07-19', '10:00:00', '22:00:00')
-    , (2, '2023-07-19', '10:00:00', '22:00:00')
-    , (1, '2023-07-20', '10:00:00', '22:00:00')
-    , (2, '2023-07-20', '10:00:00', '22:00:00')
-    , (1, '2023-07-21', '00:00:00', '00:00:00')
-    , (2, '2023-07-21', '00:00:00', '00:00:00')
-    , (1, '2023-07-22', '00:00:00', '00:00:00')
-    , (2, '2023-07-22', '00:00:00', '00:00:00')
-    , (1, '2023-07-23', '00:00:00', '00:00:00')
-    , (2, '2023-07-23', '00:00:00', '00:00:00')
-    , (1, '2023-07-24', '00:00:00', '00:00:00')
-    , (2, '2023-07-24', '00:00:00', '00:00:00')
-    , (1, '2023-07-25', '00:00:00', '00:00:00')
-    , (2, '2023-07-25', '00:00:00', '00:00:00')
-    , (1, '2023-07-26', '10:00:00', '18:00:00')
-    , (2, '2023-07-26', '10:00:00', '18:00:00')
-    , (1, '2023-07-27', '10:00:00', '22:00:00')
-    , (2, '2023-07-27', '10:00:00', '22:00:00')
-    , (1, '2023-07-28', '00:00:00', '00:00:00')
-    , (2, '2023-07-28', '00:00:00', '00:00:00')
-    , (1, '2023-07-29', '10:00:00', '22:00:00')
-    , (2, '2023-07-29', '10:00:00', '22:00:00')
-    , (1, '2023-07-30', '00:00:00', '00:00:00')
-    , (2, '2023-07-30', '00:00:00', '00:00:00')
-    , (1, '2023-07-31', '00:00:00', '00:00:00')
-    , (2, '2023-07-31', '00:00:00', '00:00:00')
-    , (1, '2023-08-01', '10:00:00', '22:00:00')
-    , (2, '2023-08-01', '10:00:00', '22:00:00')
-    , (1, '2023-08-02', '10:00:00', '22:00:00')
-    , (2, '2023-08-02', '10:00:00', '22:00:00')
-    , (1, '2023-08-03', '10:00:00', '18:00:00')
-    , (2, '2023-08-03', '10:00:00', '18:00:00')
-    , (1, '2023-08-04', '10:00:00', '18:00:00')
-    , (2, '2023-08-04', '10:00:00', '18:00:00')
-    , (1, '2023-08-05', '00:00:00', '00:00:00')
-    , (2, '2023-08-05', '00:00:00', '00:00:00')
-    , (1, '2023-08-06', '00:00:00', '00:00:00')
-    , (2, '2023-08-06', '00:00:00', '00:00:00')
-    , (1, '2023-08-07', '00:00:00', '00:00:00')
-    , (2, '2023-08-07', '00:00:00', '00:00:00')
-    , (1, '2023-08-08', '00:00:00', '00:00:00')
-    , (2, '2023-08-08', '00:00:00', '00:00:00')
-    , (1, '2023-08-09', '10:00:00', '22:00:00')
-    , (2, '2023-08-09', '10:00:00', '22:00:00')
-    , (1, '2023-08-10', '10:00:00', '22:00:00')
-    , (2, '2023-08-10', '10:00:00', '22:00:00')
-    , (1, '2023-08-11', '00:00:00', '00:00:00')
-    , (2, '2023-08-11', '00:00:00', '00:00:00')
-    , (1, '2023-08-12', '10:00:00', '18:00:00')
-    , (2, '2023-08-12', '10:00:00', '18:00:00')
-    , (1, '2023-08-13', '10:00:00', '22:00:00')
-    , (2, '2023-08-13', '10:00:00', '22:00:00')
-    , (1, '2023-08-14', '10:00:00', '22:00:00')
-    , (2, '2023-08-14', '10:00:00', '22:00:00')
-    , (1, '2023-08-15', '10:00:00', '18:00:00')
-    , (2, '2023-08-15', '10:00:00', '18:00:00')
-    , (1, '2023-08-16', '00:00:00', '00:00:00')
-    , (2, '2023-08-16', '00:00:00', '00:00:00')
-    , (1, '2023-08-17', '10:00:00', '22:00:00')
-    , (2, '2023-08-17', '10:00:00', '22:00:00')
-    , (1, '2023-08-18', '10:00:00', '18:00:00')
-    , (2, '2023-08-18', '10:00:00', '18:00:00')
-    , (1, '2023-08-19', '10:00:00', '18:00:00')
-    , (2, '2023-08-19', '10:00:00', '18:00:00')
-    , (1, '2023-08-20', '10:00:00', '18:00:00')
-    , (2, '2023-08-20', '10:00:00', '18:00:00')
-    , (1, '2023-08-21', '00:00:00', '00:00:00')
-    , (2, '2023-08-21', '00:00:00', '00:00:00')
-    , (1, '2023-08-22', '00:00:00', '00:00:00')
-    , (2, '2023-08-22', '00:00:00', '00:00:00')
-    , (1, '2023-08-23', '00:00:00', '00:00:00')
-    , (2, '2023-08-23', '00:00:00', '00:00:00')
-    , (1, '2023-08-24', '10:00:00', '18:00:00')
-    , (2, '2023-08-24', '10:00:00', '18:00:00')
-    , (1, '2023-08-25', '00:00:00', '00:00:00')
-    , (2, '2023-08-25', '00:00:00', '00:00:00')
-    , (1, '2023-08-26', '00:00:00', '00:00:00')
-    , (2, '2023-08-26', '00:00:00', '00:00:00')
-    , (1, '2023-08-27', '10:00:00', '18:00:00')
-    , (2, '2023-08-27', '10:00:00', '18:00:00')
-    , (1, '2023-08-28', '10:00:00', '18:00:00')
-    , (2, '2023-08-28', '10:00:00', '18:00:00')
-    , (1, '2023-08-29', '10:00:00', '22:00:00')
-    , (2, '2023-08-29', '10:00:00', '22:00:00')
-    , (1, '2023-08-30', '10:00:00', '22:00:00')
-    , (2, '2023-08-30', '10:00:00', '22:00:00')
-    , (1, '2023-08-31', '00:00:00', '00:00:00')
-    , (2, '2023-08-31', '00:00:00', '00:00:00')
-    , (1, '2023-09-01', '10:00:00', '22:00:00')
-    , (2, '2023-09-01', '10:00:00', '22:00:00')
-    , (1, '2023-09-02', '10:00:00', '22:00:00')
-    , (2, '2023-09-02', '10:00:00', '22:00:00')
-    , (1, '2023-09-03', '10:00:00', '22:00:00')
-    , (2, '2023-09-03', '10:00:00', '22:00:00')
-    , (1, '2023-09-04', '10:00:00', '22:00:00')
-    , (2, '2023-09-04', '10:00:00', '22:00:00')
-    , (1, '2023-09-05', '00:00:00', '00:00:00')
-    , (2, '2023-09-05', '00:00:00', '00:00:00')
-    , (1, '2023-09-06', '00:00:00', '00:00:00')
-    , (2, '2023-09-06', '00:00:00', '00:00:00')
-    , (1, '2023-09-07', '10:00:00', '18:00:00')
-    , (2, '2023-09-07', '10:00:00', '18:00:00')
-    , (1, '2023-09-08', '10:00:00', '18:00:00')
-    , (2, '2023-09-08', '10:00:00', '18:00:00')
-    , (1, '2023-09-09', '10:00:00', '18:00:00')
-    , (2, '2023-09-09', '10:00:00', '18:00:00')
-    , (1, '2023-09-10', '00:00:00', '00:00:00')
-    , (2, '2023-09-10', '00:00:00', '00:00:00')
-    , (1, '2023-09-11', '10:00:00', '22:00:00')
-    , (2, '2023-09-11', '10:00:00', '22:00:00')
-    , (1, '2023-09-12', '10:00:00', '22:00:00')
-    , (2, '2023-09-12', '10:00:00', '22:00:00')
-    , (1, '2023-09-13', '10:00:00', '22:00:00')
-    , (2, '2023-09-13', '10:00:00', '22:00:00')
-    , (1, '2023-09-14', '10:00:00', '22:00:00')
-    , (2, '2023-09-14', '10:00:00', '22:00:00')
-    , (1, '2023-09-15', '10:00:00', '18:00:00')
-    , (2, '2023-09-15', '10:00:00', '18:00:00')
-    , (1, '2023-09-16', '00:00:00', '00:00:00')
-    , (2, '2023-09-16', '00:00:00', '00:00:00')
-    , (1, '2023-09-17', '00:00:00', '00:00:00')
-    , (2, '2023-09-17', '00:00:00', '00:00:00')
-    , (1, '2023-09-18', '00:00:00', '00:00:00')
-    , (2, '2023-09-18', '00:00:00', '00:00:00')
-    , (1, '2023-09-19', '00:00:00', '00:00:00')
-    , (2, '2023-09-19', '00:00:00', '00:00:00')
-    , (1, '2023-09-20', '00:00:00', '00:00:00')
-    , (2, '2023-09-20', '00:00:00', '00:00:00')
-    , (1, '2023-09-21', '10:00:00', '18:00:00')
-    , (2, '2023-09-21', '10:00:00', '18:00:00')
-    , (1, '2023-09-22', '10:00:00', '22:00:00')
-    , (2, '2023-09-22', '10:00:00', '22:00:00')
-    , (1, '2023-09-23', '00:00:00', '00:00:00')
-    , (2, '2023-09-23', '00:00:00', '00:00:00')
-    , (1, '2023-09-24', '10:00:00', '22:00:00')
-    , (2, '2023-09-24', '10:00:00', '22:00:00')
-    , (1, '2023-09-25', '10:00:00', '22:00:00')
-    , (2, '2023-09-25', '10:00:00', '22:00:00')
-    , (1, '2023-09-26', '00:00:00', '00:00:00')
-    , (2, '2023-09-26', '00:00:00', '00:00:00')
-    , (1, '2023-09-27', '10:00:00', '18:00:00')
-    , (2, '2023-09-27', '10:00:00', '18:00:00')
-    , (1, '2023-09-28', '10:00:00', '22:00:00')
-    , (2, '2023-09-28', '10:00:00', '22:00:00')
-    , (1, '2023-09-29', '10:00:00', '18:00:00')
-    , (2, '2023-09-29', '10:00:00', '18:00:00')
-    , (1, '2023-09-30', '00:00:00', '00:00:00')
-    , (2, '2023-09-30', '00:00:00', '00:00:00')
-    , (1, '2023-10-01', '10:00:00', '22:00:00')
-    , (2, '2023-10-01', '10:00:00', '22:00:00')
-    , (1, '2023-10-02', '00:00:00', '00:00:00')
-    , (2, '2023-10-02', '00:00:00', '00:00:00')
-    , (1, '2023-10-03', '00:00:00', '00:00:00')
-    , (2, '2023-10-03', '00:00:00', '00:00:00')
-    , (1, '2023-10-04', '00:00:00', '00:00:00')
-    , (2, '2023-10-04', '00:00:00', '00:00:00')
-    , (1, '2023-10-05', '10:00:00', '22:00:00')
-    , (2, '2023-10-05', '10:00:00', '22:00:00')
-    , (1, '2023-10-06', '00:00:00', '00:00:00')
-    , (2, '2023-10-06', '00:00:00', '00:00:00')
-    , (1, '2023-10-07', '10:00:00', '18:00:00')
-    , (2, '2023-10-07', '10:00:00', '18:00:00')
-    , (1, '2023-10-08', '10:00:00', '18:00:00')
-    , (2, '2023-10-08', '10:00:00', '18:00:00')
-    , (1, '2023-10-09', '10:00:00', '18:00:00')
-    , (2, '2023-10-09', '10:00:00', '18:00:00')
-    , (1, '2023-10-10', '10:00:00', '18:00:00')
-    , (2, '2023-10-10', '10:00:00', '18:00:00')
-    , (1, '2023-10-11', '00:00:00', '00:00:00')
-    , (2, '2023-10-11', '00:00:00', '00:00:00')
-    , (1, '2023-10-12', '00:00:00', '00:00:00')
-    , (2, '2023-10-12', '00:00:00', '00:00:00')
-    , (1, '2023-10-13', '10:00:00', '18:00:00')
-    , (2, '2023-10-13', '10:00:00', '18:00:00')
-    , (1, '2023-10-14', '10:00:00', '22:00:00')
-    , (2, '2023-10-14', '10:00:00', '22:00:00')
-    , (1, '2023-10-15', '10:00:00', '22:00:00')
-    , (2, '2023-10-15', '10:00:00', '22:00:00')
-    , (1, '2023-10-16', '00:00:00', '00:00:00')
-    , (2, '2023-10-16', '00:00:00', '00:00:00')
-    , (1, '2023-10-17', '00:00:00', '00:00:00')
-    , (2, '2023-10-17', '00:00:00', '00:00:00')
-    , (1, '2023-10-18', '00:00:00', '00:00:00')
-    , (2, '2023-10-18', '00:00:00', '00:00:00')
-    , (1, '2023-10-19', '00:00:00', '00:00:00')
-    , (2, '2023-10-19', '00:00:00', '00:00:00')
-    , (1, '2023-10-20', '00:00:00', '00:00:00')
-    , (2, '2023-10-20', '00:00:00', '00:00:00')
-    , (1, '2023-10-21', '00:00:00', '00:00:00')
-    , (2, '2023-10-21', '00:00:00', '00:00:00')
-    , (1, '2023-10-22', '00:00:00', '00:00:00')
-    , (2, '2023-10-22', '00:00:00', '00:00:00')
-    , (1, '2023-10-23', '10:00:00', '18:00:00')
-    , (2, '2023-10-23', '10:00:00', '18:00:00')
-    , (1, '2023-10-24', '10:00:00', '18:00:00')
-    , (2, '2023-10-24', '10:00:00', '18:00:00')
-    , (1, '2023-10-25', '10:00:00', '22:00:00')
-    , (2, '2023-10-25', '10:00:00', '22:00:00')
-    , (1, '2023-10-26', '00:00:00', '00:00:00')
-    , (2, '2023-10-26', '00:00:00', '00:00:00')
-    , (1, '2023-10-27', '00:00:00', '00:00:00')
-    , (2, '2023-10-27', '00:00:00', '00:00:00')
-    , (1, '2023-10-28', '10:00:00', '18:00:00')
-    , (2, '2023-10-28', '10:00:00', '18:00:00')
-    , (1, '2023-10-29', '00:00:00', '00:00:00')
-    , (2, '2023-10-29', '00:00:00', '00:00:00')
-    , (1, '2023-10-30', '00:00:00', '00:00:00')
-    , (2, '2023-10-30', '00:00:00', '00:00:00')
-    , (1, '2023-10-31', '10:00:00', '22:00:00')
-    , (2, '2023-10-31', '10:00:00', '22:00:00')
-    , (1, '2023-11-01', '00:00:00', '00:00:00')
-    , (2, '2023-11-01', '00:00:00', '00:00:00')
-    , (1, '2023-11-02', '00:00:00', '00:00:00')
-    , (2, '2023-11-02', '00:00:00', '00:00:00')
-    , (1, '2023-11-03', '00:00:00', '00:00:00')
-    , (2, '2023-11-03', '00:00:00', '00:00:00')
-    , (1, '2023-11-04', '10:00:00', '18:00:00')
-    , (2, '2023-11-04', '10:00:00', '18:00:00')
-    , (1, '2023-11-05', '00:00:00', '00:00:00')
-    , (2, '2023-11-05', '00:00:00', '00:00:00')
-    , (1, '2023-11-06', '10:00:00', '18:00:00')
-    , (2, '2023-11-06', '10:00:00', '18:00:00')
-    , (1, '2023-11-07', '10:00:00', '22:00:00')
-    , (2, '2023-11-07', '10:00:00', '22:00:00')
-    , (1, '2023-11-08', '00:00:00', '00:00:00')
-    , (2, '2023-11-08', '00:00:00', '00:00:00')
-    , (1, '2023-11-09', '10:00:00', '22:00:00')
-    , (2, '2023-11-09', '10:00:00', '22:00:00')
-    , (1, '2023-11-10', '00:00:00', '00:00:00')
-    , (2, '2023-11-10', '00:00:00', '00:00:00')
-    , (1, '2023-11-11', '10:00:00', '18:00:00')
-    , (2, '2023-11-11', '10:00:00', '18:00:00')
-    , (1, '2023-11-12', '00:00:00', '00:00:00')
-    , (2, '2023-11-12', '00:00:00', '00:00:00')
-    , (1, '2023-11-13', '00:00:00', '00:00:00')
-    , (2, '2023-11-13', '00:00:00', '00:00:00')
-    , (1, '2023-11-14', '00:00:00', '00:00:00')
-    , (2, '2023-11-14', '00:00:00', '00:00:00')
-    , (1, '2023-11-15', '10:00:00', '18:00:00')
-    , (2, '2023-11-15', '10:00:00', '18:00:00')
-    , (1, '2023-11-16', '10:00:00', '18:00:00')
-    , (2, '2023-11-16', '10:00:00', '18:00:00')
-    , (1, '2023-11-17', '00:00:00', '00:00:00')
-    , (2, '2023-11-17', '00:00:00', '00:00:00')
-    , (1, '2023-11-18', '00:00:00', '00:00:00')
-    , (2, '2023-11-18', '00:00:00', '00:00:00')
-    , (1, '2023-11-19', '00:00:00', '00:00:00')
-    , (2, '2023-11-19', '00:00:00', '00:00:00')
-    , (1, '2023-11-20', '10:00:00', '22:00:00')
-    , (2, '2023-11-20', '10:00:00', '22:00:00')
-    , (1, '2023-11-21', '00:00:00', '00:00:00')
-    , (2, '2023-11-21', '00:00:00', '00:00:00')
-    , (1, '2023-11-22', '10:00:00', '22:00:00')
-    , (2, '2023-11-22', '10:00:00', '22:00:00')
-    , (1, '2023-11-23', '10:00:00', '18:00:00')
-    , (2, '2023-11-23', '10:00:00', '18:00:00')
-    , (1, '2023-11-24', '10:00:00', '22:00:00')
-    , (2, '2023-11-24', '10:00:00', '22:00:00')
-    , (1, '2023-11-25', '10:00:00', '22:00:00')
-    , (2, '2023-11-25', '10:00:00', '22:00:00')
-    , (1, '2023-11-26', '10:00:00', '22:00:00')
-    , (2, '2023-11-26', '10:00:00', '22:00:00')
-    , (1, '2023-11-27', '10:00:00', '18:00:00')
-    , (2, '2023-11-27', '10:00:00', '18:00:00')
-    , (1, '2023-11-28', '00:00:00', '00:00:00')
-    , (2, '2023-11-28', '00:00:00', '00:00:00')
-    , (1, '2023-11-29', '00:00:00', '00:00:00')
-    , (2, '2023-11-29', '00:00:00', '00:00:00')
-    , (1, '2023-11-30', '00:00:00', '00:00:00')
-    , (2, '2023-11-30', '00:00:00', '00:00:00')
-    , (1, '2023-12-01', '00:00:00', '00:00:00')
-    , (2, '2023-12-01', '00:00:00', '00:00:00')
-    , (1, '2023-12-02', '00:00:00', '00:00:00')
-    , (2, '2023-12-02', '00:00:00', '00:00:00')
-    , (1, '2023-12-03', '00:00:00', '00:00:00')
-    , (2, '2023-12-03', '00:00:00', '00:00:00')
-    , (1, '2023-12-04', '00:00:00', '00:00:00')
-    , (2, '2023-12-04', '00:00:00', '00:00:00')
-    , (1, '2023-12-05', '10:00:00', '22:00:00')
-    , (2, '2023-12-05', '10:00:00', '22:00:00')
-    , (1, '2023-12-06', '10:00:00', '18:00:00')
-    , (2, '2023-12-06', '10:00:00', '18:00:00')
-    , (1, '2023-12-07', '00:00:00', '00:00:00')
-    , (2, '2023-12-07', '00:00:00', '00:00:00')
-    , (1, '2023-12-08', '00:00:00', '00:00:00')
-    , (2, '2023-12-08', '00:00:00', '00:00:00')
-    , (1, '2023-12-09', '00:00:00', '00:00:00')
-    , (2, '2023-12-09', '00:00:00', '00:00:00')
-    , (1, '2023-12-10', '00:00:00', '00:00:00')
-    , (2, '2023-12-10', '00:00:00', '00:00:00')
-    , (1, '2023-12-11', '10:00:00', '22:00:00')
-    , (2, '2023-12-11', '10:00:00', '22:00:00')
-    , (1, '2023-12-12', '10:00:00', '18:00:00')
-    , (2, '2023-12-12', '10:00:00', '18:00:00')
-    , (1, '2023-12-13', '00:00:00', '00:00:00')
-    , (2, '2023-12-13', '00:00:00', '00:00:00')
-    , (1, '2023-12-14', '10:00:00', '22:00:00')
-    , (2, '2023-12-14', '10:00:00', '22:00:00')
-    , (1, '2023-12-15', '10:00:00', '18:00:00')
-    , (2, '2023-12-15', '10:00:00', '18:00:00')
-    , (1, '2023-12-16', '10:00:00', '18:00:00')
-    , (2, '2023-12-16', '10:00:00', '18:00:00')
-    , (1, '2023-12-17', '10:00:00', '18:00:00')
-    , (2, '2023-12-17', '10:00:00', '18:00:00')
-    , (1, '2023-12-18', '10:00:00', '18:00:00')
-    , (2, '2023-12-18', '10:00:00', '18:00:00')
-    , (1, '2023-12-19', '00:00:00', '00:00:00')
-    , (2, '2023-12-19', '00:00:00', '00:00:00')
-    , (1, '2023-12-20', '00:00:00', '00:00:00')
-    , (2, '2023-12-20', '00:00:00', '00:00:00')
-    , (1, '2023-12-21', '10:00:00', '18:00:00')
-    , (2, '2023-12-21', '10:00:00', '18:00:00')
-    , (1, '2023-12-22', '00:00:00', '00:00:00')
-    , (2, '2023-12-22', '00:00:00', '00:00:00')
-    , (1, '2023-12-23', '10:00:00', '18:00:00')
-    , (2, '2023-12-23', '10:00:00', '18:00:00')
-    , (1, '2023-12-24', '00:00:00', '00:00:00')
-    , (2, '2023-12-24', '00:00:00', '00:00:00')
-    , (1, '2023-12-25', '10:00:00', '18:00:00')
-    , (2, '2023-12-25', '10:00:00', '18:00:00')
-    , (1, '2023-12-26', '10:00:00', '18:00:00')
-    , (2, '2023-12-26', '10:00:00', '18:00:00')
-    , (1, '2023-12-27', '10:00:00', '18:00:00')
-    , (2, '2023-12-27', '10:00:00', '18:00:00')
-    , (1, '2023-12-28', '10:00:00', '18:00:00')
-    , (2, '2023-12-28', '10:00:00', '18:00:00')
-    , (1, '2023-12-29', '10:00:00', '18:00:00')
-    , (2, '2023-12-29', '10:00:00', '18:00:00')
-    , (1, '2023-12-30', '00:00:00', '00:00:00')
-    , (2, '2023-12-30', '00:00:00', '00:00:00')
-    , (1, '2023-12-31', '10:00:00', '22:00:00')
-    , (2, '2023-12-31', '10:00:00', '22:00:00')
-    , (1, '2024-01-01', '00:00:00', '00:00:00')
-    , (2, '2024-01-01', '00:00:00', '00:00:00')
-    , (1, '2024-01-02', '10:00:00', '22:00:00')
-    , (2, '2024-01-02', '10:00:00', '22:00:00')
-    , (1, '2024-01-03', '10:00:00', '22:00:00')
-    , (2, '2024-01-03', '10:00:00', '22:00:00')
-    , (1, '2024-01-04', '00:00:00', '00:00:00')
-    , (2, '2024-01-04', '00:00:00', '00:00:00')
-    , (1, '2024-01-05', '00:00:00', '00:00:00')
-    , (2, '2024-01-05', '00:00:00', '00:00:00')
-    , (1, '2024-01-06', '00:00:00', '00:00:00')
-    , (2, '2024-01-06', '00:00:00', '00:00:00')
-    , (1, '2024-01-07', '10:00:00', '18:00:00')
-    , (2, '2024-01-07', '10:00:00', '18:00:00')
-    , (1, '2024-01-08', '00:00:00', '00:00:00')
-    , (2, '2024-01-08', '00:00:00', '00:00:00')
-    , (1, '2024-01-09', '10:00:00', '18:00:00')
-    , (2, '2024-01-09', '10:00:00', '18:00:00')
-    , (1, '2024-01-10', '00:00:00', '00:00:00')
-    , (2, '2024-01-10', '00:00:00', '00:00:00')
-    , (1, '2024-01-11', '00:00:00', '00:00:00')
-    , (2, '2024-01-11', '00:00:00', '00:00:00')
-    , (1, '2024-01-12', '00:00:00', '00:00:00')
-    , (2, '2024-01-12', '00:00:00', '00:00:00')
-    , (1, '2024-01-13', '00:00:00', '00:00:00')
-    , (2, '2024-01-13', '00:00:00', '00:00:00')
-    , (1, '2024-01-14', '10:00:00', '18:00:00')
-    , (2, '2024-01-14', '10:00:00', '18:00:00')
-    , (1, '2024-01-15', '00:00:00', '00:00:00')
-    , (2, '2024-01-15', '00:00:00', '00:00:00')
-    , (1, '2024-01-16', '10:00:00', '22:00:00')
-    , (2, '2024-01-16', '10:00:00', '22:00:00')
-    , (1, '2024-01-17', '00:00:00', '00:00:00')
-    , (2, '2024-01-17', '00:00:00', '00:00:00')
-    , (1, '2024-01-18', '10:00:00', '22:00:00')
-    , (2, '2024-01-18', '10:00:00', '22:00:00')
-    , (1, '2024-01-19', '10:00:00', '18:00:00')
-    , (2, '2024-01-19', '10:00:00', '18:00:00')
-    , (1, '2024-01-20', '00:00:00', '00:00:00')
-    , (2, '2024-01-20', '00:00:00', '00:00:00')
-    , (1, '2024-01-21', '10:00:00', '22:00:00')
-    , (2, '2024-01-21', '10:00:00', '22:00:00')
-    , (1, '2024-01-22', '10:00:00', '18:00:00')
-    , (2, '2024-01-22', '10:00:00', '18:00:00')
-    , (1, '2024-01-23', '10:00:00', '22:00:00')
-    , (2, '2024-01-23', '10:00:00', '22:00:00')
-    , (1, '2024-01-24', '10:00:00', '22:00:00')
-    , (2, '2024-01-24', '10:00:00', '22:00:00')
-    , (1, '2024-01-25', '00:00:00', '00:00:00')
-    , (2, '2024-01-25', '00:00:00', '00:00:00')
-    , (1, '2024-01-26', '10:00:00', '18:00:00')
-    , (2, '2024-01-26', '10:00:00', '18:00:00')
-    , (1, '2024-01-27', '10:00:00', '22:00:00')
-    , (2, '2024-01-27', '10:00:00', '22:00:00')
-    , (1, '2024-01-28', '10:00:00', '18:00:00')
-    , (2, '2024-01-28', '10:00:00', '18:00:00')
-    , (1, '2024-01-29', '10:00:00', '22:00:00')
-    , (2, '2024-01-29', '10:00:00', '22:00:00')
-    , (1, '2024-01-30', '10:00:00', '22:00:00')
-    , (2, '2024-01-30', '10:00:00', '22:00:00')
-    , (1, '2024-01-31', '10:00:00', '18:00:00')
-    , (2, '2024-01-31', '10:00:00', '18:00:00')
-    , (1, '2024-02-01', '10:00:00', '18:00:00')
-    , (2, '2024-02-01', '10:00:00', '18:00:00')
-    , (1, '2024-02-02', '00:00:00', '00:00:00')
-    , (2, '2024-02-02', '00:00:00', '00:00:00')
-    , (1, '2024-02-03', '00:00:00', '00:00:00')
-    , (2, '2024-02-03', '00:00:00', '00:00:00')
-    , (1, '2024-02-04', '10:00:00', '18:00:00')
-    , (2, '2024-02-04', '10:00:00', '18:00:00')
-    , (1, '2024-02-05', '10:00:00', '22:00:00')
-    , (2, '2024-02-05', '10:00:00', '22:00:00')
-    , (1, '2024-02-06', '10:00:00', '22:00:00')
-    , (2, '2024-02-06', '10:00:00', '22:00:00')
-    , (1, '2024-02-07', '00:00:00', '00:00:00')
-    , (2, '2024-02-07', '00:00:00', '00:00:00')
-    , (1, '2024-02-08', '00:00:00', '00:00:00')
-    , (2, '2024-02-08', '00:00:00', '00:00:00')
-    , (1, '2024-02-09', '00:00:00', '00:00:00')
-    , (2, '2024-02-09', '00:00:00', '00:00:00')
-    , (1, '2024-02-10', '10:00:00', '18:00:00')
-    , (2, '2024-02-10', '10:00:00', '18:00:00')
-    , (1, '2024-02-11', '10:00:00', '22:00:00')
-    , (2, '2024-02-11', '10:00:00', '22:00:00')
-    , (1, '2024-02-12', '10:00:00', '22:00:00')
-    , (2, '2024-02-12', '10:00:00', '22:00:00')
-    , (1, '2024-02-13', '00:00:00', '00:00:00')
-    , (2, '2024-02-13', '00:00:00', '00:00:00')
-    , (1, '2024-02-14', '00:00:00', '00:00:00')
-    , (2, '2024-02-14', '00:00:00', '00:00:00')
-    , (1, '2024-02-15', '00:00:00', '00:00:00')
-    , (2, '2024-02-15', '00:00:00', '00:00:00')
-    , (1, '2024-02-16', '10:00:00', '18:00:00')
-    , (2, '2024-02-16', '10:00:00', '18:00:00')
-    , (1, '2024-02-17', '10:00:00', '22:00:00')
-    , (2, '2024-02-17', '10:00:00', '22:00:00')
-    , (1, '2024-02-18', '00:00:00', '00:00:00')
-    , (2, '2024-02-18', '00:00:00', '00:00:00')
-    , (1, '2024-02-19', '10:00:00', '18:00:00')
-    , (2, '2024-02-19', '10:00:00', '18:00:00')
-    , (1, '2024-02-20', '10:00:00', '18:00:00')
-    , (2, '2024-02-20', '10:00:00', '18:00:00')
-    , (1, '2024-02-21', '00:00:00', '00:00:00')
-    , (2, '2024-02-21', '00:00:00', '00:00:00')
-    , (1, '2024-02-22', '10:00:00', '22:00:00')
-    , (2, '2024-02-22', '10:00:00', '22:00:00')
-    , (1, '2024-02-23', '00:00:00', '00:00:00')
-    , (2, '2024-02-23', '00:00:00', '00:00:00')
-    , (1, '2024-02-24', '10:00:00', '22:00:00')
-    , (2, '2024-02-24', '10:00:00', '22:00:00')
-    , (1, '2024-02-25', '00:00:00', '00:00:00')
-    , (2, '2024-02-25', '00:00:00', '00:00:00')
-    , (1, '2024-02-26', '00:00:00', '00:00:00')
-    , (2, '2024-02-26', '00:00:00', '00:00:00')
-    , (1, '2024-02-27', '00:00:00', '00:00:00')
-    , (2, '2024-02-27', '00:00:00', '00:00:00')
-    , (1, '2024-02-28', '00:00:00', '00:00:00')
-    , (2, '2024-02-28', '00:00:00', '00:00:00')
-    , (1, '2024-02-29', '00:00:00', '00:00:00')
-    , (2, '2024-02-29', '00:00:00', '00:00:00')
-    , (1, '2024-03-01', '00:00:00', '00:00:00')
-    , (2, '2024-03-01', '00:00:00', '00:00:00')
-    , (1, '2024-03-02', '00:00:00', '00:00:00')
-    , (2, '2024-03-02', '00:00:00', '00:00:00')
-    , (1, '2024-03-03', '10:00:00', '18:00:00')
-    , (2, '2024-03-03', '10:00:00', '18:00:00')
-    , (1, '2024-03-04', '00:00:00', '00:00:00')
-    , (2, '2024-03-04', '00:00:00', '00:00:00')
-    , (1, '2024-03-05', '00:00:00', '00:00:00')
-    , (2, '2024-03-05', '00:00:00', '00:00:00')
-    , (1, '2024-03-06', '00:00:00', '00:00:00')
-    , (2, '2024-03-06', '00:00:00', '00:00:00')
-    , (1, '2024-03-07', '00:00:00', '00:00:00')
-    , (2, '2024-03-07', '00:00:00', '00:00:00')
-    , (1, '2024-03-08', '00:00:00', '00:00:00')
-    , (2, '2024-03-08', '00:00:00', '00:00:00')
-    , (1, '2024-03-09', '10:00:00', '22:00:00')
-    , (2, '2024-03-09', '10:00:00', '22:00:00')
-    , (1, '2024-03-10', '10:00:00', '18:00:00')
-    , (2, '2024-03-10', '10:00:00', '18:00:00')
-    , (1, '2024-03-11', '10:00:00', '18:00:00')
-    , (2, '2024-03-11', '10:00:00', '18:00:00')
-    , (1, '2024-03-12', '00:00:00', '00:00:00')
-    , (2, '2024-03-12', '00:00:00', '00:00:00')
-    , (1, '2024-03-13', '10:00:00', '18:00:00')
-    , (2, '2024-03-13', '10:00:00', '18:00:00')
-    , (1, '2024-03-14', '00:00:00', '00:00:00')
-    , (2, '2024-03-14', '00:00:00', '00:00:00')
-    , (1, '2024-03-15', '10:00:00', '22:00:00')
-    , (2, '2024-03-15', '10:00:00', '22:00:00')
-    , (1, '2024-03-16', '10:00:00', '22:00:00')
-    , (2, '2024-03-16', '10:00:00', '22:00:00')
-    , (1, '2024-03-17', '10:00:00', '18:00:00')
-    , (2, '2024-03-17', '10:00:00', '18:00:00')
-    , (1, '2024-03-18', '00:00:00', '00:00:00')
-    , (2, '2024-03-18', '00:00:00', '00:00:00')
-    , (1, '2024-03-19', '00:00:00', '00:00:00')
-    , (2, '2024-03-19', '00:00:00', '00:00:00')
-    , (1, '2024-03-20', '00:00:00', '00:00:00')
-    , (2, '2024-03-20', '00:00:00', '00:00:00')
-    , (1, '2024-03-21', '10:00:00', '22:00:00')
-    , (2, '2024-03-21', '10:00:00', '22:00:00')
+    (1,'Juegos Familiares', 'En Six Flags Mexico la diversión familiar es nuestra especialidad. Por eso, prepárate para desahogarte y reír con ganas. Desde las alturas más extremas, hasta las aventuras más tranquilas, tenemos atracciones para que todos puedan disfrutar.')
+    , (2, 'Juegos X-Tremos', '¿Estás buscando emoción? La encontraste. De hecho, has encontrado algunas de las atracciones más rápidas, más altas y más impactantes del país incluyendo unas cuantas que baten récords mundiales.')
+    , (3, 'Juegos Infantiles', '¡Las nuevas zonas infantiles BUGS BUNNY BOOMTOWN y DC SUPER FRIENDS ya están abiertas! Los más pequeños disfrutarán de 15 juegos y atracciones, ¡6 de ellas completamente nuevas!')
 ;
--- Bloque de alters_______________________________________________________________________________________________
+
+-- Bloque de alters
 -- Horario con parque
 ALTER TABLE horario
   ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);

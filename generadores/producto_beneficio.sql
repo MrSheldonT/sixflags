@@ -1,3 +1,4 @@
+-- producto_beneficio
 INSERT INTO  producto_beneficio(
 	plu
 	, beneficio_id 
