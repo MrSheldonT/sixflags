@@ -296,8 +296,9 @@ CREATE TABLE IF NOT EXISTS comprador (
 CREATE TABLE IF NOT EXISTS venta (
   venta_id INT NOT NULL AUTO_INCREMENT
   , comprador_id INT NOT NULL
-  , fecha TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()
+  , fecha DATE NOT NULL
   , cargo_proceso_linea DECIMAL(6, 2) NOT NULL DEFAULT 40
+  , tipo_pago VARCHAR(30) NOT NULL
   , PRIMARY KEY (venta_id)
 );
 
@@ -332,6 +333,14 @@ CREATE TABLE IF NOT EXISTS tarjeta (
 CREATE TABLE IF NOT EXISTS tarjeta_complemento (
   tarjeta_principal INT NOT NULL
   , tarjeta_complemento_id INT NOT NULL
+);
+
+-- Tabla tipos de atracciónes --
+CREATE TABLE IF NOT EXISTS tipo_atraccion (
+    tipo_atraccion_id INT NOT NULL AUTO_INCREMENT
+    , nombre VARCHAR(10) NOT NULL
+    , descripcion VARCHAR(300) NOT NULL
+    , PRIMARY KEY (tipo_atraccion_id)
 );
 
 -- Bloque de alters_______________________________________________________________________________________________

@@ -1,12 +1,4 @@
--- Tabla tipos de atraciiónes
-CREATE TABLE IF NOT EXISTS tipo_atraccion (
-    tipo_atraccion_id INT NOT NULL AUTO_INCREMENT
-    , nombre VARCHAR(10) NOT NULL
-    , descripcion VARCHAR(300) NOT NULL
-    , PRIMARY KEY (tipo_atraccion_id)
-);
-
--- Tipos de atracción
+-- Tipos de atracción --
 INSERT INTO tipo_atraccion(
     tipo_atraccion_id
     , nombre

@@ -25481,7 +25481,7 @@ VALUES
     (388, '2023-12-31', 'Visa')
 ;
 
--- Tipos de atracción
+-- Tipos de atracción --
 INSERT INTO tipo_atraccion(
     tipo_atraccion_id
     , nombre
