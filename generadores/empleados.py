@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from faker import Faker
 
-Faker.seed(1)
+Faker.seed(0)
 fake = Faker('es_MX')
 
 def generar_empleado(size, parques):
