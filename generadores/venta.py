@@ -1,6 +1,9 @@
 import random
 import datetime
 
+#semilla
+random.seed(123)
+
 def generar_registro_venta():
     comprador_id = random.randint(1, 5000)
     fecha = generar_fecha()
@@ -38,3 +41,9 @@ codigo_sql = "INSERT INTO venta (comprador_id, fecha, metodo_pago) VALUES \n" + 
 
 with open("ventas.sql", "w") as archivo:
     archivo.write(codigo_sql)
+
+# Generar archivo de texto con las fechas
+fechas_txt = ", ".join([registro[1] for registro in registros_sql])
+
+with open("fechas.txt", "w") as archivo:
+    archivo.write(fechas_txt)
