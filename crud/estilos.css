@@ -24,6 +24,9 @@ datos{
     align: center top;
     
 }
+container{
+    border: rgb(192, 192, 192); 
+}
 #consultar{
     
     margin-right: 1;
