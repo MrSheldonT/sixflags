@@ -1,6 +1,7 @@
 DROP DATABASE IF EXISTS six_flags;
 CREATE DATABASE six_flags;
 USE six_flags;
+
 -- Definición de tablas
 CREATE TABLE IF NOT EXISTS parque (
     parque_id TINYINT NOT NULL AUTO_INCREMENT,
