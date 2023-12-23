@@ -195,9 +195,9 @@ CREATE TABLE IF NOT EXISTS tienda_mercancia (
 );
 
 CREATE TABLE IF NOT EXISTS tipo_atraccion (
-  tipo_atraccion_id INT NOT NULL
-  , nombre VARCHAR(10) NOT NULL
-  , descripcion VARCHAR(255) NOT NULL
+  tipo_atraccion_id INT NOT NULL AUTO_INCREMENT
+  , nombre VARCHAR(30) NOT NULL
+  , descripcion VARCHAR(300) NOT NULL
   , PRIMARY KEY (tipo_atraccion_id)
 );
 
@@ -334,13 +334,7 @@ CREATE TABLE IF NOT EXISTS tarjeta_complemento (
   , tarjeta_complemento_id INT NOT NULL
 );
 
--- Tabla tipos de atracciónes --
-CREATE TABLE IF NOT EXISTS tipo_atraccion (
-    tipo_atraccion_id INT NOT NULL AUTO_INCREMENT
-    , nombre VARCHAR(30) NOT NULL
-    , descripcion VARCHAR(300) NOT NULL
-    , PRIMARY KEY (tipo_atraccion_id)
-);
+
 -- Insertar datos
 -- parque
 INSERT INTO parque(
@@ -25481,7 +25475,6 @@ VALUES
     (388, '2023-12-31', 'Visa')
 ;
 
--- Tipos de atracción --
 INSERT INTO tipo_atraccion(
     tipo_atraccion_id
     , nombre
@@ -25492,6 +25485,7 @@ VALUES
     , (2, 'Juegos X-Tremos', '¿Estás buscando emoción? La encontraste. De hecho, has encontrado algunas de las atracciones más rápidas, más altas y más impactantes del país incluyendo unas cuantas que baten récords mundiales.')
     , (3, 'Juegos Infantiles', '¡Las nuevas zonas infantiles BUGS BUNNY BOOMTOWN y DC SUPER FRIENDS ya están abiertas! Los más pequeños disfrutarán de 15 juegos y atracciones, ¡6 de ellas completamente nuevas!')
 ;
+
 -- Bloque de alters
 -- Horario con parque
 ALTER TABLE horario
