@@ -439,5 +439,5 @@ ALTER TABLE producto
 
 -- flash_pass com tarjeta y ciclo --
 ALTER TABLE flash_pass
-  ADD FOREIGN KEY (ciclo_id) REFERENCES ciclo(ciclo_id);
+  ADD FOREIGN KEY (ciclo_id) REFERENCES ciclo(ciclo_id)
   , ADD FOREIGN KEY (tarjeta_id) REFERENCES tarjeta(tarjeta_id);
