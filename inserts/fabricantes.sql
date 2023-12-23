@@ -1,0 +1,16 @@
+INSERT INTO fabricante VALUES 
+	(1,'Hopkins Rides'),
+	(2,'Vekoma'),
+	(3,'Intamin'),
+	(4,'Funtime Austria'),
+	(5,'Chance Morgan'),
+	(6,'Mack Rides'),
+	(7,'Gerstlauer'),
+	(8,'Bolliger & Mabillard'),
+	(9,'Zamperla'),
+	(10,'SBF Visa'),
+	(11,'Huss Park Attractions'),
+	(12,'Rocky Mountain Construction'),
+	(13,'Schwarzkopf'),
+	(14,'Zierer'),
+	(15,'No Info');
