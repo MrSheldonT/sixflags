@@ -20540,7 +20540,6 @@ VALUES
      , ('10', '1', 'Pueblo infantil')
      , ('11', '2', 'Hurricane Harbor')
 ;
-
 -- Show --
 INSERT INTO espectaculo (villa_id
                         , nombre
@@ -20552,17 +20551,13 @@ INSERT INTO espectaculo (villa_id
                         , fecha_fin)
 VALUES
     (1,'Bienvenida con los Looney Tunes',' Estos queridos personajes estarán recibiendo a los asistentes con una divertida y colorida presentación que inyectará energía desde el inicio de la visita.','Quiosco Pueblo Mexicano','10:00:00','11:30:00','2024-01-01','2024-12-30')
-     -- Heroes & Villians Fest
     , (1,'DC Colors',' Los integrantes de la Liga de la Justicia mostrarán sus cualidades y habilidades para combatir el mal y a los villanos que se atrevan a irrumpir con la diversión.','Villa Hollywood','11:30:00','12:30:00','2024-04-01','2024-05-28')
     , (1,'Looney Tunes Color Time','Polvos de colores, confetti y encanto estarán presentes en este encuentro en donde se podrá tomar foto, cantar y abrazar a los personajes favoritos en el Castillo de los Sueños.','Castillo de los Sueños','12:30:00','13:30:00','2024-04-01','2024-05-28')
     , (1,'Colors Party','Un grandioso performance con destellos de colores y con la presencia de un DJ, se encargará de hacer bailar a todas y todos los visitantes con sets llenos de energía y ritmos contagiosos.','Villa Hollywood','13:30:00','15:30:00','2024-04-01','2024-05-28')
      , (1,'Héroes y Villanos Parade','Al finalizar un día lleno de emociones, un impactante desfile será el broche de oro y estará acompañado de diferentes personajes, héroes y villanos que realizarán detonaciones multicolores y contagiarán a más de uno a unirse a esta fiesta sin igual.','Villa Hollywood','16:30:00','20:30:00','2024-04-01','2024-05-28')
-     -- Fun Nights --
     , (1,'Música en vivo','Se podrá bailar y cantar con éxitos en inglés y en español con una sensacional coverband que los llevará a un viaje musical acompañado de luces, colores, sonidos y gran performance.','Pueblo Francés','08:00:00','23:00:00','2024-03-08','2024-05-26')
     , (1,'Mariachi','No hay persona que no se rinda ante las interpretaciones de un buen mariachi que haga gozar, cantar a todo pulmón y vivir la pasión e identidad mexicana en medio del pintoresco pueblo mexicano.','Pueblo Mexicano','08:00:00','23:00:00','2024-03-08','2024-05-26')
-     -- Scream Break
     , (1,'Fotos con personajes','Hermosos personajes multicolor, catrinas y hasta zombies estarán saludando y tomándose fotos con los visitantes que buscan un grato recuerdo y complemento especial a su día.','Pueblo Mexicano','08:00:00','23:00:00','2024-04-13','2024-04-16')
-     -- Festival del terror
     , (1,'La ruta caníbal','La calma del bosque termina para la extraña familia que habita en una vieja cabaña, cuando la civilización se quiere abrir paso construyendo una ruta que acaba con la tranquilidad. Pero esta misteriosa y peculiar familia no se quedará tranquila hasta vengarse de todos los que pasen por la carretera.','Motosierras','11:00:00','22:40:00','2024-09-12','2024-10-10')
     , (1,'Mazmorras','Debajo de la tierra, existe un oscuro inframundo. En éste, habitan unas temibles gárgolas sedientas de dolor y temor para sobrevivir. Ellas se ocultan en las tinieblas y esperan por algún alma que torturar.','Motosierras','11:00:00','22:40:00','2024-09-12','2024-10-10')
     , (1,'Terror en Paris','La Ciudad de la Luz oculta en lo más profundo de sus entrañas una huella siniestra de sangre y guerra, un recuerdo de las atrocidades que alguna vez se cometieron. Entra y jamás podrás salir.','Pueblo Francés','11:00:00','22:40:00','2024-09-12','2024-10-10')
@@ -20571,7 +20566,6 @@ VALUES
     , (1,'Leyendas de México','Hay veces que las Leyendas se pueden volver realidad…buscarlas se puede volver tu peor pesadilla. ¡No busques lo que no quieres encontrar!','Pueblo Zombie','11:00:00','22:40:00','2024-09-12','2024-10-10')
     , (1,'Catástrofe ','Un científico realiza experimentos de manera clandestina sin conocer las consecuencias…¿Te atreves a descubrir lo que puede suceder?','esqueletos','11:00:00','22:40:00','2024-09-12','2024-10-10')
     , (1,'Región Extraterrestre','Hay secretos que durante mucho tiempo han sido ocultos por la humanidad, pero la verdad esta a punto de ser revelada y quizás esto pueda representar el final…o el comienzo de una nueva era …¿Te atreverás a descubrirla?','Calabajack','11:00:00','22:40:00','2024-09-12','2024-10-10')
-    -- Kid's Boo Fest
     , (1,'Dulce o Truco presentada por Sonric\'s','Una atracción infantil donde niños y niñas podrán convivir con tiernos personajes a través de un recorrido de diferentes escenarios en donde obtendrán una rica recompensa.','DC Super Friends','11:00:00','22:00:00','2024-09-12','2024-10-10')
     , (1,'Pumpkin Party','Aquí los pequeños visitantes podrán brincar, bailar y disfrutar una y otra vez dentro de un espacio lleno de alegría en donde serán envueltos con gran espuma blanca.','DC Super Friends','11:00:00','22:00:00','2024-09-12','2024-10-10')
     , (1,'Boo Parade','Por medio de un pequeño desfile realizado por los amados personajes de Looney Tunes y los amigables mounstritos de Halloween, se acompañará a los niños y niñas a pedir dulces en cada puerta de Dulce Callejón.','Bugs Bunny Boomtown','11:00:00','22:00:00','2024-09-12','2024-10-10')
@@ -20580,7 +20574,6 @@ VALUES
     , (1,'Salón de las Princesas','Un maravilloso espacio en donde las niñas podrán convertirse en verdaderas y encantadoras princesas salidas de un cuento de hadas y los niños en heroicos y valientes caballeros de la corona.','Castillo de los Sueños','10:00:00','19:00:00','2022-01-01','2022-12-31')
     , (1,'Fábrica de los Bloques del Castillo','Una divertida habitación en la cual niños y niñas no tendrán límites a su imaginación y serán ayudados por bloques de juguete de diferentes tamaños y colores donde podrán hacer estructuras de ensueño.','Castillo de los Sueños','10:00:00','19:00:00','2022-01-01','2022-12-31')
     , (1,'Cueva del Slime del Dragón','Una increíble estancia en donde habrá muchas maneras de jugar por medio de la creación de slime de diferentes texturas y colores que el dragón del castillo ha colocado ahí para los pequeños visitantes.','Castillo de los Sueños','10:00:00','19:00:00','2022-01-01','2022-12-31')
-     -- Christmas in the Park
     , (1,'Beyond Christmas','Una espectacular presentación que dará inicio al encendido de millones de luces por el parque, acompañada de un emotivo número musical, presencia de Looney Tunes y maravillosos fuegos artificiales.','Escenario de Pueblo Francés','21:00:00','22:00:00','2023-11-24','2024-01-21')
     , (1,'Christmas Light Parade','El tradicional y querido desfile que recorrerá los pasillos del parque en compañía de comparsas, música y grandiosos personajes.','De Villa Hollywood a Pueblo Vaquero, Escenario de Pueblo Francés','21:30:00','23:30:00','2023-11-24','2024-01-21')
     , (1,'Despedida con la Liga de la Justicia','Tus superhéroes favoritos te acompañan a terminar un día lleno de magia y diversión.','Pueblo Mexicano','18:00:00','23:59:59','2023-11-24','2024-01-21')
@@ -20592,7 +20585,6 @@ VALUES
     , (1,'Sesión fotográfica con la Liga de la Justicia','Tus superhéroes favoritos también forman parte de esta mágica temporada, encuéntralos por el parque y llévate el mejor recuerdo.','Explanada DC y Explanada Francés','13:00:00','22:30:00','2023-11-24','2024-01-21')
     , (1,'Sesión fotográfica con las Princesas y Lola Bunny','Vive un momento mágico junto a Lola Bunny y las princesas del Castillo de los Sueños','Castillo de los Sueños','12:00:00','20:00:00','2023-11-24','2024-01-21')
     , (1,'Sesión fotográfica con personajes navideños','Encuentra a los personajes más mágicos y divertidos de la Navidad para llevarte un recuerdo inolvidable.','Explanada de Pueblo Francés, Explanada Crazanity y Villa Navideña','11:00:00','22:00:00','2023-11-24','2024-01-21')
-    -- Flavours of the world
     , (2,'Festival de Sabores ¡ITALIA!','Deleita tus papilas gustativas y prueba hasta 12 platos de siete países diferentes de todo el mundo. ¡Bebe, pasea y disfruta de los Sabores del Mundo!','Explanada Francés','10:00:00','22:00:00','2024-06-23','2024-08-13')
     , (2,'Festival de Sabores ¡GRECIA!','Deleita tus papilas gustativas y prueba hasta 12 platos de siete países diferentes de todo el mundo. ¡Bebe, pasea y disfruta de los Sabores del Mundo!','Pueblo Mexicano','10:00:00','22:00:00','2024-06-23','2024-08-13')
     , (2,'Festival de Sabores ¡CARIBE!','Deleita tus papilas gustativas y prueba hasta 12 platos de siete países diferentes de todo el mundo. ¡Bebe, pasea y disfruta de los Sabores del Mundo!','Explanada Crazanity','10:00:00','22:00:00','2024-06-23','2024-08-13')
