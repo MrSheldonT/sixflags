@@ -1,6 +1,9 @@
 import random
 import datetime
 
+#semilla
+random.seed(123)
+
 def generar_registro_venta():
     comprador_id = random.randint(1, 5000)
     fecha = generar_fecha()
