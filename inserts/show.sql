@@ -7,7 +7,7 @@ INSERT INTO show (villa_id
                         , fecha_inicio
                         , fecha_fin)
 VALUES
-    -- 2020
+
     (2,'Bienvenida con los Looney Tunes','Estos queridos personajes estarán recibiendo a los asistentes con una divertida y colorida presentación que inyectará energía desde el inicio de la visita.','Quiosco Pueblo Mexicano','10:00:00','11:30:00','2020-01-01','2020-12-30'),
     (1,'DC Colors','Los integrantes de la Liga de la Justicia mostrarán sus cualidades y habilidades para combatir el mal y a los villanos que se atrevan a irrumpir con la diversión.','Villa Hollywood','11:30:00','12:30:00','2020-04-01','2020-05-28'),
     (10,'Looney Tunes Color Time','Polvos de colores, confetti y encanto estarán presentes en este encuentro en donde se podrá tomar foto, cantar y abrazar a los personajes favoritos en el Castillo de los Sueños.','Castillo de los Sueños','12:30:00','13:30:00','2020-04-01','2020-05-28'),
@@ -55,7 +55,7 @@ VALUES
     (3,'Manualidades para Niños','Deja que los más pequeños se unan a la celebración de las culturas con diferentes manualidades y diversión.','DC Super Friends','10:00:00','22:00:00','2020-06-23','2020-08-13'),
     (8,'Encuentro y Saludo LOONEY TUNES','Canta y baila con Bugs Bunny y sus amigos de Looney Tunes con los favoritos de la familia que seguramente te pondrán en el espíritu festivo.','Circo de Bugs Bunny','16:00:00','22:00:00','2020-11-24','2021-01-21'),
 
-    -- 2021
+
     (2,'Bienvenida con los Looney Tunes','Estos queridos personajes estarán recibiendo a los asistentes con una divertida y colorida presentación que inyectará energía desde el inicio de la visita.','Quiosco Pueblo Mexicano','10:00:00','11:30:00','2021-01-01','2021-12-30'),
     (1,'DC Colors','Los integrantes de la Liga de la Justicia mostrarán sus cualidades y habilidades para combatir el mal y a los villanos que se atrevan a irrumpir con la diversión.','Villa Hollywood','11:30:00','12:30:00','2021-04-01','2021-05-28'),
     (10,'Looney Tunes Color Time','Polvos de colores, confetti y encanto estarán presentes en este encuentro en donde se podrá tomar foto, cantar y abrazar a los personajes favoritos en el Castillo de los Sueños.','Castillo de los Sueños','12:30:00','13:30:00','2021-04-01','2021-05-28'),
@@ -104,7 +104,7 @@ VALUES
     (8,'Encuentro y Saludo LOONEY TUNES','Canta y baila con Bugs Bunny y sus amigos de Looney Tunes con los favoritos de la familia que seguramente te pondrán en el espíritu festivo.','Circo de Bugs Bunny','16:00:00','22:00:00','2021-11-24','2022-01-21'),
 
 
-    -- 2022
+
     (2,'Bienvenida con los Looney Tunes','Estos queridos personajes estarán recibiendo a los asistentes con una divertida y colorida presentación que inyectará energía desde el inicio de la visita.','Quiosco Pueblo Mexicano','10:00:00','11:30:00','2022-01-01','2022-12-30'),
     (1,'DC Colors','Los integrantes de la Liga de la Justicia mostrarán sus cualidades y habilidades para combatir el mal y a los villanos que se atrevan a irrumpir con la diversión.','Villa Hollywood','11:30:00','12:30:00','2022-04-01','2022-05-28'),
     (10,'Looney Tunes Color Time','Polvos de colores, confetti y encanto estarán presentes en este encuentro en donde se podrá tomar foto, cantar y abrazar a los personajes favoritos en el Castillo de los Sueños.','Castillo de los Sueños','12:30:00','13:30:00','2022-04-01','2022-05-28'),
@@ -155,7 +155,6 @@ VALUES
     (3,'Manualidades para Niños','Deja que los más pequeños se unan a la celebración de las culturas con diferentes manualidades y diversión.','DC Super Friends','10:00:00','22:00:00','2022-06-23','2022-08-13'),
     (8,'Encuentro y Saludo LOONEY TUNES','Canta y baila con Bugs Bunny y sus amigos de Looney Tunes con los favoritos de la familia que seguramente te pondrán en el espíritu festivo.','Circo de Bugs Bunny','16:00:00','22:00:00','2022-11-24','2023-01-21'),
 
-    -- 2023
     (2,'Bienvenida con los Looney Tunes','Estos queridos personajes estarán recibiendo a los asistentes con una divertida y colorida presentación que inyectará energía desde el inicio de la visita.','Quiosco Pueblo Mexicano','10:00:00','11:30:00','2023-01-01','2023-12-30'),
     (1,'DC Colors','Los integrantes de la Liga de la Justicia mostrarán sus cualidades y habilidades para combatir el mal y a los villanos que se atrevan a irrumpir con la diversión.','Villa Hollywood','11:30:00','12:30:00','2023-04-01','2023-05-28'),
     (10,'Looney Tunes Color Time','Polvos de colores, confetti y encanto estarán presentes en este encuentro en donde se podrá tomar foto, cantar y abrazar a los personajes favoritos en el Castillo de los Sueños.','Castillo de los Sueños','12:30:00','13:30:00','2023-04-01','2023-05-28'),
