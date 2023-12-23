@@ -58,7 +58,6 @@ function registrosPorGrupo(plu, ben) {
 }
 
 //contenido del archivo, insert
-
 const insertContent = "I NSERT INTO  producto_beneficio(\n\tplu\n\t, beneficio_id \n)\nVALUES\n";
 let registros = '';
 
