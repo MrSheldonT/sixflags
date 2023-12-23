@@ -196,9 +196,9 @@ CREATE TABLE IF NOT EXISTS tienda_mercancia (
 );
 
 CREATE TABLE IF NOT EXISTS tipo_atraccion (
-  tipo_atraccion_id INT NOT NULL
-  , nombre VARCHAR(10) NOT NULL
-  , descripcion VARCHAR(255) NOT NULL
+  tipo_atraccion_id INT NOT NULL AUTO_INCREMENT
+  , nombre VARCHAR(30) NOT NULL
+  , descripcion VARCHAR(300) NOT NULL
   , PRIMARY KEY (tipo_atraccion_id)
 );
 
@@ -335,6 +335,7 @@ CREATE TABLE IF NOT EXISTS tarjeta_complemento (
   , tarjeta_complemento_id INT NOT NULL
 );
 
+<<<<<<< HEAD
 -- Tabla tipos de atracciónes --
 CREATE TABLE IF NOT EXISTS tipo_atraccion (
     tipo_atraccion_id INT NOT NULL AUTO_INCREMENT
@@ -349,6 +350,8 @@ CREATE TABLE IF NOT EXISTS flash_pass (
   , tarjeta_id INT NOT NULL 
 );
 
+=======
+>>>>>>> dcbc9f2944d21287ed614d89b5862ce409896f0a
 -- Bloque de alters_______________________________________________________________________________________________
 -- Horario con parque
 ALTER TABLE horario
