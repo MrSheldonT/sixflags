@@ -181,8 +181,8 @@ CREATE TABLE IF NOT EXISTS mercancia (
   , nombre VARCHAR(100) NOT NULL
   , descripcion TEXT NOT NULL
   , precio DECIMAL(6, 2) NOT NULL
-  , fecha_inicio_venta TIMESTAMP NOT NULL
-  , fecha_fin_venta TIMESTAMP NULL
+  , fecha_inicio_venta DATE NOT NULL
+  , fecha_fin_venta DATE NULL
   , descontinuacion TINYINT(1) NULL
   , stock INT NOT NULL
   , url_imagen VARCHAR(200) NOT NULL
@@ -260,7 +260,7 @@ CREATE TABLE IF NOT EXISTS producto (
   , precio_unitario DECIMAL(8, 2) NOT NULL DEFAULT 0.00
   , fecha_inicio_venta TIMESTAMP NOT NULL
   , fecha_fin_venta TIMESTAMP NULL
-  , fecha_descontinuacion TIMESTAMP NULL
+  , descontinuacion TINYINT(1) NULL
   , stock MEDIUMINT UNSIGNED NOT NULL DEFAULT 0
   , cantidad_minimo_compra TINYINT NOT NULL
   , PRIMARY KEY (plu)
@@ -274,7 +274,7 @@ CREATE TABLE IF NOT EXISTS paquete (
 
 CREATE TABLE IF NOT EXISTS beneficio (
   beneficio_id INT NOT NULL AUTO_INCREMENT
-  , descripcion VARCHAR(80) NOT NULL
+  , descripcion VARCHAR(200) NOT NULL
   , PRIMARY KEY (beneficio_id)
 );
 
