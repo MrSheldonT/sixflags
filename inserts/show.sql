@@ -1,4 +1,4 @@
-INSERT INTO show (villa_id
+INSERT INTO espectaculo (villa_id
                         , nombre
                         , descripcion
                         , localizacion
