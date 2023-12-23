@@ -341,6 +341,13 @@ CREATE TABLE IF NOT EXISTS tipo_atraccion (
     , descripcion VARCHAR(300) NOT NULL
     , PRIMARY KEY (tipo_atraccion_id)
 );
+
+-- tabla flash_pass
+CREATE TABLE IF NOT EXISTS flash_pass (
+  ciclo_id INT NOT NULL
+  , tarjeta_id INT NOT NULL 
+);
+
 -- Insertar datos
 -- parque
 INSERT INTO parque(
@@ -25579,3 +25586,8 @@ ALTER TABLE paquete
 ALTER TABLE producto
   ADD FOREIGN KEY (categoria_producto_id) REFERENCES categoria_producto(categoria_producto_id)
   , ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
+
+-- flash_pass com tarjeta y ciclo --
+ALTER TABLE flash_pass
+  ADD FOREIGN KEY (ciclo_id) REFERENCES ciclo(ciclo_id);
+  , ADD FOREIGN KEY (tarjeta_id) REFERENCES tarjeta(tarjeta_id);
