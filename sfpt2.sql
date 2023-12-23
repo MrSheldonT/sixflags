@@ -222,19 +222,13 @@ CREATE TABLE IF NOT EXISTS atraccion (
   , fabricante_id INT NOT NULL
   , nombre VARCHAR(45) NOT NULL
   , descripcion TEXT NOT NULL
-  , localizacion VARCHAR(45) NOT NULL
-  , caracteristicas_especiales VARCHAR(45) NULL
   , estado VARCHAR(25) NOT NULL
   , consideracion VARCHAR(80) NOT NULL
-  , duracion TIME NOT NULL
+  , duracion VARCHAR(20) NOT NULL
   , anio_introducido YEAR NOT NULL
-  , costo DECIMAL(6, 2) NOT NULL
-  , hora_apertura TIME NOT NULL
-  , hora_cierre TIME NOT NULL
-  , capacidad TINYINT UNSIGNED NOT NULL
-  , velocidad_max_km TINYINT NULL
-  , elevacion_m TINYINT NULL
-  , largo_m TINYINT NULL
+  , velocidad_max_km VARCHAR(15) NULL
+  , elevacion_m DECIMAL(8,2) NULL
+  , largo_m INT NULL
   , PRIMARY KEY (atraccion_id)
 );
 
