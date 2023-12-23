@@ -12,9 +12,9 @@ CREATE TABLE IF NOT EXISTS parque (
     estado VARCHAR(20) NOT NULL,
     pais VARCHAR(15) NOT NULL,
     fecha_inauguracion DATE NOT NULL,
-    fecha_cierre DATE NOT NULL,
-    area_ha SMALLINT NOT NULL,
-    pagina_url VARCHAR(50) NOT NULL,
+    fecha_cierre DATE,
+    area_ha SMALLINT,
+    pagina_url VARCHAR(100) NOT NULL,
     mapa_url VARCHAR(100) NOT NULL,
     PRIMARY KEY (parque_id)
 );
