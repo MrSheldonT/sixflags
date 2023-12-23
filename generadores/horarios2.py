@@ -36,7 +36,7 @@ VALUES
 
 fecha_actual = '2020-01-01'
 archivo_sql = 'horarios.sql'
-fecha_limite = datetime.strptime('2024-03-21', '%Y-%m-%d')
+fecha_limite = datetime.strptime('2023-12-01', '%Y-%m-%d')
 semilla = 1  # Puedes cambiar este valor para obtener diferentes secuencias aleatorias
 
 generar_fechas_aleatorias(fecha_actual, archivo_sql, fecha_limite, semilla)
