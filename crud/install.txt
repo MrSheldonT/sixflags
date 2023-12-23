@@ -1,4 +1,4 @@
 pip install textual
 pip install mysql-connector-python
-
+pip install textual-dev
 se ejecuta como un .py en consola y ya.
