@@ -27,7 +27,6 @@ class ConexionSQL(App):
     
     def __init__(self):
         super().__init__()
-        super().__init__()
         self.user_ = Input("root")
         self.pass_ = Input("1221", id="pass_", password=True)
         self.host_ = Input("127.0.0.1", id="host_")
@@ -70,8 +69,8 @@ class ConexionSQL(App):
             for table in tables:
                 self.opciones.add_option(table)       
         except mysql.connector.Error as e:
-           self.log_.write_line(f"{datetime.now().strftime("%Y-%m-%d %H:%M:%S")} Error al conectarse{e}")
-    
+            self.log_.write_line(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Error al conectarse: {e}")
+
     @on(OptionList.OptionHighlighted)
     @work(exclusive=True)
     async def show_selection(self, event: OptionList.OptionHighlighted) -> None:
@@ -82,10 +81,17 @@ class ConexionSQL(App):
                 cursor.execute(query)
                 self.tabla.clear(columns=True)
                 column_names = [column[0] for column in cursor.description]
-                self.tabla.add_columns(*column_names)
+                self.tabla.add_columns("#", *column_names)  
                 self.tabla.loading = True
-                for row in cursor:
-                    self.tabla.add_row(*row)
+                filita = 1  
+                while True:
+                    rows = cursor.fetchmany(size=50)
+                    if not rows:
+                        break
+                    for row in rows:
+                        self.tabla.add_row(filita, *row)
+                        filita += 1  
+
                 self.log_.write_line(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Consulta realizada con éxito {self.opciones.get_option_at_index(self.opciones.highlighted).prompt}")
                 self.tabla.loading = False
             except mysql.connector.Error as e:
@@ -100,11 +106,6 @@ class ConexionSQL(App):
            self.log_.write_line(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Se desconectó correctamente")
         except mysql.connector.Error as e:
             self.log_.write_line(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Hubo problemas al desconectar {e}")
-
-
-            #self.opciones.get_option_at_index(self.opciones.highlighted).prompt
-            #self.log_.write_line("Consulta realizada con éxito")
-    
 
 if __name__ == "__main__":
     app = ConexionSQL()
