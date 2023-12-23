@@ -20540,6 +20540,7 @@ VALUES
      , ('10', '1', 'Pueblo infantil')
      , ('11', '2', 'Hurricane Harbor')
 ;
+
 -- Show --
 INSERT INTO espectaculo (villa_id
                         , nombre
