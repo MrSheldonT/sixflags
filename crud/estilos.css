@@ -1,31 +1,28 @@
-ScrollableContainer {
-  
-    min-height: 0; /*creo que ni jala*/
-}
-conect{
-    height: 5;
-    align: center top;
-    min-width: 50;
-    padding: 1 ;
-}
+
 #conexion
 {
-    dock:left ;
-}
-#desconectar{
     dock:right ;
 }
+#desconectar{
+    dock: bottom;
+}    
+
 RadioSet {
+    border: rgb(192, 192, 192);
     layout: horizontal;
     width: 100%;
 }
+
 RichLog
 {
     border: rgb(192, 192, 192); 
+    /*height: 20%;*/
 }
-#conexion,
-#desconectar {
-    margin-right: 1;
+
+DataTable
+{
+    height: 40%;
+    border: rgb(192, 192, 192);
 }
 datos{
     layout: vertical;
@@ -36,12 +33,6 @@ container{
     border: rgb(192, 192, 192); 
 }
 
-conect, datos{
-    margin: 0; 
-}
-datos, consultas{
-    margin: 1; 
-}
 TextArea {
     margin: 1; 
     border: rgb(192, 192, 192); 
@@ -52,17 +43,19 @@ Input{
     height: 3 ;
 }
 
-Log{
-    height: 10%;
-    border: rgb(192, 192, 192); 
-}
 OptionList {
     height: 10%;
     border: rgb(192, 192, 192); 
 }
-DataTable{
-    height:30%;
 
+#nothing
+{
+    dock:right;
+}
+
+#delete
+{
+    dock:left ;
 }
 /*
 '%', 'fr', 'h', 'vh', 'vw', or 'w'
