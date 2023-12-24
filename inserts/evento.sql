@@ -1,4 +1,4 @@
-INSERT INTO eventos (
+INSERT INTO evento (
     parque_id,
     nombre,
     descripcion,
@@ -60,13 +60,11 @@ VALUES
     (1, 'Oktoberfest', 'Oktoberfest en Six Flags México es una celebración animada e inmersiva de la cultura alemana, llevando el famoso festival de la cerveza al corazón del parque temático. Saborea deliciosa cocina alemana mientras disfrutas de música en vivo, juegos y entretenimiento temático.', 'Six Flags', '2021-09-14', '2021-11-03'),
     (1, 'Oktoberfest', 'Oktoberfest en Six Flags México es una celebración animada e inmersiva de la cultura alemana, llevando el famoso festival de la cerveza al corazón del parque temático. Saborea deliciosa cocina alemana mientras disfrutas de música en vivo, juegos y entretenimiento temático.', 'Six Flags', '2022-09-14', '2022-11-03'),
     (2, 'Oktoberfest', 'Oktoberfest en Six Flags México es una celebración animada e inmersiva de la cultura alemana, llevando el famoso festival de la cerveza al corazón del parque temático. Saborea deliciosa cocina alemana mientras disfrutas de música en vivo, juegos y entretenimiento temático.', 'Six Flags', '2023-09-14', '2023-11-03'),
-    (1, 'Música en los Parques', 'Primavera de 2024, deja que tus estudiantes brillen durante esta maravillosa oportunidad de actuación con Música en los Parques. ¡Toca con todo tu corazón en el festival musical y luego disfruta de un fin de semana lleno de emociones, comida y diversión!', 'Six Flags', '2021-04-05', '2021-05-11'),
-    (2, 'Música en los Parques', 'Primavera de 2024, deja que tus estudiantes brillen durante esta maravillosa oportunidad de actuación con Música en los Parques. ¡Toca con todo tu corazón en el festival musical y luego disfruta de un fin de semana lleno de emociones, comida y diversión!', 'Six Flags', '2022-04-05', '2022-05-11'),
-    (1, 'Música en los Parques', 'Primavera de 2024, deja que tus estudiantes brillen durante esta maravillosa oportunidad de actuación con Música en los Parques. ¡Toca con todo tu corazón en el festival musical y luego disfruta de un fin de semana lleno de emociones, comida y diversión!', 'Six Flags', '2023-04-05', '2023-05-11'),
+    (1, 'Música en los Parques', 'Primavera de 2021, deja que tus estudiantes brillen durante esta maravillosa oportunidad de actuación con Música en los Parques. ¡Toca con todo tu corazón en el festival musical y luego disfruta de un fin de semana lleno de emociones, comida y diversión!', 'Six Flags', '2021-04-05', '2021-05-11'),
+    (2, 'Música en los Parques', 'Primavera de 2022, deja que tus estudiantes brillen durante esta maravillosa oportunidad de actuación con Música en los Parques. ¡Toca con todo tu corazón en el festival musical y luego disfruta de un fin de semana lleno de emociones, comida y diversión!', 'Six Flags', '2022-03-05', '2022-05-10'),
+    (1, 'Música en los Parques', 'Primavera de 2023, deja que tus estudiantes brillen durante esta maravillosa oportunidad de actuación con Música en los Parques. ¡Toca con todo tu corazón en el festival musical y luego disfruta de un fin de semana lleno de emociones, comida y diversión!', 'Six Flags', '2023-04-05', '2023-05-11'),
     (2, 'Festival de Comida y Cerveza', '¡Únete a nosotros mientras celebramos nuestro Festival de Comida y Cerveza! Nuestro festival promete ofrecer MÁS DE 50 cervezas diversas y sabrosas, MÁS creaciones culinarias especiales, MÁS entretenimiento y MÁS días de festival para celebrar. ¡Ah, y por supuesto, las mejores colecciones de montañas rusas, atracciones emocionantes y toboganes acuáticos! ¡Nos vemos en el festival! ¡Salud!', 'Six Flags', '2022-07-06', '2022-08-11'),
     (2, 'Festivales de Música', 'Los Festivales de Música de Six Flags son una excelente manera de llevar tu temporada de actuaciones a una conclusión exitosa y gratificante.', 'Six Flags', '2022-05-17', '2022-06-08'),
-
-
     (1, 'Park & Beat', 'En una tarde de juegos mecánicos, mucha gente, ligue, y muchos beats. Park and Beat se consolida como la mejor plataforma de musica electrónica en la CDMX.', 'beatcorp', '2018-04-28 10:00:00', '2018-04-28 21:00:00'),
     (1, 'Rockstage Live', 'Aquí les dejamos las postales del rocckkk celebrado en el Teatro Samoa de Six Flags.', 'Six Flags', '2020-06-16 10:00:00', '2020-06-16 21:00:00'),
     (1, 'Rockstage Live', 'Aquí les dejamos las postales del rocckkk celebrado en el Teatro Samoa de Six Flags.', 'Six Flags', '2021-06-20 10:00:00', '2021-06-20 21:00:00'),
