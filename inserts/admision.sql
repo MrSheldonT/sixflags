@@ -1,3 +1,4 @@
+--revisar(fechas, admision, tickets, hora,  más datos, hora de 10am-17 pm), dias del año?
 INSERT INTO admision (admision_no, fecha_admision, parque_id, tarjeta_id) VALUES 
 (1, '2023-04-06 18:28:25', 2, 1),
 (2, '2021-07-24 18:28:25', 1, 2),

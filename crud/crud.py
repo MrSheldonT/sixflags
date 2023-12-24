@@ -1,5 +1,5 @@
 from textual.app import App, ComposeResult
-from textual.widgets import Header, LoadingIndicator, Button, Static, Input, Label, TextArea, DataTable, Log, OptionList, LoadingIndicator
+from textual.widgets import Header, LoadingIndicator, Button, Static, Input, Label, TextArea, DataTable, Log, OptionList, LoadingIndicator, RadioButton, RadioSet, RichLog
 from datetime import datetime
 from textual import on, work
 import mysql.connector
@@ -27,14 +27,14 @@ class ConexionSQL(App):
     
     def __init__(self):
         super().__init__()
-        super().__init__()
         self.user_ = Input("root")
         self.pass_ = Input("1221", id="pass_", password=True)
         self.host_ = Input("127.0.0.1", id="host_")
         self.database_ = Input("northwind", id="database_")
         self.cnx = None
-        self.log_ = Log()
+        self.log_ = RichLog(highlight=True, markup=True)
         self.tabla = DataTable()
+        self.tabla.cursor_type = "row"
         self.tabla.zebra_stripes = True
         self.opciones = OptionList("Conectate primero")
         self.loading = LoadingIndicator()
@@ -44,7 +44,7 @@ class ConexionSQL(App):
     CSS_PATH = 'estilos.css'
     def compose(self) -> ComposeResult:
         yield Header(show_clock=True)
-        yield ScrollableContainer (conect())
+        yield Container (conect())
         yield Label(" Usuario:")
         yield self.user_        
         yield Label(" Contraseña:")
@@ -57,12 +57,19 @@ class ConexionSQL(App):
         yield Label(" Menú de tablas")
         yield self.opciones
         yield self.tabla
+        ## llenado
+        with RadioSet():
+            yield RadioButton("No hacer nada", value=True) 
+            yield RadioButton("Crear fila") #c
+            yield RadioButton("Actualizar valor")#u
+            yield RadioButton("Eliminar fila")#d
+            
 
     @on(Button.Pressed, "#conexion")
     def conectar(self):
         try:
             self.cnx = mysql.connector.connect(user= self.user_.value, password = self.pass_.value, host = self.host_.value, database = self.database_.value)
-            self.log_.write_line(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Conexión exitosa")
+            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Conexión exitosa")
             cursor = self.cnx.cursor()
             cursor.execute("SHOW TABLES;")
             self.opciones.clear_options()
@@ -70,7 +77,7 @@ class ConexionSQL(App):
             for table in tables:
                 self.opciones.add_option(table)       
         except mysql.connector.Error as e:
-           self.log_.write_line(f"{datetime.now().strftime("%Y-%m-%d %H:%M:%S")} Error al conectarse{e}")
+            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Error al conectarse: {e}")
     
     @on(OptionList.OptionHighlighted)
     @work(exclusive=True)
@@ -82,29 +89,31 @@ class ConexionSQL(App):
                 cursor.execute(query)
                 self.tabla.clear(columns=True)
                 column_names = [column[0] for column in cursor.description]
-                self.tabla.add_columns(*column_names)
+                self.tabla.add_columns(*column_names)  
                 self.tabla.loading = True
-                for row in cursor:
-                    self.tabla.add_row(*row)
-                self.log_.write_line(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Consulta realizada con éxito {self.opciones.get_option_at_index(self.opciones.highlighted).prompt}")
+                filita = 1  
+                while True:
+                    rows = cursor.fetchmany(size=50)
+                    if not rows:
+                        break
+                    for row in rows:
+                        self.tabla.add_row(label=filita, *row)
+                        filita += 1  
+
+                self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Consulta realizada con éxito {self.opciones.get_option_at_index(self.opciones.highlighted).prompt}")
                 self.tabla.loading = False
             except mysql.connector.Error as e:
-                self.log_.write_line(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Error al ejecutar la consulta: {str(e)}")
+                self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Error al ejecutar la consulta: {str(e)}")
         else:
-            self.log_.write_line(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} No se ha establecido una conexión")
-
+            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} No se ha establecido una conexión")
+            self.log_.write(str(self.tabla.cursor_row))
     @on(Button.Pressed, "#desconectar")
     def desconectar(self):
         try:
            self.cnx.close()
-           self.log_.write_line(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Se desconectó correctamente")
+           self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Se desconectó correctamente")
         except mysql.connector.Error as e:
-            self.log_.write_line(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Hubo problemas al desconectar {e}")
-
-
-            #self.opciones.get_option_at_index(self.opciones.highlighted).prompt
-            #self.log_.write_line("Consulta realizada con éxito")
-    
+            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Hubo problemas al desconectar {e}")
 
 if __name__ == "__main__":
     app = ConexionSQL()
