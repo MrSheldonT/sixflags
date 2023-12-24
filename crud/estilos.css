@@ -15,6 +15,14 @@ conect{
 #desconectar{
     dock:right ;
 }
+RadioSet {
+    layout: horizontal;
+    width: 100%;
+}
+RichLog
+{
+    border: rgb(192, 192, 192); 
+}
 #conexion,
 #desconectar {
     margin-right: 1;
@@ -27,13 +35,7 @@ datos{
 container{
     border: rgb(192, 192, 192); 
 }
-#consultar{
-    
-    margin-right: 1;
-    margin-bottom: 1;
-    dock: right;
 
-}
 conect, datos{
     margin: 0; 
 }
@@ -66,4 +68,10 @@ DataTable{
 '%', 'fr', 'h', 'vh', 'vw', or 'w'
 utilidad
 dock:right;
+#consultar{
+    
+    margin-right: 1;
+    margin-bottom: 1;
+    dock: right;
+
 */
