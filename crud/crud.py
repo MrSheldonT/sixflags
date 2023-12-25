@@ -21,9 +21,10 @@ class ConexionSQL(App):
         self.tabla_ = DataTable()
         self.tabla_.cursor_type = "row"
         self.tabla_.zebra_stripes = True
-        self.opciones_ = OptionList("Conectate primero")
+        self.opciones_ = OptionList("--Conectate primero")
         self.loading_ = LoadingIndicator()
-        self.consulta_ = TextArea("jajja", language="python")
+        self.consulta_ = TextArea("--Cuadro de consultas", language="sql")
+        self.seleccionado_ = None
 
     def conex(self) -> None:
        
@@ -51,22 +52,11 @@ class ConexionSQL(App):
                 yield self.consulta_
                 with RadioSet():
                     yield RadioButton("Eliminar fila", id="delete")#d
-                    yield RadioButton("Insertar fila", id="create") #c
+                    yield RadioButton("Insertar fila", id="insert") #c
                     yield RadioButton("Actualizar valor", id="update")#u            
                     yield RadioButton("Query", id="query")#u       
-                    yield RadioButton("No hacer nada", value=True, id="nothing") 
+                    yield RadioButton("Ejecutar", value=True, id="ejecutar") 
     ##############################################
-    async def on_radio_set_changed(self, event: RadioSet.Changed) -> None:
-        cambios = [] 
-        tabla = str(self.opciones_.get_option_at_index(self.opciones_.highlighted).prompt)
-        cursor = self.cnx_.cursor(tabla)
-        cursor.execute(f"DESC {tabla}")
-        for i in cursor.fetchall():
-            cambios.append(str(i[0]))
-        if(event.pressed.id == 'create'):
-            self.consulta_.text = f"INSERT INTO ({",".join(cambios)})"
-        self.log_.write("cambios")
-        
             
     @on(Button.Pressed, "#conexion")
     def conectar(self):
@@ -88,6 +78,7 @@ class ConexionSQL(App):
     async def show_selection(self, event: OptionList.OptionHighlighted) -> None:
         if self.cnx_ is not None:
             try:
+                self.seleccionado_ = self.opciones_.get_option_at_index(self.opciones_.highlighted).prompt
                 cursor = self.cnx_.cursor()
                 query = f"SELECT * FROM {self.opciones_.get_option_at_index(self.opciones_.highlighted).prompt}"
                 cursor.execute(query)
@@ -103,7 +94,6 @@ class ConexionSQL(App):
                     for row in rows:
                         self.tabla_.add_row(label=filita, *row)
                         filita += 1  
-
                 self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Consulta realizada con éxito {self.opciones_.get_option_at_index(self.opciones_.highlighted).prompt}")
                 self.tabla_.loading = False
             except mysql.connector.Error as e:
@@ -118,8 +108,38 @@ class ConexionSQL(App):
            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Se desconectó correctamente")
         except mysql.connector.Error as e:
             self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Hubo problemas al desconectar {e}")
-
-                
+    
+    async def on_radio_set_changed(self, event: RadioSet.Changed) -> None:
+        tabla = self.seleccionado_
+        cambios =[]
+        cursor = self.cnx_.cursor(tabla)
+        cursor.execute(f"DESC {tabla}")
+        for i in cursor.fetchall():
+            cambios.append(str(i[0]))
+         
+        if event.pressed.id == 'update':
+            self.consulta_.text = f"UPDATE {tabla}\nSET {', '.join([f'{c} =  ' for c in cambios[1:]])}\nWHERE \n\t{cambios[0]} =  "
+        if event.pressed.id == 'delete':
+            self.consulta_.text =f"DELETE FROM {tabla} {str(self.opciones_.get_option_at_index(self.opciones_.highlighted).prompt)}\n\t WHERE {cambios[0]} = "
+            # {self.tabla_.get_cell_at(self,(1,2))};"
+        if event.pressed.id == 'insert':
+            self.consulta_.text = f"INSERT INTO {tabla} {tuple(cambios)}\n VALUES (\t\n{', '.join(['\n\t' for _ in cambios])}\n);"
+       
+        if event.pressed.id == 'ejecutar':
+            cursor.execute(self.consulta_) # esto da error 
+            self.tabla_.clear(columns=True)
+            column_names = [column[0] for column in cursor.description]
+            self.tabla_.add_columns(*column_names)  
+            self.tabla_.loading = True
+            filita = 1  
+            while True:
+                rows = cursor.fetchmany(size=50)
+                if not rows:
+                    break
+                for row in rows:
+                    self.tabla_.add_row(label=filita, *row)
+                    filita += 1  
+        
 if __name__ == "__main__":
     app = ConexionSQL()
     app.run()
