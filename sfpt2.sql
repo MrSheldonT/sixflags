@@ -4,7 +4,7 @@ USE six_flags;
 
 -- Definición de tablas
 CREATE TABLE IF NOT EXISTS parque (
-    parque_id TINYINT NOT NULL AUTO_INCREMENT,
+    parque_id TINYINT AUTO_INCREMENT,
     nombre VARCHAR(50) NOT NULL,
     direccion VARCHAR(90) NOT NULL,
     telefono VARCHAR(15) NOT NULL,
@@ -196,45 +196,42 @@ CREATE TABLE IF NOT EXISTS tienda_mercancia (
 );
 
 CREATE TABLE IF NOT EXISTS tipo_atraccion (
-  tipo_atraccion_id INT NOT NULL AUTO_INCREMENT
+  tipo_atraccion_id INT AUTO_INCREMENT
   , nombre VARCHAR(30) NOT NULL
   , descripcion VARCHAR(300) NOT NULL
   , PRIMARY KEY (tipo_atraccion_id)
 );
 
 CREATE TABLE IF NOT EXISTS nivel_emocion (
-    nivel_emocion_id INT NOT NULL AUTO_INCREMENT,
+    nivel_emocion_id INT AUTO_INCREMENT,
     nombre VARCHAR(45) NOT NULL,
     PRIMARY KEY (nivel_emocion_id)
 );
 
 CREATE TABLE IF NOT EXISTS fabricante (
-    fabricante_id INT NOT NULL,
+    fabricante_id INT AUTO_INCREMENT,
     nombre VARCHAR(45) NOT NULL,
     PRIMARY KEY (fabricante_id)
 );
 
 CREATE TABLE IF NOT EXISTS atraccion (
-  atraccion_id INT NOT NULL
+  atraccion_id INT AUTO_INCREMENT
   , villa_id INT NOT NULL
   , tipo_atraccion_id INT NOT NULL
   , nivel_emocion_id INT NOT NULL
   , fabricante_id INT NOT NULL
   , nombre VARCHAR(45) NOT NULL
   , descripcion TEXT NOT NULL
-  , localizacion VARCHAR(45) NOT NULL
-  , caracteristicas_especiales VARCHAR(45) NULL
+  , caracteristicas_especiales VARCHAR(45)
   , estado VARCHAR(25) NOT NULL
   , consideracion VARCHAR(80) NOT NULL
-  , duracion TIME NOT NULL
+  , duracion TIME
   , anio_introducido YEAR NOT NULL
-  , costo DECIMAL(6, 2) NOT NULL
-  , hora_apertura TIME NOT NULL
-  , hora_cierre TIME NOT NULL
-  , capacidad TINYINT UNSIGNED NOT NULL
-  , velocidad_max_km TINYINT NULL
-  , elevacion_m TINYINT NULL
-  , largo_m TINYINT NULL
+  , costo DECIMAL(6, 2) NOT NULL DEFAULT 0.00
+  , capacidad TINYINT UNSIGNED
+  , velocidad_max_km TINYINT UNSIGNED
+  , elevacion_m TINYINT UNSIGNED
+  , largo_m SMALLINT
   , PRIMARY KEY (atraccion_id)
 );
 
