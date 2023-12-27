@@ -253,7 +253,7 @@ CREATE TABLE IF NOT EXISTS producto (
   plu INT NOT NULL
   , categoria_producto_id INT NOT NULL
   , parque_id TINYINT NOT NULL
-  , nombre VARCHAR(45) NOT NULL
+  , nombre VARCHAR(60) NOT NULL
   , descripcion TEXT NOT NULL
   , precio_unitario DECIMAL(8, 2) NOT NULL DEFAULT 0.00
   , fecha_inicio_venta TIMESTAMP NOT NULL

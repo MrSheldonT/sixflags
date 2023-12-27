@@ -1,6 +1,7 @@
 import json
 import random
 
+random.seed(1)
 with open('producto.json', 'r', encoding="utf-8") as json_file:
     json_load = json.load(json_file)
 
@@ -32,24 +33,27 @@ with open('producto.sql', 'w', encoding = 'utf-8') as file:
     file.write('''INSERT INTO producto
 VALUES
 ''')
-    
-    descs = []
-    info = []
 
-    i = 0
     for x in data:
-        raw_descs = [x['desc']]
+        # desc
+        desc = x['desc']
         try:
-            info.append(x['more_info'])
+            info = (x['more_info'])
         except KeyError:
-            info.append('')
+            info = ('')
 
-        for desc in raw_descs:
-            for str in reemplazar:
-                desc = desc.replace(str, '')
-                info[i] = info[i].replace(str, '')
-            descs.append(desc + info[i])
+        for str in reemplazar:
+            desc = desc.replace(str, ' ')
+            info = info.replace(str, ' ')
+        desc = desc + info
 
-        file.write(f'''   , ({x['id']}, {categorias.get(x['package_class'], 10)}, {parques.get(x['merchant_id'], 3)}, '{x['name'].replace('?', '').replace("'", '')}', '{descs[i]}', {x['min_retail_amount']}, '2020-01-01 00:00:00', '2023-12-31 00:00:00', {random.randint(0,1)}, {random.randint(0, 1500)}, {x['min_quantity']})\n''')
-        i += 1
+        # fechas
+        if int(x['id']) <= 10092967:
+            fechas = ('2020-01-01 00:00:00', '2021-12-31 11:59:59')
+        elif int(x['id']) <= 10104617:
+            fechas = ('2022-01-01 00:00:00', '2022-12-31 11:59:59')
+        else:
+            fechas = ('2023-01-01 00:00:00', '2023-12-31 11:59:59')
+
+        file.write(f'''   , ({x['id']}, {categorias.get(x['package_class'], 10)}, {parques.get(x['merchant_id'], 3)}, '{x['name'].replace('?', '').replace("'", '')}', '{desc}', {x['min_retail_amount']}, '{fechas[0]}', '{fechas[1]}', {random.randint(0,1)}, {random.randint(0, 1500)}, {x['min_quantity']})\n''')
     file.write(';')
