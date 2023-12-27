@@ -6,7 +6,7 @@ from textual.events import Click
 import mysql.connector
 from mysql.connector import IntegrityError
 import traceback
-
+import logging
 from textual.containers import ScrollableContainer, Container
 CSS_PATH = 'estilos.css'
 
@@ -26,7 +26,8 @@ class ConexionSQL(App):
         self.tabla_.zebra_stripes = True
         self.opciones_ = OptionList("--Conectate primero")
         self.loading_ = LoadingIndicator()
-        self.consulta_ = TextArea("--Cuadro de consultas", language="sql")
+        self.consulta_ = TextArea("--Cuadro de consultas", language="python",theme="vscode_dark")
+        #{'dracula', 'github_light', 'monokai', 'vscode_dark'}
         self.seleccionado_ = None
 
     def conex(self) -> None:
@@ -68,21 +69,25 @@ class ConexionSQL(App):
     def conectar(self):
         try:
             self.cnx_ = mysql.connector.connect(user= self.user_.value, password = self.pass_.value, host = self.host_.value, database = self.database_.value)
-            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Conexión exitosa")
+            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Conexión [green]exitosa[/green]")
             cursor = self.cnx_.cursor()
             cursor.execute("SHOW TABLES;")
             self.opciones_.clear_options()
             tables = [table[0] for table in cursor.fetchall()]
             for table in tables:
-                self.opciones_.add_option(table)       
+                self.opciones_.add_option(table)    
         except mysql.connector.Error as e:
-            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Error al conectarse: {e}")
+            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} {e}")
+        except Exception as e:
+            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}  [red]Error[/red] al conectarse: {e}")            
+        except:
+             self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}  {traceback.format_exc()}")
    
     @on(Button.Pressed, "#ejecutar")
     @work(exclusive=True)
     async def consultita(self):
-        cursor = self.cnx_.cursor()
-        try:
+        try:            
+            cursor = self.cnx_.cursor()
             cursor.execute(self.consulta_.text)
             self.tabla_.clear(columns=True)
             column_names = [column[0] for column in cursor.description]
@@ -97,11 +102,13 @@ class ConexionSQL(App):
                     self.tabla_.add_row(label=filita, *row)
                     filita += 1 
             self.tabla_.loading = False
-            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Consulta realizada con éxito: {self.consulta_.text}")
+            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Consulta realizada con [green]éxito[/green]: [blue]{self.consulta_.text}[/blue]")
         except mysql.connector.IntegrityError as err:
-                self.log_.write("Error: {}".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), err))
+                self.log_.write("[red]Error[/red]: {}".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), err))
+        except Exception as e:
+                self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}  {e}")
         except:
-            self.log_write(f" {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}Ocurrió un error")
+             self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}  {traceback.format_exc()}")
         
 
     
@@ -127,50 +134,79 @@ class ConexionSQL(App):
                     for row in rows:
                         self.tabla_.add_row(label=filita, *row)
                         filita += 1  
-                self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Consulta realizada con éxito {self.opciones_.get_option_at_index(self.opciones_.highlighted).prompt}")
+                self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Consulta realizada con éxito [blue]{self.opciones_.get_option_at_index(self.opciones_.highlighted).prompt}[/blue]")
                 self.tabla_.loading = False
             except mysql.connector.Error as e:
-                self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Error al ejecutar la consulta: {str(e)}")
+                self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} [red]Error[/red] al ejecutar la consulta: {str(e)}")
+            except Exception as e:
+                self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}  {e}")
+            except:
+                 self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}  {traceback.format_exc()}")
         else:
-            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} No se ha establecido una conexión")            
+            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} [red]Error[/red] no se ha establecido una conexión")            
     
     @on(Button.Pressed, "#desconectar")
     def desconectar(self):
         try:
            self.cnx_.close()
            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Se desconectó correctamente")
+        except AttributeError as e:
+            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} [red]Error[/red] no se pudo desconectar, no te haz ni conectado. Error: {str(e)}")
         except mysql.connector.Error as err:
-            self.log_.write("Something went wrong: {}".format(err))
+            self.log_.write("Algo salió mal: {}".format(err))
+        except Exception as e:
+            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} [red]Error[/red] desconocido al desconectar: {str(e)}")
         except:
             self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}  {traceback.format_exc()}")
 
     
     async def on_radio_set_changed(self, event: RadioSet.Changed) -> None:
-        tabla = self.seleccionado_
-        cambios =[]
-        cursor = self.cnx_.cursor(tabla)
-        cursor.execute(f"DESC {tabla}")
-        for i in cursor.fetchall():
-            cambios.append(str(i[0]))
-         
+        
+        try:
+            tabla = self.seleccionado_
+            cambios =[]
+            cursor = self.cnx_.cursor(tabla)
+            cursor.execute(f"DESC {tabla}")
+            for i in cursor.fetchall():
+                cambios.append(str(i[0]))
+        except Exception as e:
+                self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}  {e}")
+        except:
+            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Error ¿Estás desconectado? ¿Seleccionaste alguna tabla?")     
         if event.pressed.id == 'update':
             try:
                 fila_actual = self.tabla_.get_row_at(self.tabla_.cursor_row)
                 sets = ', '.join([f'{c} = {fila_actual[i]}' for i, c in enumerate(cambios[1:])])
                 self.consulta_.text = f"UPDATE {tabla}\nSET {sets}\nWHERE {cambios[0]} = {fila_actual[0]};"
+            except UnboundLocalError as e:
+                self.consulta_.text = (f"¿Intentaste seleccionar una tabla primero? Error UnboundLocalError: {e}")
             except Exception as e:
-                print(f"Error durante la actualización: {str(e)}")
+                self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}  {e}")
+            except:
+                self.log_.write(traceback.format_exc())
 
         if event.pressed.id == 'delete':
             try:
                 fila_actual = self.tabla_.get_row_at(self.tabla_.cursor_row)
                 self.consulta_.text = f"DELETE FROM {tabla}\nWHERE {cambios[0]} = {fila_actual[0]};"
+            except UnboundLocalError as e:
+                self.consulta_.text = (f"¿Intentaste seleccionar una tabla primero? [red]Error[/red] UnboundLocalError: {e}")
+            except Exception as e:
+                self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}  {e}")
             except:
                 self.log_.write(traceback.format_exc())
 
 
         if event.pressed.id == 'insert':
-            self.consulta_.text = f"INSERT INTO {tabla} {tuple(cambios)}\n VALUES (\t\n{', '.join(['\n\t' for _ in cambios])}\n);"
+            try:
+                self.consulta_.text = f"INSERT INTO {tabla} {tuple(cambios)}\n VALUES (\t\n{', '.join(['\n\t' for _ in cambios])}\n);"
+            except UnboundLocalError as e:
+                self.consulta_.text = (f"¿Intentaste seleccionar una tabla primero? Error UnboundLocalError: {e}")
+            except Exception as e:
+                self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}  {e}")
+            except:
+                self.log_.write(traceback.format_exc())
+        
         if event.pressed.id == 'query':
             self.consulta_.text = f"-- Inserte la consulta que quiera."
     
