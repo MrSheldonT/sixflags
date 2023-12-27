@@ -4,6 +4,9 @@ from datetime import datetime
 from textual import on, work
 from textual.events import Click
 import mysql.connector
+from mysql.connector import IntegrityError
+import traceback
+
 from textual.containers import ScrollableContainer, Container
 CSS_PATH = 'estilos.css'
 
@@ -55,7 +58,10 @@ class ConexionSQL(App):
                     yield RadioButton("Insertar fila", id="insert") #c
                     yield RadioButton("Actualizar valor", id="update")#u            
                     yield RadioButton("Query", id="query")#u       
-                    yield RadioButton("Ejecutar", value=True, id="ejecutar") 
+                    #yield RadioButton("Ejecutar", value=True, id="ejecutar") 
+                
+                yield Button("Ejecutar", id="ejecutar", variant="warning")
+                    
     ##############################################
             
     @on(Button.Pressed, "#conexion")
@@ -72,7 +78,34 @@ class ConexionSQL(App):
         except mysql.connector.Error as e:
             self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Error al conectarse: {e}")
    
-            
+    @on(Button.Pressed, "#ejecutar")
+    @work(exclusive=True)
+    async def consultita(self):
+        cursor = self.cnx_.cursor()
+        try:
+            cursor.execute(self.consulta_.text)
+            self.tabla_.clear(columns=True)
+            column_names = [column[0] for column in cursor.description]
+            self.tabla_.add_columns(*column_names)  
+            self.tabla_.loading = True
+            filita = 1  
+            while True:
+                rows = cursor.fetchmany(size=50)
+                if not rows:
+                    break
+                for row in rows:
+                    self.tabla_.add_row(label=filita, *row)
+                    filita += 1 
+            self.tabla_.loading = False
+            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Consulta realizada con éxito: {self.consulta_.text}")
+        except mysql.connector.IntegrityError as err:
+                self.log_.write("Error: {}".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), err))
+        except:
+            self.log_write(f" {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}Ocurrió un error")
+        
+
+    
+
     @on(OptionList.OptionHighlighted)
     @work(exclusive=True)
     async def show_selection(self, event: OptionList.OptionHighlighted) -> None:
@@ -106,8 +139,11 @@ class ConexionSQL(App):
         try:
            self.cnx_.close()
            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Se desconectó correctamente")
-        except mysql.connector.Error as e:
-            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Hubo problemas al desconectar {e}")
+        except mysql.connector.Error as err:
+            self.log_.write("Something went wrong: {}".format(err))
+        except:
+            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}  {traceback.format_exc()}")
+
     
     async def on_radio_set_changed(self, event: RadioSet.Changed) -> None:
         tabla = self.seleccionado_
@@ -118,27 +154,28 @@ class ConexionSQL(App):
             cambios.append(str(i[0]))
          
         if event.pressed.id == 'update':
-            self.consulta_.text = f"UPDATE {tabla}\nSET {', '.join([f'{c} =  ' for c in cambios[1:]])}\nWHERE \n\t{cambios[0]} =  "
+            try:
+                fila_actual = self.tabla_.get_row_at(self.tabla_.cursor_row)
+                sets = ', '.join([f'{c} = {fila_actual[i]}' for i, c in enumerate(cambios[1:])])
+                self.consulta_.text = f"UPDATE {tabla}\nSET {sets}\nWHERE {cambios[0]} = {fila_actual[0]};"
+            except Exception as e:
+                print(f"Error durante la actualización: {str(e)}")
+
         if event.pressed.id == 'delete':
-            self.consulta_.text =f"DELETE FROM {tabla} {str(self.opciones_.get_option_at_index(self.opciones_.highlighted).prompt)}\n\t WHERE {cambios[0]} = "
-            # {self.tabla_.get_cell_at(self,(1,2))};"
+            try:
+                fila_actual = self.tabla_.get_row_at(self.tabla_.cursor_row)
+                self.consulta_.text = f"DELETE FROM {tabla}\nWHERE {cambios[0]} = {fila_actual[0]};"
+            except:
+                self.log_.write(traceback.format_exc())
+
+
         if event.pressed.id == 'insert':
             self.consulta_.text = f"INSERT INTO {tabla} {tuple(cambios)}\n VALUES (\t\n{', '.join(['\n\t' for _ in cambios])}\n);"
+        if event.pressed.id == 'query':
+            self.consulta_.text = f"-- Inserte la consulta que quiera."
+    
+
        
-        if event.pressed.id == 'ejecutar':
-            cursor.execute(self.consulta_) # esto da error 
-            self.tabla_.clear(columns=True)
-            column_names = [column[0] for column in cursor.description]
-            self.tabla_.add_columns(*column_names)  
-            self.tabla_.loading = True
-            filita = 1  
-            while True:
-                rows = cursor.fetchmany(size=50)
-                if not rows:
-                    break
-                for row in rows:
-                    self.tabla_.add_row(label=filita, *row)
-                    filita += 1  
         
 if __name__ == "__main__":
     app = ConexionSQL()

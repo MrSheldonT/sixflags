@@ -48,15 +48,12 @@ OptionList {
     border: rgb(192, 192, 192); 
 }
 
-#nothing
-{
-    dock:right;
-}
 
 #delete
 {
     dock:left ;
 }
+
 /*
 '%', 'fr', 'h', 'vh', 'vw', or 'w'
 utilidad
