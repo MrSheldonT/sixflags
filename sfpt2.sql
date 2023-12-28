@@ -293,7 +293,7 @@ CREATE TABLE IF NOT EXISTS comprador (
 CREATE TABLE IF NOT EXISTS venta (
   venta_id INT NOT NULL AUTO_INCREMENT
   , comprador_id INT NOT NULL
-  , fecha DATE NOT NULL
+  , fecha TIMESTAMP NOT NULL
   , cargo_proceso_linea DECIMAL(6, 2) NOT NULL DEFAULT 40
   , tipo_pago VARCHAR(30) NOT NULL
   , PRIMARY KEY (venta_id)
@@ -330,6 +330,11 @@ CREATE TABLE IF NOT EXISTS tarjeta (
 CREATE TABLE IF NOT EXISTS tarjeta_complemento (
   tarjeta_principal INT NOT NULL
   , tarjeta_complemento_id INT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS flash_pass (
+  ciclo_id INT NOT NULL
+  , tarjeta_id INT NOT NULL
 );
 
 -- Bloque de alters_______________________________________________________________________________________________
@@ -419,3 +424,7 @@ ALTER TABLE paquete
 ALTER TABLE producto
   ADD FOREIGN KEY (categoria_producto_id) REFERENCES categoria_producto(categoria_producto_id)
   , ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
+
+ALTER TABLE flash_pass
+  ADD FOREIGN KEY (ciclo_id) REFERENCES ciclo(ciclo_id)
+  , ADD FOREIGN KEY (tarjeta_id) REFERENCES tarjeta(tarjeta_id);
