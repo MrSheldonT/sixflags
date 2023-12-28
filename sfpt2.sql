@@ -332,14 +332,7 @@ CREATE TABLE IF NOT EXISTS tarjeta_complemento (
   , tarjeta_complemento_id INT NOT NULL
 );
 
-CREATE TABLE If NOT EXISTS tipo_atraccion (
-  tipo_atraccion_id INT NOT NULL AUTO_INCREMENT
-  , nombre VARCHAR(30) NOT NULL 
-  , descripcion VARCHAR(300) NOT NULL
-  , PRIMARY KEY (tipo_atraccion_id)
-);
-
-CREATE TABLE IF EXISTS flash_pass (
+CREATE TABLE IF NOT EXISTS flash_pass (
   ciclo_id INT NOT NULL
   , tarjeta_id INT NOT NULL
 )
