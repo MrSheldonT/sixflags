@@ -157,8 +157,8 @@ CREATE TABLE IF NOT EXISTS restaurante (
   restaurante_id INT NOT NULL
   , categoria_restaurante_id INT NOT NULL
   , villa_id INT NOT NULL
-  , nombre VARCHAR(45) NOT NULL
-  , descripcion VARCHAR(125) NOT NULL
+  , nombre VARCHAR(50) NOT NULL
+  , descripcion VARCHAR(300) NOT NULL
   , PRIMARY KEY(restaurante_id)
 );
 
@@ -172,8 +172,8 @@ CREATE TABLE IF NOT EXISTS tienda (
   tienda_id INT NOT NULL
   , villa_id INT NOT NULL
   , categoria_tienda_id INT NOT NULL
-  , nombre VARCHAR(45) NOT NULL
-  , descripcion VARCHAR(125) NOT NULL
+  , nombre VARCHAR(50) NOT NULL
+  , descripcion VARCHAR(300) NOT NULL
   , PRIMARY KEY (tienda_id)
 );
 
@@ -182,8 +182,8 @@ CREATE TABLE IF NOT EXISTS mercancia (
   , nombre VARCHAR(100) NOT NULL
   , descripcion TEXT NOT NULL
   , precio DECIMAL(6, 2) NOT NULL
-  , fecha_inicio_venta DATE NOT NULL
-  , fecha_fin_venta DATE NULL
+  , fecha_inicio_venta TIMESTAMP NOT NULL
+  , fecha_fin_venta TIMESTAMP NULL
   , descontinuacion TINYINT(1) NULL
   , stock INT NOT NULL
   , url_imagen VARCHAR(200) NOT NULL
