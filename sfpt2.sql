@@ -137,9 +137,9 @@ CREATE TABLE IF NOT EXISTS villa (
 CREATE TABLE IF NOT EXISTS espectaculo (
   espectaculo_id INT NOT NULL AUTO_INCREMENT
   , villa_id INT NOT NULL
-  , nombre VARCHAR(45) NOT NULL 
-  , descripcion VARCHAR(175) NOT NULL
-  , localizacion VARCHAR(45) NOT NULL 
+  , nombre VARCHAR(55) NOT NULL
+  , descripcion VARCHAR(255) NOT NULL
+  , localizacion VARCHAR(70) NOT NULL
   , hora_inicio TIME NOT NULL
   , hora_fin TIME NOT NULL
   , fecha_inicio DATE NOT NULL
