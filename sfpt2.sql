@@ -336,6 +336,13 @@ CREATE TABLE IF NOT EXISTS flash_pass (
   ciclo_id INT NOT NULL
   , tarjeta_id INT NOT NULL
 );
+CREATE TABLE IF NOT EXISTS admision(
+  	admision_id INT NOT NULL AUTO_INCREMENT
+  	, fecha_admision TIMESTAMP NOT NULL
+  	, parque_id TINYINT NOT NULL
+  	, tarjeta_id INT NOT NULL
+  	, PRIMARY KEY(admision_id)
+  );
 
 -- Bloque de alters_______________________________________________________________________________________________
 -- Horario con parque
@@ -429,3 +436,7 @@ ALTER TABLE flash_pass
   ADD FOREIGN KEY (ciclo_id) REFERENCES ciclo(ciclo_id) ON DELETE CASCADE 
   , ADD FOREIGN KEY (tarjeta_id) REFERENCES tarjeta(tarjeta_id) ON DELETE CASCADE ;
 
+ ALTER TABLE admision
+  	ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id) ON DELETE CASCADE
+    , ADD FOREIGN KEY (tarjeta_id) REFERENCES tarjeta(tarjeta_id) ON DELETE CASCADE
+ ;
