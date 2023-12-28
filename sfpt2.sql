@@ -293,7 +293,7 @@ CREATE TABLE IF NOT EXISTS comprador (
 CREATE TABLE IF NOT EXISTS venta (
   venta_id INT NOT NULL AUTO_INCREMENT
   , comprador_id INT NOT NULL
-  , fecha DATE NOT NULL
+  , fecha TIMESTAMP NOT NULL
   , cargo_proceso_linea DECIMAL(6, 2) NOT NULL DEFAULT 40
   , tipo_pago VARCHAR(30) NOT NULL
   , PRIMARY KEY (venta_id)
@@ -335,7 +335,7 @@ CREATE TABLE IF NOT EXISTS tarjeta_complemento (
 CREATE TABLE IF NOT EXISTS flash_pass (
   ciclo_id INT NOT NULL
   , tarjeta_id INT NOT NULL
-)
+);
 
 -- Bloque de alters_______________________________________________________________________________________________
 -- Horario con parque
