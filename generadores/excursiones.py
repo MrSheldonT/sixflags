@@ -35,8 +35,8 @@ VALUES
 
         archivo.write(''';''')
 
-fecha_inicio = datetime(2020, 10, 1)
-fecha_fin = datetime(2024, 1, 1)
+fecha_inicio = datetime(2020, 2, 1)
+fecha_fin = datetime(2023, 12, 30)
 hora_inicio = datetime.strptime("05:00:00", "%H:%M:%S")
 hora_fin = datetime.strptime("09:00:00", "%H:%M:%S")
 generar_excursion(1350, fecha_inicio, fecha_fin, hora_inicio, hora_fin)
