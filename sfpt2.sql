@@ -340,91 +340,92 @@ CREATE TABLE IF NOT EXISTS flash_pass (
 -- Bloque de alters_______________________________________________________________________________________________
 -- Horario con parque
 ALTER TABLE horario
-  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
+  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id) ON DELETE CASCADE;
 -- Empleado con parque
 ALTER TABLE empleado
-  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
+  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id) ON DELETE CASCADE;
 -- Excursión con parque
 ALTER TABLE excursion
-  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
+  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id) ON DELETE CASCADE;
 -- Alianza con parque
 ALTER TABLE alianza
-  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
+  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id) ON DELETE CASCADE;
 -- Tour con parque
 ALTER TABLE tour
-  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
+  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id) ON DELETE CASCADE;
   -- empleado_tour
 ALTER TABLE empleado_tour
-  ADD FOREIGN KEY (empleado_id) REFERENCES empleado(empleado_id)
-  , ADD FOREIGN KEY (tour_id) REFERENCES tour(tour_id);
+  ADD FOREIGN KEY (empleado_id) REFERENCES empleado(empleado_id) ON DELETE CASCADE
+  , ADD FOREIGN KEY (tour_id) REFERENCES tour(tour_id) ON DELETE CASCADE;
 -- Servicio con parque
 ALTER TABLE servicio
-  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
+  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id) ON DELETE CASCADE;
 -- Detalle de la renta de servicio
 ALTER TABLE renta_detalle
-  ADD FOREIGN KEY (renta_id) REFERENCES renta(renta_id)
-  , ADD FOREIGN KEY (servicio_id) REFERENCES servicio(servicio_id) ;
+  ADD FOREIGN KEY (renta_id) REFERENCES renta(renta_id) ON DELETE CASCADE
+  , ADD FOREIGN KEY (servicio_id) REFERENCES servicio(servicio_id) ON DELETE CASCADE;
 -- Evento con parque
 ALTER TABLE evento
-  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
+  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id) ON DELETE CASCADE;
 -- Villa con parque
 ALTER TABLE villa
-  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
+  ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id) ON DELETE CASCADE;
 -- Espetaculo con villa
 ALTER TABLE espectaculo
-  ADD FOREIGN KEY (villa_id) REFERENCES villa(villa_id);
+  ADD FOREIGN KEY (villa_id) REFERENCES villa(villa_id) ON DELETE CASCADE;
 -- Categoría del restaurante y villa
 ALTER TABLE restaurante
-  ADD FOREIGN KEY (categoria_restaurante_id) REFERENCES categoria_restaurante(categoria_restaurante_id)
-  , ADD FOREIGN KEY (villa_id) REFERENCES villa(villa_id);
+  ADD FOREIGN KEY (categoria_restaurante_id) REFERENCES categoria_restaurante(categoria_restaurante_id) ON DELETE CASCADE
+  , ADD FOREIGN KEY (villa_id) REFERENCES villa(villa_id) ON DELETE CASCADE;
 -- Tienda
 ALTER TABLE tienda
-  ADD FOREIGN KEY (villa_id) REFERENCES villa(villa_id)
-  , ADD FOREIGN KEY (categoria_tienda_id) REFERENCES categoria_tienda(categoria_tienda_id) ;
+  ADD FOREIGN KEY (villa_id) REFERENCES villa(villa_id) ON DELETE CASCADE
+  , ADD FOREIGN KEY (categoria_tienda_id) REFERENCES categoria_tienda(categoria_tienda_id) ON DELETE CASCADE;
 -- Mercancia
 ALTER TABLE tienda_mercancia
-  ADD FOREIGN KEY (tienda_id) REFERENCES tienda(tienda_id)
-  , ADD FOREIGN KEY (mercancia_id) REFERENCES mercancia(mercancia_id);
+  ADD FOREIGN KEY (tienda_id) REFERENCES tienda(tienda_id) ON DELETE CASCADE
+  , ADD FOREIGN KEY (mercancia_id) REFERENCES mercancia(mercancia_id) ON DELETE CASCADE;
 
 ALTER TABLE tarjeta_complemento
-  ADD FOREIGN KEY (tarjeta_principal) REFERENCES tarjeta(tarjeta_id)
-  , ADD FOREIGN KEY (tarjeta_complemento_id) REFERENCES tarjeta(tarjeta_id);
+  ADD FOREIGN KEY (tarjeta_principal) REFERENCES tarjeta(tarjeta_id) ON DELETE CASCADE
+  , ADD FOREIGN KEY (tarjeta_complemento_id) REFERENCES tarjeta(tarjeta_id) ON DELETE CASCADE;
 
 ALTER TABLE tarjeta
-  ADD FOREIGN KEY (plu) REFERENCES producto(plu)
-  , ADD FOREIGN KEY (ticket_id) REFERENCES ticket(ticket_id);
+  ADD FOREIGN KEY (plu) REFERENCES producto(plu) ON DELETE CASCADE
+  , ADD FOREIGN KEY (ticket_id) REFERENCES ticket(ticket_id) ON DELETE CASCADE;
 
 ALTER TABLE ticket
-  ADD FOREIGN KEY (venta_id) REFERENCES venta(venta_id);
+  ADD FOREIGN KEY (venta_id) REFERENCES venta(venta_id) ON DELETE CASCADE;
 
 ALTER TABLE venta_detalle
-ADD FOREIGN KEY (venta_id) REFERENCES venta(venta_id)
-, ADD FOREIGN KEY (plu) REFERENCES producto(plu);
+ADD FOREIGN KEY (venta_id) REFERENCES venta(venta_id) ON DELETE CASCADE
+, ADD FOREIGN KEY (plu) REFERENCES producto(plu) ON DELETE CASCADE;
 
 ALTER TABLE atraccion    
-  ADD FOREIGN KEY (villa_id) REFERENCES villa(villa_id)
-  , ADD FOREIGN KEY (tipo_atraccion_id) REFERENCES tipo_atraccion(tipo_atraccion_id)
-  , ADD FOREIGN KEY (nivel_emocion_id) REFERENCES nivel_emocion(nivel_emocion_id)
-  , ADD FOREIGN KEY (fabricante_id) REFERENCES fabricante(fabricante_id);
+  ADD FOREIGN KEY (villa_id) REFERENCES villa(villa_id) ON DELETE CASCADE
+  , ADD FOREIGN KEY (tipo_atraccion_id) REFERENCES tipo_atraccion(tipo_atraccion_id) ON DELETE CASCADE
+  , ADD FOREIGN KEY (nivel_emocion_id) REFERENCES nivel_emocion(nivel_emocion_id) ON DELETE CASCADE
+  , ADD FOREIGN KEY (fabricante_id) REFERENCES fabricante(fabricante_id) ON DELETE CASCADE;
 
 ALTER TABLE ciclo
-  ADD FOREIGN KEY (atraccion_id) REFERENCES atraccion(atraccion_id);
+  ADD FOREIGN KEY (atraccion_id) REFERENCES atraccion(atraccion_id) ON DELETE CASCADE;
 
 ALTER TABLE venta
-  ADD FOREIGN KEY (comprador_id) REFERENCES comprador(comprador_id);
+  ADD FOREIGN KEY (comprador_id) REFERENCES comprador(comprador_id) ON DELETE CASCADE;
 
 ALTER TABLE producto_beneficio
-  ADD FOREIGN KEY (plu) REFERENCES producto(plu)
-  , ADD FOREIGN KEY (beneficio_id) REFERENCES beneficio(beneficio_id);
+  ADD FOREIGN KEY (plu) REFERENCES producto(plu) ON DELETE CASCADE
+  , ADD FOREIGN KEY (beneficio_id) REFERENCES beneficio(beneficio_id) ON DELETE CASCADE;
 
 ALTER TABLE paquete
-  ADD FOREIGN KEY (paquete_plu) REFERENCES producto(plu)
-  , ADD FOREIGN KEY (producto_plu) REFERENCES producto(plu);
+  ADD FOREIGN KEY (paquete_plu) REFERENCES producto(plu) ON DELETE CASCADE
+  , ADD FOREIGN KEY (producto_plu) REFERENCES producto(plu) ON DELETE CASCADE;
 
 ALTER TABLE producto
-  ADD FOREIGN KEY (categoria_producto_id) REFERENCES categoria_producto(categoria_producto_id)
-  , ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id);
+  ADD FOREIGN KEY (categoria_producto_id) REFERENCES categoria_producto(categoria_producto_id) ON DELETE CASCADE
+  , ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id) ON DELETE CASCADE;
 
 ALTER TABLE flash_pass
-  ADD FOREIGN KEY (ciclo_id) REFERENCES ciclo(ciclo_id)
-  , ADD FOREIGN KEY (tarjeta_id) REFERENCES tarjeta(tarjeta_id);
+  ADD FOREIGN KEY (ciclo_id) REFERENCES ciclo(ciclo_id) ON DELETE CASCADE 
+  , ADD FOREIGN KEY (tarjeta_id) REFERENCES tarjeta(tarjeta_id) ON DELETE CASCADE ;
+
