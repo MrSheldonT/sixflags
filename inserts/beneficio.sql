@@ -86,4 +86,31 @@ VALUES
      ,('Acceso a la nueva VIP Lounge.*')
      -- christmas in the park kids
      ,('Admisión VIP Al parque el día seleccionado (sólo para niñas y niños entre 90 cm y 1.20 m de estatura).')
+     -- pases anuales
+     ,('Vigencia al 31 de diciembre de 2022.')
+     ,('Vigencia al 31 de diciembre de 2023.')
+     -- Plan Anual Adventure
+     ,('Visitas en fechas específicas a Six Flags México, Hurricane Harbor Oaxtepec y parques de Six Flags región Sur')
+     ,('Estacionamiento sin costo en Hurricane Harbor Oaxtepec y de lunes a viernes en Six Flags México')
+     ,('Dos cupones de descuento en boletos de un día para amigos y familiares.')
+     ,('Un Flash Pass de un acceso para juegos mecánicos participantes')
+     -- plan annual extreme
+     ,('Durante la vigencia de tu plan anual podrás disfrutar de visitas ilimitadas a todos los parques temáticos de Six Flags y Hurricane Harbor Oaxtepec.')
+     ,('Días de estacionamiento sin costo en Hurricane Harbor Oaxtepec y Six Flags México.')
+     ,('Incluye dos Junior Pass para menores de 1.07 m.')
+     ,('15% de Descuento en Souvenirs')
+     ,('15% de Descuento en Alimentos')
+     ,('5 Flash Pass de un acceso para juegos mecánicos participantes')
+     ,('5 descuentos en boletos de un día para amigos y familiares. ')
+     -- plan annual ultimate
+     /* ('Durante la vigencia de tu plan anual podrás disfrutar de visitas ilimitadas a todos los parques temáticos de Six Flags y Hurricane Harbor Oaxtepec.')
+     ,('Días de estacionamiento sin costo en Hurricane Harbor Oaxtepec y Six Flags México.')
+     ,('Incluye dos Junior Pass para menores de 1.07 m.')*/
+     ,('Acceso a Estacionamiento Preferente')
+     ,('20% de Descuento en Souvenirs y Aliment')
+     ,('10 Descuentos en boletos de un día para amigos y familiares al año')
+     ,('Un descuento del 50% en Flash Pass Platino')
+     ,('10 Flash Pass de un acceso')
+     -- junior pass
+     ,('¡THE FLASH Pass Junior reduce el tiempo de espera hasta en un 90 % para tus atracciones favoritas para niños y familias! Se requiere entrada al parque (se vende por separado).')
 ;
