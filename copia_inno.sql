@@ -306,7 +306,7 @@ CREATE TABLE IF NOT EXISTS venta_detalle (
 )ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS ticket (
-  ticket_id INT NOT NULL
+  ticket_id INT NOT NULL AUTO_INCREMENT
   , venta_id INT NOT NULL
   , codigo_barras CHAR(22) NOT NULL
   , nombre_titular VARCHAR(70)
