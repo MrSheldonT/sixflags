@@ -111,6 +111,10 @@ VALUES
      ,('10 Descuentos en boletos de un día para amigos y familiares al año')
      ,('Un descuento del 50% en Flash Pass Platino')
      ,('10 Flash Pass de un acceso')
+     -- admisiones
+     ,('Incluye diversión ilimitada en nuestros juegos mecánicos y shows, con excepción de eventos especiales y ciertas atracciones con costo adicional.')
      -- junior pass
      ,('¡THE FLASH Pass Junior reduce el tiempo de espera hasta en un 90 % para tus atracciones favoritas para niños y familias! Se requiere entrada al parque (se vende por separado).')
+    -- food garden
+    ,('Al rentar nuestra zona Food Garden, puedes traer tus propios alimentos en una hielera de máximo 63.5 cm. x 35.5 cm. x 35.5 cm. (48 cuartos).')
 ;
