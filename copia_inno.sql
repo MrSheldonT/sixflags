@@ -51,8 +51,7 @@ CREATE TABLE IF NOT EXISTS empleado (
   , pais VARCHAR(20) NOT NULL
   , cp CHAR(5) NOT NULL
   , tipo_contrato VARCHAR(30) NOT NULL
-  , fecha_contratacion DATE NOT NULL
-  , fecha_fin_contrato DATE NOT NULL
+  , activo TINYINT(1)
   , PRIMARY KEY(empleado_id)
 )ENGINE=InnoDB;
 
