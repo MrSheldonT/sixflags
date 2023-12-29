@@ -306,16 +306,23 @@ CREATE TABLE IF NOT EXISTS venta_detalle (
   , plu INT NOT NULL
   , precio_unitario DECIMAL(8, 2) NOT NULL DEFAULT 0
   , cantidad SMALLINT NOT NULL DEFAULT 1
-  , PRIMARY KEY (venta_id, plu)
 );
 
 CREATE TABLE IF NOT EXISTS ticket (
-  ticket_id INT NOT NULL
+  ticket_id INT NOT NULL AUTO_INCREMENT
   , venta_id INT NOT NULL
   , codigo_barras CHAR(22) NOT NULL
   , nombre_titular VARCHAR(70)
   , PRIMARY KEY (ticket_id)
 );
+
+CREATE TABLE IF NOT EXISTS admision (
+    admision_no INT NOT NULL AUTO_INCREMENT
+    , fecha_admision TIMESTAMP NULL
+    , parque_id TINYINT
+    , tarjeta_id INT
+    , PRIMARY KEY (admision_no)
+)
 
 CREATE TABLE IF NOT EXISTS tarjeta (
   tarjeta_id INT NOT NULL AUTO_INCREMENT
