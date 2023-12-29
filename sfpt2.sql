@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS parque (
     pagina_url VARCHAR(100) NOT NULL,
     mapa_url VARCHAR(100) NOT NULL,
     PRIMARY KEY (parque_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS horario (
   horario_id INT NOT NULL AUTO_INCREMENT
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS horario (
   , hora_apertura TIME NOT NULL
   , hora_cierre TIME NOT NULL
   , PRIMARY KEY (horario_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS empleado (
   empleado_id INT NOT NULL AUTO_INCREMENT
@@ -51,10 +51,9 @@ CREATE TABLE IF NOT EXISTS empleado (
   , pais VARCHAR(20) NOT NULL
   , cp CHAR(5) NOT NULL
   , tipo_contrato VARCHAR(30) NOT NULL
-  , fecha_contratacion DATE NOT NULL
-  , fecha_fin_contrato DATE NOT NULL
+  , activo TINYINT(1)
   , PRIMARY KEY(empleado_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS excursion (
   excursion_id INT NOT NULL AUTO_INCREMENT
@@ -62,7 +61,7 @@ CREATE TABLE IF NOT EXISTS excursion (
   , punto_partida VARCHAR(30) NOT NULL
   , fecha_hora TIMESTAMP NOT NULL
   , PRIMARY KEY(excursion_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS alianza (
     alianza_id TINYINT AUTO_INCREMENT
@@ -73,7 +72,7 @@ CREATE TABLE IF NOT EXISTS alianza (
     , descripcion VARCHAR(40) NOT NULL
     , pagina_url VARCHAR(50) NOT NULL
     , PRIMARY KEY (alianza_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS tour (
   tour_id INT NOT NULL AUTO_INCREMENT
@@ -84,12 +83,12 @@ CREATE TABLE IF NOT EXISTS tour (
   , contacto_correo VARCHAR(255) NOT NULL
   , contacto_telefono VARCHAR(15) NOT NULL
   , PRIMARY KEY(tour_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS empleado_tour (
   empleado_id INT NOT NULL 
   , tour_id INT NOT NULL
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS servicio (
   servicio_id INT NOT NULL AUTO_INCREMENT
@@ -99,7 +98,7 @@ CREATE TABLE IF NOT EXISTS servicio (
   , precio DECIMAL(6, 2) NOT NULL 
   , deposito_inicial DECIMAL (6, 2)
   , PRIMARY KEY(servicio_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS renta (
   renta_id INT NOT NULL AUTO_INCREMENT
@@ -108,13 +107,13 @@ CREATE TABLE IF NOT EXISTS renta (
   , fecha_hora_inicio TIMESTAMP NOT NULL
   , fecha_hora_fin TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
   , PRIMARY KEY(renta_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS renta_detalle (
   renta_id INT NOT NULL
   , servicio_id INT NOT NULL
   , cantidad TINYINT NOT NULL
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS evento (
     evento_id INT AUTO_INCREMENT
@@ -125,14 +124,14 @@ CREATE TABLE IF NOT EXISTS evento (
     , fecha_inicio TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
     , fecha_fin TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
     , PRIMARY KEY (evento_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS villa (
   villa_id INT NOT NULL AUTO_INCREMENT
   , parque_id TINYINT NOT NULL
   , nombre VARCHAR(45) NOT NULL
   , PRIMARY KEY (villa_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS espectaculo (
   espectaculo_id INT NOT NULL AUTO_INCREMENT
@@ -145,13 +144,13 @@ CREATE TABLE IF NOT EXISTS espectaculo (
   , fecha_inicio DATE NOT NULL
   , fecha_fin DATE NULL
   , PRIMARY KEY (espectaculo_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS categoria_restaurante (
   categoria_restaurante_id INT NOT NULL AUTO_INCREMENT
   , nombre VARCHAR(45) NOT NULL
   , PRIMARY KEY(categoria_restaurante_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS restaurante (
   restaurante_id INT NOT NULL AUTO_INCREMENT
@@ -160,13 +159,13 @@ CREATE TABLE IF NOT EXISTS restaurante (
   , nombre VARCHAR(50) NOT NULL
   , descripcion VARCHAR(300) NOT NULL
   , PRIMARY KEY(restaurante_id)
-);
+)ENGINE=InnoDB ;
 
 CREATE TABLE IF NOT EXISTS categoria_tienda (
   categoria_tienda_id INT NOT NULL AUTO_INCREMENT
-  ,nombre VARCHAR(45) NOT NULL
-  ,PRIMARY KEY (categoria_tienda_id)
-);
+  , nombre VARCHAR(45) NOT NULL
+  , PRIMARY KEY (categoria_tienda_id)
+)ENGINE=InnoDB ;
 
 CREATE TABLE IF NOT EXISTS tienda (
   tienda_id INT NOT NULL AUTO_INCREMENT
@@ -175,7 +174,7 @@ CREATE TABLE IF NOT EXISTS tienda (
   , nombre VARCHAR(50) NOT NULL
   , descripcion VARCHAR(300) NOT NULL
   , PRIMARY KEY (tienda_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS mercancia (
   mercancia_id INT NOT NULL AUTO_INCREMENT
@@ -188,31 +187,31 @@ CREATE TABLE IF NOT EXISTS mercancia (
   , stock INT NOT NULL
   , url_imagen VARCHAR(200) NOT NULL
   , PRIMARY KEY (mercancia_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS tienda_mercancia (
   tienda_id INT NOT NULL
   , mercancia_id INT NOT NULL
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS tipo_atraccion (
   tipo_atraccion_id INT AUTO_INCREMENT
   , nombre VARCHAR(30) NOT NULL
   , descripcion VARCHAR(300) NOT NULL
   , PRIMARY KEY (tipo_atraccion_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS nivel_emocion (
-    nivel_emocion_id INT AUTO_INCREMENT,
-    nombre VARCHAR(45) NOT NULL,
-    PRIMARY KEY (nivel_emocion_id)
-);
+    nivel_emocion_id INT AUTO_INCREMENT
+    , nombre VARCHAR(45) NOT NULL
+    , PRIMARY KEY (nivel_emocion_id)
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS fabricante (
-    fabricante_id INT AUTO_INCREMENT,
-    nombre VARCHAR(45) NOT NULL,
-    PRIMARY KEY (fabricante_id)
-);
+    fabricante_id INT AUTO_INCREMENT
+    , nombre VARCHAR(45) NOT NULL
+    , PRIMARY KEY (fabricante_id)
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS atraccion (
   atraccion_id INT AUTO_INCREMENT
@@ -233,20 +232,20 @@ CREATE TABLE IF NOT EXISTS atraccion (
   , elevacion_m TINYINT UNSIGNED
   , largo_m SMALLINT
   , PRIMARY KEY (atraccion_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS ciclo (
-    ciclo_id INT NOT NULL
+    ciclo_id INT NOT NULL AUTO_INCREMENT
     , atraccion_id INT NOT NULL
     , fecha_hora TIMESTAMP NOT NULL
     , PRIMARY KEY (ciclo_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS categoria_producto (
   categoria_producto_id INT NOT NULL AUTO_INCREMENT
   , nombre VARCHAR(45) NOT NULL
   , PRIMARY KEY (categoria_producto_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS producto (
   plu INT NOT NULL
@@ -261,25 +260,25 @@ CREATE TABLE IF NOT EXISTS producto (
   , stock MEDIUMINT UNSIGNED NOT NULL DEFAULT 0
   , cantidad_minimo_compra TINYINT NOT NULL
   , PRIMARY KEY (plu)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS paquete (
   paquete_plu INT NOT NULL
   , producto_plu INT NOT NULL
   , PRIMARY KEY (paquete_plu, producto_plu)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS beneficio (
   beneficio_id INT NOT NULL AUTO_INCREMENT
   , descripcion VARCHAR(200) NOT NULL
   , PRIMARY KEY (beneficio_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS producto_beneficio (
   plu INT NOT NULL
   , beneficio_id INT NOT NULL
   , PRIMARY KEY (plu, beneficio_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS comprador (
     comprador_id INT AUTO_INCREMENT
@@ -287,7 +286,7 @@ CREATE TABLE IF NOT EXISTS comprador (
     , telefono VARCHAR(15) NOT NULL
     , correo_electronico VARCHAR(255) NOT NULL
     , PRIMARY KEY (comprador_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS venta (
   venta_id INT NOT NULL AUTO_INCREMENT
@@ -296,7 +295,7 @@ CREATE TABLE IF NOT EXISTS venta (
   , cargo_proceso_linea DECIMAL(6, 2) NOT NULL DEFAULT 40
   , tipo_pago VARCHAR(30) NOT NULL
   , PRIMARY KEY (venta_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS venta_detalle (
   venta_id INT NOT NULL
@@ -304,15 +303,15 @@ CREATE TABLE IF NOT EXISTS venta_detalle (
   , precio_unitario DECIMAL(8, 2) NOT NULL DEFAULT 0
   , cantidad SMALLINT NOT NULL DEFAULT 1
   , PRIMARY KEY (venta_id, plu)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS ticket (
-  ticket_id INT NOT NULL
+  ticket_id INT NOT NULL AUTO_INCREMENT
   , venta_id INT NOT NULL
   , codigo_barras CHAR(22) NOT NULL
   , nombre_titular VARCHAR(70)
   , PRIMARY KEY (ticket_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS tarjeta (
   tarjeta_id INT NOT NULL AUTO_INCREMENT
@@ -324,24 +323,24 @@ CREATE TABLE IF NOT EXISTS tarjeta (
   , plu INT NOT NULL
   , ticket_id INT NOT NULL
   , PRIMARY KEY (tarjeta_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS tarjeta_complemento (
   tarjeta_principal INT NOT NULL
   , tarjeta_complemento_id INT NOT NULL
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS flash_pass (
   ciclo_id INT NOT NULL
   , tarjeta_id INT NOT NULL
-);
+)ENGINE=InnoDB;
 CREATE TABLE IF NOT EXISTS admision(
   	admision_id INT NOT NULL AUTO_INCREMENT
   	, fecha_admision TIMESTAMP NOT NULL
   	, parque_id TINYINT NOT NULL
   	, tarjeta_id INT NOT NULL
   	, PRIMARY KEY(admision_id)
-  );
+)ENGINE=InnoDB;
 
 -- Bloque de alters_______________________________________________________________________________________________
 -- Horario con parque
