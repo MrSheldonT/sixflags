@@ -1,4 +1,4 @@
-INSERT INTO restaurante(restaurante_id,categoria_restaurante_id, villa_id, nombre, descripcion)
+INSERT INTO restaurante(categoria_restaurante_id, villa_id, nombre, descripcion)
 VALUES ('6','2','Antigua Hacienda', 'Platillos tradicionales de la comida mexicana, tortillas hechas a mano, deliciosas bebidas, postres y un exquisito sazón.')
        , ('2','4','Café D París', 'Bebidas calientes o frías, crepas dulces o saladas, pastelería y delicioso pan')
        , ('5','7','Capones', '¡Deliciosa pizza y pasta!')
