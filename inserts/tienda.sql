@@ -1,6 +1,5 @@
 INSERT INTO tienda(
-    tienda_id
-    , villa_id
+    villa_id
     , categoria_tienda_id
     , nombre
     , descripcion
