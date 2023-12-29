@@ -116,5 +116,6 @@ VALUES
      -- junior pass
      ,('¡THE FLASH Pass Junior reduce el tiempo de espera hasta en un 90 % para tus atracciones favoritas para niños y familias! Se requiere entrada al parque (se vende por separado).')
     -- food garden
-    ,('Al rentar nuestra zona Food Garden, puedes traer tus propios alimentos en una hielera de máximo 63.5 cm. x 35.5 cm. x 35.5 cm. (48 cuartos).')
+     ,('Al rentar nuestra zona Food Garden, puedes traer tus propios alimentos en una hielera de máximo 63.5 cm. x 35.5 cm. x 35.5 cm. (48 cuartos).')
+     ,('Pasar la noche dentro del parque, y despertar lleno de energía para disfrutar de nuestros toboganes, atracciones acuáticas y todo lo que el Oasis Tropical tiene para ofrecerte para que vivas días y noches espectaculares.')
 ;
