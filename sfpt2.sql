@@ -236,11 +236,10 @@ CREATE TABLE IF NOT EXISTS atraccion (
 );
 
 CREATE TABLE IF NOT EXISTS ciclo (
-    ciclo_id INT NOT NULL,
-    atraccion_id INT NOT NULL,
-    fecha_hora TIMESTAMP NOT NULL,
-    no_visitantes TINYINT UNSIGNED NOT NULL,
-    PRIMARY KEY (ciclo_id)
+    ciclo_id INT NOT NULL
+    , atraccion_id INT NOT NULL
+    , fecha_hora TIMESTAMP NOT NULL
+    , PRIMARY KEY (ciclo_id)
 );
 
 CREATE TABLE IF NOT EXISTS categoria_producto (
