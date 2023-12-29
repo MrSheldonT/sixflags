@@ -154,7 +154,7 @@ CREATE TABLE IF NOT EXISTS categoria_restaurante (
 );
 
 CREATE TABLE IF NOT EXISTS restaurante (
-  restaurante_id INT NOT NULL
+  restaurante_id INT NOT NULL AUTO_INCREMENT
   , categoria_restaurante_id INT NOT NULL
   , villa_id INT NOT NULL
   , nombre VARCHAR(50) NOT NULL
@@ -163,13 +163,13 @@ CREATE TABLE IF NOT EXISTS restaurante (
 );
 
 CREATE TABLE IF NOT EXISTS categoria_tienda (
-  categoria_tienda_id INT NOT NULL,
-  nombre VARCHAR(45) NOT NULL,
-  PRIMARY KEY (categoria_tienda_id)
+  categoria_tienda_id INT NOT NULL AUTO_INCREMENT
+  ,nombre VARCHAR(45) NOT NULL
+  ,PRIMARY KEY (categoria_tienda_id)
 );
 
 CREATE TABLE IF NOT EXISTS tienda (
-  tienda_id INT NOT NULL
+  tienda_id INT NOT NULL AUTO_INCREMENT
   , villa_id INT NOT NULL
   , categoria_tienda_id INT NOT NULL
   , nombre VARCHAR(50) NOT NULL
@@ -178,7 +178,7 @@ CREATE TABLE IF NOT EXISTS tienda (
 );
 
 CREATE TABLE IF NOT EXISTS mercancia (
-  mercancia_id INT NOT NULL
+  mercancia_id INT NOT NULL AUTO_INCREMENT
   , nombre VARCHAR(100) NOT NULL
   , descripcion TEXT NOT NULL
   , precio DECIMAL(6, 2) NOT NULL
