@@ -15,10 +15,10 @@ class ConexionSQL(App):
     CSS_PATH = 'estilos.css'
     def __init__(self):
         super().__init__()
-        self.user_ = Input("root")
-        self.pass_ = Input("1221", id="pass_", password=True)
+        self.user_ = Input("crud")
+        self.pass_ = Input("", id="pass_", password=True)
         self.host_ = Input("127.0.0.1", id="host_")
-        self.database_ = Input("northwind", id="database_")
+        self.database_ = Input("six_flags", id="database_")
         self.cnx_ = None
         self.log_ = RichLog(highlight=True, markup=True)
         self.tabla_ = DataTable()
@@ -86,32 +86,17 @@ class ConexionSQL(App):
     @on(Button.Pressed, "#ejecutar")
     @work(exclusive=True)
     async def consultita(self):
+        self.log_.write(str(self.consulta_.text))
         try:            
             cursor = self.cnx_.cursor()
-            cursor.execute(self.consulta_.text)
-            self.tabla_.clear(columns=True)
-            column_names = [column[0] for column in cursor.description]
-            self.tabla_.add_columns(*column_names)  
-            self.tabla_.loading = True
-            filita = 1  
-            while True:
-                rows = cursor.fetchmany(size=50)
-                if not rows:
-                    break
-                for row in rows:
-                    self.tabla_.add_row(label=filita, *row)
-                    filita += 1 
-            self.tabla_.loading = False
-            self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Consulta realizada con [green]éxito[/green]: [blue]{self.consulta_.text}[/blue]")
+            cursor.execute(str(self.consulta_.text))        
+            self.log_.write(f"se hizo")
         except mysql.connector.IntegrityError as err:
-                self.log_.write("[red]Error[/red]: {}".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), err))
+                self.log_.write(1)
         except Exception as e:
-                self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}  {e}")
+                self.log_.write(f"{e} jaja")
         except:
-             self.log_.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}  {traceback.format_exc()}")
-        
-
-    
+             self.log_.write(f"3")
 
     @on(OptionList.OptionHighlighted)
     @work(exclusive=True)
