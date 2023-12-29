@@ -103,9 +103,6 @@ VALUES
      ,('5 Flash Pass de un acceso para juegos mecánicos participantes')
      ,('5 descuentos en boletos de un día para amigos y familiares. ')
      -- plan annual ultimate
-     /* ('Durante la vigencia de tu plan anual podrás disfrutar de visitas ilimitadas a todos los parques temáticos de Six Flags y Hurricane Harbor Oaxtepec.')
-     ,('Días de estacionamiento sin costo en Hurricane Harbor Oaxtepec y Six Flags México.')
-     ,('Incluye dos Junior Pass para menores de 1.07 m.')*/
      ,('Acceso a Estacionamiento Preferente')
      ,('20% de Descuento en Souvenirs y Aliment')
      ,('10 Descuentos en boletos de un día para amigos y familiares al año')
