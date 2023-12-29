@@ -1,6 +1,5 @@
 INSERT INTO villa(
-     villa_id
-     , parque_id
+     parque_id
      , nombre
 )
 VALUES 
