@@ -1,6 +1,5 @@
 INSERT INTO categoria_tienda(
-    categoria_tienda_id
-    , nombre
+    nombre
 )
 VALUES 
     ('Dulceria')
