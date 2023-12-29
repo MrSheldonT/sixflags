@@ -1,6 +1,5 @@
 INSERT INTO categoria_restaurante(
-    categoria_restaurante_id
-    , nombre
+    nombre
 )
 VALUES 
     ('Antojos y Bebidas')
