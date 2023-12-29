@@ -1,6 +1,5 @@
 INSERT INTO mercancia (
-    mercancia_id
-    , nombre
+    nombre
     , descripcion
     , precio
     , fecha_inicio_venta
