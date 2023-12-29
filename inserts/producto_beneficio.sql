@@ -1,6 +1,6 @@
 INSERT INTO  producto_beneficio(
-                                 plu
-                               , beneficio_id
+    plu
+    ,beneficio_id
 )
 VALUES
 (10078449, 36)
