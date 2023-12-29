@@ -3,7 +3,7 @@ INSERT INTO  producto_beneficio(
     ,beneficio_id
 )
 VALUES
-(10078449, 36)
+     (10078449, 36)
      ,(10096638, 36)
      ,(10107711, 36)
      ,(10093930, 36)
