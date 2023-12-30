@@ -19,10 +19,7 @@ INSERT INTO usuarios (
     , contraseña
 )
 VALUES (
-    'Juan',
-    'Pérez',
-    'juan.perez@example.com',
-    '123456'
+    'Juan', 'Pérez','juan.perez@example.com', '123456'
 );
 ALTER TABLE usuarios
     ADD FOREIGN KEY (correo_electronico)
