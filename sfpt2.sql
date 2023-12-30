@@ -334,6 +334,7 @@ CREATE TABLE IF NOT EXISTS flash_pass (
   ciclo_id INT NOT NULL
   , tarjeta_id INT NOT NULL
 )ENGINE=InnoDB;
+
 CREATE TABLE IF NOT EXISTS admision(
   	admision_id INT NOT NULL AUTO_INCREMENT
   	, fecha_admision TIMESTAMP NOT NULL
