@@ -293,7 +293,7 @@ CREATE TABLE IF NOT EXISTS venta (
   , comprador_id INT NOT NULL
   , fecha TIMESTAMP NOT NULL
   , cargo_proceso_linea DECIMAL(6, 2) NOT NULL DEFAULT 40
-  , tipo_pago VARCHAR(30) NOT NULL
+  , metodo_pago VARCHAR(30) NOT NULL
   , PRIMARY KEY (venta_id)
 )ENGINE=InnoDB;
 
