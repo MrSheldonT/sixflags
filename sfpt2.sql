@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS restaurante (
   , categoria_restaurante_id INT NOT NULL
   , villa_id INT NOT NULL
   , nombre VARCHAR(50) NOT NULL
-  , descripcion VARCHAR(300) NOT NULL
+  , descripcion TEXT NOT NULL
   , PRIMARY KEY(restaurante_id)
 )ENGINE=InnoDB ;
 
@@ -172,7 +172,7 @@ CREATE TABLE IF NOT EXISTS tienda (
   , villa_id INT NOT NULL
   , categoria_tienda_id INT NOT NULL
   , nombre VARCHAR(50) NOT NULL
-  , descripcion VARCHAR(300) NOT NULL
+  , descripcion TEXT NOT NULL
   , PRIMARY KEY (tienda_id)
 )ENGINE=InnoDB;
 
@@ -197,7 +197,7 @@ CREATE TABLE IF NOT EXISTS tienda_mercancia (
 CREATE TABLE IF NOT EXISTS tipo_atraccion (
   tipo_atraccion_id INT AUTO_INCREMENT
   , nombre VARCHAR(30) NOT NULL
-  , descripcion VARCHAR(300) NOT NULL
+  , descripcion TEXT NOT NULL
   , PRIMARY KEY (tipo_atraccion_id)
 )ENGINE=InnoDB;
 
