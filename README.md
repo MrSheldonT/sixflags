@@ -8,7 +8,7 @@ Base de datos representando un sixflags
 - [x] categoria_producto
 - [x] categoria_restaurante
 - [x] categoria_tienda
-- [ ] ciclo
+- [x] ciclo
 - [x] comprador
 - [x] empleado
 - [x] empleado_tour
