@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS six_flags;
 CREATE DATABASE six_flags;
 USE six_flags;
 
--- Definición de tablas
+-- Definicion  de tablas
 CREATE TABLE IF NOT EXISTS parque (
     parque_id TINYINT AUTO_INCREMENT,
     nombre VARCHAR(50) NOT NULL,
@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS espectaculo (
   espectaculo_id INT NOT NULL AUTO_INCREMENT
   , villa_id INT NOT NULL
   , nombre VARCHAR(55) NOT NULL
-  , descripcion VARCHAR(255) NOT NULL
+  , descripcion TEXT NOT NULL
   , localizacion VARCHAR(70) NOT NULL
   , hora_inicio TIME NOT NULL
   , hora_fin TIME NOT NULL
@@ -190,8 +190,9 @@ CREATE TABLE IF NOT EXISTS mercancia (
 )ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS tienda_mercancia (
-  tienda_id INT NOT NULL
-  , mercancia_id INT NOT NULL
+  tienda_id INT
+  , mercancia_id INT
+  , PRIMARY KEY(tienda_id, mercancia_id)
 )ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS tipo_atraccion (
@@ -325,14 +326,10 @@ CREATE TABLE IF NOT EXISTS tarjeta (
   , PRIMARY KEY (tarjeta_id)
 )ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS tarjeta_complemento (
-  tarjeta_principal INT NOT NULL
-  , tarjeta_complemento_id INT NOT NULL
-)ENGINE=InnoDB;
-
 CREATE TABLE IF NOT EXISTS flash_pass (
   ciclo_id INT NOT NULL
   , tarjeta_id INT NOT NULL
+  , PRIMARY KEY (ciclo_id, tarjeta_id)
 )ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS admision(
@@ -344,57 +341,52 @@ CREATE TABLE IF NOT EXISTS admision(
 )ENGINE=InnoDB;
 
 -- Bloque de alters_______________________________________________________________________________________________
--- Horario con parque
 ALTER TABLE horario
   ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id) ON DELETE CASCADE;
--- Empleado con parque
+
 ALTER TABLE empleado
   ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id) ON DELETE CASCADE;
--- Excursión con parque
+
 ALTER TABLE excursion
   ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id) ON DELETE CASCADE;
--- Alianza con parque
+
 ALTER TABLE alianza
   ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id) ON DELETE CASCADE;
--- Tour con parque
+
 ALTER TABLE tour
   ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id) ON DELETE CASCADE;
-  -- empleado_tour
+
 ALTER TABLE empleado_tour
   ADD FOREIGN KEY (empleado_id) REFERENCES empleado(empleado_id) ON DELETE CASCADE
   , ADD FOREIGN KEY (tour_id) REFERENCES tour(tour_id) ON DELETE CASCADE;
--- Servicio con parque
+
 ALTER TABLE servicio
   ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id) ON DELETE CASCADE;
--- Detalle de la renta de servicio
+
 ALTER TABLE renta_detalle
   ADD FOREIGN KEY (renta_id) REFERENCES renta(renta_id) ON DELETE CASCADE
   , ADD FOREIGN KEY (servicio_id) REFERENCES servicio(servicio_id) ON DELETE CASCADE;
--- Evento con parque
+
 ALTER TABLE evento
   ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id) ON DELETE CASCADE;
--- Villa con parque
+
 ALTER TABLE villa
   ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id) ON DELETE CASCADE;
--- Espetaculo con villa
+
 ALTER TABLE espectaculo
   ADD FOREIGN KEY (villa_id) REFERENCES villa(villa_id) ON DELETE CASCADE;
--- Categoría del restaurante y villa
+
 ALTER TABLE restaurante
   ADD FOREIGN KEY (categoria_restaurante_id) REFERENCES categoria_restaurante(categoria_restaurante_id) ON DELETE CASCADE
   , ADD FOREIGN KEY (villa_id) REFERENCES villa(villa_id) ON DELETE CASCADE;
--- Tienda
+
 ALTER TABLE tienda
   ADD FOREIGN KEY (villa_id) REFERENCES villa(villa_id) ON DELETE CASCADE
   , ADD FOREIGN KEY (categoria_tienda_id) REFERENCES categoria_tienda(categoria_tienda_id) ON DELETE CASCADE;
--- Mercancia
+
 ALTER TABLE tienda_mercancia
   ADD FOREIGN KEY (tienda_id) REFERENCES tienda(tienda_id) ON DELETE CASCADE
   , ADD FOREIGN KEY (mercancia_id) REFERENCES mercancia(mercancia_id) ON DELETE CASCADE;
-
-ALTER TABLE tarjeta_complemento
-  ADD FOREIGN KEY (tarjeta_principal) REFERENCES tarjeta(tarjeta_id) ON DELETE CASCADE
-  , ADD FOREIGN KEY (tarjeta_complemento_id) REFERENCES tarjeta(tarjeta_id) ON DELETE CASCADE;
 
 ALTER TABLE tarjeta
   ADD FOREIGN KEY (plu) REFERENCES producto(plu) ON DELETE CASCADE
@@ -437,5 +429,4 @@ ALTER TABLE flash_pass
 
  ALTER TABLE admision
   	ADD FOREIGN KEY (parque_id) REFERENCES parque(parque_id) ON DELETE CASCADE
-    , ADD FOREIGN KEY (tarjeta_id) REFERENCES tarjeta(tarjeta_id) ON DELETE CASCADE
- ;
+    , ADD FOREIGN KEY (tarjeta_id) REFERENCES tarjeta(tarjeta_id) ON DELETE CASCADE;
