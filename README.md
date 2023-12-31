@@ -28,7 +28,7 @@ Base de datos representando un sixflags
 - [x] renta_detalle
 - [x] restaurante
 - [x] servicio
-- [x] tarjeta
+- [ ] tarjeta
 - [x] ticket
 - [x] tienda
 - [x] tienda_mercancia
