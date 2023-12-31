@@ -1,5 +1,43 @@
 # sixflags
 Base de datos representando un sixflags
+¿Qué tablas están listas?
+- [ ] admision
+- [ ] alianza
+- [ ] atraccion
+- [ ] beneficio
+- [ ] categoria_producto
+- [ ] categoria_restaurante
+- [ ] categoria_tienda
+- [ ] ciclo
+- [ ] comprador
+- [ ] empleado
+- [ ] empleado_tour
+- [ ] espectaculo
+- [ ] evento
+- [ ] excursion
+- [ ] fabricante
+- [ ] flash_pass
+- [ ] horario
+- [ ] mercancia
+- [ ] nivel_emocion
+- [ ] paquete
+- [ ] parque
+- [ ] producto
+- [ ] producto_beneficio
+- [ ] renta
+- [ ] renta_detalle
+- [ ] restaurante
+- [ ] servicio
+- [ ] tarjeta
+- [ ] ticket
+- [ ] tienda
+- [ ] tienda_mercancia
+- [ ] tipo_atraccion
+- [ ] tour
+- [ ] venta
+- [ ] venta_detalle
+- [ ] villa
+
 
 # ¿Cómo usar Git con GitHub?
 
