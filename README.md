@@ -11,7 +11,7 @@ Base de datos representando un sixflags
 - [ ] ciclo
 - [x] comprador
 - [x] empleado
-- [ ] empleado_tour
+- [x] empleado_tour
 - [x] espectaculo
 - [x] evento
 - [x] excursion
@@ -33,7 +33,7 @@ Base de datos representando un sixflags
 - [x] tienda
 - [x] tienda_mercancia
 - [x] tipo_atraccion
-- [ ] tour
+- [x] tour
 - [x] venta
 - [x] venta_detalle
 - [x] villa
